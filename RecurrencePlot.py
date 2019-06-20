@@ -10,7 +10,7 @@ sigma = 16.0
 rho = 45.0
 beta = 4.0
 state0 = [10.0, -4.32395, 55.4605]
-t = np.arange(0.0, 20.0, 0.01)
+t = np.arange(0.0, 2.0, 0.001)
 
 def Lorenz(fun,t):
     x,y,z=fun
