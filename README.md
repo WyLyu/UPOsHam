@@ -1,8 +1,9 @@
 # RecurrencePlot
-RecurrencePlot is a method for visualising Unstable Priodic orbits in Dynamical Systems theory.
+RecurrencePlot is a method for visualising Unstable Priodic Orbits(UPO) in Dynamical Systems theory.
 
 The code is saved in RecurrencePlot.py 
 
+Recurrence Plot is used to determine the intial condition of the UPOs which is saved in RecurrencePlot_Initialcondition_determined.ipynb 
 
 
 Varitional Equation is calculated and the result is saved in VariationalEquations.ipynb 
