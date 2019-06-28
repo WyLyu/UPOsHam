@@ -1,12 +1,12 @@
 # RecurrencePlot
-RecurrencePlot is a method for visualising Unstable Priodic Orbits(UPO) in Dynamical Systems theory.
+RecurrencePlot is a method for visualising Unstable Priodic Orbits(UPOs) in Dynamical Systems theory. We present the Recurrence Plots of the x component of trajectories for 1-, 2-, 5- cycles embedded within the Lorenz attractor.
 
 The code is saved in RecurrencePlot.py 
 
-Recurrence Plot is used to determine the intial condition of the UPOs which is saved in RecurrencePlot_Initialcondition_determined.ipynb 
+Recurrence Plots can be used to determine the intial condition of the UPOs which is saved in RecurrencePlot_Initialcondition_determined.ipynb 
 
 
-Varitional Equation is calculated and the result is saved in VariationalEquations.ipynb 
+The varitional Equation is a matrix-valued time-varying linear differential equation. It's the linearization of the vector field along the trajectory, which is varied for different trajectories. The variational equation for Lorenz, Rossler, and a 2-degree-of-freedom Hamiltonian system are calculated and the results are saved in VariationalEquations.ipynb 
 
 
 
