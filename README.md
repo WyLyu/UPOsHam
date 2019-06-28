@@ -3,7 +3,7 @@ RecurrencePlot is a method for visualising Unstable Priodic Orbits(UPOs) in Dyna
 
 The code is saved in RecurrencePlot.py 
 
-Recurrence Plots can be used to determine the intial condition of the UPOs which is saved in RecurrencePlot_Initialcondition_determined.ipynb 
+Recurrence Plots can be used to determine the intial condition of the UPOs, we present a 'trial' code for determining the initial condition for a Lorenz attractor in RecurrencePlot_Initialcondition_determined.ipynb 
 
 
 The varitional Equation is a matrix-valued time-varying linear differential equation. It's the linearization of the vector field along the trajectory, which is varied for different trajectories. The variational equation for Lorenz, Rossler, and a 2-degree-of-freedom Hamiltonian system are calculated and the results are saved in VariationalEquations.ipynb 
