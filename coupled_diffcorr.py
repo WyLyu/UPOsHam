@@ -16,7 +16,7 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
-
+import matplotlib as mpl
 
 
 
@@ -328,12 +328,22 @@ def eigGet(A,discrete):
 #%%
 def eigvector_coupled(par):
     # eigenvectors and eigenvalues of the Jacobian evaluated at the equilibrium point, which is the correction of the initial condition.
-    # check it matches the result obatained from jacobian_coupled
-    evaluelambsquare = 0.5*(par[3]-par[6]-par[1]*(par[1]+par[6]) -math.sqrt(par[1]**4 + 2*par[1]**3*par[6] + par[1]**2*(par[6]**2+2*par[3]-2*par[6]) +par[1]*( 2*par[6]**2 + 2*par[3]*par[6]) +(par[3]- par[6])**2))
-    correcx = par[6]/(evaluelambsquare -par[3]+par[6])
-    correcy = 1
+    # check the result obtained from the Jacobian matches the analytic result.
+    evaluelamb = math.sqrt(-0.5*(par[3]-par[6]-par[1]*(par[1]+par[6]) -math.sqrt(par[1]**4 + 2*par[1]**3*par[6] + par[1]**2*(par[6]**2+2*par[3]-2*par[6]) +par[1]*( 2*par[6]**2 + 2*par[3]*par[6]) +(par[3]- par[6])**2)))
+#    correcx = par[6]/(-evaluelamb**2 -par[3]+par[6])
+#    correcy = 1
+    #
+    #
+    #eqPt = 1
+    #eqPt = get_eq_pts_coupled(eqNum, par)
+    #evalue, evector = np.linalg.eig(jacobian_coupled([eqPt[0],eqPt[1],0,0],par))
+    #evector = RemoveInfinitesimals(evector[:,2])
+    #correcx = (evector[0]*1j).real
+    #correcy = (evector[1]*1j).real
+    correcx = (par[1]*par[6])/(-evaluelamb**2 - par[3] + par[6])
+    correcy = par[1]
+    
     return correcx, correcy 
-
 #%%
 def get_POGuessLinear_coupled(eqNum,Ax,par):
 
@@ -450,20 +460,20 @@ def get_PODiffCorr_POFam(x0, par):
     # tolerances for integration and perpendicular crossing of x-axis
     # MAXdxdot1 = 1.e-8 ;RelTol = 3.e-10; AbsTol = 1.e-10; 
     # MAXdxdot1 = 1.e-12 ; RelTol = 3.e-14; AbsTol = 1.e-14; 
-    MAXdydot1 = 1.e-10 
+    MAXdxdot1 = 1.e-10 
     RelTol = 3.e-14
     AbsTol = 1.e-14
 
     MAXattempt = 100;     	# maximum number of attempts before error is declared
     # Using dydot or dxdot depends on which variable we want to keep fixed during differential correction.
     # dydot-----x fixed, dxdot------y fixed
-    #dxdot1 	   = 1;         # to start while loop
-    dydot1 	   = 1;         # to start while loop
+    dxdot1 	   = 1;         # to start while loop
+    #dydot1 	   = 1;         # to start while loop
     attempt    = 0;         # begin counting number of attempts
     # y0(attempt) = 1;
-    #correctx0= 0
-    correcty0 = 0
-    while abs(dydot1) > MAXdydot1:
+    correctx0= 0
+    #correcty0 = 0
+    while abs(dxdot1) > MAXdxdot1:
         if attempt > MAXattempt:
             ERROR= 'Maximum iterations exceeded' 
             print(ERROR) 
@@ -506,8 +516,8 @@ def get_PODiffCorr_POFam(x0, par):
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
-            ax.set_xlim(-1, 1)
-            ax.set_ylim(-1, 1)
+            ax.set_xlim(-0.1, 0.1)
+            #ax.set_ylim(-1, 1)
             #time.sleep(0.01)
             plt.grid()
             plt.show()
@@ -527,12 +537,12 @@ def get_PODiffCorr_POFam(x0, par):
         vydot1 = -dVdy
     
         #correction to the initial x0
-        #correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1));	
-        #x0[0] = x0[0] - correctx0
+        correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1));	
+        x0[0] = x0[0] - correctx0
         
         #correction to the initial y0
-        correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1
-        x0[1] = x0[1] - correcty0
+        #correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1
+        #x0[1] = x0[1] - correcty0
         attempt = attempt+1
 
     x0po=x0;
@@ -563,7 +573,7 @@ def get_PODiffCorr_coupled(x0, par):
     # tolerances for integration and perpendicular crossing of x-axis
     # MAXdxdot1 = 1.e-8 ;RelTol = 3.e-10; AbsTol = 1.e-10; 
     # MAXdxdot1 = 1.e-12 ; RelTol = 3.e-14; AbsTol = 1.e-14; 
-    MAXdydot1 = 1.e-10 
+    MAXdxdot1 = 1.e-10 
     RelTol = 3.e-14
     AbsTol = 1.e-14 
 
@@ -571,13 +581,13 @@ def get_PODiffCorr_coupled(x0, par):
     # Using dydot or dxdot depends on which variable we want to keep fixed during differential correction.
     # dydot-----x fixed, dxdot------y fixed
     
-    #dxdot1 	   = 1         # to start while loop
-    dydot1 	   = 1        # to start while loop
+    dxdot1 	   = 1         # to start while loop
+    #dydot1 	   = 1        # to start while loop
     attempt    = 0         # begin counting number of attempts
     # y0(attempt) = 1
-    #correctx0 = 0
-    correcty0=0
-    while abs(dydot1) > MAXdydot1:
+    correctx0 = 0
+    #correcty0=0
+    while abs(dxdot1) > MAXdxdot1:
         if attempt > MAXattempt:
             ERROR= 'Maximum iterations exceeded' 
             print(ERROR) 
@@ -590,7 +600,7 @@ def get_PODiffCorr_coupled(x0, par):
         soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
         te = soln1.t_events[0]
         t1 = [0,te[1]]
-        xx1 = soln1.sol(te)
+        xx1 = soln1.sol(t1)
         x1 = xx1[0,-1] 
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
@@ -620,8 +630,8 @@ def get_PODiffCorr_coupled(x0, par):
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2])  ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
-            #             ax.set_xlim(-15, 15)
-            #             ax.set_ylim(-15, 15)
+            ax.set_xlim(-0.1, 0.1)
+            #             ax.set_ylim(-1, 1)
             #time.sleep(0.01) ;
             plt.grid()
             plt.show()
@@ -641,12 +651,12 @@ def get_PODiffCorr_coupled(x0, par):
         vydot1 = -dVdy;
     
         #correction to the initial x0
-        #correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1));	
-        #x0[0] = x0[0] - correctx0;
+        correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1));	
+        x0[0] = x0[0] - correctx0;
         
         #correction to the initial y0
-        correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1;
-        x0[1] = x0[1] - correcty0;
+        #correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1;
+        #x0[1] = x0[1] - correcty0;
         attempt = attempt+1 ;
         
     x0po=x0;
@@ -764,7 +774,7 @@ def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par):
     scaleFactor = 1.25   #scaling the change in initial guess, usually in [1,2]
     finished = 1
     
-    while finished == 1 or iFam > 200:
+    while finished == 1 or iFam < 200:
         
 #         FAMNUM = sprintf('::poFamGet : number %d',iFam) ;
 #         disp(FAMNUM) ;

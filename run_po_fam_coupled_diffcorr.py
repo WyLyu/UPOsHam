@@ -1,16 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 18 14:59:30 2019
-
-@author: wl16298
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Jul 17 11:40:41 2019
-
-@author: wl16298
-"""
 
 #"""   SCRIPT to compute periodic orbits for the 2 DoF Coupled potential with alpha>0
 #--------------------------------------------------------------------------
@@ -43,7 +30,7 @@ from functools import partial
 import coupled_diffcorr ### import module xxx where xxx is the name of the python file xxx.py 
 from mpl_toolkits.mplot3d import Axes3D
 
-%matplotlib
+#%matplotlib
 
 #%% Setting up parameters and global variables
 N = 4          # dimension of phase space
@@ -72,7 +59,7 @@ nFam = 100 # use nFam = 10 for low energy
 # first two amplitudes for continuation procedure to get p.o. family
 Ax1  = 2.e-5 # initial amplitude (1 of 2) values to use: 2.e-3
 Ax2  = 2*Ax1 # initial amplitude (2 of 2)
-deltaE = 0.010
+
 t = time.time()
 
 #  get the initial conditions and periods for a family of periodic orbits
@@ -90,7 +77,7 @@ po_fam_file.close()
 # initial condition with target energy 
 # fileName = 'x0po_T_energy_case1_L41.txt';
 # fileName = 'x0po_T.txt';
-
+deltaE = 1.00
 
 po_fam_file = open("1111x0_tp_fam_eqPt%s_coupled.txt" %eqNum ,'a+');
 eTarget = eSaddle + deltaE; 
@@ -99,7 +86,7 @@ x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 
 
-#%%
+#%
 po_brac_file = open("1111x0po_T_energyPO_eqPt%s_brac%s_coupled.txt" %(eqNum,deltaE),'a+');
 t = time.time()
 # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file);
@@ -111,7 +98,7 @@ model_parameters_file.close()
 po_brac_file.close()
 
 
-#%%
+#%
 # target specific periodic orbit
 # Target PO of specific energy with high precision; does not work for the
 # model 
