@@ -570,7 +570,7 @@ def get_PODiffCorr_deleonberne(x0, par):
         soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
         te = soln1.t_events[0]
         t1 = [0,te[1]]
-        xx1 = soln1.sol(te)
+        xx1 = soln1.sol(t1)
         x1 = xx1[0,-1] 
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
@@ -753,7 +753,7 @@ def poBracketEnergy_deleonberne(energyTarget,x0podata, po_brac_file, par):
     scaleFactor = 1.25   #scaling the change in initial guess, usually in [1,2]
     finished = 1
     
-    while finished == 1 or iFam > 200:
+    while finished == 1 or iFam < 200:
         
         
         #change in initial guess for next step

@@ -17,7 +17,9 @@ from scipy.optimize import fsolve
 import time
 from functools import partial
 import matplotlib as mpl
-
+from pylab import rcParams
+mpl.rcParams['mathtext.fontset'] = 'cm'
+mpl.rcParams['mathtext.rm'] = 'serif'
 
 
 def get_eq_pts_coupled(eqNum, parameters):

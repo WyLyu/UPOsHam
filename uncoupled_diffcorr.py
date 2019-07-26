@@ -16,7 +16,10 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
-
+import matplotlib as mpl
+from pylab import rcParams
+mpl.rcParams['mathtext.fontset'] = 'cm'
+mpl.rcParams['mathtext.rm'] = 'serif'
 #%%
 def get_eq_pts_uncoupled(eqNum, parameters):
     #GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
@@ -41,7 +44,7 @@ def get_eq_pts_uncoupled(eqNum, parameters):
         
         x0 = [0, 0];                  # EQNUM = 1, saddle  
     elif 	eqNum == 2: 
-        eqPt = [+sqrt(parameters[3]/parameters[4]),0]    # EQNUM = 2, stable
+        eqPt = [+math.sqrt(parameters[3]/parameters[4]),0]    # EQNUM = 2, stable
         return eqPt
     elif 	eqNum == 3:
         eqPt = [-math.sqrt(parameters[3]/parameters[4]),0]   # EQNUM = 3, stable
@@ -471,10 +474,10 @@ def get_PODiffCorr_POFam(x0, par):
                 
                 e[i] = get_total_energy_uncoupled(x[i,:],par);
             ax = plt.gca(projection='3d')
-            ax.plot(x[:,0],x[:,1],x[:,3],'-')
-            ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
+            ax.plot(x[:,0],x[:,1],x[:,2],'-')
+            ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
@@ -561,7 +564,7 @@ def get_PODiffCorr_uncoupled(x0, par):
         soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
         te = soln1.t_events[0]
         t1 = [0,te[1]]
-        xx1 = soln1.sol(te)
+        xx1 = soln1.sol(t1)
         x1 = xx1[0,-1] 
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
@@ -580,10 +583,10 @@ def get_PODiffCorr_uncoupled(x0, par):
                 
                 e[i] = get_total_energy_uncoupled(x[i,:],par); 
             ax = plt.gca(projection='3d')
-            plt.plot(x[:,0],x[:,1],x[:,3],'-')
-            plt.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=60,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=60,marker='o');
+            plt.plot(x[:,0],x[:,1],x[:,2],'-')
+            plt.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=60,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=60,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
@@ -735,7 +738,7 @@ def poBracketEnergy_uncoupled(energyTarget,x0podata, po_brac_file, par):
     scaleFactor = 1.25   #scaling the change in initial guess, usually in [1,2]
     finished = 1
     
-    while finished == 1 or iFam > 200:
+    while finished == 1 or iFam < 200:
         
         #change in initial guess for next step
         dx  = x0po[iFam-1,0] - x0po[iFam-2,0] ;
