@@ -477,10 +477,10 @@ def get_PODiffCorr_POFam(x0, par):
                 
                 e[i] = get_total_energy_uncoupled(x[i,:],par);
             ax = plt.gca(projection='3d')
-            ax.plot(x[:,0],x[:,1],x[:,3],'-')
-            ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
+            ax.plot(x[:,0],x[:,1],x[:,2],'-')
+            ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
@@ -567,7 +567,7 @@ def get_PODiffCorr_uncoupled(x0, par):
         soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
         te = soln1.t_events[0]
         t1 = [0,te[1]]
-        xx1 = soln1.sol(te)
+        xx1 = soln1.sol(t1)
         x1 = xx1[0,-1] 
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
@@ -586,10 +586,10 @@ def get_PODiffCorr_uncoupled(x0, par):
                 
                 e[i] = get_total_energy_uncoupled(x[i,:],par); 
             ax = plt.gca(projection='3d')
-            plt.plot(x[:,0],x[:,1],x[:,3],'-')
-            plt.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=60,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=60,marker='o');
+            plt.plot(x[:,0],x[:,1],x[:,2],'-')
+            plt.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=60,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=60,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
             ax.set_zlabel('$v_x$', fontsize=axis_fs)

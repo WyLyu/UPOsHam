@@ -759,7 +759,7 @@ def poBracketEnergy_deleonberne(energyTarget,x0podata, po_brac_file, par):
     scaleFactor = 1.25   #scaling the change in initial guess, usually in [1,2]
     finished = 1
     
-    while finished == 1 or iFam > 200:
+    while finished == 1 or iFam < 200:
         
         
         #change in initial guess for next step
