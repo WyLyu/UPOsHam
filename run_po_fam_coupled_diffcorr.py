@@ -1,4 +1,5 @@
 
+
 #"""   SCRIPT to compute periodic orbits for the 2 DoF Coupled potential with alpha>0
 #--------------------------------------------------------------------------
 #   coupled potential energy surface with positive alpha notations:
@@ -38,7 +39,7 @@ omega=1.00
 EPSILON_S = 0.0 #Energy of the saddle
 alpha = 1.00
 beta = 1.00
-epsilon= 1e-2
+epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon]);
 eqNum = 1 
 eqPt = coupled_diffcorr.get_eq_pts_coupled(eqNum, parameters)
@@ -77,7 +78,8 @@ po_fam_file.close()
 # initial condition with target energy 
 # fileName = 'x0po_T_energy_case1_L41.txt';
 # fileName = 'x0po_T.txt';
-deltaE = 1.00
+
+deltaE = 1.000
 
 po_fam_file = open("1111x0_tp_fam_eqPt%s_coupled.txt" %eqNum ,'a+');
 eTarget = eSaddle + deltaE; 

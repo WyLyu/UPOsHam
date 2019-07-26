@@ -16,7 +16,9 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
+
 import matplotlib as mpl
+
 from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
@@ -45,7 +47,7 @@ def get_eq_pts_coupled(eqNum, parameters):
         
         x0 = [0, 0];                  # EQNUM = 1, saddle  
     elif 	eqNum == 2: 
-        eqPt = [+sqrt(parameters[3]-parameters[6]/parameters[4]),0]    # EQNUM = 2, stable
+        eqPt = [+math.sqrt(parameters[3]-parameters[6]/parameters[4]),0]    # EQNUM = 2, stable
         return eqPt
     elif 	eqNum == 3:
         eqPt = [-math.sqrt(parameters[3]-parameters[6]/parameters[4]),0]   # EQNUM = 3, stable
@@ -346,6 +348,7 @@ def eigvector_coupled(par):
     correcy = par[1]
     
     return correcx, correcy 
+
 #%%
 def get_POGuessLinear_coupled(eqNum,Ax,par):
 
@@ -438,6 +441,43 @@ def half_period(t,x):
     # The zero can be approached from either direction
     direction = 0; #0: all directions of crossing
     return x[3]
+#%%
+def stateTransitMat_noevents_coupled(tf,x0,parameters,fixed_step=0): 
+
+    # function [x,t,phi_tf,PHI] =
+    # stateTransitionMatrix_boatPR(x0,tf,R,OPTIONS,fixed_step)
+    #
+    # Gets state transition matrix, phi_tf = PHI(0,tf), and the trajectory 
+    # (x,t) for a length of time, tf.  
+    # 
+    # In particular, for periodic solutions of % period tf=T, one can obtain 
+    # the monodromy matrix, PHI(0,T).
+    
+
+    N = len(x0);  #N=4
+    RelTol=3e-14
+    AbsTol=1e-14  
+    tf = tf[-1];
+    if fixed_step == 0:
+        TSPAN = [ 0 , tf ]; 
+    else:
+        TSPAN = np.linspace(0, tf, fixed_step)
+    PHI_0 = np.zeros(N+N**2)
+    PHI_0[0:N**2] = np.reshape(np.identity(N),(N**2)); # initial condition for state transition matrix
+    PHI_0[N**2:] = x0;                    # initial condition for trajectory
+
+    
+    f = partial(varEqns_coupled, par=parameters)  # Use partial in order to pass parameters to function
+    soln = solve_ivp(f, TSPAN, list(PHI_0),method='RK45',dense_output=True, events = None,rtol=RelTol, atol=AbsTol)
+    t = soln.t
+    PHI = soln.y
+    PHI = PHI.transpose()
+    x = PHI[:,N**2:N+N**2]		   # trajectory from time 0 to tf
+    phi_tf = np.reshape(PHI[-1,0:N**2],(N,N)) # state transition matrix, PHI(O,tf)
+
+    
+    return t,x,phi_tf,PHI
+
 
 #%%
 def get_PODiffCorr_POFam(x0, par):
@@ -497,7 +537,7 @@ def get_PODiffCorr_POFam(x0, par):
 	     # the final state at the half-period event crossing
       
         # Events option not necessary anymore
-        t,x,phi_t1,PHI = stateTransitMat_coupled(t1,x0,par) ;
+        t,x,phi_t1,PHI = stateTransitMat_noevents_coupled(t1,x0,par) ;
         
         
         print('::poDifCor : iteration',attempt+1) ;
@@ -509,14 +549,14 @@ def get_PODiffCorr_POFam(x0, par):
                 
                 e[i] = get_total_energy_coupled(x[i,:],par);
             ax = plt.gca(projection='3d')
-            ax.plot(x[:,0],x[:,1],x[:,3],'-')
-            ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
-            ax.set_xlabel('$x$', fontsize=axis_fs)
-            ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_x$', fontsize=axis_fs)
-            ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
+            ax.plot(x[:,0],x[:,1],x[:,2],'-')
+            ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o');
+            ax.set_xlabel(r'$x$', fontsize=axis_fs)
+            ax.set_ylabel(r'$y$', fontsize=axis_fs)
+            ax.set_zlabel(r'$v_x$', fontsize=axis_fs)
+            ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
             ax.set_xlim(-0.1, 0.1)
             #ax.set_ylim(-1, 1)
@@ -537,7 +577,6 @@ def get_PODiffCorr_POFam(x0, par):
         
         vxdot1 = -dVdx
         vydot1 = -dVdy
-    
         #correction to the initial x0
         correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1));	
         x0[0] = x0[0] - correctx0
@@ -545,7 +584,7 @@ def get_PODiffCorr_POFam(x0, par):
         #correction to the initial y0
         #correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1
         #x0[1] = x0[1] - correcty0
-        attempt = attempt+1
+        #attempt = attempt+1
 
     x0po=x0;
     t1 = t1[-1];
@@ -586,7 +625,6 @@ def get_PODiffCorr_coupled(x0, par):
     dxdot1 	   = 1         # to start while loop
     #dydot1 	   = 1        # to start while loop
     attempt    = 0         # begin counting number of attempts
-    # y0(attempt) = 1
     correctx0 = 0
     #correcty0=0
     while abs(dxdot1) > MAXdxdot1:
@@ -607,14 +645,13 @@ def get_PODiffCorr_coupled(x0, par):
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
         dydot1  = xx1[3,-1];
-   
-    
+        
+        
         # Compute the state transition matrix from the initial state to
 	     # the final state at the half-period event crossing
       
         # Events option not necessary anymore
-        t,x,phi_t1,PHI = stateTransitMat_coupled(t1,x0,par) ;
-
+        t,x,phi_t1,PHI = stateTransitMat_noevents_coupled(t1,x0,par) ;
         print('::poDifCor : iteration',attempt+1) ;
         
         if show == 1:
@@ -623,17 +660,17 @@ def get_PODiffCorr_coupled(x0, par):
                 
                 e[i] = get_total_energy_coupled(x[i,:],par); 
             ax = plt.gca(projection='3d')
-            plt.plot(x[:,0],x[:,1],x[:,3],'-')
-            plt.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=60,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=60,marker='o');
+            plt.plot(x[:,0],x[:,1],x[:,2],'-')
+            plt.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=60,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=60,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2])  ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
             ax.set_xlim(-0.1, 0.1)
-            #             ax.set_ylim(-1, 1)
+            #ax.set_ylim(-1, 1)
             #time.sleep(0.01) ;
             plt.grid()
             plt.show()
@@ -651,13 +688,12 @@ def get_PODiffCorr_coupled(x0, par):
         
         vxdot1 = -dVdx;
         vydot1 = -dVdy;
-    
         #correction to the initial x0
         correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1));	
         x0[0] = x0[0] - correctx0;
         
         #correction to the initial y0
-        #correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1;
+        #correcty0 = dydot1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1));
         #x0[1] = x0[1] - correcty0;
         attempt = attempt+1 ;
         
@@ -801,14 +837,14 @@ def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par):
             #to improve speed of stepping, increase scale factor for very
             #close p.o., this is when target p.o. hasn't been crossed,
             if abs(dx) < 1e-4 and abs(dy) < 1e-4:
-                scaleFactor = 1.5;
+                scaleFactor = 2;
             else:
                 scaleFactor = scaleFactor;
             
         elif energyPO[iFam-1] > energyTarget:
             break
             scaleFactor = scaleFactor*1e-2;
-            x0po_g = [ x0po[iFam-2,0] + scaleFactor*dx,x0po[iFam-2,1] + scaleFactor*dy, 0, 0] ;
+            x0po_g = [ x0po[iFam-2,0] + scaleFactor*dx, x0po[iFam-2,1] + scaleFactor*dy, 0, 0] ;
     #             x0po_g = [ (x0po(iFam-2,1) + scaleFactor*dx) ...
     #                 (x0po(iFam-2,2)) 0 0] ;
 

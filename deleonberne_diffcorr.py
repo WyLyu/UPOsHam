@@ -16,6 +16,12 @@ from scipy.optimize import fsolve
 import time
 from functools import partial
 
+import matplotlib as mpl
+
+from pylab import rcParams
+mpl.rcParams['mathtext.fontset'] = 'cm'
+mpl.rcParams['mathtext.rm'] = 'serif'
+
 #%%
 def get_eq_pts_deleonberne(eqNum, parameters):
     #GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
@@ -753,7 +759,7 @@ def poBracketEnergy_deleonberne(energyTarget,x0podata, po_brac_file, par):
     scaleFactor = 1.25   #scaling the change in initial guess, usually in [1,2]
     finished = 1
     
-    while finished == 1 or iFam < 200:
+    while finished == 1 or iFam > 200:
         
         
         #change in initial guess for next step
