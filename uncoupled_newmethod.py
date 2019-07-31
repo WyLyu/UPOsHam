@@ -23,12 +23,67 @@ from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
+
+#%%
+def get_eq_pts_uncoupled(eqNum, parameters):
+    #GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
+    #KE + PE. 
+    # H = 1/2*px^2+omega/2*py^2 -(1/2)*alpha*x^2+1/4*beta*x^4+ omega/2y^2 with alpha > 0
+    #--------------------------------------------------------------------------
+    #   Uncouled potential energy surface notations:
+    #
+    #           Well (stable, EQNUM = 2)    
+    #
+    #               Saddle (EQNUM=1)
+    #
+    #           Well (stable, EQNUM = 3)    
+    #
+    #--------------------------------------------------------------------------
+    #   
+    
+    
+    #fix the equilibrium point numbering convention here and make a
+    #starting guess at the solution
+    if 	eqNum == 1:
+        
+        x0 = [0, 0];                  # EQNUM = 1, saddle  
+    elif 	eqNum == 2: 
+        eqPt = [+math.sqrt(parameters[3]/parameters[4]),0]    # EQNUM = 2, stable
+        return eqPt
+    elif 	eqNum == 3:
+        eqPt = [-math.sqrt(parameters[3]/parameters[4]),0]   # EQNUM = 3, stable
+        return eqPt
+    
+    
+    # F(xEq) = 0 at the equilibrium point, solve using in-built function
+    # enter the definition of the potential energy function
+    def func_vec_field_eq_pt(x,par):
+        x1, x2 = x
+        dVdx = -par[3]*x1+par[4]*x1**3
+        
+        dVdy = par[5]*x2
+    
+        F = [-dVdx, -dVdy]
+        return F
+
+    eqPt = fsolve(func_vec_field_eq_pt,x0, fprime=None,args=(parameters,)); # Call solver
+    return eqPt
+
+#%%
+# enter the definition of the potential energy function
+def get_potential_energy(x,y,par):
+            
+    pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
+                
+    return pot_energy
+
+
 #%%
 def get_total_energy_uncoupled(orbit, parameters):
 
-#   get_total_energy_deleonberne computes the total energy of an input orbit
+#   get_total_energy_uncoupled computes the total energy of an input orbit
 #   (represented as M x N with M time steps and N = 4, dimension of phase
-#   space for the model) for the 2 DoF DeLeon-Berne potential.
+#   space for the model) for the 2 DoF Uncoupled potential.
 # 
 #   Orbit can be different initial conditions for the periodic orbit of
 #   different energy. When trajectory is input, the output energy is mean.
@@ -40,19 +95,23 @@ def get_total_energy_uncoupled(orbit, parameters):
     px = orbit[2]
     py = orbit[3]
     
-
-    
-    # enter the definition of the potential energy function
-    def get_potential_energy(x,y,par):
-            
-        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
-                
-        return pot_energy
-    
     
     e = (0.5*parameters[0])*(px**2) + (0.5*parameters[1])*(py**2) +  get_potential_energy(x, y,parameters)   
         
     return e
+
+
+#%%
+def get_pot_surf_proj(xVec, yVec,par):            
+
+    resX = np.size(xVec)
+    resY = np.size(xVec)
+    surfProj = np.zeros([resX, resY])
+    for i in range(len(xVec)):
+        for j in range(len(yVec)):
+            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par)
+
+    return surfProj    
 
 
 #%%
@@ -224,10 +283,9 @@ def newmethod_uncoupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
     #
     # we define the tolerance as the distance(of y coordinate) between the turning point and the point on the PES with the same x coordinate.
     axis_fs = 15
-    axis_fs = 15
-    y_PES = get_y(begin1[0], e,par)
-    y_turning = begin1[1]
-    toler = math.sqrt((y_PES-y_turning)**2)
+    #y_PES = get_y(begin1[0], e,par)
+    #y_turning = begin1[1]
+    #toler = math.sqrt((y_PES-y_turning)**2)
     guess1 = begin1
     guess2 = begin2
     MAXiter = 30
@@ -290,7 +348,7 @@ def newmethod_uncoupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_x$', fontsize=axis_fs)
+            ax.set_zlabel('$v_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(energy) - par[2] ) ,fontsize=axis_fs)
             ax.set_xlim(-1, 1)
             ax.set_ylim(-1, 1)

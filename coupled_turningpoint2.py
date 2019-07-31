@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 29 10:56:07 2019
+Created on Sat Jul 27 11:26:19 2019
 
 @author: wl16298
 """
-
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint,quad,trapz,solve_ivp, ode
@@ -72,19 +71,20 @@ def get_eq_pts_coupled(eqNum, parameters):
     return eqPt
 
 
-#%%
+#%% enter the definition of the potential energy function
 def get_potential_energy(x,y,par):
-    # enter the definition of the potential energy function
+
     pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
                 
     return pot_energy
 
+
 #%%
 def get_total_energy_coupled(orbit, parameters):
 
-#   get_total_energy_coupled computes the total energy of an input orbit
+#   get_total_energy_deleonberne computes the total energy of an input orbit
 #   (represented as M x N with M time steps and N = 4, dimension of phase
-#   space for the model) for the 2 DoF Coupled potential.
+#   space for the model) for the 2 DoF DeLeon-Berne potential.
 # 
 #   Orbit can be different initial conditions for the periodic orbit of
 #   different energy. When trajectory is input, the output energy is mean.
@@ -101,8 +101,7 @@ def get_total_energy_coupled(orbit, parameters):
         
     return e
 
-#%%
-    
+#%%    
 def get_pot_surf_proj(xVec, yVec,par):            
 
     resX = np.size(xVec)
@@ -245,11 +244,13 @@ def half_period(t,x):
     direction = 0; #0: all directions of crossing
     return x[3]
 
+
+
+
 #%%
-def newidea_coupled(guess1, guess2,n_turn,par):
-    # n_turn is the nth turning point we want to choose as our 'turning point for defining the new idea'
-    # this function calculates the difference of x(or y) coordinates between the guess initial conditions and the ith turning points
-    # the result is either difference in x coordintes or difference in y coordinates
+def dotproduct_coupled(guess1, guess2,n_turn,par):
+    # n_turn is the nth turning point we want to choose as our 'turning point for defining the dot product'
+    # this function defines the dot product of two given intial conditions
     TSPAN = [0,40]
     RelTol = 3.e-10
     AbsTol = 1.e-10 
@@ -259,43 +260,49 @@ def newidea_coupled(guess1, guess2,n_turn,par):
     t1 = [0,te1[n_turn]]#[0,te1[1]]
     turn1 = soln1.sol(t1)
     x_turn1 = turn1[0,-1] 
-    y_turn1 = turn1[1,-1]
-    x_diff1 = guess1[0] - x_turn1
-    y_diff1 = guess1[1] - y_turn1
+    y_turn1 = turn1[1,-1] 
+    t,xx1,phi_t1,PHI = stateTransitMat_coupled(t1,guess1,par)
+    x1 = xx1[:,0]
+    y1 = xx1[:,1]
+    p1 = xx1[:,2:]
+    p_perpendicular_1 = math.sqrt(np.dot(p1[-3,:],p1[-3,:]))*p1[-2,:] - np.dot(p1[-2,:],p1[-3,:])*p1[-3,:]
     f2 = partial(coupled2dof, par=par) 
     soln2 = solve_ivp(f2, TSPAN, guess2,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
     te2 = soln2.t_events[0]
     t2 = [0,te2[n_turn]]#[0,te2[1]]
-    turn2 = soln2.sol(t2)
+    turn2 = soln1.sol(t2)
     x_turn2 = turn2[0,-1] 
     y_turn2 = turn2[1,-1] 
-    x_diff2 = guess2[0] - x_turn2
-    y_diff2 = guess2[1] - y_turn2
-    print("Initial guess1%s, intial guess2%s, x_diff1 is %s, x_diff2 is%s " %(guess1,guess2,x_diff1, x_diff2))
-    #print("Initial guess1%s, intial guess2%s, y_diff1 is %s, y_diff2 is%s " %(guess1,guess2,y_diff1, y_diff2))
-    return x_diff1, x_diff2
+    t,xx2,phi_t1,PHI = stateTransitMat_coupled(t2,guess2,par)
+    x2 = xx2[:,0]
+    y2 = xx2[:,1]
+    p2 = xx2[:,2:]
+    p_perpendicular_2 = math.sqrt(np.dot(p2[-3,:],p2[-3,:]))*p2[-2,:] - np.dot(p2[-2,:],p2[-3,:])*p2[-3,:]
+    dotproduct = np.dot(p_perpendicular_1,p_perpendicular_2)
+    print("Initial guess1%s, intial guess2%s, dot product is%s" %(guess1,guess2,dotproduct))
+    return x_turn1,x_turn2,y_turn1,y_turn2, dotproduct
 
-
-def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
+#%%
+def TurningPoint_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
     # n is the number of divisons we want to divide
-    # n_turn is the nth turning point we want to choose as our 'turning point for defining the new idea'
+    # n_turn is the nth turning point we want to choose as our 'turning point for defining the dot product'
     # e is the energy of the PES 
     # po_fam_file is the file we want to save our data into 
     # we assume x coordinate of guess1 is smaller than the x coordinate of guess2
     #
-    #
     # we define the tolerance as the distance(of y coordinate) between the turning point and the point on the PES with the same x coordinate.
+    # we also asuume the dot roduct is always working for the first iteration(iter 0)
+    #
     axis_fs = 15
-    y_PES = get_y(begin1[0], e,par)
-    y_turning = begin1[1]
-    toler = math.sqrt((y_PES-y_turning)**2)
+    #y_PES = get_y(begin1[0], e,par)
+    #y_turning = begin1[1]
+    #toler = math.sqrt((y_PES-y_turning)**2)
     guess1 = begin1
     guess2 = begin2
     MAXiter = 30
     dum = np.zeros(((n+1)*MAXiter ,7))
-    result = np.zeros(((n+1),4))  # record data for each iteration
-    result2 = np.zeros(((n+1)*MAXiter ,4))
-    np.set_printoptions(precision=17,suppress=True)
+    result = np.zeros(((n+1),3))  # record data for each iteration
+    result2 = np.zeros(((n+1)*MAXiter ,3)) # record all data for every iteration
     x0po = np.zeros((MAXiter ,4))
     i_turn = np.zeros((MAXiter ,1))
     T = np.zeros((MAXiter ,1))
@@ -303,34 +310,46 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
     iter = 0
     iter_diff =0  # for counting the correct index
     #while toler < 1e-6 or iter < MAXiter:
-    while iter < MAXiter and n_turn < 5:
+    while iter < MAXiter and n_turn < 10:
         #y_PES = -get_y(guess1[0], e,par)
         #y_turning = guess1[1]
         #toler = math.sqrt((y_PES-y_turning)**2)
         for i in range(0,n+1):
-            # the x difference between guess1 and each guess is recorded in "result" matrix
+            # the product product between guess1 and each guess is recorded in "result" matrix
             h = (guess2[0] - guess1[0])*i/n
             print("h is ",h)
             xguess = guess1[0]+h
             yguess = get_y(xguess, e,par)
             guess = [xguess,yguess,0, 0]
-            x_diff1, x_diff2 = newidea_coupled(guess1, guess,n_turn,par)
-            result[i,0] = np.sign(x_diff1)
+            x_turn1,x_turn2,y_turn1,y_turn2, dotproduct = dotproduct_coupled(guess1, guess,n_turn,par)
+            result[i,0] = dotproduct
             result[i,1] = guess[0]
             result[i,2] = guess[1]
-            result[i,3] = np.sign(x_diff2)
-        for i in range(1,n+1):
-            if np.sign(result[i,0]) != np.sign(result[i,3]) and np.sign(result[i-1,0]) == np.sign(result[i-1,3]):
-                i_turn[iter] = i
-                
+            result2[(n+1)*iter+i,:] = result[i,:]
             
-        # if the follwing condition holds, we can zoom in to a smaller interval and continue our procedure
-        if i_turn[iter]>0:
+        i_turn_iter = 0
+        for i in range(0,n+1):
+            #  we record the sign change for each pair of inital conditions
+            # i_turn_iter is the coordinate which sign changes from positive to negative
+            # we only want the first i_turn_iter terms to have positve sign and the rest of n-i_turn_iter+1 terms to have negative signs to avoid error
+            #
+            if np.sign(result[i,0]) <0 and np.sign(result[i-1,0]) >0:
+                i_turn[iter] = i
+                i_turn_iter = int(i_turn[iter])
+                check = np.sign(result[:,0])
+                check_same= sum(check[0:i_turn_iter])
+                check_diff= sum(check[i_turn_iter:])
+                print(check_same == i_turn[iter])
+                print(check_diff == -n+i_turn[iter]-1)
+            
+
+        if check_same == i_turn[iter] and check_diff == -n+i_turn[iter]-1 and i_turn_iter>0:
+            # if the follwing condition holds, we can zoom in to a smaller interval and continue our procedure
             index = int(i_turn[iter])
-            guesspo  = [result[index-1,1],result[index-1,2],0,0] 
-            print("Our guess for the periodic orbit is",guesspo)
+            guesspo  = [result[index-1,1],result[index-1,2],0,0]
+            print("Our guess of the inital condition is", guesspo)
             x0po[iter,:] = guesspo[:]
-            TSPAN = [0,30]
+            TSPAN = [0,10]
             RelTol = 3.e-10
             AbsTol = 1.e-10
             f = partial(coupled2dof, par=par) 
@@ -352,7 +371,7 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_x$', fontsize=axis_fs)
+            ax.set_zlabel('$v_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(energy) - par[2] ) ,fontsize=axis_fs)
             ax.set_xlim(-1, 1)
             ax.set_ylim(-1, 1)
@@ -364,14 +383,10 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             plt.show()
             guess2 = np.array([result[index,1], result[index,2],0,0])
             guess1 = np.array([result[index-1,1], result[index-1,2],0,0])
-            iter = iter +1
-            if (guess2[0]-guess1[0]) < 1.4e-17:
-                print("reach the limit of python")
-                break
             iter_diff =0
-        # If the if condition does not hold, it indicates that the interval we picked for performing 'new idea' is wrong and it needs to be changed.
+        # If the if condition does not hold, it indicates that the interval we picked for performing 'dot product' is wrong and it needs to be changed.
         else:
-            # return to the previous iteration that the new idea works
+            # return to the previous iteration that dot product works
             #iteration------i------i+1---------------i+2----------------i+3-----------------------i+4
             #            succ------succ-------------unsucc(return to i+1,n_turn+1)
             #                                              if  --------succ--------         
@@ -380,14 +395,16 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             #
             #
             #
-            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the new idea
+            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the dot product
+            
             iter_diff = iter_diff +1
+            #for k in range(iter):
             if iter_diff> 1:
-                   # return to the iteration that is before the previous 
+                #iter_diff = iter_diff+1   # return to the iteration that is before the previous 
                 print("Warning: the result after this iteration may not be accurate, try to increase the number of intervals or use other ways ")
                 break
             n_turn = n_turn+1
-            print("nth turningpoint we pick is ", n_turn)
+            print("the nth turning point we pick is ", n_turn)
             #index = int((n+1)*(re_iter-1)+i_turn[re_iter-1])
             index = int((n+1)*(iter-iter_diff)+i_turn[iter-iter_diff])
             print("index is ", index)
@@ -402,9 +419,11 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
         
         #print("tolerance is ", toler)
         print(result)
-        print("nth turningpoint we pick is ", n_turn)
-        print(iter)
-        
+        print("the nth turning point we pick is ", n_turn)
+        #print(guess1)
+        #print(guess2)
+        iter = iter +1
+
     end = MAXiter
 
     for i in range(MAXiter):
@@ -413,7 +432,8 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
 
     x0po = x0po[0:end,:]
     T = T[0:end]
-    energyPO = energyPO[0:end]
+    energyPO = energyPO[0:end]   
+    
     dum =np.concatenate((x0po,T, energyPO),axis=1)
     np.savetxt(po_fam_file.name,dum,fmt='%1.16e')
     return x0po, T,energyPO

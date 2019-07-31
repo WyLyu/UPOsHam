@@ -68,6 +68,14 @@ def get_eq_pts_uncoupled(eqNum, parameters):
     eqPt = fsolve(func_vec_field_eq_pt,x0, fprime=None,args=(parameters,)); # Call solver
     return eqPt
 
+
+#%%   
+# enter the definition of the potential energy function
+def get_potential_energy(x,y,par):
+            
+    pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
+                
+    return pot_energy
 #%%
 def get_total_energy_uncoupled(orbit, parameters):
 
@@ -85,20 +93,23 @@ def get_total_energy_uncoupled(orbit, parameters):
     px = orbit[2]
     py = orbit[3]
     
-
-    
-    # enter the definition of the potential energy function
-    def get_potential_energy(x,y,par):
-            
-        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
-                
-        return pot_energy
-    
     
     e = (0.5*parameters[0])*(px**2) + (0.5*parameters[1])*(py**2) +  get_potential_energy(x, y,parameters)   
         
     return e
 
+
+#%%
+def get_pot_surf_proj(xVec, yVec,par):            
+
+    resX = np.size(xVec)
+    resY = np.size(xVec)
+    surfProj = np.zeros([resX, resY])
+    for i in range(len(xVec)):
+        for j in range(len(yVec)):
+            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par)
+
+    return surfProj    
 
 
 #%%
@@ -477,13 +488,13 @@ def get_PODiffCorr_POFam(x0, par):
                 
                 e[i] = get_total_energy_uncoupled(x[i,:],par);
             ax = plt.gca(projection='3d')
-            ax.plot(x[:,0],x[:,1],x[:,2],'-')
-            ax.plot(x[:,0],x[:,1],-x[:,2],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o');
+            ax.plot(x[:,0],x[:,1],x[:,3],'-')
+            ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_x$', fontsize=axis_fs)
+            ax.set_zlabel('$v_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
             #             ax.set_xlim(-15, 15)
@@ -586,17 +597,17 @@ def get_PODiffCorr_uncoupled(x0, par):
                 
                 e[i] = get_total_energy_uncoupled(x[i,:],par); 
             ax = plt.gca(projection='3d')
-            plt.plot(x[:,0],x[:,1],x[:,2],'-')
-            plt.plot(x[:,0],x[:,1],-x[:,2],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,2],s=60,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=60,marker='o');
+            plt.plot(x[:,0],x[:,1],x[:,3],'-')
+            plt.plot(x[:,0],x[:,1],-x[:,3],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,3],s=60,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=60,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_x$', fontsize=axis_fs)
+            ax.set_zlabel('$v_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2])  ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
-            #             ax.set_xlim(-15, 15)
-            #             ax.set_ylim(-15, 15)
+            #ax.set_xlim(-1, 1)
+            #ax.set_ylim(-1, 1)
             #time.sleep(0.01) ;
             plt.grid()
             plt.show()

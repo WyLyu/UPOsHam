@@ -24,8 +24,57 @@ from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# enter the definition of the potential energy function
-def get_potential_energy(x,y,par):        
+
+#%%
+def get_eq_pts_deleonberne(eqNum, parameters):
+    #GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
+    #KE + PE. 
+    #--------------------------------------------------------------------------
+    #   DeLeon-Berne potential energy surface notations:
+    #
+    #           Well (stable, EQNUM = 2)    
+    #
+    #               Saddle (EQNUM=1)
+    #
+    #           Well (stable, EQNUM = 3)    
+    #
+    #--------------------------------------------------------------------------
+    #   
+    
+    
+    #fix the equilibrium point numbering convention here and make a
+    #starting guess at the solution
+    if 	eqNum == 1:
+        
+        x0 = [0, 0];                  # EQNUM = 1, saddle  
+    elif 	eqNum == 2: 
+        eqPt = [0, 1/math.sqrt(2)]    # EQNUM = 2, stable
+        return eqPt
+    elif 	eqNum == 3:
+        eqPt = [0, -1/math.sqrt(2)]   # EQNUM = 3, stable
+        return eqPt
+    
+    
+    # F(xEq) = 0 at the equilibrium point, solve using in-built function
+ 
+    def func_vec_field_eq_pt(x,par):
+        x1, x2 = x
+        # constant parameters for the surface
+        # enter the definition of the potential energy function
+        dVdx = - ( 2*par[3]*par[4]*(math.e**(-par[4]*(x1)))*(math.e**(-par[4]*(x1)) - 1) + 4*par[5]*par[4]*((x2)**2)*((x2)**2 - 1)*(math.e**(-par[5]*par[4]*(x1)))) 
+        
+        dVdy = 8*(x2)*(2*(x2)**2 - 1)*math.e**(-par[5]*par[4]*(x1))
+    
+        F = [-dVdx, -dVdy]
+        return F
+    
+    eqPt = fsolve(func_vec_field_eq_pt,x0, fprime=None,args=(parameters,)); # Call solver
+    return eqPt
+
+
+#%%
+def get_potential_energy(x,y,par):
+    # enter the definition of the potential energy function        
             
     pot_energy = par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]
                 
@@ -63,7 +112,18 @@ def get_x(x,y, V,par):
     #return xpositive
 
 
+#%%
+    
+def get_pot_surf_proj(xVec, yVec,par):            
 
+    resX = np.size(xVec)
+    resY = np.size(xVec)
+    surfProj = np.zeros([resX, resY])
+    for i in range(len(xVec)):
+        for j in range(len(yVec)):
+            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par)
+
+    return surfProj  
 #%%
 def stateTransitMat_deleonberne(tf,x0,parameters,fixed_step=0): 
 
@@ -350,8 +410,15 @@ def newmethod_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
         print("nth turningpoint we pick is ", n_turn)
         iter = iter +1
         print(iter)
-
     
+    end = MAXiter
+    for i in range(MAXiter):
+        if x0po[i,0] ==0 and x0po[i-1,0] !=0:
+            end = i
+
+    x0po = x0po[0:end,:]
+    T = T[0:end]
+    energyPO = energyPO[0:end]
     
     dum =np.concatenate((x0po,T, energyPO),axis=1)
     np.savetxt(po_fam_file.name,dum,fmt='%1.16e')

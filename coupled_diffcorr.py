@@ -70,6 +70,15 @@ def get_eq_pts_coupled(eqNum, parameters):
     eqPt = fsolve(func_vec_field_eq_pt,x0, fprime=None,args=(parameters,)); # Call solver
     return eqPt
 
+
+#%%    
+# enter the definition of the potential energy function
+def get_potential_energy(x,y,par):
+
+    pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
+                
+    return pot_energy
+    
 #%%
 def get_total_energy_coupled(orbit, parameters):
 
@@ -87,19 +96,22 @@ def get_total_energy_coupled(orbit, parameters):
     px = orbit[2]
     py = orbit[3]
     
-
-    
-    # enter the definition of the potential energy function
-    def get_potential_energy(x,y,par):
-
-        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
-                
-        return pot_energy
-    
-    
     e = (0.5*parameters[0])*(px**2) + (0.5*parameters[1])*(py**2) +  get_potential_energy(x, y,parameters)   
         
     return e
+
+#%%
+    
+def get_pot_surf_proj(xVec, yVec,par):            
+
+    resX = np.size(xVec)
+    resY = np.size(xVec)
+    surfProj = np.zeros([resX, resY])
+    for i in range(len(xVec)):
+        for j in range(len(yVec)):
+            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par)
+
+    return surfProj 
 
 
 
@@ -441,43 +453,6 @@ def half_period(t,x):
     # The zero can be approached from either direction
     direction = 0; #0: all directions of crossing
     return x[3]
-#%%
-def stateTransitMat_noevents_coupled(tf,x0,parameters,fixed_step=0): 
-
-    # function [x,t,phi_tf,PHI] =
-    # stateTransitionMatrix_boatPR(x0,tf,R,OPTIONS,fixed_step)
-    #
-    # Gets state transition matrix, phi_tf = PHI(0,tf), and the trajectory 
-    # (x,t) for a length of time, tf.  
-    # 
-    # In particular, for periodic solutions of % period tf=T, one can obtain 
-    # the monodromy matrix, PHI(0,T).
-    
-
-    N = len(x0);  #N=4
-    RelTol=3e-14
-    AbsTol=1e-14  
-    tf = tf[-1];
-    if fixed_step == 0:
-        TSPAN = [ 0 , tf ]; 
-    else:
-        TSPAN = np.linspace(0, tf, fixed_step)
-    PHI_0 = np.zeros(N+N**2)
-    PHI_0[0:N**2] = np.reshape(np.identity(N),(N**2)); # initial condition for state transition matrix
-    PHI_0[N**2:] = x0;                    # initial condition for trajectory
-
-    
-    f = partial(varEqns_coupled, par=parameters)  # Use partial in order to pass parameters to function
-    soln = solve_ivp(f, TSPAN, list(PHI_0),method='RK45',dense_output=True, events = None,rtol=RelTol, atol=AbsTol)
-    t = soln.t
-    PHI = soln.y
-    PHI = PHI.transpose()
-    x = PHI[:,N**2:N+N**2]		   # trajectory from time 0 to tf
-    phi_tf = np.reshape(PHI[-1,0:N**2],(N,N)) # state transition matrix, PHI(O,tf)
-
-    
-    return t,x,phi_tf,PHI
-
 
 #%%
 def get_PODiffCorr_POFam(x0, par):
@@ -537,7 +512,7 @@ def get_PODiffCorr_POFam(x0, par):
 	     # the final state at the half-period event crossing
       
         # Events option not necessary anymore
-        t,x,phi_t1,PHI = stateTransitMat_noevents_coupled(t1,x0,par) ;
+        t,x,phi_t1,PHI = stateTransitMat_coupled(t1,x0,par) ;
         
         
         print('::poDifCor : iteration',attempt+1) ;
@@ -651,7 +626,7 @@ def get_PODiffCorr_coupled(x0, par):
 	     # the final state at the half-period event crossing
       
         # Events option not necessary anymore
-        t,x,phi_t1,PHI = stateTransitMat_noevents_coupled(t1,x0,par) ;
+        t,x,phi_t1,PHI = stateTransitMat_coupled(t1,x0,par) ;
         print('::poDifCor : iteration',attempt+1) ;
         
         if show == 1:

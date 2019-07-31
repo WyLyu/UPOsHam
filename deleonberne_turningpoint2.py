@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jul 29 10:56:07 2019
+Created on Sun Jul 28 13:11:04 2019
 
 @author: wl16298
 """
@@ -17,20 +17,19 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
+from scipy import optimize
 import matplotlib as mpl
 
 from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-
 #%%
-def get_eq_pts_coupled(eqNum, parameters):
+def get_eq_pts_deleonberne(eqNum, parameters):
     #GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
     #KE + PE. 
-    # H = 1/2*px^2+omega/2*py^2 -(1/2)*alpha*x^2+1/4*beta*x^4+ omega/2y^2+0.5*epsilon*(x-y)**2
     #--------------------------------------------------------------------------
-    #   Uncouled potential energy surface notations:
+    #   DeLeon-Berne potential energy surface notations:
     #
     #           Well (stable, EQNUM = 2)    
     #
@@ -48,10 +47,10 @@ def get_eq_pts_coupled(eqNum, parameters):
         
         x0 = [0, 0];                  # EQNUM = 1, saddle  
     elif 	eqNum == 2: 
-        eqPt = [+math.sqrt(parameters[3]-parameters[6]/parameters[4]),0]    # EQNUM = 2, stable
+        eqPt = [0, 1/math.sqrt(2)]    # EQNUM = 2, stable
         return eqPt
     elif 	eqNum == 3:
-        eqPt = [-math.sqrt(parameters[3]-parameters[6]/parameters[4]),0]   # EQNUM = 3, stable
+        eqPt = [0, -1/math.sqrt(2)]   # EQNUM = 3, stable
         return eqPt
     
     
@@ -60,34 +59,36 @@ def get_eq_pts_coupled(eqNum, parameters):
     def func_vec_field_eq_pt(x,par):
         x1, x2 = x
         # constant parameters for the surface
-
-        dVdx = (-par[3]+par[6])*x1+par[4]*x1**3 -par[6]*x2
+        # enter the definition of the potential energy function
+        dVdx = - ( 2*par[3]*par[4]*(math.e**(-par[4]*(x1)))*(math.e**(-par[4]*(x1)) - 1) + 4*par[5]*par[4]*((x2)**2)*((x2)**2 - 1)*(math.e**(-par[5]*par[4]*(x1)))) 
         
-        dVdy = (par[5]+par[6])*x2-par[6]*x1
+        dVdy = 8*(x2)*(2*(x2)**2 - 1)*math.e**(-par[5]*par[4]*(x1))
     
         F = [-dVdx, -dVdy]
         return F
-
+    
     eqPt = fsolve(func_vec_field_eq_pt,x0, fprime=None,args=(parameters,)); # Call solver
     return eqPt
 
 
 #%%
 def get_potential_energy(x,y,par):
-    # enter the definition of the potential energy function
-    pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
+    # enter the definition of the potential energy function        
+            
+    pot_energy = par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]
                 
     return pot_energy
 
-#%%
-def get_total_energy_coupled(orbit, parameters):
 
-#   get_total_energy_coupled computes the total energy of an input orbit
+#%%
+def get_total_energy_deleonberne(orbit, parameters):
+
+#   get_total_energy_deleonberne computes the total energy of an input orbit
 #   (represented as M x N with M time steps and N = 4, dimension of phase
-#   space for the model) for the 2 DoF Coupled potential.
+#   space for the model) for the 2 DoF DeLeon-Berne potential.
 # 
 #   Orbit can be different initial conditions for the periodic orbit of
-#   different energy. When trajectory is input, the output energy is mean.
+#   different energy.
 #
     
 
@@ -96,10 +97,19 @@ def get_total_energy_coupled(orbit, parameters):
     px = orbit[2]
     py = orbit[3]
     
-    
-    e = (0.5*parameters[0])*(px**2) + (0.5*parameters[1])*(py**2) +  get_potential_energy(x, y,parameters)   
+      
+    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(x, y,parameters)   
         
     return e
+
+
+#%%
+def get_x(x,y, V,par):
+    
+    return par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]-V
+    
+    #return xpositive
+
 
 #%%
     
@@ -112,19 +122,11 @@ def get_pot_surf_proj(xVec, yVec,par):
         for j in range(len(yVec)):
             surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par)
 
-    return surfProj 
+    return surfProj  
 
 
 #%%
-def get_y(x, V,par):
-    # this function returns the initial position of y-coordinate on the potential energy surface(PES) for a specific energy V.
-    ypositive=math.sqrt(2/(par[1]+par[6]))*(-math.sqrt( V +0.5*par[3]* x**2- 0.25*par[4]*x**4 -0.5*par[6]* x**2 + (par[6]*x)**2/(2*(par[1] +par[6]) )) +par[6]/(math.sqrt(2*(par[1]+par[6])) )*x )
-    #ynegative=-
-    
-    return ypositive
-
-#%%
-def stateTransitMat_coupled(tf,x0,parameters,fixed_step=0): 
+def stateTransitMat_deleonberne(tf,x0,parameters,fixed_step=0): 
 
     # function [x,t,phi_tf,PHI] =
     # stateTransitionMatrix_boatPR(x0,tf,R,OPTIONS,fixed_step)
@@ -134,6 +136,8 @@ def stateTransitMat_coupled(tf,x0,parameters,fixed_step=0):
     # 
     # In particular, for periodic solutions of % period tf=T, one can obtain 
     # the monodromy matrix, PHI(0,T).
+    #
+
     
 
     N = len(x0);  #N=4
@@ -148,8 +152,9 @@ def stateTransitMat_coupled(tf,x0,parameters,fixed_step=0):
     PHI_0[0:N**2] = np.reshape(np.identity(N),(N**2)); # initial condition for state transition matrix
     PHI_0[N**2:N+N**2] = x0;                    # initial condition for trajectory
 
+
     
-    f = partial(varEqns_coupled, par=parameters)  # Use partial in order to pass parameters to function
+    f = partial(varEqns_deleonberne, par=parameters)  # Use partial in order to pass parameters to function
     soln = solve_ivp(f, TSPAN, list(PHI_0),method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
     t = soln.t
     PHI = soln.y
@@ -162,7 +167,7 @@ def stateTransitMat_coupled(tf,x0,parameters,fixed_step=0):
 
 
 #%%
-def varEqns_coupled(t,PHI,par):
+def varEqns_deleonberne(t,PHI,par):
 #        PHIdot = varEqns_bp(t,PHI) ;
 #
 # This here is a preliminary state transition, PHI(t,t0),
@@ -179,20 +184,20 @@ def varEqns_coupled(t,PHI,par):
     
 
     # The first order derivative of the Hamiltonian.
-    dVdx = (-par[3]+par[6])*x+par[4]*x**3-par[6]*y
-    dVdy = (par[5]+par[6])*y-par[6]*x
-
-    # The following is the Jacobian matrix 
-    d2Vdx2 = -par[3]+par[6]+par[4]*3*x**2
-            
-    d2Vdy2 = par[5]+par[6]
+    dVdx = - 2*par[3]*par[4]*math.e**(-par[4]*x)*(math.e**(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) ;
+    dVdy = 8*y*(2*y**2 - 1)*math.e**(-par[5]*par[4]*x);
     
-    d2Vdydx = -par[6]
+    # The following is the Jacobian matrix 
+    d2Vdx2 = - ( 2*par[3]*par[4]**2*( math.e**(-par[4]*x) - 2.0*math.e**(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) );
+            
+    d2Vdy2 = 8*(6*y**2 - 1)*math.e**( -par[4]*par[5]*x );
+    
+    d2Vdydx = -8*y*par[4]*par[5]*math.e**( -par[4]*par[5]*x )*(2*y**2 - 1);
     
     d2Vdxdy = d2Vdydx;    
 
-    Df    = np.array([[  0,     0,    par[0],    0],
-              [0,     0,    0,    par[1]],
+    Df    = np.array([[  0,     0,    1/par[0],    0],
+              [0,     0,    0,    1/par[1]],
               [-d2Vdx2,  -d2Vdydx,   0,    0],
               [-d2Vdxdy, -d2Vdy2,    0,    0]])
 
@@ -201,28 +206,28 @@ def varEqns_coupled(t,PHI,par):
 
     PHIdot        = np.zeros(20);
     PHIdot[0:16]  = np.reshape(phidot,(1,16)); 
-    PHIdot[16]    = px*par[0]
-    PHIdot[17]    = py*par[1]
+    PHIdot[16]    = px/par[0]
+    PHIdot[17]    = py/par[1]
     PHIdot[18]    = -dVdx; 
     PHIdot[19]    = -dVdy;
     
     return list(PHIdot)
 
 #%%
-def coupled2dof(t,x, par):
+def deleonberne2dof(t,x, par):
     # Hamilton's equations, used for ploting trajectories later.
-
 
     xDot = np.zeros(4)
 
-    dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
-    dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
+    dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0]);
+    dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0]);
     
-    xDot[0] = x[2]*par[0]
-    xDot[1] = x[3]*par[1]
+    xDot[0] = x[2]/par[0]
+    xDot[1] = x[3]/par[1]
     xDot[2] = -dVdx 
     xDot[3] = -dVdy
     return list(xDot)
+
 
 
 #%%
@@ -243,59 +248,64 @@ def half_period(t,x):
     terminal = True
     # The zero can be approached from either direction
     direction = 0; #0: all directions of crossing
-    return x[3]
+    return x[2]
 
 #%%
-def newidea_coupled(guess1, guess2,n_turn,par):
-    # n_turn is the nth turning point we want to choose as our 'turning point for defining the new idea'
-    # this function calculates the difference of x(or y) coordinates between the guess initial conditions and the ith turning points
-    # the result is either difference in x coordintes or difference in y coordinates
+def dotproduct_deleonberne(guess1, guess2,n_turn,par):
+    # n_turn is the nth turning point we want to choose as our 'turning point for defining the dot product'
+    # this function defines the dot product of two given intial conditions
     TSPAN = [0,40]
     RelTol = 3.e-10
     AbsTol = 1.e-10 
-    f1 = partial(coupled2dof, par=par) 
+    f1 = partial(deleonberne2dof, par=par) 
     soln1 = solve_ivp(f1, TSPAN, guess1,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
     te1 = soln1.t_events[0]
     t1 = [0,te1[n_turn]]#[0,te1[1]]
     turn1 = soln1.sol(t1)
     x_turn1 = turn1[0,-1] 
-    y_turn1 = turn1[1,-1]
-    x_diff1 = guess1[0] - x_turn1
-    y_diff1 = guess1[1] - y_turn1
-    f2 = partial(coupled2dof, par=par) 
+    y_turn1 = turn1[1,-1] 
+    t,xx1,phi_t1,PHI = stateTransitMat_deleonberne(t1,guess1,par)
+    x1 = xx1[:,0]
+    y1 = xx1[:,1]
+    p1 = xx1[:,2:]
+    p_perpendicular_1 = math.sqrt(np.dot(p1[-3,:],p1[-3,:]))*p1[-2,:] - np.dot(p1[-2,:],p1[-3,:])*p1[-3,:]
+    f2 = partial(deleonberne2dof, par=par) 
     soln2 = solve_ivp(f2, TSPAN, guess2,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
     te2 = soln2.t_events[0]
     t2 = [0,te2[n_turn]]#[0,te2[1]]
-    turn2 = soln2.sol(t2)
+    turn2 = soln1.sol(t2)
     x_turn2 = turn2[0,-1] 
     y_turn2 = turn2[1,-1] 
-    x_diff2 = guess2[0] - x_turn2
-    y_diff2 = guess2[1] - y_turn2
-    print("Initial guess1%s, intial guess2%s, x_diff1 is %s, x_diff2 is%s " %(guess1,guess2,x_diff1, x_diff2))
-    #print("Initial guess1%s, intial guess2%s, y_diff1 is %s, y_diff2 is%s " %(guess1,guess2,y_diff1, y_diff2))
-    return x_diff1, x_diff2
+    t,xx2,phi_t1,PHI = stateTransitMat_deleonberne(t2,guess2,par)
+    x2 = xx2[:,0]
+    y2 = xx2[:,1]
+    p2 = xx2[:,2:]
+    p_perpendicular_2 = math.sqrt(np.dot(p2[-3,:],p2[-3,:]))*p2[-2,:] - np.dot(p2[-2,:],p2[-3,:])*p2[-3,:]
+    dotproduct = np.dot(p_perpendicular_1,p_perpendicular_2)
+    print("Initial guess1%s, intial guess2%s, dot product is%s" %(guess1,guess2,dotproduct))
+    return x_turn1,x_turn2,y_turn1,y_turn2, dotproduct
 
-
-def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
+#%%
+def TurningPoint_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
     # n is the number of divisons we want to divide
-    # n_turn is the nth turning point we want to choose as our 'turning point for defining the new idea'
+    # n_turn is the nth turning point we want to choose as our 'turning point for defining the dot product'
     # e is the energy of the PES 
     # po_fam_file is the file we want to save our data into 
     # we assume x coordinate of guess1 is smaller than the x coordinate of guess2
     #
+    # we define the tolerance as the distance(of x coordinate) between the turning point and the point on the PES with the same y coordinate.
+    # we also asuume the dot roduct is always working for the first iteration(iter 0)
     #
-    # we define the tolerance as the distance(of y coordinate) between the turning point and the point on the PES with the same x coordinate.
     axis_fs = 15
-    y_PES = get_y(begin1[0], e,par)
-    y_turning = begin1[1]
-    toler = math.sqrt((y_PES-y_turning)**2)
+    #y_PES = get_y(begin1[0], e,par)
+    #y_turning = begin1[1]
+    #toler = math.sqrt((y_PES-y_turning)**2)
     guess1 = begin1
     guess2 = begin2
     MAXiter = 30
     dum = np.zeros(((n+1)*MAXiter ,7))
-    result = np.zeros(((n+1),4))  # record data for each iteration
-    result2 = np.zeros(((n+1)*MAXiter ,4))
-    np.set_printoptions(precision=17,suppress=True)
+    result = np.zeros(((n+1),3))  # record data for each iteration
+    result2 = np.zeros(((n+1)*MAXiter ,3)) # record all data for every iteration
     x0po = np.zeros((MAXiter ,4))
     i_turn = np.zeros((MAXiter ,1))
     T = np.zeros((MAXiter ,1))
@@ -303,53 +313,66 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
     iter = 0
     iter_diff =0  # for counting the correct index
     #while toler < 1e-6 or iter < MAXiter:
-    while iter < MAXiter and n_turn < 5:
-        #y_PES = -get_y(guess1[0], e,par)
-        #y_turning = guess1[1]
-        #toler = math.sqrt((y_PES-y_turning)**2)
+    while iter < MAXiter and n_turn < 10:
+        #f = partial(get_x,y=guess1[0],V=e,par=par)
+        #x_PES = optimize.newton(f,0.2)
+        #x_turning = guess1[0]
+        #toler = math.sqrt((x_PES-x_turning)**2)
         for i in range(0,n+1):
-            # the x difference between guess1 and each guess is recorded in "result" matrix
-            h = (guess2[0] - guess1[0])*i/n
+            # the product product between guess1 and each guess is recorded in "result" matrix
+            h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
             print("h is ",h)
-            xguess = guess1[0]+h
-            yguess = get_y(xguess, e,par)
+            yguess = guess1[1]+h
+            f = partial(get_x,y=yguess,V=e,par=par)
+            xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y 
             guess = [xguess,yguess,0, 0]
-            x_diff1, x_diff2 = newidea_coupled(guess1, guess,n_turn,par)
-            result[i,0] = np.sign(x_diff1)
+            x_turn1,x_turn2,y_turn1,y_turn2, dotproduct = dotproduct_deleonberne(guess1, guess,n_turn,par)
+            result[i,0] = dotproduct
             result[i,1] = guess[0]
             result[i,2] = guess[1]
-            result[i,3] = np.sign(x_diff2)
-        for i in range(1,n+1):
-            if np.sign(result[i,0]) != np.sign(result[i,3]) and np.sign(result[i-1,0]) == np.sign(result[i-1,3]):
+            result2[(n+1)*iter+i,:] = result[i,:]
+            
+        i_turn_iter = 0
+        for i in range(0,n+1):
+            #  we record the sign change for each pair of inital conditions
+            # i_turn_iter is the coordinate which sign changes from positive to negative
+            # we only want the first i_turn_iter terms to have positve sign and the rest of n-i_turn_iter+1 terms to have negative signs to avoid error
+            #
+            if np.sign(result[i,0]) <0 and np.sign(result[i-1,0]) >0:
                 i_turn[iter] = i
-                
+                i_turn_iter = int(i_turn[iter])
+                check = np.sign(result[:,0])
+                check_same= sum(check[0:i_turn_iter])
+                check_diff= sum(check[i_turn_iter:])
+                print(check_same == i_turn[iter])
+                print(check_diff == -n+i_turn[iter]-1)
             
         # if the follwing condition holds, we can zoom in to a smaller interval and continue our procedure
-        if i_turn[iter]>0:
+        if check_same == i_turn[iter] and check_diff == -n+i_turn[iter]-1 and i_turn_iter>0:
             index = int(i_turn[iter])
             guesspo  = [result[index-1,1],result[index-1,2],0,0] 
-            print("Our guess for the periodic orbit is",guesspo)
+            print("Our guess of the inital condition is", guesspo)
             x0po[iter,:] = guesspo[:]
             TSPAN = [0,30]
-            RelTol = 3.e-10
-            AbsTol = 1.e-10
-            f = partial(coupled2dof, par=par) 
+            RelTol = 3.e-8
+            AbsTol = 1.e-8
+            f = partial(deleonberne2dof, par=par) 
             soln = solve_ivp(f, TSPAN, guesspo,method='RK45',dense_output=True, events = half_period,rtol=RelTol, atol=AbsTol)
             te = soln.t_events[0]
             tt = [0,te[1]]
-            t,x,phi_t1,PHI = stateTransitMat_coupled(tt,guesspo,par)
+            t,x,phi_t1,PHI = stateTransitMat_deleonberne(tt,guesspo,par)
             T[iter] = tt[-1]*2
             print("period is%s " %T[iter])
             energy = np.zeros(len(x))
             #print(len(t))
             for j in range(len(t)):
-                energy[j] = get_total_energy_coupled(x[j,:],par)
+                energy[j] = get_total_energy_deleonberne(x[j,:],par)
             energyPO[iter] = np.mean(energy)
             ax = plt.gca(projection='3d')
-            ax.plot(x[:,0],x[:,1],x[:,3],'-')
-            ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-            ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-            ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
+            ax.plot(x[:,0],x[:,1],x[:,2],'-')
+            ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+            ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+            ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
             ax.set_zlabel('$v_x$', fontsize=axis_fs)
@@ -358,20 +381,17 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             ax.set_ylim(-1, 1)
             #x_turn= x[-1,0]  # x coordinate of turning point
             #y_turn= x[-1,1] # y coordinate of turning point
-            #y_PES = -get_y(x_turn,e,par)
-            #toler = math.sqrt((y_PES-y_turn)**2)
+            #f = partial(get_x,y=y_turn,V=e,par=par)
+            #x_PES = optimize.newton(f,0.2)  # x coordinate of the PES with y=y_turn
+            #toler = math.sqrt((x_PES-x_turn)**2)
             plt.grid()
             plt.show()
             guess2 = np.array([result[index,1], result[index,2],0,0])
             guess1 = np.array([result[index-1,1], result[index-1,2],0,0])
-            iter = iter +1
-            if (guess2[0]-guess1[0]) < 1.4e-17:
-                print("reach the limit of python")
-                break
             iter_diff =0
-        # If the if condition does not hold, it indicates that the interval we picked for performing 'new idea' is wrong and it needs to be changed.
+        # If the if condition does not hold, it indicates that the interval we picked for performing 'dot product' is wrong and it needs to be changed.
         else:
-            # return to the previous iteration that the new idea works
+            # return to the previous iteration that dot product works
             #iteration------i------i+1---------------i+2----------------i+3-----------------------i+4
             #            succ------succ-------------unsucc(return to i+1,n_turn+1)
             #                                              if  --------succ--------         
@@ -380,14 +400,14 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             #
             #
             #
-            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the new idea
+            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the dot product
             iter_diff = iter_diff +1
             if iter_diff> 1:
                    # return to the iteration that is before the previous 
                 print("Warning: the result after this iteration may not be accurate, try to increase the number of intervals or use other ways ")
                 break
             n_turn = n_turn+1
-            print("nth turningpoint we pick is ", n_turn)
+            print("the nth turning point we pick is ", n_turn)
             #index = int((n+1)*(re_iter-1)+i_turn[re_iter-1])
             index = int((n+1)*(iter-iter_diff)+i_turn[iter-iter_diff])
             print("index is ", index)
@@ -402,9 +422,11 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
         
         #print("tolerance is ", toler)
         print(result)
-        print("nth turningpoint we pick is ", n_turn)
-        print(iter)
-        
+        print("the nth turning point we pick is ", n_turn)
+        #print(guess1)
+        #print(guess2)
+        iter = iter +1
+
     end = MAXiter
 
     for i in range(MAXiter):
@@ -414,6 +436,8 @@ def newmethod_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
     x0po = x0po[0:end,:]
     T = T[0:end]
     energyPO = energyPO[0:end]
+    
+    
     dum =np.concatenate((x0po,T, energyPO),axis=1)
     np.savetxt(po_fam_file.name,dum,fmt='%1.16e')
     return x0po, T,energyPO

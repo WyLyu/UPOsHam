@@ -68,6 +68,15 @@ def get_eq_pts_deleonberne(eqNum, parameters):
     eqPt = fsolve(func_vec_field_eq_pt,x0, fprime=None,args=(parameters,)); # Call solver
     return eqPt
 
+
+#%%# enter the definition of the potential energy function
+def get_potential_energy(x,y,par):        
+            
+    pot_energy = par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]
+                
+    return pot_energy
+
+
 #%%
 def get_total_energy_deleonberne(orbit, parameters):
 
@@ -85,21 +94,23 @@ def get_total_energy_deleonberne(orbit, parameters):
     px = orbit[2]
     py = orbit[3]
     
-
-    
-    # enter the definition of the potential energy function
-    def get_potential_energy(x,y,par):        
-            
-        pot_energy = par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]
-                
-        return pot_energy
-    
     
     e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(x, y,parameters)   
         
     return e
 
+#%%
+    
+def get_pot_surf_proj(xVec, yVec,par):            
 
+    resX = np.size(xVec)
+    resY = np.size(xVec)
+    surfProj = np.zeros([resX, resY])
+    for i in range(len(xVec)):
+        for j in range(len(yVec)):
+            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par)
+
+    return surfProj 
 
 #%%
 def stateTransitMat_deleonberne(tf,x0,parameters,fixed_step=0): 
