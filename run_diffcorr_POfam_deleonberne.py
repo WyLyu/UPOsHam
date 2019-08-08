@@ -28,7 +28,7 @@ from matplotlib import cm
 from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
-%matplotlib
+#%matplotlib
 from scipy import optimize
 #%% Setting up parameters and global variables
 N = 4;          # dimension of phase space

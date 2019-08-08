@@ -28,7 +28,7 @@ from matplotlib import cm
 from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
-%matplotlib
+#%matplotlib
 
 #%%
 alpha = 1.0
