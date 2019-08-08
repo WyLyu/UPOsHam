@@ -383,5 +383,7 @@ legend = ax.legend(loc='best')
 ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-4, 4)
+
+plt.savefig('diffcorr_POfam_coupled',format='pdf',bbox_inches='tight')
 plt.grid()
 plt.show()

@@ -238,5 +238,6 @@ ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-2, 2)
 
+plt.savefig('turningpoint_POfam_uncoupled',format='pdf',bbox_inches='tight')
 plt.grid()
 plt.show()
