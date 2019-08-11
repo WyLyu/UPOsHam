@@ -126,7 +126,7 @@ ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$v_x$', fontsize=axis_fs)
 legend = ax.legend(loc='best')
-
+plt.savefig('comparison_deleonberne',format='pdf',bbox_inches='tight')
 ax.set_xlim(-1, 1)
 ax.set_ylim(-1, 1)
 ax.set_zlim(-4, 4)
