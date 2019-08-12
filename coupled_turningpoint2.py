@@ -371,7 +371,7 @@ def TurningPoint_coupled(begin1,begin2,par,e,n,n_turn,po_fam_file):
             ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_y$', fontsize=axis_fs)
+            ax.set_zlabel('$p_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(energy) - par[2] ) ,fontsize=axis_fs)
             ax.set_xlim(-1, 1)
             ax.set_ylim(-1, 1)

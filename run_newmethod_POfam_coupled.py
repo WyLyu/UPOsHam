@@ -160,7 +160,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = coupled_newmethod.stateTransitMat_coupled(tt,x0po_1,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.01')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='b',label='$\Delta E$ = 0.01')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -170,7 +170,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = coupled_newmethod.stateTransitMat_coupled(tt,x0po_2,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='r',label='$\Delta E$ = 0.1')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -180,7 +180,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = coupled_newmethod.stateTransitMat_coupled(tt,x0po_3,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 1.0')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='g',label='$\Delta E$ = 1.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -191,7 +191,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = coupled_newmethod.stateTransitMat_coupled(tt,x0po_4,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 2.0')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='m',label='$\Delta E$ = 2.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -202,7 +202,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = coupled_newmethod.stateTransitMat_coupled(tt,x0po_5,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 4.0')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='c',label='$\Delta E$ = 4.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -218,13 +218,14 @@ cset1 = ax.contour(xMat, yMat, coupled_newmethod.get_pot_surf_proj(xVec, yVec,pa
 ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
-ax.set_zlabel('$v_y$', fontsize=axis_fs)
+ax.set_zlabel('$p_y$', fontsize=axis_fs)
 #ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
-legend = ax.legend(loc='best')
+legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-4, 4)
 
-plt.savefig('newmethod_POfam_coupled',format='pdf',bbox_inches='tight')
 plt.grid()
 plt.show()
+
+plt.savefig('newmethod_POfam_coupled.pdf',format='pdf',bbox_inches='tight')

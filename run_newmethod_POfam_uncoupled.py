@@ -43,8 +43,8 @@ H = T + V where T is the kinetic energy and V is the potential energy. In our ex
 the potential energy V = -0.5*alpha*x**2+0.25*beta*x**4+0.5*omega*y**2.
 If we fix x, then y = +- math.sqrt((V +0.5*alpha*x**2-0.25*beta*x**4)/(0.5*omega) ) so that
 the point starts at the potential energy surface V.
-
 """
+
 #%%
 e=0.01
 """Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
@@ -159,7 +159,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_1[-1,0:4],parameters)
 
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.01')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='b',label='$\Delta E$ = 0.01')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -169,7 +169,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_2[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='r',label='$\Delta E$ = 0.1')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -179,7 +179,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_3[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 1.0')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='g',label='$\Delta E$ = 1.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -190,7 +190,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_4[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 2.0')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='m',label='$\Delta E$ = 2.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -201,7 +201,7 @@ te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_5[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 4.0')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',color='c',label='$\Delta E$ = 4.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -218,13 +218,14 @@ cset2 = ax.contour(xMat, yMat, uncoupled_newmethod.get_pot_surf_proj(xVec, yVec,
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
-ax.set_zlabel('$v_y$', fontsize=axis_fs)
+ax.set_zlabel('$p_y$', fontsize=axis_fs)
 #ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
-legend = ax.legend(loc='best')
+legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-2, 2)
 
-plt.savefig('newmethod_POfam_uncoupled',format='pdf',bbox_inches='tight')
 plt.grid()
 plt.show()
+
+plt.savefig('newmethod_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')

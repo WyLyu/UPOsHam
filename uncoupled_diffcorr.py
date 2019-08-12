@@ -494,7 +494,7 @@ def get_PODiffCorr_POFam(x0, par):
             ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_y$', fontsize=axis_fs)
+            ax.set_zlabel('$p_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
             #             ax.set_xlim(-15, 15)
@@ -603,7 +603,7 @@ def get_PODiffCorr_uncoupled(x0, par):
             ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=60,marker='o');
             ax.set_xlabel('$x$', fontsize=axis_fs)
             ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$v_y$', fontsize=axis_fs)
+            ax.set_zlabel('$p_y$', fontsize=axis_fs)
             ax.set_title('$\Delta E$ = %e' %(np.mean(e) - par[2])  ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
             #ax.set_xlim(-1, 1)

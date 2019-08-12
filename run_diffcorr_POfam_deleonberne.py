@@ -255,8 +255,8 @@ te = soln.t_events[0]
 tt = [0,te[1]]
 t,x,phi_t1,PHI = deleonberne_diffcorr.stateTransitMat_deleonberne(tt,x0po_1,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 0.1')
-ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+ax.plot(x[:,0],x[:,1],x[:,2],'-',color='g',label='$\Delta E$ = 0.1')
+ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='g')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
 ax.scatter(x[0,0],x[0,1],-x[0,2],s=20,marker='o');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
@@ -267,8 +267,8 @@ te = soln.t_events[0]
 tt = [0,te[1]]
 t,x,phi_t1,PHI = deleonberne_diffcorr.stateTransitMat_deleonberne(tt,x0po_2,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 1.0')
-ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+ax.plot(x[:,0],x[:,1],x[:,2],'-',color='r',label='$\Delta E$ = 1.0')
+ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='r')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
 ax.scatter(x[0,0],x[0,1],-x[0,2],s=20,marker='o');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
@@ -279,8 +279,8 @@ te = soln.t_events[0]
 tt = [0,te[1]]
 t,x,phi_t1,PHI = deleonberne_diffcorr.stateTransitMat_deleonberne(tt,x0po_3,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 2.0')
-ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+ax.plot(x[:,0],x[:,1],x[:,2],'-',color='b',label='$\Delta E$ = 2.0')
+ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='b')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
 ax.scatter(x[0,0],x[0,1],-x[0,2],s=20,marker='o');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
@@ -292,8 +292,8 @@ te = soln.t_events[0]
 tt = [0,te[1]]
 t,x,phi_t1,PHI = deleonberne_diffcorr.stateTransitMat_deleonberne(tt,x0po_4,parameters)
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 4.0')
-ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+ax.plot(x[:,0],x[:,1],x[:,2],'-',color='m',label='$\Delta E$ = 4.0')
+ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='m')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
 ax.scatter(x[0,0],x[0,1],-x[0,2],s=20,marker='o');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
@@ -310,13 +310,15 @@ cset1 = ax.contour(xMat, yMat, deleonberne_diffcorr.get_pot_surf_proj(xVec, yVec
 ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
-ax.set_zlabel('$v_x$', fontsize=axis_fs)
+ax.set_zlabel('$p_x$', fontsize=axis_fs)
 #ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1-parameters[2],energyPO_2-parameters[2],energyPO_3-parameters[2],energyPO_4-parameters[2],energyPO_5-parameters[2]) ,fontsize=axis_fs)
 ax.set_xlim(-1.5, 1.5)
 ax.set_ylim(-1.5, 1.5)
 ax.set_zlim(-4, 4)
-legend = ax.legend(loc='best')
+legend = ax.legend(loc='upper left')
 
-plt.savefig('diffcorr_POfam_deleonberne',format='pdf',bbox_inches='tight')
+
 plt.grid()
 plt.show()
+
+plt.savefig('diffcorr_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')
