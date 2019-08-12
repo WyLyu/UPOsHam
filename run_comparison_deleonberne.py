@@ -124,11 +124,13 @@ cset2 = ax.contour(xMat, yMat, deleonberne_diffcorr.get_pot_surf_proj(xVec, yVec
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
-ax.set_zlabel('$v_x$', fontsize=axis_fs)
-legend = ax.legend(loc='best')
-plt.savefig('comparison_deleonberne',format='pdf',bbox_inches='tight')
+ax.set_zlabel('$p_x$', fontsize=axis_fs)
+legend = ax.legend(loc='upper left')
+
 ax.set_xlim(-1, 1)
 ax.set_ylim(-1, 1)
 ax.set_zlim(-4, 4)
 plt.grid()
 plt.show()
+
+plt.savefig('comparison_deleonberne.pdf',format='pdf',bbox_inches='tight')
