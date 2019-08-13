@@ -3,8 +3,8 @@
 *.DS_Store
 
 #Data files
-DeLeon-Berne/*.txt
+*.txt
 
 #C++ executable
-
+__pycache__
 
