@@ -1,0 +1,10 @@
+#OS junk files
+[Tt]thumbs.db
+*.DS_Store
+
+#Data files
+DeLeon-Berne/*.txt
+
+#C++ executable
+
+
