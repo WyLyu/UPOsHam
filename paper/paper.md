@@ -45,7 +45,7 @@ In Hamiltonian systems the fundamental phase space structure that partitions dyn
 
 UPOsHam is a collection of three useful methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The methods have been implemented for [three example Hamiltonian systems](#examples) that are prototypical models of chemical reactions. 
 
-We show few example computations of the unstable periodic orbit for these examples in Fig. \ref{fig:uncoupled}.
+We show few example computations of the unstable periodic orbit for these examples in Fig. \ref{fig:coupled}.
 
 ### Features: Available methods
 
@@ -99,15 +99,12 @@ V(x,y) = & 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
 
 The parameters in the model are $m_A, m_B$ which represent mass of the isomers, while $\epsilon_s, D_x$ denote the energy of the saddle, dissociation energy of the Morse oscillator, respectively, and will be kept fixed in this study, $\lambda, \zeta$ denote the range of the Morse oscillator and coupling parameter between the $x$ and $y$ configuration space coordinates, respectively.
 
-## Visualization: Unstable periodic orbits in the bottleneck
+## Visualization: Unstable periodic orbits 
 
-![Uncoupled system \label{fig:uncoupled}](diffcorr_uncoupled_POfam_0dot01_0dot1_1_2_4.png)
-
-
-![Coupled system \label{fig:coupled}](diffcorr_coupled_POfam_0dot01_0dot1_1_2_4.png)
+![Comparing the 3 methods for the coupled quartic Hamiltonian \label{fig:allinone_coupled}](allinone_coupled.pdf)
+![Comparing the new method for the 3 Hamiltonians \label{fig:allinone_newmethod}](allinone_newmethod.pdf)
 
 
-![De Leon-Berne system \label{fig:deleonberne}](diffcorr_deleonberne_POfam_0dot1_1_2_4.png)
 
 
 ## Relation to ongoing research projects
