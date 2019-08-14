@@ -38,7 +38,8 @@ affiliations:
 
 ## Statement of Need
 
-In Hamiltonian dynamical systems the fundamental phase space structure that partitions dynamically disparate trajectories and mediates transition between multi-stable regions is an invariant manifold. These are anchored to the normally hyperbolic invariant manifold in a general N degree of freedom system and this becomes an unstable periodic orbit in the two degree of freedom case [@wiggins_role_2016]. This Python package provides a collection of three different methods for computing the unstable periodic orbits (UPOs) at a specified total energy. Even though, there is no lack of numerical methods for this computing UPOs, we have found they either lack in reproducibility or written using closed source software. Our aim is to provide an open source package that implements the three methods and shows examples for applied scientists.
+In Hamiltonian systems the fundamental phase space structure that partitions dynamically disparate trajectories and mediates transition between multi-stable regions is an invariant manifold of 1 less dimension than the energy surface. In a 2N dimensional phase space, these invariant manifolds are anchored to the normally hyperbolic invariant manifold which becomes an unstable periodic orbit (UPO) in the four dimensional phase space [@wiggins_role_2016]. Since the UPO forms the basis for distinguishing trajectories, their computation and stability analysis is the starting point for dynamical systems analysis. This Python package provides a collection of three methods for computing the unstable periodic orbits (UPOs) at any specified total energy as long as their existence is guaranteed. Even though, there is no lack of numerical methods for computing UPOs, we have found that they either lack in reproducibility, or have steep learning curve for using the software, or have been written using closed source software, and at times combination of these. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of model problems. This is meant as an encouragement to integrate other successful methods into this package in a reproducible and less steep of a learning curve. 
+
 
 ## Summary
 
@@ -46,18 +47,18 @@ UPOsHam is a collection of three useful methods for computing unstable periodic 
 
 We show few example computations of the unstable periodic orbit for these examples in Fig. \ref{fig:uncoupled}.
 
-## Features
+### Features: Available methods
 
 In this package, the user has the option to choose between the three methods described below. These are implemented in separate scripts with functions that can be modified to define the Hamiltonian total energy, potential energy, vector field, Jacobian, variational equations [@Parker_1989].   
 
-### Turning point
+__Turning point__
 
 Hamiltonian systems of the form kinetic plus potential energy have unstable periodic orbits in the bottleneck that touches the equipotential lines given by $V(x,y) = E$. This method is based on finding the UPO by checking for trajectories that turn in the opposite directions and iteratively bringing them closer to approximate the UPO [@Pollak_1980].
 
-### Differential turning point
+__Differential turning point__
 
 
-### Differential correction and numerical continuation
+__Differential correction and numerical continuation__
 
 
 ## Examples {#examples}
