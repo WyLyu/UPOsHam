@@ -21,7 +21,7 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
-import uncoupled_newmethod ### import module xxx where xxx is the name of the python file xxx.py 
+import uncoupled_tpcd ### import module xxx where xxx is the name of the python file xxx.py 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib as mpl
 from matplotlib import cm
@@ -37,7 +37,7 @@ omega = 1.0
 EPSILON_S = 0.0 #Energy of the saddle
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega]);
 eqNum = 1;  
-eqPt = uncoupled_newmethod.get_eq_pts_uncoupled(eqNum, parameters)
+eqPt = uncoupled_tpcd.get_eq_pts_uncoupled(eqNum, parameters)
 """Initial Condition for the true periodic orbit
 H = T + V where T is the kinetic energy and V is the potential energy. In our example, 
 the potential energy V = -0.5*alpha*x**2+0.25*beta*x**4+0.5*omega*y**2.
@@ -53,8 +53,8 @@ state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 n=4
 n_turn=1
 deltaE = e-parameters[2]
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_1, T_1,energyPO_1] = uncoupled_newmethod.newmethod_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
+[x0po_1, T_1,energyPO_1] = uncoupled_tpcd.tpcd_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
 
 po_fam_file.close()
 
@@ -66,8 +66,8 @@ state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 n=4
 n_turn=1
 deltaE = e-parameters[2]
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_2, T_2,energyPO_2] = uncoupled_newmethod.newmethod_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
+[x0po_2, T_2,energyPO_2] = uncoupled_tpcd.tpcd_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
 
 po_fam_file.close()
  
@@ -79,8 +79,8 @@ state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 n=4
 n_turn=1
 deltaE = e-parameters[2]
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_3, T_3,energyPO_3] = uncoupled_newmethod.newmethod_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
+[x0po_3, T_3,energyPO_3] = uncoupled_tpcd.tpcd_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
 
 po_fam_file.close()
 
@@ -92,8 +92,8 @@ state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 n=4
 n_turn=1
 deltaE = e-parameters[2]
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_4, T_4,energyPO_4] = uncoupled_newmethod.newmethod_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
+[x0po_4, T_4,energyPO_4] = uncoupled_tpcd.tpcd_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
 
 po_fam_file.close()
 
@@ -105,43 +105,43 @@ state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 n=4
 n_turn=1
 deltaE = e-parameters[2]
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_5, T_5,energyPO_5] = uncoupled_newmethod.newmethod_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
+[x0po_5, T_5,energyPO_5] = uncoupled_tpcd.tpcd_uncoupled(state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
 
 po_fam_file.close()
 
 
 #%% Load Data
 deltaE = 0.010
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+');
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_1 = x0podata
 
 deltaE = 0.10
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+');
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_2 = x0podata
 
 deltaE = 1.0
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+');
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_3 = x0podata
 
 deltaE = 2.0
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+');
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_4 = x0podata
 
 deltaE = 4.0
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+');
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
@@ -152,54 +152,54 @@ plt.close('all')
 axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
-f = partial(uncoupled_newmethod.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = uncoupled_newmethod.half_period,rtol=RelTol, atol=AbsTol)
+f = partial(uncoupled_tpcd.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = uncoupled_tpcd.half_period,rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_1[-1,0:4],parameters)
+t,x,phi_t1,PHI = uncoupled_tpcd.stateTransitMat_uncoupled(tt,x0po_1[-1,0:4],parameters)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='b',label='$\Delta E$ = 0.01')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = partial(uncoupled_newmethod.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = uncoupled_newmethod.half_period,rtol=RelTol, atol=AbsTol)
+f = partial(uncoupled_tpcd.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = uncoupled_tpcd.half_period,rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_2[-1,0:4],parameters)
+t,x,phi_t1,PHI = uncoupled_tpcd.stateTransitMat_uncoupled(tt,x0po_2[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='r',label='$\Delta E$ = 0.1')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = partial(uncoupled_newmethod.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = uncoupled_newmethod.half_period,rtol=RelTol, atol=AbsTol)
+f = partial(uncoupled_tpcd.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = uncoupled_tpcd.half_period,rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_3[-1,0:4],parameters)
+t,x,phi_t1,PHI = uncoupled_tpcd.stateTransitMat_uncoupled(tt,x0po_3[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='g',label='$\Delta E$ = 1.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
-f = partial(uncoupled_newmethod.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = uncoupled_newmethod.half_period,rtol=RelTol, atol=AbsTol)
+f = partial(uncoupled_tpcd.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = uncoupled_tpcd.half_period,rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_4[-1,0:4],parameters)
+t,x,phi_t1,PHI = uncoupled_tpcd.stateTransitMat_uncoupled(tt,x0po_4[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='m',label='$\Delta E$ = 2.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
-f = partial(uncoupled_newmethod.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_5[-1,0:4],method='RK45',dense_output=True, events = uncoupled_newmethod.half_period,rtol=RelTol, atol=AbsTol)
+f = partial(uncoupled_tpcd.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_5[-1,0:4],method='RK45',dense_output=True, events = uncoupled_tpcd.half_period,rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = uncoupled_newmethod.stateTransitMat_uncoupled(tt,x0po_5[-1,0:4],parameters)
+t,x,phi_t1,PHI = uncoupled_tpcd.stateTransitMat_uncoupled(tt,x0po_5[-1,0:4],parameters)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='c',label='$\Delta E$ = 4.0')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
@@ -211,9 +211,9 @@ resX = 100
 xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
-#cset1 = ax.contour(xMat, yMat, uncoupled_newmethod.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
+#cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
-cset2 = ax.contour(xMat, yMat, uncoupled_newmethod.get_pot_surf_proj(xVec, yVec,parameters), [0.01,0.1,1,2,4],zdir='z', offset=0,
+cset2 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.01,0.1,1,2,4],zdir='z', offset=0,
                        linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
@@ -228,4 +228,4 @@ ax.set_zlim(-2, 2)
 plt.grid()
 plt.show()
 
-plt.savefig('newmethod_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
+plt.savefig('tpcd_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
