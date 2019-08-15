@@ -17,7 +17,7 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
-import uncoupled_newmethod  ### import module xxx where xxx is the name of the python file xxx.py 
+import uncoupled_tpcd  ### import module xxx where xxx is the name of the python file xxx.py 
 import uncoupled_turningpoint2
 import uncoupled_diffcorr
 
@@ -46,11 +46,11 @@ eSaddle = uncoupled_diffcorr.get_total_energy_uncoupled([eqPt[0],eqPt[1],0,0], p
 #%% Load Data
 deltaE = 0.10
 eSaddle = 0.0 # energy of the saddle
-po_fam_file = open("1111x0_newmethod_deltaE%s_uncoupled.txt" %(deltaE),'a+');
+po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
-x0po_1_newmethod = x0podata
+x0po_1_tpcd = x0podata
 
 
 po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+');
@@ -75,13 +75,13 @@ axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
 f = partial(uncoupled_diffcorr.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_1_newmethod[-1,0:4],method='RK45',dense_output=True, events = uncoupled_diffcorr.half_period,rtol=RelTol, atol=AbsTol)
+soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = uncoupled_diffcorr.half_period,rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = uncoupled_diffcorr.stateTransitMat_uncoupled(tt,x0po_1_newmethod[-1,0:4],parameters)
+t,x,phi_t1,PHI = uncoupled_diffcorr.stateTransitMat_uncoupled(tt,x0po_1_tpcd[-1,0:4],parameters)
 
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using newmethod')
+ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -124,7 +124,7 @@ resX = 100
 xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
-#cset1 = ax.contour(xMat, yMat, uncoupled_newmethod.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
+#cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 cset2 = ax.contour(xMat, yMat, uncoupled_diffcorr.get_pot_surf_proj(xVec, yVec,parameters), 0.1,zdir='z', offset=0,
                        linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)

@@ -250,8 +250,8 @@ def half_period(t,x):
     return x[2]
 
 #%%
-def newidea_coupled(guess1, guess2,n_turn,par):
-    # n_turn is the nth turning point we want to choose as our 'turning point for defining the new idea'
+def configdiff_coupled(guess1, guess2,n_turn,par):
+    # n_turn is the nth turning point we want to choose as our 'turning point for defining the configration difference'
     # this function calculates the difference of x(or y) coordinates between the guess initial conditions and the ith turning points
     # the result is either difference in x coordintes or difference in y coordinates
     TSPAN = [0,40]
@@ -280,9 +280,9 @@ def newidea_coupled(guess1, guess2,n_turn,par):
     return y_diff1, y_diff2
 
 #%%
-def newmethod_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
+def tpcd_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
     # n is the number of divisons we want to divide
-    # n_turn is the nth turning point we want to choose as our 'turning point for defining the new idea'
+    # n_turn is the nth turning point we want to choose as our 'turning point for defining the configration difference'
     # e is the energy of the PES 
     # po_fam_file is the file we want to save our data into 
     # we assume x coordinate of guess1 is smaller than the x coordinate of guess2
@@ -320,7 +320,7 @@ def newmethod_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
             f = partial(get_x,y=yguess,V=e,par=par)
             xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y 
             guess = [xguess,yguess,0, 0]
-            y_diff1, y_diff2 = newidea_coupled(guess1, guess,n_turn,par)
+            y_diff1, y_diff2 = configdiff_coupled(guess1, guess,n_turn,par)
             result[i,0] = np.sign(y_diff1)
             result[i,1] = guess[0]
             result[i,2] = guess[1]
@@ -374,9 +374,9 @@ def newmethod_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
                 print("reach the limit of python")
                 break
             iter_diff =0
-        # If the if condition does not hold, it indicates that the interval we picked for performing 'new idea' is wrong and it needs to be changed.
+        # If the if condition does not hold, it indicates that the interval we picked for performing 'configration difference' is wrong and it needs to be changed.
         else:
-            # return to the previous iteration that the new idea works
+            # return to the previous iteration that the configration difference works
             #iteration------i------i+1---------------i+2----------------i+3-----------------------i+4
             #            succ------succ-------------unsucc(return to i+1,n_turn+1)
             #                                              if  --------succ--------         
@@ -385,7 +385,7 @@ def newmethod_deleonberne(begin1,begin2,par,e,n,n_turn,po_fam_file):
             #
             #
             #
-            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the new idea
+            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the configration difference
             iter_diff = iter_diff +1
             if iter_diff> 1:
                    # return to the iteration that is before the previous 
