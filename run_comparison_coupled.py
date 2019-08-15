@@ -47,11 +47,15 @@ eqPt = coupled_diffcorr.get_eq_pts_coupled(eqNum, parameters)
 
 deltaE = 0.10
 eSaddle = 0.0 # energy of the saddle
-po_fam_file = open("./data/1111x0_newmethod_deltaE%s_coupled.txt" %(deltaE),'a+');
-po_fam_file = open("1111x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
-x0podata = np.loadtxt(po_fam_file.name)
-po_fam_file.close()
+#po_fam_file = open("./data/1111x0_newmethod_deltaE%s_coupled.txt" %(deltaE),'a+');
+#po_fam_file = open("1111x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+');
+data_path = "./data/"
+po_fam_file = "1111x0_tpcd_deltaE%s_coupled.txt" %(deltaE)
+print('Loading the periodic orbit family from data file',po_fam_file,'\n'); 
+#x0podata = np.loadtxt(po_fam_file.name)
+x0podata = np.loadtxt(data_path + po_fam_file)
+
+#po_fam_file.close()
 x0po_1_tpcd = x0podata
 
 
