@@ -14,11 +14,10 @@ date: \today
 output:
   pdf_document:
     fig_caption: yes
-    fig_height: 5
-    fig_width: 5
+    fig_height: 3
   html_document:
     fig_caption: yes
-    fig_height: 5
+    fig_height: 3
 bibliography: paper.bib
 tags:
 - Hamiltonian dynamics
@@ -44,7 +43,7 @@ In Hamiltonian systems the fundamental phase space structure that partitions dyn
 
 ## Summary
 
-This Python package, UPOsHam, is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The methods have been implemented for three Hamiltonian systems described in [\S:Examples](#examples) as a demonstration of how to modify and adapt the code for a problem of interest. 
+This Python package, UPOsHam, is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$. The three methods described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and are described in [\S:Examples](#examples). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
  
 The computed unstable periodic orbits using the three methods are compared for a model problem in Figure \ref{fig:allinone_coupled}.
 
@@ -52,14 +51,15 @@ The computed unstable periodic orbits using the three methods are compared for a
 
 In this package, the user has the option to choose between the three methods described below. These are implemented in separate scripts with functions that can be modified to define the total energy (Hamiltonian), potential energy, vector field, Jacobian, variational equations [@Parker_1989].   
 
-__Turning point__
+__Turning point (TP)__
 
-Hamiltonian systems of the form kinetic plus potential energy have unstable periodic orbits in the bottleneck that touches the equipotential lines given by $V(x,y) = E$. This method is based on finding the UPO by checking for trajectories that turn in the opposite directions and iteratively bringing them closer to approximate the UPO [@Pollak_1980].
+This method is based on finding the UPO by checking for trajectories that turn in the opposite directions and iteratively bringing them closer to approximate the UPO [@Pollak_1980].
 
-__Differential turning point__
+__Turning point based on configuration difference  (TPCD)__
 
 
-__Differential correction and numerical continuation__
+
+__Differential correction and numerical continuation (DCNC)__
 
 
 ## Examples {#examples}
@@ -102,9 +102,10 @@ The parameters in the model are $m_A, m_B$ which represent mass of the isomers, 
 
 ## Visualization: Unstable periodic orbits 
 
-![Comparing the 3 methods for the coupled quartic Hamiltonian \label{fig:allinone_coupled}](allinone_coupled.pdf)
+![Comparing the TP, TPCD, DCNC methods for the coupled quartic Hamiltonian. \label{fig:allinone_coupled}](allinone_coupled.pdf)
 
-![Comparing the new method for the three Hamiltonians \label{fig:allinone_newmethod}](allinone_newmethod.pdf)
+
+![Comparing the TPCD method for the three Hamiltonians \label{fig:allinone_newmethod}](allinone_tpcd.pdf)
 
 
 ## Relation to ongoing research projects
