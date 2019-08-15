@@ -43,23 +43,25 @@ parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon]);
 eqNum = 1 
 eqPt = coupled_diffcorr.get_eq_pts_coupled(eqNum, parameters)
 #%% Load Data
+
+
 deltaE = 0.10
 eSaddle = 0.0 # energy of the saddle
-po_fam_file = open("1111x0_newmethod_deltaE%s_coupled.txt" %(deltaE),'a+');
+po_fam_file = open("./data/1111x0_newmethod_deltaE%s_coupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_1_newmethod = x0podata
 
 
-po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
+po_fam_file = open("./data/1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_1_turningpoint = x0podata
 
 
-po_fam_file = open("1111x0_diffcorr_deltaE%s_coupled.txt" %(deltaE),'a+');
+po_fam_file = open("./data/1111x0_diffcorr_deltaE%s_coupled.txt" %(deltaE),'a+');
 print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
