@@ -38,18 +38,19 @@ affiliations:
 
 ## Statement of Need
 
-In Hamiltonian systems the fundamental phase space structure that partitions dynamically disparate trajectories and mediates transition between multi-stable regions is an invariant manifold of 1 less dimension than the energy surface. In a 2N dimensional phase space, these invariant manifolds are anchored to the normally hyperbolic invariant manifold which becomes an unstable periodic orbit (UPO) in the four dimensional phase space [@wiggins_role_2016]. Since the UPO forms the basis for distinguishing trajectories, their computation and stability analysis is the starting point for dynamical systems analysis. This Python package provides a collection of three methods for computing the unstable periodic orbits (UPOs) at any specified total energy as long as their existence is guaranteed. Even though, there is no lack of numerical methods for computing UPOs, we have found that they either lack in reproducibility, or have steep learning curve for using the software, or have been written using closed source software, and at times combination of these. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of model problems. This is meant as an encouragement to integrate other successful methods into this package in a reproducible and less steep of a learning curve. 
+In Hamiltonian systems the fundamental phase space structure that partitions dynamically disparate trajectories and mediates transition between multi-stable regions is an invariant manifold. In a 2N dimensional Hamiltonian phase space, the invariant manifold has 2 less dimension than the phase space and is anchored to the normally hyperbolic invariant manifold which has 3 less dimension. This becomes an unstable periodic orbit (UPO) for 2 degrees of freedom or four dimensional phase space [@wiggins_role_2016]. Since the UPO forms the basis for partitioning trajectories, hence their computation and stability analysis is the starting point for dynamical systems analysis. UPOsHam is meant to serve this purpose by providing examples of how to implement numerical methods for computing the unstable periodic orbits (UPOs) at any specified total energy as long as their existence is guaranteed. Even though, there is no lack of numerical methods for computing UPOs, we have found that they either lack in reproducibility, or have steep learning curve for using the software, or have been written using closed source software, and at times combination of these. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of model problems. This is meant as a starting point to integrate other numerical methods in an open source package such that UPOs computed in dynamical systems papers can be reproduced with minimal tweaking while providing an exploratory environment to learn and develop the underlying methods.  
+
 
 
 ## Summary
 
-UPOsHam is a collection of three useful methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The methods have been implemented for [three example Hamiltonian systems](#examples) that are prototypical models of chemical reactions. 
+This Python package, UPOsHam, is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The methods have been implemented for three Hamiltonian systems described in [\S:Examples](#examples) as a demonstration of how to modify and adapt the code for a problem of interest. 
+ 
+The computed unstable periodic orbits using the three methods are compared for a model problem in Figure \ref{fig:allinone_coupled}.
 
-We show few example computations of the unstable periodic orbit for these examples in Fig. \ref{fig:coupled}.
+### Features: Available Methods
 
-### Features: Available methods
-
-In this package, the user has the option to choose between the three methods described below. These are implemented in separate scripts with functions that can be modified to define the Hamiltonian total energy, potential energy, vector field, Jacobian, variational equations [@Parker_1989].   
+In this package, the user has the option to choose between the three methods described below. These are implemented in separate scripts with functions that can be modified to define the total energy (Hamiltonian), potential energy, vector field, Jacobian, variational equations [@Parker_1989].   
 
 __Turning point__
 
@@ -102,9 +103,8 @@ The parameters in the model are $m_A, m_B$ which represent mass of the isomers, 
 ## Visualization: Unstable periodic orbits 
 
 ![Comparing the 3 methods for the coupled quartic Hamiltonian \label{fig:allinone_coupled}](allinone_coupled.pdf)
-![Comparing the new method for the 3 Hamiltonians \label{fig:allinone_newmethod}](allinone_newmethod.pdf)
 
-
+![Comparing the new method for the three Hamiltonians \label{fig:allinone_newmethod}](allinone_newmethod.pdf)
 
 
 ## Relation to ongoing research projects
