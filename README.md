@@ -1,6 +1,8 @@
 ---
 output:
-  pdf_document: default
+  pdf_document:
+    fig_caption: yes
+    fig_height: 3
   html_document: default
 ---
 ## UPOsHam
@@ -16,7 +18,7 @@ To compare the three methods for the coupled quartic Hamiltonian:
 >> run run_comparison_coupled.py
 ```
 
-[![Comparison of the three methods](tests/comparison_coupled.pdf)](tests/comparison_coupled.pdf)
+![Comparison of the three methods](comparison_coupled.pdf)
 
 
 ## Copyright and License
