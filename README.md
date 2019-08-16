@@ -2,8 +2,10 @@
 output:
   pdf_document:
     fig_caption: yes
-    fig_height: 3
-  html_document: default
+    fig_height: 5
+  html_document:
+    fig_caption: yes
+    fig_height: 5
 ---
 ## UPOsHam
 UPOsHam is a package for computing unstable periodic orbits in Hamiltonian dynamics.
@@ -19,7 +21,7 @@ Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsH
 ```
 which produces 
 
-[Comparison of the three methods](https://github.com/WyLyu/UPOsHam/tree/master/tests/comparison_coupled.pdf)
+![Comparison of the three methods](tests/comparison_coupled.pdf)
 
 To obtain the unstable periodic orbits for a 
 
