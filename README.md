@@ -1,9 +1,9 @@
 ---
 output:
+  html_document: default
   pdf_document:
     fig_caption: yes
     fig_height: 3
-  html_document: default
 ---
 ## UPOsHam
 UPOsHam is a package for computing unstable periodic orbits in Hamiltonian dynamics.
