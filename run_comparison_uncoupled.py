@@ -18,7 +18,7 @@ from scipy.optimize import fsolve
 import time
 from functools import partial
 import uncoupled_tpcd  ### import module xxx where xxx is the name of the python file xxx.py 
-import uncoupled_turningpoint2
+import uncoupled_turningpoint
 import uncoupled_diffcorr
 
 from mpl_toolkits.mplot3d import Axes3D

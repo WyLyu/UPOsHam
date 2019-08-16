@@ -18,7 +18,7 @@ from scipy.optimize import fsolve
 import time
 from functools import partial
 import deleonberne_tpcd  ### import module xxx where xxx is the name of the python file xxx.py 
-import deleonberne_turningpoint2
+import deleonberne_turningpoint
 import deleonberne_diffcorr
 
 
