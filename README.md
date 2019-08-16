@@ -19,7 +19,7 @@ Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsH
 ```
 which produces 
 
-![Comparison of the three methods](https://github.com/WyLyu/UPOsHam/tree/master/tests/comparison_coupled.pdf)
+![Comparison of the three methods](https://github.com/WyLyu/UPOsHam/tree/master/tests/comparison_coupled.png)
 
 To obtain the unstable periodic orbits for a 
 
