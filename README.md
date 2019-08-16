@@ -1,9 +1,9 @@
 ---
 output:
-  html_document: default
   pdf_document:
     fig_caption: yes
     fig_height: 3
+  html_document: default
 ---
 ## UPOsHam
 UPOsHam is a package for computing unstable periodic orbits in Hamiltonian dynamics.
@@ -12,14 +12,16 @@ Across all applied dynamical systems the fundamental phase space structure is th
 
 ## Usage
 
-To compare the three methods for the coupled quartic Hamiltonian:
+Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained using the three methods for the coupled quartic Hamiltonian can be done using
 
 ```python
 >> run run_comparison_coupled.py
 ```
+which produces 
 
-![Comparison of the three methods](comparison_coupled.pdf)
+![Comparison of the three methods](https://github.com/WyLyu/UPOsHam/tree/master/tests/comparison_coupled.pdf)
 
+To obtain the unstable periodic orbits for a 
 
 ## Copyright and License
 Copyright 2019 WenYang Lyu, Shibabrat Naik, Stephen Wiggins. 
