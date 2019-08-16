@@ -51,24 +51,37 @@ eSaddle = deleonberne_diffcorr.get_total_energy_deleonberne([eqPt[0],eqPt[1],0,0
 #%% Load Data
 deltaE = 1.0
 eSaddle = 1.0 # energy of the saddle
-po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
-x0podata = np.loadtxt(po_fam_file.name)
-po_fam_file.close()
+
+data_path = "./data/"
+#po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+');
+po_fam_file = "1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE)
+print('Loading the periodic orbit family from data file',po_fam_file,'\n'); 
+#x0podata = np.loadtxt(po_fam_file.name)
+#po_fam_file.close()
+
+x0podata = np.loadtxt(data_path + po_fam_file)
+
 x0po_1_tpcd = x0podata
 
 
-po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
-x0podata = np.loadtxt(po_fam_file.name)
-po_fam_file.close()
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+');
+po_fam_file = "1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE)
+print('Loading the periodic orbit family from data file',po_fam_file,'\n'); 
+#x0podata = np.loadtxt(po_fam_file.name)
+#po_fam_file.close()
+x0podata = np.loadtxt(data_path + po_fam_file)
+
 x0po_1_turningpoint = x0podata
 
 
-po_fam_file = open("1111x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
-x0podata = np.loadtxt(po_fam_file.name)
-po_fam_file.close()
+#po_fam_file = open("1111x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+');
+po_fam_file = "1111x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE)
+
+print('Loading the periodic orbit family from data file',po_fam_file,'\n'); 
+#x0podata = np.loadtxt(po_fam_file.name)
+#po_fam_file.close()
+x0podata = np.loadtxt(data_path + po_fam_file)
+
 x0po_1_diffcorr = x0podata[0:4]
 
 #%%
@@ -95,7 +108,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = deleonberne_diffcorr.stateTransitMat_deleonberne(tt,x0po_1_diffcorr,parameters)
 
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 0.1, using differential correction')
+ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
@@ -106,7 +119,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = deleonberne_diffcorr.stateTransitMat_deleonberne(tt,x0po_1_turningpoint[-1,0:4],parameters)
 
 ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],'-.',label='$\Delta E$ = 0.1, using turning point method')
+ax.plot(x[:,0],x[:,1],x[:,2],'-.',label='$\Delta E$ = 0.1, using tp')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
