@@ -15,7 +15,7 @@ To compare the three methods for the coupled quartic Hamiltonian:
 ```python
 >> run run_comparison_coupled.py
 ```
-[Comparison of the three methods](https://github.com/WyLyu/UPOsHam/blob/master/tests/comparison_coupled.pdf?raw=true)
+[Comparison of the three methods](./tests/comparison_coupled.pdf?raw=true)
 
 
 ## Copyright and License
