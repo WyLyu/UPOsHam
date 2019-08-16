@@ -18,7 +18,7 @@ from scipy.optimize import fsolve
 import time
 from functools import partial
 import coupled_tpcd  ### import module xxx where xxx is the name of the python file xxx.py 
-import coupled_turningpoint2
+import coupled_turningpoint
 import coupled_diffcorr
 
 
