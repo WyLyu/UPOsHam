@@ -84,7 +84,7 @@ Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are
 
 ### DeLeon-Berne Hamiltonian {#dbham}
 
-This Hamiltonian has been studied in chemical reaction dynamics as a model of isomerization of a single molecule that undergoes structural changes [@Deleon_Berne_1981; @DeLeon_Marston_1989]. This model Hamiltonian exhibits chaotic dynamics when the coupling between the double well and Morse oscillator is increased.
+This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change [@Deleon_Berne_1981; @DeLeon_Marston_1989] and exhibits regular and chaotic dynamics relevant for chemical reactions. 
 
 \begin{equation}
 \mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V_{\rm DB}(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V_{\rm DB}(x, y)
