@@ -53,18 +53,21 @@ In this package, the user has the option to choose between the three methods des
 
 __Turning point (TP)__
 
-This method is based on finding the UPO by checking for trajectories that turn in the opposite directions and iteratively bringing them closer to approximate the UPO [@Pollak_1980].
+This method is based on finding the UPO by detecting trajectories initialized on the equipotential contour ($V(x,y) = E$ where $V(x,y)$ is the potetial energy function and $E$ is the total energy) that turn in the opposite directions [@Pollak_1980]. This method relies on the fact that for Hamiltonians of the form kinetic plus potential energy the UPO is the limiting trajectory that bounces back and forth between the equipotential contour corresponding to the given total energy. So to converge on this limiting trajectory, the turning point method iteratively decreases the gap between the bounding trajectories that turn in the opposite directions. Detection of turning is done using a dot product condition which leads to stalling of the method beyond a certain tolerance (typically $10^{-6}$ in the examples here.)
 
 __Turning point based on configuration difference  (TPCD)__
 
-
+Based on the turning point approach, we have implemented a __new method__ which shows stable convergence and does not rely on the dot product formula. Suppose we have found two initial conditions on a given equipotential contour and they turn in the opposite directions. If the difference in $x$-coordinates is small (need a number here), the generated trajectories will approach the UPO from either sides. If the difference in $x$-coordinates is large, we can integrate the Hamilton's equations for a guess time interval and find the turning point (event using ODE event detection) at which the trajectories bounce back from the far side of the equipotential contour in opposite directions. We choose these two points as our initial guess and the difference of $x$-coordinates become small now. Without loss of generality, this method can be modified to either pick the difference of $y$-coordinates or a combination of $x$ and $y$ coordinates. This choice will depend on the orientation of the potential energ surface's bottleneck in the configuration space.
 
 __Differential correction and numerical continuation (DCNC)__
+
+This method is based on small ($\approx 10^{-5}$) corrections to the initial conditions of an UPO and continuing to desired total energy. The procedure is started from the linear solutions of the Hamilton's equations and which generates a small amplitude ($\approx 10^{-5}$) UPO. This is fed into the procedure that calculates correction to the initial condition based on error in the terminal condition of the UPO. This leads to convergence within 3 steps in the sense of the trajectory returning to the initial condition. Once a small amplitude UPO is obtained, numerical continuation increases the amplitude and correspondingly total energy, while a combination of bracketing and bisection method computes the UPO at the desired energy for a specified tolerance.    
 
 
 ## Examples {#examples}
 
-Consider the following two degrees-of-freedom Hamiltonian model of a reaction in a bath (solvent) 
+Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
+
 
 ### Uncoupled quartic Hamiltonian
 
