@@ -1,27 +1,43 @@
-## UPOsHam
-UPOsHam is a package for computing unstable periodic orbits in Hamiltonian dynamics.
+---
+title: "UPOsHam"
+bibliography: ./paper/paper.bib
+---
 
-Across all applied dynamical systems the fundamental phase space structure is the unstable periodic orbit (UPO) and its generalization to higher dimension called the normally hyperbolic invariant manifold. This phase space structure is associated with an index-1 saddle equilibrium point in Hamiltonian systems and acts as an anchor of invariant manifolds that partition dynamically different trajectories in phase space. Their significance has led to development of algorithms that can locate and compute these structures quickly with high accuracy and have stable convergence properties. One of the reasons for focusing on stable efficient algorithms is that the UPO has exponential instability and numerical inaccuracies can grow rapidly and converge to a completely different periodic orbit which are dense in Hamiltonian phase space.
+## Summary
+
+UPOsHam is a Python package for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems.
+
+This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. A brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ [@wiggins_role_2016]. The three methods [@Pollak_1980,@Koon2011,@naik2019bfinding] described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and are described in [\S:Examples](#examples). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
+
 
 ## Usage
 
+__Comparison of the three methods for the coupled quartic Hamiltonian__
 Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained using the three methods for the coupled quartic Hamiltonian can be done using
 
 ```python
 >> run run_comparison_coupled.py
 ```
-which produces 
+and the generated figure is located [here](tests/comparison_coupled.pdf)
 
-![Comparison of the three methods for the coupled quartic Hamiltonian](tests/comparison_coupled.pdf)
+To obtain the unstable periodic orbits for a specific model Hamiltonian using a specific method, one uses
 
-To obtain the unstable periodic orbits for a specific problem using a specific method, one uses
 ```python
->> run run_comparison_coupled.py
+>> run run_diffcorr_POfam_coupled.py
 ```
+
+Other tests can be performed by running the cells in the run_alltests.ipynb
 
 
 ## Copyright and License
 Copyright 2019 WenYang Lyu, Shibabrat Naik, Stephen Wiggins. 
 
 All content is under Creative Commons Attribution [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode.txt) and all the python scripts are under [BSD-3 clause](https://github.com/WyLyu/UPOsHam/blob/master/LICENSE).
+
+## References
+
+
+
+
+
 
