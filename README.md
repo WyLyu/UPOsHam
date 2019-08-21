@@ -7,7 +7,7 @@ bibliography: ./paper/paper.bib
 
 UPOsHam is a Python package for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems.
 
-This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. A brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ [@wiggins_role_2016]. The three methods [@Pollak_1980,@Koon2011,@naik2019bfinding] described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and are described in [\S:Examples](#examples). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
+This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ [@wiggins_role_2016]. The three methods [@Pollak_1980,@Koon2011,@naik2019bfinding] described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
 
 
 ## Usage
