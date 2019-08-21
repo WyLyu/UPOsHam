@@ -10,7 +10,6 @@ authors:
 - affiliation: 1
   name: Stephen Wiggins
   orcid: 0000-0002-5036-5863
-date: \today
 output:
   pdf_document:
     fig_caption: yes
@@ -18,6 +17,7 @@ output:
   html_document:
     fig_caption: yes
     fig_height: 3
+date: \today
 bibliography: paper.bib
 tags:
 - Hamiltonian dynamics
@@ -30,10 +30,20 @@ tags:
 - Turning point
 affiliations:
 - index: 1
-  name: School of Mathematics, Univesity Walk, University of Bristol, Clifton BS8 1TW, Bristol, United Kingdom
+  name: School of Mathematics, University Walk, University of Bristol, Clifton BS8 1TW, Bristol, United Kingdom
 ---
 
+\begin{center}
+\textit{Wenyang Lyu, Shibabrat Naik, Stephen Wiggins \\
+School of Mathematics, University Walk, University of Bristol\\
+Clifton BS8 1TW, Bristol, United Kingdom \\
+}
+\end{center}
+
+
 **[Software repository](https://github.com/WenYangLyu/UPOsHam)**
+
+**[Archived version 1.0.0 on Zenodo](https://doi.org/10.5281/zenodo.3373396)**
 
 ## Statement of Need
 
@@ -118,7 +128,7 @@ We are developing geometric methods of phase space transport in the context of c
 
 ## Acknowledgements
 
-We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary. We acknowledge contributions from Shane Ross for writing the early MATLAB version of the differential correction and numerical continuation code.
+We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary 2019. We acknowledge contributions from Shane Ross for writing the early MATLAB version of the differential correction and numerical continuation code.
 
 
 ## References
