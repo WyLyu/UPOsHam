@@ -3,7 +3,7 @@
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3363060.svg)](https://doi.org/10.5281/zenodo.3363060)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 Summary
 -------
