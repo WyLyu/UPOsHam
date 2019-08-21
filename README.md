@@ -32,7 +32,7 @@ Other tests can be performed by running the cells in the run\_alltests.ipynb
 Copyright and License
 ---------------------
 
-Copyright 2019 WenYang Lyu, Shibabrat Naik, Stephen Wiggins.
+Copyright 2019 Wenyang Lyu, Shibabrat Naik, Stephen Wiggins.
 
 All content is under Creative Commons Attribution [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode.txt) and all the python scripts are under [BSD-3 clause](https://github.com/WyLyu/UPOsHam/blob/master/LICENSE).
 
