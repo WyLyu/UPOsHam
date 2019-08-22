@@ -33,17 +33,10 @@ affiliations:
   name: School of Mathematics, University Walk, University of Bristol, Clifton BS8 1TW, Bristol, United Kingdom
 ---
 
-\begin{center}
-\textit{Wenyang Lyu, Shibabrat Naik, Stephen Wiggins \\
-School of Mathematics, University Walk, University of Bristol\\
-Clifton BS8 1TW, Bristol, United Kingdom \\
-}
-\end{center}
-
 
 **[Software repository](https://github.com/WenYangLyu/UPOsHam)**
 
-**[Archived version 1.0.0 on Zenodo](https://doi.org/10.5281/zenodo.3373396)**
+**[Archive](https://doi.org/10.5281/zenodo.3373396)**
 
 ## Statement of Need
 
