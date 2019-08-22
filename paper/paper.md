@@ -33,11 +33,6 @@ affiliations:
   name: School of Mathematics, University Walk, University of Bristol, Clifton BS8 1TW, Bristol, United Kingdom
 ---
 
-
-**[Software repository](https://github.com/WenYangLyu/UPOsHam)**
-
-**[Archive](https://doi.org/10.5281/zenodo.3373396)**
-
 ## Statement of Need
 
 In Hamiltonian systems the fundamental phase space structure that partitions dynamically disparate trajectories and mediates transition between multi-stable regions is an invariant manifold. In a 2N dimensional Hamiltonian phase space, the invariant manifold has 2 less dimension than the phase space and is anchored to the normally hyperbolic invariant manifold which has 3 less dimension. This becomes an unstable periodic orbit (UPO) for 2 degrees of freedom or four dimensional phase space [@wiggins_role_2016]. Since the UPO forms the basis for partitioning trajectories, hence their computation and stability analysis is the starting point for dynamical systems analysis. UPOsHam is meant to serve this purpose by providing examples of how to implement numerical methods for computing the unstable periodic orbits (UPOs) at any specified total energy as long as their existence is guaranteed. Even though, there is no lack of numerical methods for computing UPOs, we have found that they either lack in reproducibility, or have steep learning curve for using the software, or have been written using closed source software, and at times combination of these. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of model problems. This is meant as a starting point to integrate other numerical methods in an open source package such that UPOs computed in dynamical systems papers can be reproduced with minimal tweaking while providing an exploratory environment to learn and develop the underlying methods.  
