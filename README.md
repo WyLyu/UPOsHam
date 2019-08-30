@@ -16,7 +16,13 @@ Installation
 
 Clone/download the git repository and check whether the following modules (also available in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)) are installed using conda/pip
 
-scipy==1.1.0 numpy==1.14.3 matplotlib==2.2.3 ipython==7.7.0
+scipy==1.1.0
+
+numpy==1.14.3
+
+matplotlib==2.2.3
+
+ipython==7.7.0
 
 Usage
 -----
