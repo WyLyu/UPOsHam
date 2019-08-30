@@ -1,4 +1,5 @@
 -   [Summary](#summary)
+-   [Installation](#installation)
 -   [Usage](#usage)
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
@@ -9,6 +10,13 @@ Summary
 -------
 
 This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering. The unstable periodic orbits exist in the bottleneck of the equipotential line *V*(*x*, *y*)=*E* and project as lines on the configuration space (*x*, *y*) (Wiggins 2016). The three methods (Pollak, Child, and Pechukas 1980,Koon et al. (2011),Naik and Wiggins (2019)) described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest.
+
+Installation
+------------
+
+Clone/download the git repository and check whether the following modules (also available in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)) are installed using conda/pip
+
+scipy==1.1.0 numpy==1.14.3 matplotlib==2.2.3 ipython==7.7.0
 
 Usage
 -----
@@ -45,4 +53,4 @@ Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invar
 
 Pollak, Eli, Mark S. Child, and Philip Pechukas. 1980. “Classical Transition State Theory: A Lower Bound to the Reaction Probability.” *The Journal of Chemical Physics* 72 (3): 1669–78. doi:[10.1063/1.439276](https://doi.org/10.1063/1.439276).
 
-Wiggins, Stephen. 2016. “The Role of Normally Hyperbolic Invariant Manifolds (NHIMS) in the Context of the Phase Space Setting for Chemical Reaction Dynamics.” *Regular and Chaotic Dynamics* 21 (6): 621–38.
+Wiggins, Stephen. 2016. “The Role of Normally Hyperbolic Invariant Manifolds (NHIMS) in the Context of the Phase Space Setting for Chemical Reaction Dynamics.” *Regular and Chaotic Dynamics* 21 (6): 621–38. doi:[10.1134/S1560354716060034](https://doi.org/10.1134/S1560354716060034).
