@@ -21,7 +21,7 @@ This Python package is a collection of three methods for computing unstable peri
 
 ## Installation
 
-Clone/download the git repository and check whether the following modules (also available in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)) are installed using conda/pip.
+Clone/download the git repository and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip.
 
 ## Usage
 
