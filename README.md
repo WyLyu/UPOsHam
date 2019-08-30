@@ -17,7 +17,9 @@ Installation
 Clone/download the git repository using
 
 ``` git
->> git clone git@github.com:WyLyu/UPOsHam.git
+$ git clone git@github.com:WyLyu/UPOsHam.git
+$ cd UPOsHam
+$ pip install -r requirements.txt
 ```
 
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
