@@ -32,17 +32,15 @@ def func_vec_field_eq_pt(x,par,model):
     if model == 'uncoupled':
         dVdx = -par[3]*x[0]+par[4]*(x[0])**3
         dVdy = par[5]*x[1]
-        F = [-dVdx, -dVdy]
     elif model == 'coupled':
         dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
         dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
-        F = [-dVdx, -dVdy]
     elif model == 'deleonberne':
         dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
         dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-        F = [-dVdx, -dVdy]
     else:
         print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
+    F = [-dVdx, -dVdy]
     return F
     
 
@@ -102,7 +100,7 @@ def get_eq_pts(eqNum, par,model):
 
 
 #%% get potential energy
-def get_potential_energy(model,x,y,par):
+def get_potential_energy(x,y,par,model):
     """ enter the definition of the potential energy function  
     """      
     
@@ -137,7 +135,7 @@ def get_total_energy(model,orbit, parameters):
     py = orbit[3]
     
       
-    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(model,x, y,parameters)   
+    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(x, y,parameters,model)   
         
     return e
 
@@ -150,7 +148,7 @@ def get_pot_surf_proj(model,xVec, yVec,par):
     surfProj = np.zeros([resX, resY])
     for i in range(len(xVec)):
         for j in range(len(yVec)):
-            surfProj[i,j] = get_potential_energy(model,xVec[j], yVec[i],par)
+            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par,model)
 
     return surfProj 
 
@@ -671,6 +669,14 @@ def get_PODiffCorr(x0, par,model):
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
         dydot1  = xx1[3,-1]
+        if model == 'uncoupled':
+            drdot1=dxdot1
+        elif model == 'coupled':
+            drdot1=dxdot1
+        elif model == 'deleonberne':
+            drdot1=dydot1
+        else:
+            print("The model you are chosen does not exist")
     
         # Compute the state transition matrix from the initial state to
 	     # the final state at the half-period event crossing
