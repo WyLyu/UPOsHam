@@ -26,26 +26,28 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 
 #%%
-def func_vec_field_eq_pt(model,x,par):
+def func_vec_field_eq_pt(x,par,model):
     """ vecor field(same as pxdot, pydot), used to find the equilibrium points of the system.
     """
     if model == 'uncoupled':
         dVdx = -par[3]*x[0]+par[4]*(x[0])**3
         dVdy = par[5]*x[1]
+        F = [-dVdx, -dVdy]
     elif model == 'coupled':
         dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
         dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
+        F = [-dVdx, -dVdy]
     elif model == 'deleonberne':
         dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
         dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
+        F = [-dVdx, -dVdy]
     else:
         print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-    F = [-dVdx, -dVdy]
     return F
     
 
 #%%
-def get_eq_pts(eqNum,model, par):
+def get_eq_pts(eqNum, par,model):
     """
     GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
     KE + PE. 
@@ -94,7 +96,7 @@ def get_eq_pts(eqNum,model, par):
             print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
     
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-    F = lambda x: func_vec_field_eq_pt(model,x,par)
+    F = lambda x: func_vec_field_eq_pt(x,par,model)
     eqPt = fsolve(F,x0, fprime=None) # Call solver
     return eqPt
 
@@ -512,8 +514,8 @@ def eigvector_coupled(par):
     #
     #
     #eqPt = 1
-    #eqPt = get_eq_pts_coupled(eqNum, par)
-    #evalue, evector = np.linalg.eig(jacobian_coupled([eqPt[0],eqPt[1],0,0],par))
+    #eqPt = get_eq_pts(eqNum,par,model)
+    #evalue, evector = np.linalg.eig(jacobian([eqPt[0],eqPt[1],0,0],par,model))
     #evector = RemoveInfinitesimals(evector[:,2])
     #correcx = (evector[0]*1j).real
     #correcy = (evector[1]*1j).real
@@ -840,7 +842,7 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,par,model):
 
 
 #%%
-def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par,model):
+def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
 
     """
     POBRACKETENERGY_SHIPRP Generates a family of periodic orbits (po)
@@ -936,10 +938,11 @@ def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par,model):
     return x0po[0:Tend,:],T[0:Tend]
 
 
-def poTargetEnergy_coupled(x0po, energyTarget, po_target_file,par,model):
+#%%
+def poTargetEnergy(x0po, energyTarget, po_target_file,par,model):
     
     """
-    poTargetEnergy_coupled computes the periodic orbit of target energy using
+    poTargetEnergy computes the periodic orbit of target energy using
     bisection method. Using bisection method on the lower and higher energy
     values of the POs to find the PO with the target energy. Use this
     condition to integrate with event function of half-period defined by
