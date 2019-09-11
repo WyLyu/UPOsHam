@@ -341,7 +341,7 @@ def Ham2dof(model,t,x, par):
 def jacobian(eqPt, par, model):
     
     """
-    jacobian_uncoupled(eqPt, par, model) returns the Jacobian matrix of the system evaluated at the equilibrium point.
+    jacobian(eqPt, par, model) returns the Jacobian matrix of the system evaluated at the equilibrium point.
     """
     
     x,y,px,py = eqPt[0:4]
@@ -848,7 +848,7 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,par,model):
 
 
 #%%
-def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par,model):
+def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
 
     """
     POBRACKETENERGY_SHIPRP Generates a family of periodic orbits (po)
@@ -945,7 +945,7 @@ def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par,model):
 
 
 #%%
-def poTargetEnergy_coupled(x0po, energyTarget, po_target_file,par,model):
+def poTargetEnergy(x0po, energyTarget, po_target_file,par,model):
     
     """
     poTargetEnergy_coupled computes the periodic orbit of target energy using
