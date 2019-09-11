@@ -26,7 +26,7 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 
 #%%
-def func_vec_field_eq_pt(x,par,model):
+def func_vec_field_eq_pt(model,x,par):
     """ vecor field(same as pxdot, pydot), used to find the equilibrium points of the system.
     """
     if model == 'uncoupled':
@@ -45,7 +45,7 @@ def func_vec_field_eq_pt(x,par,model):
     
 
 #%%
-def get_eq_pts(eqNum, par,model):
+def get_eq_pts(eqNum,model, par):
     """
     GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
     KE + PE. 
@@ -94,13 +94,13 @@ def get_eq_pts(eqNum, par,model):
             print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
     
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-    F = lambda x: func_vec_field_eq_pt(x,par,model)
+    F = lambda x: func_vec_field_eq_pt(model,x,par)
     eqPt = fsolve(F,x0, fprime=None) # Call solver
     return eqPt
 
 
 #%% get potential energy
-def get_potential_energy(x,y,par,model):
+def get_potential_energy(model,x,y,par):
     """ enter the definition of the potential energy function  
     """      
     
@@ -135,7 +135,7 @@ def get_total_energy(model,orbit, parameters):
     py = orbit[3]
     
       
-    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(x, y,parameters,model)   
+    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(model,x, y,parameters)   
         
     return e
 
@@ -148,7 +148,7 @@ def get_pot_surf_proj(model,xVec, yVec,par):
     surfProj = np.zeros([resX, resY])
     for i in range(len(xVec)):
         for j in range(len(yVec)):
-            surfProj[i,j] = get_potential_energy(xVec[j], yVec[i],par,model)
+            surfProj[i,j] = get_potential_energy(model,xVec[j], yVec[i],par)
 
     return surfProj 
 
@@ -512,8 +512,8 @@ def eigvector_coupled(par):
     #
     #
     #eqPt = 1
-    #eqPt = get_eq_pts(eqNum,par,model)
-    #evalue, evector = np.linalg.eig(jacobian([eqPt[0],eqPt[1],0,0],par,model))
+    #eqPt = get_eq_pts_coupled(eqNum, par)
+    #evalue, evector = np.linalg.eig(jacobian_coupled([eqPt[0],eqPt[1],0,0],par))
     #evector = RemoveInfinitesimals(evector[:,2])
     #correcx = (evector[0]*1j).real
     #correcy = (evector[1]*1j).real
@@ -544,7 +544,7 @@ def get_POGuessLinear(eqNum,Ax,par,model):
 
     x0poGuess  = np.zeros(4)
     
-    eqPos = get_eq_pts(eqNum, par,model)
+    eqPos = get_eq_pts(eqNum,model, par)
     eqPt = [eqPos[0], eqPos[1], 0, 0] # phase space location of equil. point
 
     # Get the eigenvalues and eigenvectors of Jacobian of ODEs at equil. point
@@ -669,12 +669,12 @@ def get_PODiffCorr(x0, par,model):
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
         dydot1  = xx1[3,-1]
-        if model == 'uncoupled':
-            drdot1=dxdot1
-        elif model == 'coupled':
-            drdot1=dxdot1
+        if model =='uncoupled': 
+           drdot1 = dxdot1
+        elif model =='coupled':
+            drdot1 = dxdot1
         elif model == 'deleonberne':
-            drdot1=dydot1
+            drdot1 = dydot1
         else:
             print("The model you are chosen does not exist")
     
@@ -848,7 +848,7 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,par,model):
 
 
 #%%
-def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
+def poBracketEnergy_coupled(energyTarget,x0podata, po_brac_file, par,model):
 
     """
     POBRACKETENERGY_SHIPRP Generates a family of periodic orbits (po)
@@ -945,10 +945,10 @@ def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
 
 
 #%%
-def poTargetEnergy(x0po, energyTarget, po_target_file,par,model):
+def poTargetEnergy_coupled(x0po, energyTarget, po_target_file,par,model):
     
     """
-    poTargetEnergy computes the periodic orbit of target energy using
+    poTargetEnergy_coupled computes the periodic orbit of target energy using
     bisection method. Using bisection method on the lower and higher energy
     values of the POs to find the PO with the target energy. Use this
     condition to integrate with event function of half-period defined by
