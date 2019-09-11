@@ -28,7 +28,8 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 from scipy import optimize
 #%% Setting up parameters and global variables
 N = 4         # dimension of phase space
-MASS_A = 8.0; MASS_B = 8.0 # De Leon, Marston (1989)
+MASS_A = 8.0
+MASS_B = 8.0 # De Leon, Marston (1989)
 EPSILON_S = 1.0
 D_X = 10.0
 ALPHA = 1.00
@@ -52,7 +53,7 @@ x0_3 = optimize.newton(f2,-0.15)
 state0_3 = [x0_3, -0.05,0.0,0.0]
 
 po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(0.10),'a+')
-[x0po_1, T_1,energyPO_1] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file) ; 
+[x0po_1, T_1,energyPO_1] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 #%%
@@ -70,7 +71,7 @@ x0_3 = optimize.newton(f2,-0.15)
 state0_3 = [x0_3, -0.05,0.0,0.0]
 
 po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-[x0po_2, T_2,energyPO_2] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file) ; 
+[x0po_2, T_2,energyPO_2] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 #%%
@@ -88,7 +89,7 @@ x0_3 = optimize.newton(f2,-0.15)
 state0_3 = [x0_3, -0.05,0.0,0.0]
 
 po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-[x0po_3, T_3,energyPO_3] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file) ; 
+[x0po_3, T_3,energyPO_3] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 #%%
@@ -106,35 +107,35 @@ x0_3 = optimize.newton(f2,-0.15)
 state0_3 = [x0_3, -0.05,0.0,0.0]
 
 po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-[x0po_4, T_4,energyPO_4] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file) ; 
+[x0po_4, T_4,energyPO_4] = turningpoint_UPOsHam2dof.turningPoint_configdiff(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 
 #%% Load Data
 deltaE = 0.10
-po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_1 = x0podata
 
 deltaE = 1.0
-po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_2 = x0podata
 
 deltaE = 2.0
-po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_3 = x0podata
 
 deltaE = 4.0
-po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+');
-print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 x0podata = np.loadtxt(po_fam_file.name)
 po_fam_file.close()
 x0po_4 = x0podata
@@ -153,7 +154,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,2],'-',color='b',label='$\Delta E$ = 0.1')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
@@ -164,7 +165,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,2],'-',color='r',label='$\Delta E$ = 1.0')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
@@ -174,7 +175,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,2],'-',color='g',label='$\Delta E$ = 2.0')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
@@ -185,7 +186,7 @@ tt = [0,te[2]]
 t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,2],'-',color='m',label='$\Delta E$ = 4.0')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*');
+ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
