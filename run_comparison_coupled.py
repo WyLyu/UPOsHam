@@ -17,9 +17,8 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
-import coupled_tpcd  ### import module xxx where xxx is the name of the python file xxx.py 
-import coupled_turningpoint
-import coupled_diffcorr
+import turningpoint_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
+import diffcorr_UPOsHam2dof
 
 
 from mpl_toolkits.mplot3d import Axes3D
@@ -41,7 +40,8 @@ beta = 1.00
 epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon]);
 eqNum = 1 
-eqPt = coupled_diffcorr.get_eq_pts_coupled(eqNum, parameters)
+model = 'coupled'
+eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 #%% Load Data
 
 
@@ -83,33 +83,33 @@ plt.close('all')
 axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
-f = partial(coupled_diffcorr.coupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = coupled_diffcorr.half_period,rtol=RelTol, atol=AbsTol)
+f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters)
+soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = coupled_diffcorr.stateTransitMat_coupled(tt,x0po_1_tpcd[-1,0:4],parameters)
+t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_tpcd[-1,0:4],parameters,model)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = partial(coupled_diffcorr.coupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = coupled_diffcorr.half_period,rtol=RelTol, atol=AbsTol)
+f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters)
+soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = coupled_diffcorr.stateTransitMat_coupled(tt,x0po_1_diffcorr,parameters)
+t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_diffcorr,parameters,model)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = partial(coupled_diffcorr.coupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = coupled_diffcorr.half_period,rtol=RelTol, atol=AbsTol)
+f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters)
+soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = coupled_diffcorr.stateTransitMat_coupled(tt,x0po_1_turningpoint[-1,0:4],parameters)
+t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_turningpoint[-1,0:4],parameters,model)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-.',label='$\Delta E$ = 0.1, using tp')
@@ -125,7 +125,7 @@ yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 #cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
-cset2 = ax.contour(xMat, yMat, coupled_diffcorr.get_pot_surf_proj(xVec, yVec,parameters), 0.1,zdir='z', offset=0,
+cset2 = ax.contour(xMat, yMat, diffcorr_UPOsHam2dof.get_pot_surf_proj(model,xVec, yVec,parameters), 0.1,zdir='z', offset=0,
                        linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
