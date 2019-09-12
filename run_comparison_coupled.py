@@ -17,7 +17,7 @@ import scipy.linalg as linalg
 from scipy.optimize import fsolve
 import time
 from functools import partial
-import turningpoint_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
+import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import diffcorr_UPOsHam2dof
 
 
@@ -83,8 +83,8 @@ plt.close('all')
 axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
-f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
+soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_tpcd[-1,0:4],parameters,model)
@@ -94,8 +94,8 @@ ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
+soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_diffcorr,parameters,model)
@@ -105,8 +105,8 @@ ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = lambda t,x : turningpoint_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
+soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
 t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_turningpoint[-1,0:4],parameters,model)
