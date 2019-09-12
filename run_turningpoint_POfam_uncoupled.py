@@ -23,7 +23,7 @@ from scipy.optimize import fsolve
 from scipy import optimize
 import time
 from functools import partial
-import turningpoint_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
+import tp_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib as mpl
 from matplotlib import cm
@@ -40,7 +40,7 @@ EPSILON_S = 0.0 #Energy of the saddle
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
 eqNum = 1 
 model = 'uncoupled'
-eqPt = turningpoint_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
+eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 """Initial Condition for the true periodic orbit
 H = T + V where T is the kinetic energy and V is the potential energy. In our example, 
 the potential energy V = -0.5*alpha*x**2+0.25*beta*x**4+0.5*omega*y**2.
@@ -57,7 +57,7 @@ n=12
 n_turn=1
 deltaE = e-parameters[2]
 po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_1, T_1,energyPO_1] = turningpoint_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+[x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 
@@ -70,7 +70,7 @@ n=12
 n_turn=1
 deltaE = e-parameters[2]
 po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_2, T_2,energyPO_2] = turningpoint_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
  
@@ -83,7 +83,7 @@ n=12
 n_turn=1
 deltaE = e-parameters[2]
 po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_3, T_3,energyPO_3] = turningpoint_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 
@@ -96,7 +96,7 @@ n=12
 n_turn=1
 deltaE = e-parameters[2]
 po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_4, T_4,energyPO_4] = turningpoint_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 
@@ -109,7 +109,7 @@ n=12
 n_turn=1
 deltaE = e-parameters[2]
 po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-[x0po_5, T_5,energyPO_5] = turningpoint_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+[x0po_5, T_5,energyPO_5] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 po_fam_file.close()
 
@@ -157,11 +157,11 @@ plt.close('all')
 axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
-f = partial(turningpoint_UPOsHam2dof.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[1]]
-t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='b',label='$\Delta E$ = 0.01')
@@ -170,11 +170,11 @@ ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = partial(turningpoint_UPOsHam2dof.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[1]]
-t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='r',label='$\Delta E$ = 0.1')
 ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='r')
@@ -182,11 +182,11 @@ ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-f = partial(turningpoint_UPOsHam2dof.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[1]]
-t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='g',label='$\Delta E$ = 1.0')
 ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='g')
@@ -195,11 +195,11 @@ ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
-f = partial(turningpoint_UPOsHam2dof.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[1]]
-t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='m',label='$\Delta E$ = 2.0')
 ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='m')
@@ -208,11 +208,11 @@ ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
-f = partial(turningpoint_UPOsHam2dof.uncoupled2dof, par=parameters) 
-soln = solve_ivp(f, TSPAN, x0po_5[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turningpoint_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+soln = solve_ivp(f, TSPAN, x0po_5[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[1]]
-t,x,phi_t1,PHI = turningpoint_UPOsHam2dof.stateTransitMat(tt,x0po_5[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_5[-1,0:4],parameters,model)
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',color='c',label='$\Delta E$ = 4.0')
 ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='c')
@@ -226,9 +226,9 @@ resX = 100
 xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
-#cset1 = ax.contour(xMat, yMat, turningpoint_UPOsHam2dof.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
+#cset1 = ax.contour(xMat, yMat, tp_UPOsHam2dof.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
-cset2 = ax.contour(xMat, yMat, turningpoint_UPOsHam2dof.get_pot_surf_proj(model,xVec, yVec,parameters), [0.01,0.1,1,2,4],zdir='z', offset=0,
+cset2 = ax.contour(xMat, yMat, tp_UPOsHam2dof.get_pot_surf_proj(model,xVec, yVec,parameters), [0.01,0.1,1,2,4],zdir='z', offset=0,
                        linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
