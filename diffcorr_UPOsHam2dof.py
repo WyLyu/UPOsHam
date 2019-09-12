@@ -646,12 +646,8 @@ def get_PODiffCorr(x0, par,model):
         MAXdrdot1 = MAXdydot1
     else:
         print("The model you are chosen does not exist")
-    dxdot1 	   = 1         # to start while loop
-    #dydot1 	   = 1         # to start while loop
-    attempt    = 0         # begin counting number of attempts
-    # y0(attempt) = 1
-    correctx0= 0
-    #correcty0 = 0
+    
+    attempt = 0
     while abs(drdot1) > MAXdrdot1:
         if attempt > MAXattempt:
             ERROR= 'Maximum iterations exceeded' 
@@ -946,78 +942,75 @@ def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
 
 #%%
 def poTargetEnergy(x0po, energyTarget, po_target_file,par,model):
-    
-    """
-    poTargetEnergy_coupled computes the periodic orbit of target energy using
-    bisection method. Using bisection method on the lower and higher energy
-    values of the POs to find the PO with the target energy. Use this
-    condition to integrate with event function of half-period defined by
-    maximum distance from the initial point on the PO
-     
-    INPUT
-    x0po:     Initial conditions for the periodic orbit with the last two
-    initial conditions bracketing (lower and higher than) the target energy
-    par: parameters
-     
-    OUTPUTS
-    x0_PO:    Initial condition of the periodic orbit (P.O.)
-    T_PO:     Time period 
-    ePO:     Energy of the computed P.O.
-    """
-    
-    
+    #
+    # poTargetEnergy_deleonberne computes the periodic orbit of target energy using
+    # bisection method. Using bisection method on the lower and higher energy
+    # values of the POs to find the PO with the target energy. Use this
+    # condition to integrate with event function of half-period defined by
+    # maximum distance from the initial point on the PO
+    # 
+    # INPUT
+    # x0po:     Initial conditions for the periodic orbit with the last two
+    # initial conditions bracketing (lower and higher than) the target energy
+    # par: [MASS_A MASS_B EPSILON_S D_X LAMBDA ALPHA]
+    # 
+    # OUTPUTS
+    # x0_PO:    Initial condition of the periodic orbit (P.O.)
+    # T_PO:     Time period 
+    # ePO:     Energy of the computed P.O.
+    # 
+
     #     label_fs = 10; axis_fs = 15; # small fontsize
     label_fs = 20
     axis_fs = 30 # fontsize for publications 
     
-    iFam = len(x0po[0])
+    iFam = len(x0po[0]);
 
     energyTol = 1e-10
-    
     tpTol = 1e-6
     show = 1   # for plotting the final PO
     
     # bisection method begins here
-    iter = 0
-    iterMax = 200
+    iter = 0;
+    iterMax = 200;
     a = x0po[-2,:]
     b = x0po[-1,:]
     
-    print('Bisection method begins \n')
+    print('Bisection method begins \n');
     while iter < iterMax:
     
         
-    #         dx = 0.5*(b(1) - a(1))
-    #         dy = 0.5*(b(2) - a(2))
+    #         dx = 0.5*(b(1) - a(1));
+    #         dy = 0.5*(b(2) - a(2));
         
-    #         c = [a(1) + dx a(2) + dy 0 0]
+    #         c = [a(1) + dx a(2) + dy 0 0];
         c = 0.5*(a + b) # guess based on midpoint
         [x0po_iFam,tfpo_iFam] = get_PODiffCorr(c, par,model)
         
         energyPO = get_total_energy(model,x0po_iFam, par)
-    #         x0po(iFam,1:N) = x0po_iFam 
-    #         T(iFam,1)      = 2*tfpo_iFam 
+    #         x0po(iFam,1:N) = x0po_iFam ;
+    #         T(iFam,1)      = 2*tfpo_iFam ;
         
-        c = x0po_iFam
-        iter = iter + 1
+        c = x0po_iFam;
+        iter = iter + 1;
         
-        if (abs(get_total_energy(model,x0po_iFam, par) - energyTarget) < energyTol) or (iter == iterMax):
-            print('Initial condition: %s\n' %c)
-            print('Energy of the initial condition for PO %s\n' %get_total_energy(model,x0po_iFam, par) )
+        if (abs(get_total_energy(model,c, par) - energyTarget) < energyTol) or (iter == iterMax):
+            print('Initial condition: %s\n' %c);
+            print('Energy of the initial condition for PO %s\n' %get_total_energy(model,c, par) );
             x0_PO = c
-            T_PO = 2*tfpo_iFam 
-            ePO = get_total_energy(model,x0po_iFam, par)
+            T_PO = 2*tfpo_iFam; 
+            ePO = get_total_energy(model,c, par);
             break
         
         
-        if np.sign( get_total_energy(model,x0po_iFam, par) - energyTarget ) == np.sign ( get_total_energy(model,x0po_iFam, par) - energyTarget ):
+        if np.sign( get_total_energy(model,c, par) - energyTarget ) == np.sign ( get_total_energy(model,a, par) - energyTarget ):
             a = c
         else:
-            b = c
-        print('Iteration number %s, energy of PO: %s\n' %(iter, energyPO))
+            b = c;
+        print('Iteration number %s, energy of PO: %s\n' %(iter, energyPO)) ;
         
 
-    print('Iterations completed: %s, error in energy: %s \n' %(iter, abs(get_total_energy(model,x0po_iFam, par) - energyTarget)))
+    print('Iterations completed: %s, error in energy: %s \n' %(iter, abs(get_total_energy(model,c, par) - energyTarget)));
     
     
     dum =np.concatenate((c, 2*tfpo_iFam, energyPO),axis=None)
