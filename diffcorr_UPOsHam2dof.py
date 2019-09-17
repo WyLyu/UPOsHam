@@ -27,7 +27,8 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #%%
 def func_vec_field_eq_pt(model,x,par):
-    """ vecor field(same as pxdot, pydot), used to find the equilibrium points of the system.
+    """ 
+    vector field(same as pxdot, pydot), used to find the equilibrium points of the system.
     """
     if model == 'uncoupled':
         dVdx = -par[3]*x[0]+par[4]*(x[0])**3
@@ -60,8 +61,6 @@ def get_eq_pts(eqNum,model, par):
                Well (stable, EQNUM = 3)    
     
     --------------------------------------------------------------------------
-       
-    
     """
     #fix the equilibrium point numbering convention here and make a
     #starting guess at the solution
