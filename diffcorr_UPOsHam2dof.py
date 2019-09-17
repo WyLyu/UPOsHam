@@ -52,7 +52,7 @@ def get_eq_pts(eqNum,model, par):
     KE + PE. 
      H = 1/2*px^2+omega/2*py^2 -(1/2)*alpha*x^2+1/4*beta*x^4+ omega/2y^2 with alpha > 0
     --------------------------------------------------------------------------
-       Uncouled potential energy surface notations:
+       Uncoupled potential energy surface notations:
     
                Well (stable, EQNUM = 2)    
     
