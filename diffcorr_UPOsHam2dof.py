@@ -7,126 +7,49 @@ Created on Tue Sep 10 18:32:28 2019
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.integrate import odeint,quad,trapz,solve_ivp, ode
 import math
-from IPython.display import Image # for Notebook
-from IPython.core.display import HTML
-from mpl_toolkits.mplot3d import Axes3D
-from numpy import linalg as LA
-import scipy.linalg as linalg
+from scipy.integrate import solve_ivp
 from scipy.optimize import fsolve
-import time
-from functools import partial
-from scipy import optimize
 import matplotlib as mpl
-
-from pylab import rcParams
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
 
-#%%
-def func_vec_field_eq_pt(model,x,par):
-    """ 
-    vector field(same as pxdot, pydot), used to find the equilibrium points of the system.
+#%
+def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     """
-    if model == 'uncoupled':
-        dVdx = -par[3]*x[0]+par[4]*(x[0])**3
-        dVdy = par[5]*x[1]
-    elif model == 'coupled':
-        dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
-        dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
-    elif model == 'deleonberne':
-        dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-        dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-    else:
-        print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-    F = [-dVdx, -dVdy]
-    return F
+    GET_EQ_PTS solves the coordinates of the equilibrium point for a Hamiltonian 
+    system of the form KE + PE. 
     
-
-#%%
-def get_eq_pts(eqNum,model, par):
-    """
-    GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
-    KE + PE. 
-     H = 1/2*px^2+omega/2*py^2 -(1/2)*alpha*x^2+1/4*beta*x^4+ omega/2y^2 with alpha > 0
-    --------------------------------------------------------------------------
-       Uncoupled potential energy surface notations:
+    eqNum = 1 is the saddle-center equilibrium point
+    eqNum = 2 or 3 is the center-center equilibrium point
     
-               Well (stable, EQNUM = 2)    
+    init_guess_eqpt_model: function name that defines the initial guess for the critical point
     
-                   Saddle (EQNUM=1)
+    grad_pot_model: function name that defines the vector of potential gradient
     
-               Well (stable, EQNUM = 3)    
-    
-    --------------------------------------------------------------------------
+    par: list of parameters for the problem
     """
     #fix the equilibrium point numbering convention here and make a
     #starting guess at the solution
-    if 	eqNum == 1:
-        
-        x0 = [0, 0]                  # EQNUM = 1, saddle  
-    elif 	eqNum == 2: 
-        if model == 'uncoupled':
-            eqPt = [+math.sqrt(par[3]/par[4]),0]    # EQNUM = 2, stable
-            return eqPt
-        elif model == 'coupled':
-            eqPt = [+math.sqrt(par[3]-par[6]/par[4]),0] # EQNUM = 2, stable
-            return eqPt
-        elif model== 'deleonberne':
-            eqPt = [0, 1/math.sqrt(2)]    # EQNUM = 2, stable
-            return eqPt
-        else:
-            print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-    elif 	eqNum == 3:
-        if model == 'uncoupled':
-            eqPt = [-math.sqrt(par[3]/par[4]),0]    # EQNUM = 2, stable
-            return eqPt
-        elif model == 'coupled':
-            eqPt = [-math.sqrt(par[3]-par[6]/par[4]),0] # EQNUM = 2, stable
-            return eqPt
-        elif model== 'deleonberne':
-            eqPt = [0, -1/math.sqrt(2)]    # EQNUM = 2, stable
-            return eqPt
-        else:
-            print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
+    x0 = init_guess_eqpt_model(eqNum, par)
     
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-    F = lambda x: func_vec_field_eq_pt(model,x,par)
-    eqPt = fsolve(F,x0, fprime=None) # Call solver
+#    F = lambda x: func_vec_field_eq_pt(model,x,par)
+    F = lambda x: grad_pot_model(x, par)
+    
+    eqPt = fsolve(F, x0, fprime = None) # Call solver
+    
     return eqPt
 
 
-#%% get potential energy
-def get_potential_energy(model,x,y,par):
-    """ enter the definition of the potential energy function  
-    """      
-    
-    if model == 'uncoupled':
-        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
-    elif model == 'coupled':
-        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
-    elif model== 'deleonberne':
-        pot_energy = par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]
-    else:
-        print("The model you are chosen does not exist, enter the definition of the potential ernergy")
-                
-    return pot_energy
-
-
-#%%
-def get_total_energy(model,orbit, parameters):
+#%
+def get_total_energy(orbit, pot_energy_model, parameters):
     """
-    get_total_energy_deleonberne computes the total energy of an input orbit
-    (represented as M x N with M time steps and N = 4, dimension of phase
-    space for the model) for the 2 DoF DeLeon-Berne potential.
-    
-    Orbit can be different initial conditions for the periodic orbit of
-    different energy.
+    get_total_energy computes the total energy of an input initial conditions
     """
-
-    
 
     x  = orbit[0]
     y  = orbit[1]
@@ -134,41 +57,41 @@ def get_total_energy(model,orbit, parameters):
     py = orbit[3]
     
       
-    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(model,x, y,parameters)   
-        
-    return e
+    return (1.0/(2*parameters[0]))*(px**2.0) + (1.0/(2*parameters[1]))*(py**2.0) + \
+            pot_energy_model(x, y, parameters)   
 
 
 #%%
-def get_pot_surf_proj(model,xVec, yVec,par):            
+def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):            
 
     resX = np.size(xVec)
     resY = np.size(xVec)
     surfProj = np.zeros([resX, resY])
     for i in range(len(xVec)):
         for j in range(len(yVec)):
-            surfProj[i,j] = get_potential_energy(model,xVec[j], yVec[i],par)
+            surfProj[i,j] = pot_energy_model(xVec[j], yVec[i], par)
 
     return surfProj 
 
 
 #%%
-def get_coordinate(model,x,y, V,par):
-    """ this function returns the initial position of x/y-coordinate on the potential energy surface(PES) for a specific energy V.
-    
+def get_coordinate(model, x, y, E, par):
+    """ 
+    this function returns the initial position of x/y-coordinate on the potential energy 
+    surface(PES) for a specific total energy, E.
     """
     if model == 'uncoupled':
-        return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2-V
+        return -0.5*par[3]*x**2+0.25*par[4]*x**4 + 0.5*par[5]*y**2 - E
     elif model =='coupled':
-        return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2 -V
+        return -0.5*par[3]*x**2+0.25*par[4]*x**4 + 0.5*par[5]*y**2 + 0.5*par[6]*(x-y)**2 - E
     elif model== 'deleonberne':
-        return par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]-V
+        return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2] - E
     else:
         print("The model you are chosen does not exist, enter the function for finding coordinates on the PES for given x or y and V")
     
     
 #%%
-def stateTransitMat(tf,x0,par,model,fixed_step=0): 
+def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
     
     """
     function [x,t,phi_tf,PHI] =
@@ -194,8 +117,9 @@ def stateTransitMat(tf,x0,par,model,fixed_step=0):
     PHI_0[N**2:N+N**2] = x0                    # initial condition for trajectory
 
     
-    f = lambda t,PHI: varEqns(t,PHI,par, model) # Use partial in order to pass parameters to function
-    soln = solve_ivp(f, TSPAN, list(PHI_0),method='RK45',dense_output=True, events = None,rtol=RelTol, atol=AbsTol)
+    f = lambda t,PHI: varEqns_model(t,PHI,par) # Use partial in order to pass parameters to function
+    soln = solve_ivp(f, TSPAN, list(PHI_0), method='RK45', dense_output=True, \
+                     events = None, rtol=RelTol, atol=AbsTol)
     t = soln.t
     PHI = soln.y
     PHI = PHI.transpose()
@@ -207,81 +131,81 @@ def stateTransitMat(tf,x0,par,model,fixed_step=0):
 
 
 #%%
-def varEqns(t,PHI,par,model):
-    
-    """
-    PHIdot = varEqns_bp(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
-    
-    d PHI(t, t0)
-    ------------ =  Df(t) * PHI(t, t0)
-        dt
-    
-    """
-    
-    phi = PHI[0:16]
-    phimatrix  = np.reshape(PHI[0:16],(4,4))
-    x,y,px,py = PHI[16:20]
-    
-    
-    if model == 'uncoupled':
-        # The first order derivative of the Hamiltonian.
-        dVdx = -par[3]*x+par[4]*x**3
-        dVdy = par[5]*y
-    
-        # The following is the Jacobian matrix 
-        d2Vdx2 = -par[3]+par[4]*3*x**2
-            
-        d2Vdy2 = par[5]
-    
-        d2Vdydx = 0
-    elif model == 'coupled':
-        # The first order derivative of the Hamiltonian.
-        dVdx = (-par[3]+par[6])*x+par[4]*x**3-par[6]*y
-        dVdy = (par[5]+par[6])*y-par[6]*x
-
-        # The following is the Jacobian matrix 
-        d2Vdx2 = -par[3]+par[6]+par[4]*3*x**2
-            
-        d2Vdy2 = par[5]+par[6]
-    
-        d2Vdydx = -par[6]
-    elif model == 'deleonberne':
-        # The first order derivative of the Hamiltonian.
-        dVdx = - 2*par[3]*par[4]*math.e**(-par[4]*x)*(math.e**(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) 
-        dVdy = 8*y*(2*y**2 - 1)*math.e**(-par[5]*par[4]*x)
-    
-        # The following is the Jacobian matrix 
-        d2Vdx2 = - ( 2*par[3]*par[4]**2*( math.e**(-par[4]*x) - 2.0*math.e**(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) )
-            
-        d2Vdy2 = 8*(6*y**2 - 1)*math.e**( -par[4]*par[5]*x )
-    
-        d2Vdydx = -8*y*par[4]*par[5]*math.e**( -par[4]*par[5]*x )*(2*y**2 - 1)
-        
-    else:
-        print("The model you are chosen does not exist")
-    
-    
-    d2Vdxdy = d2Vdydx    
-
-    Df    = np.array([[  0,     0,    par[0],    0],
-              [0,     0,    0,    par[1]],
-              [-d2Vdx2,  -d2Vdydx,   0,    0],
-              [-d2Vdxdy, -d2Vdy2,    0,    0]])
-
-    
-    phidot = np.matmul(Df, phimatrix) # variational equation
-
-    PHIdot        = np.zeros(20)
-    PHIdot[0:16]  = np.reshape(phidot,(1,16)) 
-    PHIdot[16]    = px/par[0]
-    PHIdot[17]    = py/par[1]
-    PHIdot[18]    = -dVdx 
-    PHIdot[19]    = -dVdy
-    
-    return list(PHIdot)
+#def varEqns(t,PHI,par,model):
+#    
+#    """
+#    PHIdot = varEqns_bp(t,PHI) 
+#    
+#    This here is a preliminary state transition, PHI(t,t0),
+#    matrix equation attempt for a ball rolling on the surface, based on...
+#    
+#    d PHI(t, t0)
+#    ------------ =  Df(t) * PHI(t, t0)
+#        dt
+#    
+#    """
+#    
+#    phi = PHI[0:16]
+#    phimatrix  = np.reshape(PHI[0:16],(4,4))
+#    x,y,px,py = PHI[16:20]
+#    
+#    
+#    if model == 'uncoupled':
+#        # The first order derivative of the potential energy.
+#        dVdx = -par[3]*x+par[4]*x**3
+#        dVdy = par[5]*y
+#    
+#        # The second order derivative of the potential energy.  
+#        d2Vdx2 = -par[3]+par[4]*3*x**2
+#            
+#        d2Vdy2 = par[5]
+#    
+#        d2Vdydx = 0
+#    elif model == 'coupled':
+#        # The first order derivative of the potential energy.
+#        dVdx = (-par[3]+par[6])*x+par[4]*x**3-par[6]*y
+#        dVdy = (par[5]+par[6])*y-par[6]*x
+#
+#        # The second order derivative of the potential energy. 
+#        d2Vdx2 = -par[3]+par[6]+par[4]*3*x**2
+#            
+#        d2Vdy2 = par[5]+par[6]
+#    
+#        d2Vdydx = -par[6]
+#    elif model == 'deleonberne':
+#        # The first order derivative of the potential energy.
+#        dVdx = - 2*par[3]*par[4]*math.e**(-par[4]*x)*(math.e**(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) 
+#        dVdy = 8*y*(2*y**2 - 1)*math.e**(-par[5]*par[4]*x)
+#    
+#        # The second order derivative of the potential energy. 
+#        d2Vdx2 = - ( 2*par[3]*par[4]**2*( math.e**(-par[4]*x) - 2.0*math.e**(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) )
+#            
+#        d2Vdy2 = 8*(6*y**2 - 1)*math.e**( -par[4]*par[5]*x )
+#    
+#        d2Vdydx = -8*y*par[4]*par[5]*math.e**( -par[4]*par[5]*x )*(2*y**2 - 1)
+#        
+#    else:
+#        print("The model you are chosen does not exist")
+#    
+#    
+#    d2Vdxdy = d2Vdydx    
+#
+#    Df    = np.array([[  0,     0,    par[0],    0],
+#              [0,     0,    0,    par[1]],
+#              [-d2Vdx2,  -d2Vdydx,   0,    0],
+#              [-d2Vdxdy, -d2Vdy2,    0,    0]])
+#
+#    
+#    phidot = np.matmul(Df, phimatrix) # variational equation
+#
+#    PHIdot        = np.zeros(20)
+#    PHIdot[0:16]  = np.reshape(phidot,(1,16)) 
+#    PHIdot[16]    = px/par[0]
+#    PHIdot[17]    = py/par[1]
+#    PHIdot[18]    = -dVdx 
+#    PHIdot[19]    = -dVdy
+#    
+#    return list(PHIdot)
 
 
 #%% 
@@ -337,64 +261,37 @@ def Ham2dof(model,t,x, par):
 
 
 #%%
-def jacobian(eqPt, par, model):
-    
-    """
-    jacobian(eqPt, par, model) returns the Jacobian matrix of the system evaluated at the equilibrium point.
-    """
-    
-    x,y,px,py = eqPt[0:4]
-    
-    if model == 'uncoupled':
-        # The first order derivative of the Hamiltonian.
-        dVdx = -par[3]*x+par[4]*x**3
-        dVdy = par[5]*y
-    
-        # The following is the Jacobian matrix 
-        d2Vdx2 = -par[3]+par[4]*3*x**2
-            
-        d2Vdy2 = par[5]
-    
-        d2Vdydx = 0
-    elif model == 'coupled':
-        # The first order derivative of the Hamiltonian.
-        dVdx = (-par[3]+par[6])*x+par[4]*x**3-par[6]*y
-        dVdy = (par[5]+par[6])*y-par[6]*x
-
-        # The following is the Jacobian matrix 
-        d2Vdx2 = -par[3]+par[6]+par[4]*3*x**2
-            
-        d2Vdy2 = par[5]+par[6]
-    
-        d2Vdydx = -par[6]
-    elif model == 'deleonberne':
-        # The first order derivative of the Hamiltonian.
-        dVdx = - 2*par[3]*par[4]*math.e**(-par[4]*x)*(math.e**(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) 
-        dVdy = 8*y*(2*y**2 - 1)*math.e**(-par[5]*par[4]*x)
-    
-        # The following is the Jacobian matrix 
-        d2Vdx2 = - ( 2*par[3]*par[4]**2*( math.e**(-par[4]*x) - 2.0*math.e**(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) )
-            
-        d2Vdy2 = 8*(6*y**2 - 1)*math.e**( -par[4]*par[5]*x )
-    
-        d2Vdydx = -8*y*par[4]*par[5]*math.e**( -par[4]*par[5]*x )*(2*y**2 - 1)
-        
-    else:
-        print("The model you are chosen does not exist")
-    
-    
-    d2Vdxdy = d2Vdydx    
-
-    Df    = np.array([[  0,     0,    par[0],    0],
-              [0,     0,    0,    par[1]],
-              [-d2Vdx2,  -d2Vdydx,   0,    0],
-              [-d2Vdxdy, -d2Vdy2,    0,    0]])
-    return Df
+#def jacobian(eqPt, par, model):
+#    
+#    """
+#    jacobian(eqPt, par, model) returns the Jacobian matrix of the system evaluated at the equilibrium point.
+#    """
+#    
+#    x,y,px,py = eqPt[0:4]
+#    
+#    if model == 'uncoupled':
+#        
+#        
+#    elif model == 'deleonberne':
+#        
+#        
+#    else:
+#        print("The model you are chosen does not exist")
+#    
+#    
+#    d2Vdxdy = d2Vdydx    
+#
+#    Df = np.array([[  0,     0,    par[0],    0],
+#                   [0,     0,    0,    par[1]],
+#                   [-d2Vdx2,  -d2Vdydx,   0,    0],
+#                   [-d2Vdxdy, -d2Vdy2,    0,    0]])
+#    
+#    
+#    return Df
 
 
 #%%
 def RemoveInfinitesimals(A):
-
     """
     Remove all entries with absolute value smaller than TOL
     """
@@ -409,9 +306,9 @@ def RemoveInfinitesimals(A):
             A[k]=A[k] - 1j*A[k].imag
     return list(A)
 
+
 #%%
 def cleanUpMatrix(A):
-    
     """
     A = CLEANUPMATRIX(A) 
     Remove all entries in matrix A with absolute value smaller than TOL
@@ -428,6 +325,7 @@ def cleanUpMatrix(A):
             if abs(A[k,l].imag) < TOL:
                 a_kl = A[k,l].real 
                 A[k,l] = a_kl
+                
     return A
 
 
@@ -499,30 +397,8 @@ def eigGet(A,discrete):
 
 
 #%%
-def eigvector_coupled(par):
-    
-    """
-     eigenvectors and eigenvalues of the Jacobian evaluated at the equilibrium point, which is the correction of the initial condition.
-     check the result obtained from the Jacobian matches the analytic result.
-     """
-    evaluelamb = math.sqrt(-0.5*(par[3]-par[6]-par[1]*(par[1]+par[6]) -math.sqrt(par[1]**4 + 2*par[1]**3*par[6] + par[1]**2*(par[6]**2+2*par[3]-2*par[6]) +par[1]*( 2*par[6]**2 + 2*par[3]*par[6]) +(par[3]- par[6])**2)))
-#    correcx = par[6]/(-evaluelamb**2 -par[3]+par[6])
-#    correcy = 1
-    #
-    #
-    #eqPt = 1
-    #eqPt = get_eq_pts_coupled(eqNum, par)
-    #evalue, evector = np.linalg.eig(jacobian_coupled([eqPt[0],eqPt[1],0,0],par))
-    #evector = RemoveInfinitesimals(evector[:,2])
-    #correcx = (evector[0]*1j).real
-    #correcy = (evector[1]*1j).real
-    correcx = (par[1]*par[6])/(-evaluelamb**2 - par[3] + par[6])
-    correcy = par[1]
-    
-    return correcx, correcy
-#%%
-def get_POGuessLinear(eqNum,Ax,par,model):
- 
+def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian_model, \
+                      guess_lin_model, par):
     """
     Uses a small displacement from the equilibrium point (in a direction 
     on the collinear point's center manifold) as a first guess for a planar 
@@ -543,74 +419,70 @@ def get_POGuessLinear(eqNum,Ax,par,model):
 
     x0poGuess  = np.zeros(4)
     
-    eqPos = get_eq_pts(eqNum,model, par)
+    eqPos = get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par)
     eqPt = [eqPos[0], eqPos[1], 0, 0] # phase space location of equil. point
 
     # Get the eigenvalues and eigenvectors of Jacobian of ODEs at equil. point
     
-    def eqPointEig(ep, parameters,model):
+    def eqPointEig(eqPt, parameters):
+        """
+        eqPointEig(ep, parameters, model)
+        
+        Find all the eigenvectors locally spanning the 3 subspaces for the phase
+        space in an infinitesimal region around an equilibrium point 
+    
+        Our convention is to give the +y directed column eigenvectors
+        """
+        
 
-        #   [Es,Eu,Ec,Vs,Vu,Vc] = eqPointEig_deleonberne(ep,mu)
-        #
-        #   Find all the eigenvectors locally spanning the 3 subspaces for the phase
-        #   space in an infinitesimal region around an equilibrium point 
-        #
-        #   Our convention is to give the +y directed column eigenvectors
-        #
-
-        Df = jacobian(ep, parameters,model)
+        Df = jacobian_model(eqPt, parameters)
         Es,Eu,Ec,Vs,Vu,Vc = eigGet(Df,0)	# find the eigenvectors
-                                        # i.e., local manifold approximations 
 
         # give the +y directed column vectors 
         if Vs[1,0]<0:
-            Vs=-Vs
+            Vs = -Vs
         if Vu[1,0]<0:
-            Vu=-Vu
+            Vu = -Vu
         return Es,Eu,Ec,Vs,Vu,Vc
 
-    [Es,Eu,Ec,Vs,Vu,Vc] = eqPointEig(eqPt, par,model)
+    [Es,Eu,Ec,Vs,Vu,Vc] = eqPointEig(eqPt, par)
 
     L = abs(Ec[0].imag)
-    ### This is where the linearized guess based on center manifold needs
-    ### to be entered.
-    if eqNum == 1:
-        if model =='uncoupled':
-            x0poGuess[0]  = eqPt[0]+Ax
-            x0poGuess[1]  = eqPt[1]+Ax
-        elif model =='coupled':
-            correcx, correcy = eigvector_coupled(par)
-            x0poGuess[0]  = eqPt[0]-Ax*correcx
-            x0poGuess[1]  = eqPt[1]-Ax*correcy
-        elif model == 'deleonberne':
-            x0poGuess[0]  = eqPt[0] - Ax
-            x0poGuess[1]  = eqPt[1]
-        else:
-            print("The model you are chosen does not exist")
+    # This is where the linearized guess based on center manifold needs
+    # to be entered.
+    x0poGuess = guess_lin_model(eqPt, Ax, par)
+#    print(np.shape(x0poGuess))
+    
+#    if eqNum == 1:
+#        if model =='uncoupled':
+#            x0poGuess[0]  = eqPt[0]+Ax
+#            x0poGuess[1]  = eqPt[1]+Ax
+#        elif model =='coupled':
+#            correcx, correcy = eigvector_coupled(par)
+#            x0poGuess[0]  = eqPt[0]-Ax*correcx
+#            x0poGuess[1]  = eqPt[1]-Ax*correcy
+#        elif model == 'deleonberne':
+#            x0poGuess[0]  = eqPt[0] - Ax
+#            x0poGuess[1]  = eqPt[1]
+#        else:
+#            print("The model you are chosen does not exist")
     
     TGuess = 2*math.pi/L 
+    
     
     return x0poGuess,TGuess
 
 
 #%%
-def get_PODiffCorr(x0, par,model):
+def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr_model, \
+                   pot_energy_model, varEqns_model, plot_iter_orbit_model, model, par):
 
     # set show = 1 to plot successive approximations (default=0)
     show = 1 
     # axesFontName = 'factory'
     # axesFontName = 'Times New Roman'
     # label_fs = 20; axis_fs = 30; # fontsize for publications 
-    label_fs = 10
-    axis_fs = 15 # fontsize for publications 
-    # set(0,'Defaulttextinterpreter','latex', ...
-    #     'DefaultAxesFontName', axesFontName, ...
-    #     'DefaultTextFontName', axesFontName, ...
-    #     'DefaultAxesFontSize', axis_fs, ...
-    #     'DefaultTextFontSize', label_fs, ...
-    #     'Defaultuicontrolfontweight','normal', ...
-    #     'Defaulttextfontweight','normal', ...
-    #     'Defaultaxesfontweight','normal')
+    
 
 
     # tolerances for integration and perpendicular crossing of x-axis
@@ -620,43 +492,49 @@ def get_PODiffCorr(x0, par,model):
     AbsTol = 1.e-14
 
     MAXattempt = 100     	# maximum number of attempts before error is declared
+    
     # Using dydot or dxdot depends on which variable we want to keep fixed during differential correction.
     # dydot-----x fixed, dxdot------y fixed
-    if model =='uncoupled':
-       dxdot1 = 1
-       correctx0= 0
-       MAXdxdot1 = 1.e-10 
-       drdot1 = dxdot1
-       correctr0 = correctx0
-       MAXdrdot1 = MAXdxdot1
-    elif model =='coupled':
-        dxdot1 = 1
-        correctx0= 0
-        MAXdxdot1 = 1.e-10
-        drdot1 = dxdot1
-        correctr0 = correctx0
-        MAXdrdot1 = MAXdxdot1
-    elif model == 'deleonberne':
-        dydot1 = 1
-        correcty0= 0
-        MAXdydot1 = 1.e-10
-        drdot1 = dydot1
-        correctr0 = correcty0
-        MAXdrdot1 = MAXdydot1
-    else:
-        print("The model you are chosen does not exist")
+    drdot1, correctr0, MAXdrdot1 = diffcorr_setup_model()
+    
+#    if model =='uncoupled':
+#       dxdot1 = 1
+#       correctx0= 0
+#       MAXdxdot1 = 1.e-10 
+#       drdot1 = dxdot1
+#       correctr0 = correctx0
+#       MAXdrdot1 = MAXdxdot1
+#    elif model =='coupled':
+#        dxdot1 = 1
+#        correctx0= 0
+#        MAXdxdot1 = 1.e-10
+#        drdot1 = dxdot1
+#        correctr0 = correctx0
+#        MAXdrdot1 = MAXdxdot1
+#    elif model == 'deleonberne':
+#        dydot1 = 1
+#        correcty0= 0
+#        MAXdydot1 = 1.e-10
+#        drdot1 = dydot1
+#        correctr0 = correcty0
+#        MAXdrdot1 = MAXdydot1
+#    else:
+#        print("The model you are chosen does not exist")
     
     attempt = 0
     while abs(drdot1) > MAXdrdot1:
+        
         if attempt > MAXattempt:
-            ERROR= 'Maximum iterations exceeded' 
-            print(ERROR) 
+            print('Maximum iterations exceeded') 
             break
+        
         # Find first half-period crossing event
-        TSPAN = [0 ,20]        # allow sufficient time for the half-period crossing event                   
+        TSPAN = [0,20]        # allow sufficient time for the half-period crossing event                   
     
         f = lambda t,x: Ham2dof(model,t,x,par) # Use partial in order to pass parameters to function
-        soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, events = lambda t,x: half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+        soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, \
+                          events = lambda t,x: half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+        
         te = soln1.t_events[0]
         t1 = [0,te[1]]
         xx1 = soln1.sol(t1)
@@ -664,20 +542,23 @@ def get_PODiffCorr(x0, par,model):
         y1 = xx1[1,-1] 
         dxdot1 = xx1[2,-1]
         dydot1  = xx1[3,-1]
-        if model =='uncoupled': 
-           drdot1 = dxdot1
-        elif model =='coupled':
-            drdot1 = dxdot1
-        elif model == 'deleonberne':
-            drdot1 = dydot1
-        else:
-            print("The model you are chosen does not exist")
+        
+        drdot1 = conv_coord_model(x1, y1, dxdot1, dydot1)
+        
+#        if model =='uncoupled': 
+#           drdot1 = dxdot1
+#        elif model =='coupled':
+#            drdot1 = dxdot1
+#        elif model == 'deleonberne':
+#            drdot1 = dydot1
+#        else:
+#            print("The model you are chosen does not exist")
     
-        # Compute the state transition matrix from the initial state to
-	     # the final state at the half-period event crossing
+        # Compute the state transition matrix from the initial state to the final state at the 
+        # half-period event crossing
       
         # Events option not necessary anymore
-        t,x,phi_t1,PHI = stateTransitMat(t1,x0,par,model) 
+        t,x,phi_t1,PHI = stateTransitMat(t1,x0,par,varEqns_model) 
         
         
         print('::poDifCor : iteration',attempt+1) 
@@ -686,43 +567,48 @@ def get_PODiffCorr(x0, par,model):
             
             e = np.zeros(len(x))
             for i in range(0,len(x)):
+                e[i] = get_total_energy(x[i,:], pot_energy_model, par)
                 
-                e[i] = get_total_energy(model,x[i,:],par)
             ax = plt.gca(projection='3d')
-            if model== 'uncoupled':
-                ax.plot(x[:,0],x[:,1],x[:,3],'-')
-                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
-                ax.set_xlabel(r'$x$', fontsize=axis_fs)
-                ax.set_ylabel(r'$y$', fontsize=axis_fs)
-                ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
-            elif model== 'coupled':
-                ax.plot(x[:,0],x[:,1],x[:,3],'-')
-                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
-                ax.set_xlabel(r'$x$', fontsize=axis_fs)
-                ax.set_ylabel(r'$y$', fontsize=axis_fs)
-                ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
-                ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
-                #par(3) is the energy of the saddle
-                ax.set_xlim(-0.1, 0.1)
-            elif model == 'deleonberne':
-                ax.plot(x[:,0],x[:,1],x[:,2],'-')
-                ax.plot(x[:,0],x[:,1],-x[:,2],'--')
-                ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
-                ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o')
-                ax.set_xlabel(r'$x$', fontsize=axis_fs)
-                ax.set_ylabel(r'$y$', fontsize=axis_fs)
-                ax.set_zlabel(r'$p_x$', fontsize=axis_fs)
-            else:
-                print("The model you are chosen does not exist ")
+            
+            plot_iter_orbit_model(x, ax, e, par)
+            
+#            if model== 'uncoupled':
+#                ax.plot(x[:,0],x[:,1],x[:,3],'-')
+#                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+#                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
+#                ax.set_xlabel(r'$x$', fontsize=axis_fs)
+#                ax.set_ylabel(r'$y$', fontsize=axis_fs)
+#                ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
+#            elif model== 'coupled':
+#                ax.plot(x[:,0],x[:,1],x[:,3],'-')
+#                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+#                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
+#                ax.set_xlabel(r'$x$', fontsize=axis_fs)
+#                ax.set_ylabel(r'$y$', fontsize=axis_fs)
+#                ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
+#                ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
+#                #par(3) is the energy of the saddle
+#                ax.set_xlim(-0.1, 0.1)
+#            elif model == 'deleonberne':
+#                ax.plot(x[:,0],x[:,1],x[:,2],'-')
+#                ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+#                ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
+#                ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o')
+#                ax.set_xlabel(r'$x$', fontsize=axis_fs)
+#                ax.set_ylabel(r'$y$', fontsize=axis_fs)
+#                ax.set_zlabel(r'$p_x$', fontsize=axis_fs)
+#            else:
+#                print("The model you are chosen does not exist ")
+            
             #ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2] ) ,fontsize=axis_fs)
             #par(3) is the energy of the saddle
             #ax.set_xlim(-0.1, 0.1)
             #ax.set_ylim(-1, 1)
             #time.sleep(0.01)
+            
             plt.grid()
             plt.show()
 
@@ -733,76 +619,90 @@ def get_PODiffCorr(x0, par,model):
         # differential correction and convergence test, adjust according to
         # the particular problem
 
+        x0 = diffcorr_acc_corr_model(xx1[:,-1], phi_t1, x0, par)
+        
         #compute acceleration values for correction term
-        if model == 'uncoupled':
-            dVdx = -par[3]*x1+par[4]*(x1)**3
-            dVdy = par[5]*y1
-            vxdot1 = -dVdx
-            vydot1 = -dVdy
-            #correction to the initial x0
-            correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1))
-            x0[0] = x0[0] - correctx0
-        elif model == 'coupled':
-            dVdx = (-par[3]+par[6])*x1+par[4]*(x1)**3-par[6]*y1
-            dVdy = (par[5]+par[6])*y1-par[6]*x1
-            vxdot1 = -dVdx
-            vydot1 = -dVdy
-            #correction to the initial x0
-            correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1))	
-            x0[0] = x0[0] - correctx0
-        elif model == 'deleonberne':
-            dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x1)*(math.e**(-par[4]*x1) - 1) - 4*par[5]*par[4]*y1**2*(y1**2 - 1)*math.e**(-par[5]*par[4]*x1)
-            dVdy = 8*y1*(2*y1**2 - 1)*math.e**(-par[5]*par[4]*x1)
-            vxdot1 = -dVdx
-            vydot1 = -dVdy
-            correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1
-            x0[1] = x0[1] - correcty0
-        else:
-            print("The model you are chosen does not exist")
-        #attempt = attempt+1
+#        if model == 'uncoupled':
+#            dVdx = -par[3]*x1+par[4]*(x1)**3
+#            dVdy = par[5]*y1
+#            vxdot1 = -dVdx
+#            vydot1 = -dVdy
+#            #correction to the initial x0
+#            correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1))
+#            x0[0] = x0[0] - correctx0
+#        elif model == 'coupled':
+#            dVdx = (-par[3]+par[6])*x1+par[4]*(x1)**3-par[6]*y1
+#            dVdy = (par[5]+par[6])*y1-par[6]*x1
+#            vxdot1 = -dVdx
+#            vydot1 = -dVdy
+#            #correction to the initial x0
+#            correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1))	
+#            x0[0] = x0[0] - correctx0
+#        elif model == 'deleonberne':
+#            dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x1)*(math.e**(-par[4]*x1) - 1) - 4*par[5]*par[4]*y1**2*(y1**2 - 1)*math.e**(-par[5]*par[4]*x1)
+#            dVdy = 8*y1*(2*y1**2 - 1)*math.e**(-par[5]*par[4]*x1)
+#            vxdot1 = -dVdx
+#            vydot1 = -dVdy
+#            correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1
+#            x0[1] = x0[1] - correcty0
+#        else:
+#            print("The model you are chosen does not exist")
+
+    attempt = attempt+1
 
     x0po=x0
     t1 = t1[-1]
+    
     return x0po,t1
 
 
 #%%
-def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,par,model):
-
+def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_model, \
+              jacobian_model, guess_lin_model, diffcorr_setup_model, conv_coord_model, \
+              diffcorr_acc_corr_model, pot_energy_model, varEqns_model, plot_iter_orbit_model, \
+              model, par):
     """
-    [x0po,T] = get_POFam_deleonberne(eqNum,Ax1,Ax2,nFam,po_fam_file)
+    get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_model, \
+              jacobian_model, guess_lin_model, par)
     
-    Generate a family of periodic orbits (po) given a pair of 
-    seed initial conditions and periods
+    Generate a family of periodic orbits (po) given a pair of seed initial conditions and periods
     
-    
-    delt = guessed change in period between successive orbits in family
     """
     
+    #guessed change in period between successive orbits in family
     delt = -1.e-9    # <==== may need to be changed
     #delt = -1.e-12     
+    
     N = 4 # dimension of phase space
     x0po = np.zeros((nFam,N))
     T    = np.zeros((nFam,1))
     energyPO = np.zeros((nFam,1))
     
-    x0poGuess1,TGuess1 = get_POGuessLinear(eqNum,Ax1,par,model)
-    x0poGuess2,TGuess2 = get_POGuessLinear(eqNum,Ax2,par,model)
+    x0poGuess1,TGuess1 = get_POGuessLinear(eqNum, Ax1, init_guess_eqpt_model, grad_pot_model, \
+                                           jacobian_model, guess_lin_model, par)  
+    x0poGuess2,TGuess2 = get_POGuessLinear(eqNum, Ax2, init_guess_eqpt_model, grad_pot_model, \
+                                           jacobian_model, guess_lin_model, par)
     
     # Get the first two periodic orbit initial conditions
     iFam = 0 
     print('::poFamGet : number',iFam)
-    x0po1,tfpo1 = get_PODiffCorr(x0poGuess1, par,model)
+    x0po1,tfpo1 = get_PODiffCorr(x0poGuess1, diffcorr_setup_model, conv_coord_model, \
+                                 diffcorr_acc_corr_model, \
+                                 pot_energy_model, \
+                                 varEqns_model, plot_iter_orbit_model, model, par)
 
-    energyPO[iFam] = get_total_energy(model,x0po1, par)
+    energyPO[iFam] = get_total_energy(x0po1, pot_energy_model, par)
 
 
     iFam = 1
     print('::poFamGet : number',iFam)
     
-    x0po2,tfpo2 = get_PODiffCorr(x0poGuess2, par,model)             
+    x0po2,tfpo2 = get_PODiffCorr(x0poGuess2, diffcorr_setup_model, conv_coord_model, \
+                                 diffcorr_acc_corr_model, \
+                                 pot_energy_model, \
+                                 varEqns_model, plot_iter_orbit_model, model, par)             
 
-    energyPO[iFam] = get_total_energy(model,x0po2, par)
+    energyPO[iFam] = get_total_energy(x0po2, pot_energy_model, par)
 
     x0po[0,:] =  x0po1[:]
     x0po[1,:] =  x0po2[:]
@@ -824,7 +724,10 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,par,model):
 #         t1po_g = T[iFam-2] + abs(dt)
 
       # differential correction takes place in the following function
-        x0po_i,tfpo_i = get_PODiffCorr(x0po_g, par,model)
+        x0po_i,tfpo_i = get_PODiffCorr(x0po_g, diffcorr_setup_model, conv_coord_model, \
+                                       diffcorr_acc_corr_model, \
+                                       pot_energy_model, \
+                                       varEqns_model, plot_iter_orbit_model, model, par)
 
 
         x0po[i,:] = x0po_i
@@ -832,19 +735,20 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,par,model):
         T[i]        = 2*tfpo_i
         
             
-        energyPO[i] = get_total_energy(model,x0po[i,:], par)
+        energyPO[i] = get_total_energy(x0po[i,:], pot_energy_model, par)
         
         if iFam+1 % 10 == 0:
-            
             dum = dum[:,0:N+1]
-    dum =np.concatenate((x0po,T, energyPO),axis=1)
+            
+    dum = np.concatenate((x0po,T, energyPO),axis=1)
     np.savetxt(po_fam_file.name,dum,fmt='%1.16e')
+    
+    
     return x0po,T
 
 
 #%%
 def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
-
     """
     POBRACKETENERGY_SHIPRP Generates a family of periodic orbits (po)
     given a pair of seed initial conditions from a data file, while targeting
