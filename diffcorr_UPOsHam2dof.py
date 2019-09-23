@@ -2,7 +2,7 @@
 """
 Created on Tue Sep 10 18:32:28 2019
 
-@author: wl16298
+@author: Wenyang Lyu and Shibabrat Naik
 """
 
 import numpy as np
@@ -128,166 +128,6 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
     
     return t,x,phi_tf,PHI
-
-
-#%%
-#def varEqns(t,PHI,par,model):
-#    
-#    """
-#    PHIdot = varEqns_bp(t,PHI) 
-#    
-#    This here is a preliminary state transition, PHI(t,t0),
-#    matrix equation attempt for a ball rolling on the surface, based on...
-#    
-#    d PHI(t, t0)
-#    ------------ =  Df(t) * PHI(t, t0)
-#        dt
-#    
-#    """
-#    
-#    phi = PHI[0:16]
-#    phimatrix  = np.reshape(PHI[0:16],(4,4))
-#    x,y,px,py = PHI[16:20]
-#    
-#    
-#    if model == 'uncoupled':
-#        # The first order derivative of the potential energy.
-#        dVdx = -par[3]*x+par[4]*x**3
-#        dVdy = par[5]*y
-#    
-#        # The second order derivative of the potential energy.  
-#        d2Vdx2 = -par[3]+par[4]*3*x**2
-#            
-#        d2Vdy2 = par[5]
-#    
-#        d2Vdydx = 0
-#    elif model == 'coupled':
-#        # The first order derivative of the potential energy.
-#        dVdx = (-par[3]+par[6])*x+par[4]*x**3-par[6]*y
-#        dVdy = (par[5]+par[6])*y-par[6]*x
-#
-#        # The second order derivative of the potential energy. 
-#        d2Vdx2 = -par[3]+par[6]+par[4]*3*x**2
-#            
-#        d2Vdy2 = par[5]+par[6]
-#    
-#        d2Vdydx = -par[6]
-#    elif model == 'deleonberne':
-#        # The first order derivative of the potential energy.
-#        dVdx = - 2*par[3]*par[4]*math.e**(-par[4]*x)*(math.e**(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) 
-#        dVdy = 8*y*(2*y**2 - 1)*math.e**(-par[5]*par[4]*x)
-#    
-#        # The second order derivative of the potential energy. 
-#        d2Vdx2 = - ( 2*par[3]*par[4]**2*( math.e**(-par[4]*x) - 2.0*math.e**(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) )
-#            
-#        d2Vdy2 = 8*(6*y**2 - 1)*math.e**( -par[4]*par[5]*x )
-#    
-#        d2Vdydx = -8*y*par[4]*par[5]*math.e**( -par[4]*par[5]*x )*(2*y**2 - 1)
-#        
-#    else:
-#        print("The model you are chosen does not exist")
-#    
-#    
-#    d2Vdxdy = d2Vdydx    
-#
-#    Df    = np.array([[  0,     0,    par[0],    0],
-#              [0,     0,    0,    par[1]],
-#              [-d2Vdx2,  -d2Vdydx,   0,    0],
-#              [-d2Vdxdy, -d2Vdy2,    0,    0]])
-#
-#    
-#    phidot = np.matmul(Df, phimatrix) # variational equation
-#
-#    PHIdot        = np.zeros(20)
-#    PHIdot[0:16]  = np.reshape(phidot,(1,16)) 
-#    PHIdot[16]    = px/par[0]
-#    PHIdot[17]    = py/par[1]
-#    PHIdot[18]    = -dVdx 
-#    PHIdot[19]    = -dVdy
-#    
-#    return list(PHIdot)
-
-
-#%% 
-def half_period(t,x,model):
-    
-    """
-    Return the turning point where we want to stop the integration                           
-    
-    pxDot = x[0]
-    pyDot = x[1]
-    xDot = x[2]
-    yDot = x[3]
-    """
-    
-    terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
-    if model =='uncoupled':
-        return x[3]
-    elif model =='coupled':
-        return x[3]
-    elif model =='deleonberne':
-        return x[2]
-    else:
-        print("specify an event for integration, either choose to return p_x or to return p_y")
-
-
-#%% Hamilton's equations
-def Ham2dof(model,t,x, par):
-    
-    """ Enter the definition of Hamilton's equations, used for ploting trajectories later.
-    """
-    
-    xDot = np.zeros(4)
-    
-    if model == 'uncoupled':
-        dVdx = -par[3]*x[0]+par[4]*(x[0])**3
-        dVdy = par[5]*x[1]
-    elif model == 'coupled':
-        dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
-        dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
-    elif model == 'deleonberne':
-        dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-        dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-    else:
-        print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-        
-    xDot[0] = x[2]/par[0]
-    xDot[1] = x[3]/par[1]
-    xDot[2] = -dVdx 
-    xDot[3] = -dVdy
-    return list(xDot)    
-
-
-#%%
-#def jacobian(eqPt, par, model):
-#    
-#    """
-#    jacobian(eqPt, par, model) returns the Jacobian matrix of the system evaluated at the equilibrium point.
-#    """
-#    
-#    x,y,px,py = eqPt[0:4]
-#    
-#    if model == 'uncoupled':
-#        
-#        
-#    elif model == 'deleonberne':
-#        
-#        
-#    else:
-#        print("The model you are chosen does not exist")
-#    
-#    
-#    d2Vdxdy = d2Vdydx    
-#
-#    Df = np.array([[  0,     0,    par[0],    0],
-#                   [0,     0,    0,    par[1]],
-#                   [-d2Vdx2,  -d2Vdydx,   0,    0],
-#                   [-d2Vdxdy, -d2Vdy2,    0,    0]])
-#    
-#    
-#    return Df
 
 
 #%%
@@ -475,7 +315,8 @@ def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian
 
 #%%
 def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr_model, \
-                   pot_energy_model, varEqns_model, plot_iter_orbit_model, model, par):
+                   ham2dof_model, half_period_model, pot_energy_model, varEqns_model, \
+                   plot_iter_orbit_model, par):
 
     # set show = 1 to plot successive approximations (default=0)
     show = 1 
@@ -531,9 +372,9 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
         # Find first half-period crossing event
         TSPAN = [0,20]        # allow sufficient time for the half-period crossing event                   
     
-        f = lambda t,x: Ham2dof(model,t,x,par) # Use partial in order to pass parameters to function
+        f = lambda t,x: ham2dof_model(t,x,par) # Use partial in order to pass parameters to function
         soln1 = solve_ivp(f, TSPAN, x0,method='RK45',dense_output=True, \
-                          events = lambda t,x: half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+                          events = lambda t,x: half_period_model(t,x,par), rtol=RelTol, atol=AbsTol)
         
         te = soln1.t_events[0]
         t1 = [0,te[1]]
@@ -659,8 +500,8 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
 #%%
 def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_model, \
               jacobian_model, guess_lin_model, diffcorr_setup_model, conv_coord_model, \
-              diffcorr_acc_corr_model, pot_energy_model, varEqns_model, plot_iter_orbit_model, \
-              model, par):
+              diffcorr_acc_corr_model, ham2dof_model, half_period_model, pot_energy_model, \
+              varEqns_model, plot_iter_orbit_model, par):
     """
     get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_model, \
               jacobian_model, guess_lin_model, par)
@@ -687,9 +528,9 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
     iFam = 0 
     print('::poFamGet : number',iFam)
     x0po1,tfpo1 = get_PODiffCorr(x0poGuess1, diffcorr_setup_model, conv_coord_model, \
-                                 diffcorr_acc_corr_model, \
-                                 pot_energy_model, \
-                                 varEqns_model, plot_iter_orbit_model, model, par)
+                                 diffcorr_acc_corr_model, ham2dof_model, \
+                                 half_period_model, pot_energy_model, \
+                                 varEqns_model, plot_iter_orbit_model, par)
 
     energyPO[iFam] = get_total_energy(x0po1, pot_energy_model, par)
 
@@ -698,9 +539,9 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
     print('::poFamGet : number',iFam)
     
     x0po2,tfpo2 = get_PODiffCorr(x0poGuess2, diffcorr_setup_model, conv_coord_model, \
-                                 diffcorr_acc_corr_model, \
-                                 pot_energy_model, \
-                                 varEqns_model, plot_iter_orbit_model, model, par)             
+                                 diffcorr_acc_corr_model, ham2dof_model, \
+                                 half_period_model, pot_energy_model, \
+                                 varEqns_model, plot_iter_orbit_model, par)             
 
     energyPO[iFam] = get_total_energy(x0po2, pot_energy_model, par)
 
@@ -725,9 +566,9 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
 
       # differential correction takes place in the following function
         x0po_i,tfpo_i = get_PODiffCorr(x0po_g, diffcorr_setup_model, conv_coord_model, \
-                                       diffcorr_acc_corr_model, \
-                                       pot_energy_model, \
-                                       varEqns_model, plot_iter_orbit_model, model, par)
+                                       diffcorr_acc_corr_model, ham2dof_model, \
+                                       half_period_model, pot_energy_model, \
+                                       varEqns_model, plot_iter_orbit_model, par)
 
 
         x0po[i,:] = x0po_i
@@ -748,9 +589,12 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
 
 
 #%%
-def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
+def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, \
+                    conv_coord_model, diffcorr_acc_corr_model, ham2dof_model, \
+                    half_period_model, pot_energy_model, varEqns_model, \
+                    plot_iter_orbit_model, par):
     """
-    POBRACKETENERGY_SHIPRP Generates a family of periodic orbits (po)
+    POBRACKETENERGY Generates a family of periodic orbits (po)
     given a pair of seed initial conditions from a data file, while targeting
     a specific periodic orbit. This is performed using a scaling factor of
     the numerical continuation step size which is used to obtain initial
@@ -777,8 +621,8 @@ def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
     x0po[1,:]   = x0podata[-1,0:N]
     T[0]        = x0podata[-2,N]
     T[1]        = x0podata[-1,N]
-    energyPO[0] = get_total_energy(model,x0po[0,0:N],par)
-    energyPO[1] = get_total_energy(model,x0po[1,0:N],par)
+    energyPO[0] = get_total_energy(x0po[0,0:N], pot_energy_model, par) 
+    energyPO[1] = get_total_energy(x0po[1,0:N], pot_energy_model, par)
     
     iFam = 2
     scaleFactor = 1.25   #scaling the change in initial guess, usually in [1,2]
@@ -800,8 +644,14 @@ def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
     #             x0po_g = [ (x0po(iFam-1,1) + scaleFactor*dx), ...
     #                 (x0po(iFam-1,2)), 0, 0]
 
-            [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, par,model)  
-            energyPO[iFam] = get_total_energy(model,x0po_iFam, par)
+            [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, diffcorr_setup_model, \
+                                                    conv_coord_model, \
+                                                    diffcorr_acc_corr_model, ham2dof_model, \
+                                                    half_period_model, pot_energy_model, \
+                                                    varEqns_model, plot_iter_orbit_model, \
+                                                    par)
+            
+            energyPO[iFam] = get_total_energy(x0po_iFam, pot_energy_model, par)
             x0po[iFam,:] = x0po_iFam 
             T[iFam]      = 2*tfpo_iFam 
             iFam = iFam + 1
@@ -820,8 +670,14 @@ def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
     #             x0po_g = [ (x0po(iFam-2,1) + scaleFactor*dx) ...
     #                 (x0po(iFam-2,2)) 0 0]
 
-            [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, par,model)
-            energyPO[iFam-1] = get_total_energy(model,x0po_iFam, par)
+            [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, diffcorr_setup_model, \
+                                                    conv_coord_model, \
+                                                    diffcorr_acc_corr_model, ham2dof_model, \
+                                                    half_period_model, pot_energy_model, \
+                                                    varEqns_model, plot_iter_orbit_model, \
+                                                    par)
+            
+            energyPO[iFam-1] = get_total_energy(x0po_iFam, pot_energy_model, par)
             x0po[iFam-1,:] = x0po_iFam
             T[iFam-1]      = 2*tfpo_iFam 
 
@@ -832,36 +688,40 @@ def poBracketEnergy(energyTarget,x0podata, po_brac_file, par,model):
             finished = 0
             
 
-    POENERGYERR = ('Relative error in the po energy from target',abs(energyTarget - energyPO[iFam-1])/energyPO[iFam-1])
-    print(POENERGYERR)
-    dum =np.concatenate((x0po,T, energyPO),axis=1)
+    print('Relative error in the po energy from target ',abs(energyTarget - energyPO[iFam-1])/energyPO[iFam-1])
+    dum = np.concatenate((x0po,T, energyPO),axis=1)
     for i in range(1,200):
         if T[i] == 0 and T[i-1] !=0 :
             Tend = i  #index of last row of the data, each row below this index is identitically zero.
     dum1 = dum[0:Tend,:]
     np.savetxt(po_brac_file.name, dum1 ,fmt='%1.16e')
+    
+    
     return x0po[0:Tend,:],T[0:Tend]
 
 
 #%%
-def poTargetEnergy(x0po, energyTarget, po_target_file,par,model):
-    #
-    # poTargetEnergy_deleonberne computes the periodic orbit of target energy using
-    # bisection method. Using bisection method on the lower and higher energy
-    # values of the POs to find the PO with the target energy. Use this
-    # condition to integrate with event function of half-period defined by
-    # maximum distance from the initial point on the PO
-    # 
-    # INPUT
-    # x0po:     Initial conditions for the periodic orbit with the last two
-    # initial conditions bracketing (lower and higher than) the target energy
-    # par: [MASS_A MASS_B EPSILON_S D_X LAMBDA ALPHA]
-    # 
-    # OUTPUTS
-    # x0_PO:    Initial condition of the periodic orbit (P.O.)
-    # T_PO:     Time period 
-    # ePO:     Energy of the computed P.O.
-    # 
+def poTargetEnergy(x0po, energyTarget, po_target_file, diffcorr_setup_model, conv_coord_model, \
+                   diffcorr_acc_corr_model, ham2dof_model, half_period_model, pot_energy_model, \
+                   varEqns_model, plot_iter_orbit_model, par):
+    """
+    poTargetEnergy computes the periodic orbit of target energy using
+    bisection method. Using bisection method on the lower and higher energy
+    values of the POs to find the PO with the target energy. Use this
+    condition to integrate with event function of half-period defined by
+    maximum distance from the initial point on the PO
+     
+    INPUT
+    x0po:     Initial conditions for the periodic orbit with the last two
+    initial conditions bracketing (lower and higher than) the target energy
+    par: [MASS_A MASS_B EPSILON_S D_X LAMBDA ALPHA]
+     
+    OUTPUTS
+    x0_PO:    Initial condition of the periodic orbit (P.O.)
+    T_PO:     Time period 
+    ePO:     Energy of the computed P.O.
+    """
+     
 
     #     label_fs = 10; axis_fs = 15; # small fontsize
     label_fs = 20
@@ -888,34 +748,47 @@ def poTargetEnergy(x0po, energyTarget, po_target_file,par,model):
         
     #         c = [a(1) + dx a(2) + dy 0 0];
         c = 0.5*(a + b) # guess based on midpoint
-        [x0po_iFam,tfpo_iFam] = get_PODiffCorr(c, par,model)
+        [x0po_iFam,tfpo_iFam] = get_PODiffCorr(c, diffcorr_setup_model, \
+                                                    conv_coord_model, \
+                                                    diffcorr_acc_corr_model, ham2dof_model, \
+                                                    half_period_model, pot_energy_model, \
+                                                    varEqns_model, plot_iter_orbit_model, \
+                                                    par)
         
-        energyPO = get_total_energy(model,x0po_iFam, par)
+        energyPO = get_total_energy(x0po_iFam, pot_energy_model, par)
     #         x0po(iFam,1:N) = x0po_iFam ;
     #         T(iFam,1)      = 2*tfpo_iFam ;
         
         c = x0po_iFam;
         iter = iter + 1;
         
-        if (abs(get_total_energy(model,c, par) - energyTarget) < energyTol) or (iter == iterMax):
+        if (abs(get_total_energy(c, pot_energy_model, par) - energyTarget) < \
+            energyTol) or (iter == iterMax):
+            
             print('Initial condition: %s\n' %c);
-            print('Energy of the initial condition for PO %s\n' %get_total_energy(model,c, par) );
+            print('Energy of the initial condition for PO %s\n' %get_total_energy(c, \
+                                                                  pot_energy_model, par) );
             x0_PO = c
             T_PO = 2*tfpo_iFam; 
-            ePO = get_total_energy(model,c, par);
+            ePO = get_total_energy(c, pot_energy_model, par);
             break
         
         
-        if np.sign( get_total_energy(model,c, par) - energyTarget ) == np.sign ( get_total_energy(model,a, par) - energyTarget ):
+        if np.sign( get_total_energy(c, pot_energy_model, par) - energyTarget ) == \
+            np.sign ( get_total_energy(a, pot_energy_model, par) - energyTarget ):
             a = c
         else:
             b = c;
         print('Iteration number %s, energy of PO: %s\n' %(iter, energyPO)) ;
         
 
-    print('Iterations completed: %s, error in energy: %s \n' %(iter, abs(get_total_energy(model,c, par) - energyTarget)));
+    print('Iterations completed: %s, error in energy: %s \n' %(iter, \
+                                                                abs(get_total_energy(c, \
+                                                                pot_energy_model, par) - \
+                                                                energyTarget)));
     
     
     dum =np.concatenate((c, 2*tfpo_iFam, energyPO),axis=None)
     np.savetxt(po_target_file.name, dum ,fmt='%1.16e')
+    
     return x0_PO, T_PO, ePO
