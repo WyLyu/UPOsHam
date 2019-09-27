@@ -9,18 +9,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import math
-#from IPython.display import Image # for Notebook
-#from IPython.core.display import HTML
 from mpl_toolkits.mplot3d import Axes3D
-#from numpy import linalg as LA
-#import scipy.linalg as linalg
 from scipy.optimize import fsolve
-#import time
-#from functools import partial
 from scipy import optimize
 import matplotlib as mpl
 
-#from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 

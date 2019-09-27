@@ -111,9 +111,12 @@ def varEqns_coupled(t,PHI,par):
 
 def configdiff_coupled(guess1, guess2, ham2dof_model, half_period_model, n_turn, par):
     """
-    configdiff_coupled(model,guess1, guess2,n_turn,par) returns the difference of x(or y) coordinates between the guess initial conditions and the ith turning points
-    n_turn is the nth turning point we want to choose as our 'turning point' for defining the dot product
-    either difference in x coordintes(x_diff1, x_diff2) or difference in y coordinates(y_diff1, y_diff2) is returned as the result.
+    configdiff_coupled(model,guess1, guess2,n_turn,par) returns the difference of x(or y) 
+    coordinates between the guess initial conditions and the ith turning points
+    n_turn is the nth turning point we want to choose as our 'turning point' for defining the 
+    dot product
+    either difference in x coordintes(x_diff1, x_diff2) or difference in 
+    y coordinates(y_diff1, y_diff2) is returned as the result.
     """
     TSPAN = [0,40]
     RelTol = 3.e-10
@@ -141,24 +144,11 @@ def configdiff_coupled(guess1, guess2, ham2dof_model, half_period_model, n_turn,
     x_diff2 = guess2[0] - x_turn2
     y_diff2 = guess2[1] - y_turn2
     
-#    if model == 'uncoupled':
-#        print("Initial guess1%s, initial guess2%s, x_diff1 is %s, x_diff2 is%s " %(guess1, \
-#                                                                                  guess2, \
-#                                                                                  x_diff1, \
-#                                                                                  x_diff2))
-#        return x_diff1, x_diff2
-#    elif model == 'coupled':
+
     print("Initial guess1%s, initial guess2 %s, x_diff1 is %s, x_diff2 is %s " %(guess1, \
                                                                                  guess2, x_diff1, \
                                                                                  x_diff2))
-#        return x_diff1, x_diff2
-#    elif model == 'deleonberne':
-#        print("Initial guess1%s, initial guess2%s, y_diff1 is %s, y_diff2 is%s " %(guess1, guess2, y_diff1, y_diff2))
-#        return y_diff1, y_diff2
-#    else: 
-#        print("Need to decide to use either x_diff or y_diff")
-#        print("Initial guess1%s, initial guess2%s, x_diff1 is %s, x_diff2 is%s, y_diff1 is %s, y_diff2 is%s " %(guess1,guess2,x_diff1, x_diff2,y_diff1, y_diff2))
-        
+    
     return x_diff1, x_diff2 #,y_diff1, y_diff2
 
 
@@ -293,6 +283,8 @@ AbsTol = 1.e-10
 
 f = lambda t,x : ham2dof_coupled(t,x,parameters) 
 
+ax = plt.gca(projection='3d')
+
 for i in range(len(deltaE_vals)):
     
     soln = solve_ivp(f, TSPAN, x0po[:,i], method='RK45', dense_output=True, \
@@ -302,15 +294,13 @@ for i in range(len(deltaE_vals)):
     tt = [0,te[2]]
     t,x,phi_t1,PHI = tpcd_UPOsHam2dof.stateTransitMat(tt, x0po[:,i], parameters, varEqns_coupled)
     
-    ax = plt.gca(projection='3d')
+    
     ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \
             label='$\Delta E$ = %.2f'%(deltaE_vals[i]))
     ax.scatter(x[0,0],x[0,1],x[0,3], s=20, marker='*')
     ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 
-
-ax = plt.gca(projection='3d')
 resX = 100
 xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
