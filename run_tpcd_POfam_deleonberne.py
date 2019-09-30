@@ -284,9 +284,6 @@ for i in range(len(E_vals)):
     po_fam_file.close()
 
 
-
-
-
 #%% Load periodic orbit data from ascii files
     
 x0po = np.zeros((4,len(E_vals))) #each column is a different initial condition
