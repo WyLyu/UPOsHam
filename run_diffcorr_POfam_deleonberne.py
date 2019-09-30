@@ -92,7 +92,6 @@ def jacobian_deleonberne(eqPt, par):
 
 
 def varEqns_deleonberne(t,PHI,par):
-    
     """
     PHIdot = varEqns_deleonberne(t,PHI) 
     

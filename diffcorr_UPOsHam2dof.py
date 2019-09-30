@@ -73,21 +73,6 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
 
     return surfProj 
 
-
-#%%
-#def get_coordinate(model, x, y, E, par):
-#    """ 
-#    this function returns the initial position of x/y-coordinate on the potential energy 
-#    surface(PES) for a specific total energy, E.
-#    """
-#    if model == 'uncoupled':
-#        return -0.5*par[3]*x**2+0.25*par[4]*x**4 + 0.5*par[5]*y**2 - E
-#    elif model =='coupled':
-#        return -0.5*par[3]*x**2+0.25*par[4]*x**4 + 0.5*par[5]*y**2 + 0.5*par[6]*(x-y)**2 - E
-#    elif model== 'deleonberne':
-#        return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2] - E
-#    else:
-#        print("The model you are chosen does not exist, enter the function for finding coordinates on the PES for given x or y and V")
     
     
 #%%

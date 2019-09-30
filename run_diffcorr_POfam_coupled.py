@@ -187,7 +187,7 @@ def diffcorr_acc_corr_coupled(coords, phi_t1, x0, par):
 
 def plot_iter_orbit_coupled(x, ax, e, par):
     
-    label_fs = 10
+#    label_fs = 10
     axis_fs = 15 # fontsize for publications 
     
     ax.plot(x[:,0],x[:,1],x[:,3],'-')
@@ -249,7 +249,7 @@ beta = 1.00
 epsilon= 1e-1
 parameters = np.array([1, omega, EPSILON_S, alpha, beta, omega, epsilon])
 eqNum = 1
-model = 'coupled'
+#model = 'coupled'
 #eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                        grad_pot_coupled, parameters)

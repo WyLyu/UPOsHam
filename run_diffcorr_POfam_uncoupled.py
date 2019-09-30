@@ -224,8 +224,8 @@ def half_period_uncoupled(t, x, par):
     
     return x[3]
  
-        
-        
+
+#% End problem specific functions
 
 #%% Setting up parameters and global variables
 
