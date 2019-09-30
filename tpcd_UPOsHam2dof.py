@@ -116,7 +116,8 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
 #%%
 def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, varEqns_model, \
-                            configdiff_model, ham2dof_model, half_period_model, model, par, \
+                            configdiff_model, ham2dof_model, half_period_model, \
+                            guess_coords_model, plot_iter_orbit_model, par, \
                             e, n, n_turn, po_fam_file):
     """
     turningPoint(model,begin1,begin2,par,e,n,n_turn,po_fam_file) finds the initial condition of 
@@ -159,32 +160,36 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
         #toler = math.sqrt((y_PES-y_turning)**2)
         for i in range(0,n+1):
             # the x difference between guess1 and each guess is recorded in "result" matrix
-            if model == 'uncoupled':
-                h = (guess2[0] - guess1[0])*i/n
-                print("h is ",h)
-                xguess = guess1[0]+h
-                f = lambda y: get_coord_model(xguess,y,e,par)
-                yanalytic = math.sqrt((e +0.5*par[3]*xguess**2-0.25*par[4]*xguess**4)/(0.5*par[1])) #uncoupled
-                yguess = optimize.newton(f,yanalytic)   # to find the x coordinate for a given y
-            elif model == 'coupled':
-                h = (guess2[0] - guess1[0])*i/n
-                print("h is ",h)
-                xguess = guess1[0]+h
-                f = lambda y: get_coord_model(xguess,y,e,par)
-                yanalytic = math.sqrt(2/(par[1]+par[6]))*(-math.sqrt( e +0.5*par[3]* xguess**2 - \
-                                     0.25*par[4]*xguess**4 -0.5*par[6]* xguess**2 + \
-                                     (par[6]*xguess)**2/(2*(par[1] +par[6]) )) + 
-                                    par[6]/(math.sqrt(2*(par[1]+par[6])) )*xguess ) #coupled
-                yguess = optimize.newton(f,yanalytic) 
-            elif model == 'deleonberne':
-                h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
-                print("h is ",h)
-                yguess = guess1[1]+h
-                f = lambda x: get_coord_model(x,yguess,e,par)
-                xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y 
-            else:
-                print("The model you are chosen does not exist")
-                break
+            
+#            if model == 'uncoupled':
+#                h = (guess2[0] - guess1[0])*i/n
+#                print("h is ",h)
+#                xguess = guess1[0]+h
+#                f = lambda y: get_coord_model(xguess,y,e,par)
+#                yanalytic = math.sqrt((e +0.5*par[3]*xguess**2-0.25*par[4]*xguess**4)/(0.5*par[1])) #uncoupled
+#                yguess = optimize.newton(f,yanalytic)   # to find the x coordinate for a given y
+#            elif model == 'coupled':
+#                h = (guess2[0] - guess1[0])*i/n
+#                print("h is ",h)
+#                xguess = guess1[0]+h
+#                f = lambda y: get_coord_model(xguess,y,e,par)
+#                yanalytic = math.sqrt(2/(par[1]+par[6]))*(-math.sqrt( e +0.5*par[3]* xguess**2 - \
+#                                     0.25*par[4]*xguess**4 -0.5*par[6]* xguess**2 + \
+#                                     (par[6]*xguess)**2/(2*(par[1] +par[6]) )) + 
+#                                    par[6]/(math.sqrt(2*(par[1]+par[6])) )*xguess ) #coupled
+#                yguess = optimize.newton(f,yanalytic) 
+#            elif model == 'deleonberne':
+#                h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
+#                print("h is ",h)
+#                yguess = guess1[1]+h
+#                f = lambda x: get_coord_model(x,yguess,e,par)
+#                xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y 
+#            else:
+#                print("The model you are chosen does not exist")
+#                break
+            
+            xguess, yguess = guess_coords_model(guess1, guess2, i, n, e, get_coord_model, par)
+            
             guess = [xguess,yguess,0, 0]
             coordinate_diff1, coordinate_diff2 = configdiff_model(guess1, guess, ham2dof_model, \
                                                                   half_period_model, \
@@ -194,12 +199,14 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
             result[i,2] = guess[1]
             result[i,3] = np.sign(coordinate_diff2)
         for i in range(1,n+1):
-            if np.sign(result[i,0]) != np.sign(result[i,3]) and np.sign(result[i-1,0]) == np.sign(result[i-1,3]):
+            if np.sign(result[i,0]) != np.sign(result[i,3]) and \
+                np.sign(result[i-1,0]) == np.sign(result[i-1,3]):
                 i_turn[i_iter] = i
 
 
-        # if the follwing condition holds, we can zoom in to a smaller interval and continue our procedure
-        if i_turn[i_iter]>0:
+        # if the follwing condition holds, we can zoom in to a smaller interval and 
+        # continue our procedure
+        if i_turn[i_iter] > 0:
             index = int(i_turn[i_iter])
             guesspo  = [result[index-1,1],result[index-1,2],0,0]
             print("Our guess for the periodic orbit is",guesspo)
@@ -225,29 +232,32 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
             energyPO[i_iter]= np.mean(energy)
             
             ax = plt.gca(projection='3d')
-            if model== 'uncoupled':
-                ax.plot(x[:,0],x[:,1],x[:,3],'-')
-                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
-            elif model== 'coupled':
-                ax.plot(x[:,0],x[:,1],x[:,3],'-')
-                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
-            elif model == 'deleonberne':
-                ax.plot(x[:,0],x[:,1],x[:,2],'-')
-                ax.plot(x[:,0],x[:,1],-x[:,2],'--')
-                ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
-                ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o')
-            else:
-                print("The model you are chosen does not exist ")
-            ax.set_xlabel('$x$', fontsize=axis_fs)
-            ax.set_ylabel('$y$', fontsize=axis_fs)
-            ax.set_zlabel('$p_y$', fontsize=axis_fs)
-            ax.set_title('$\Delta E$ = %e' %(np.mean(energy) - par[2] ), fontsize=axis_fs)
-            ax.set_xlim(-1, 1)
-            ax.set_ylim(-1, 1)
+            plot_iter_orbit_model(x, ax, e, par)
+            
+#            if model== 'uncoupled':
+#                ax.plot(x[:,0],x[:,1],x[:,3],'-')
+#                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+#                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
+#            elif model== 'coupled':
+#                ax.plot(x[:,0],x[:,1],x[:,3],'-')
+#                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+#                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
+#            elif model == 'deleonberne':
+#                ax.plot(x[:,0],x[:,1],x[:,2],'-')
+#                ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+#                ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
+#                ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o')
+#            else:
+#                print("The model you are chosen does not exist ") 
+#                
+#            ax.set_xlabel('$x$', fontsize=axis_fs)
+#            ax.set_ylabel('$y$', fontsize=axis_fs)
+#            ax.set_zlabel('$p_y$', fontsize=axis_fs)
+#            ax.set_title('$\Delta E$ = %e' %(np.mean(energy) - par[2] ), fontsize=axis_fs)
+#            ax.set_xlim(-1, 1)
+#            ax.set_ylim(-1, 1)
             #x_turn= x[-1,0]  # x coordinate of turning point
             #y_turn= x[-1,1] # y coordinate of turning point
             #y_PES = -get_y(x_turn,e,par)
@@ -256,22 +266,25 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
             plt.show()
             guess2 = np.array([result[index,1], result[index,2],0,0])
             guess1 = np.array([result[index-1,1], result[index-1,2],0,0])
+            
             iter_diff =0
-        # If the if condition does not hold, it indicates that the interval we picked for performing 'configration difference' is wrong and it needs to be changed.
+        # If the if condition does not hold, it indicates that the interval we picked for 
+        # performing 'configration difference' is wrong and it needs to be changed.
         else:
             # return to the previous iteration that dot product works
-            #iteration------i------i+1---------------i+2----------------i+3-----------------------i+4
-            #            succ------succ-------------unsucc(return to i+1,n_turn+1)
-            #                                              if  --------succ--------         
-            #                                              else -----unsucc(return to i+1, n_turn+2)
-            #                                       unscc---------------unsucc------------   unsucc(return to i, n_turn+3)        
+            #iteration------i------i+1---------------i+2----------------i+3---------------------i+4
+            # succ------succ-------------unsucc(return to i+1,n_turn+1)
+            #   if  --------succ--------         
+            #   else -----unsucc(return to i+1, n_turn+2)
+            #   unscc---------------unsucc------------   unsucc(return to i, n_turn+3)        
             #
             #
             #
-            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the configration difference
+            # we take a larger interval so that it contains the true value of the initial 
+            # condition and avoids to reach the limitation of the configration difference
             iter_diff = iter_diff +1
-            if iter_diff> 1:
-                   # return to the iteration that is before the previous 
+            if iter_diff > 1:
+                # return to the iteration that is before the previous 
                 print("Warning: the result after this iteration may not be accurate, \
                       try to increase the number of intervals or use other ways ")
                 break
@@ -303,7 +316,6 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
 
 
 
-#%%
     
 
 #%% get potential energy

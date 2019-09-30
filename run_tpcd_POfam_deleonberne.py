@@ -184,6 +184,40 @@ def half_period_deleonberne(t,x,par):
     
     return x[2]
 
+
+def guess_coords_deleonberne(guess1, guess2, i, n, e, get_coord_model, par):
+    """
+    Returns x and y (configuration space) coordinates as guess for the next iteration of the 
+    turning point based on confifuration difference method
+    """
+    
+    h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
+    print("h is ",h)
+    yguess = guess1[1]+h
+    f = lambda x: get_coord_model(x,yguess,e,par)
+    xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y
+    
+    return xguess, yguess
+    
+def plot_iter_orbit_deleonberne(x, ax, e, par):
+    
+    label_fs = 10
+    axis_fs = 15 # fontsize for publications 
+    
+    ax.plot(x[:,0],x[:,1],x[:,2],'-')
+    ax.plot(x[:,0],x[:,1],-x[:,2],'--')
+    ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
+    ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o')
+    
+    ax.set_xlabel(r'$x$', fontsize=axis_fs)
+    ax.set_ylabel(r'$y$', fontsize=axis_fs)
+    ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
+    ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2]) ,fontsize=axis_fs)
+    #par(3) is the energy of the saddle
+    ax.set_xlim(-0.1, 0.1)
+    
+    return 
+
 #% End problem specific functions
 
 
@@ -243,7 +277,8 @@ for i in range(len(E_vals)):
                                                                         configdiff_deleonberne, \
                                                                         ham2dof_deleonberne, \
                                                                         half_period_deleonberne, \
-                                                                        model, \
+                                                                        guess_coords_deleonberne, \
+                                                                        plot_iter_orbit_deleonberne, \
                                                                         parameters, \
                                                                         e,n,n_turn,po_fam_file) 
     po_fam_file.close()

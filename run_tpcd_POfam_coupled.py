@@ -44,9 +44,10 @@ def pot_energy_coupled(x, y, par):
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
 
 
-def get_coord_coupled(x,y, E, par):
-    """ this function returns the initial position of x/y-coordinate on the potential energy surface(PES) for a specific energy V.
-    
+def get_coord_coupled(x, y, E, par):
+    """ 
+    this function returns the initial position of x/y-coordinate on the potential energy 
+    surface(PES) for a specific energy E.
     """
 #    if model == 'uncoupled':
 #        return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2-V
@@ -185,6 +186,43 @@ def half_period_coupled(t, x, par):
     
     return x[3]
 
+def guess_coords_coupled(guess1, guess2, i, n, e, get_coord_model, par):
+    """
+    Returns x and y (configuration space) coordinates as guess for the next iteration of the 
+    turning point based on confifuration difference method
+    """
+    
+    
+    h = (guess2[0] - guess1[0])*i/n
+    print("h is ",h)
+    xguess = guess1[0]+h
+    f = lambda y: get_coord_model(xguess,y,e,par)
+    yanalytic = math.sqrt(2/(par[1]+par[6]))*(-math.sqrt( e +0.5*par[3]* xguess**2 - \
+                         0.25*par[4]*xguess**4 -0.5*par[6]* xguess**2 + \
+                         (par[6]*xguess)**2/(2*(par[1] +par[6]) )) + 
+                        par[6]/(math.sqrt(2*(par[1]+par[6])) )*xguess ) #coupled
+    yguess = optimize.newton(f,yanalytic) 
+    
+    return xguess, yguess
+    
+def plot_iter_orbit_coupled(x, ax, e, par):
+    
+    label_fs = 10
+    axis_fs = 15 # fontsize for publications 
+    
+    ax.plot(x[:,0],x[:,1],x[:,3],'-')
+    ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+    ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+    ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
+    ax.set_xlabel(r'$x$', fontsize=axis_fs)
+    ax.set_ylabel(r'$y$', fontsize=axis_fs)
+    ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
+    ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2]) ,fontsize=axis_fs)
+    #par(3) is the energy of the saddle
+    ax.set_xlim(-0.1, 0.1)
+    
+    return 
+
 #% End problem specific functions
 
 #%% Setting up parameters and global variables
@@ -252,7 +290,8 @@ for i in range(len(deltaE_vals)):
                                                                         configdiff_coupled, \
                                                                         ham2dof_coupled, \
                                                                         half_period_coupled, \
-                                                                        model, \
+                                                                        guess_coords_coupled, \
+                                                                        plot_iter_orbit_coupled, \
                                                                         parameters, \
                                                                         e,n,n_turn,po_fam_file) 
     po_fam_file.close()

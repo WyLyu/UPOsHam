@@ -8,6 +8,7 @@ Created on Wed Sep 11 13:16:47 2019
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
+from scipy import optimize
 import math
 import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 #from mpl_toolkits.mplot3d import Axes3D
@@ -191,7 +192,40 @@ def half_period_uncoupled(t, x, par):
     direction = 0 #0: all directions of crossing
     
     return x[3]
- 
+
+
+def guess_coords_uncoupled(guess1, guess2, i, n, e, get_coord_model, par):
+    """
+    Returns x and y (configuration space) coordinates as guess for the next iteration of the 
+    turning point based on confifuration difference method
+    """
+    
+    h = (guess2[0] - guess1[0])*i/n
+    print("h is ",h)
+    xguess = guess1[0]+h
+    f = lambda y: get_coord_model(xguess,y,e,par)
+    yanalytic = math.sqrt((e +0.5*par[3]*xguess**2-0.25*par[4]*xguess**4)/(0.5*par[1])) #uncoupled
+    yguess = optimize.newton(f,yanalytic)   # to find the x coordinate for a given y 
+    
+    return xguess, yguess
+    
+def plot_iter_orbit_uncoupled(x, ax, e, par):
+    
+    label_fs = 10
+    axis_fs = 15 # fontsize for publications 
+    
+    ax.plot(x[:,0],x[:,1],x[:,3],'-')
+    ax.plot(x[:,0],x[:,1],-x[:,3],'--')
+    ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+    ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
+    ax.set_xlabel(r'$x$', fontsize=axis_fs)
+    ax.set_ylabel(r'$y$', fontsize=axis_fs)
+    ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
+    ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2]) ,fontsize=axis_fs)
+    #par(3) is the energy of the saddle
+    ax.set_xlim(-0.1, 0.1)
+    
+    return 
 
 #% End problem specific functions
 
@@ -241,23 +275,7 @@ for i in range(len(deltaE_vals)):
     """
     Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
     other one is on the RHS of the UPO
-    """
-#    x = xLeft[i]
-#    f2 = lambda y: get_coord_coupled(x, y, e, parameters)
-#    yanalytic = math.sqrt(2/(parameters[1]+parameters[6]))*(-math.sqrt( e + \
-#                         0.5*parameters[3]* x**2- 0.25*parameters[4]*x**4 - 0.5*parameters[6]*x**2 + \
-#                         (parameters[6]*x)**2/(2*(parameters[1] + parameters[6]) )) + \
-#                            parameters[6]/(math.sqrt(2*(parameters[1]+parameters[6])) )*x ) #coupled
-#    state0_2 = [x,optimize.newton(f2,yanalytic),0.0,0.0]
-    
-#    x = xRight[i]
-#    f3 = lambda y: get_coord_coupled(x, y, e, parameters)
-#    yanalytic = math.sqrt(2/(parameters[1]+parameters[6]))*(-math.sqrt( e + \
-#                         0.5*parameters[3]* x**2- 0.25*parameters[4]*x**4 -0.5*parameters[6]*x**2 + \
-#                         (parameters[6]*x)**2/(2*(parameters[1] + parameters[6]) )) + \
-#                            parameters[6]/(math.sqrt(2*(parameters[1]+parameters[6])) )*x ) #coupled
-#    state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
-    
+    """    
     state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 
@@ -270,64 +288,13 @@ for i in range(len(deltaE_vals)):
                                                                         configdiff_uncoupled, \
                                                                         ham2dof_uncoupled, \
                                                                         half_period_uncoupled, \
-                                                                        model, \
+                                                                        guess_coords_uncoupled, \
+                                                                        plot_iter_orbit_uncoupled, \
                                                                         parameters, \
                                                                         e,n,n_turn,po_fam_file) 
     
     po_fam_file.close()
 
-
-#%%
-#e=0.1
-#"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
-#state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
-#n=4
-#n_turn=1
-#deltaE = e-parameters[2]
-#po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_2, T_2,energyPO_2] = tpcd_UPOsHam2dof.turningPoint_configdiff(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
-#
-#po_fam_file.close()
-# 
-##%%
-#e=1.0
-#"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
-#state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
-#n=4
-#n_turn=1
-#deltaE = e-parameters[2]
-#po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_3, T_3,energyPO_3] = tpcd_UPOsHam2dof.turningPoint_configdiff(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
-#
-#po_fam_file.close()
-#
-##%%
-#e=2.0
-#"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
-#state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
-#n=4
-#n_turn=1
-#deltaE = e-parameters[2]
-#po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_4, T_4,energyPO_4] = tpcd_UPOsHam2dof.turningPoint_configdiff(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
-#
-#po_fam_file.close()
-#
-##%%
-#e=4.0
-#"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
-#state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
-#n=4
-#n_turn=1
-#deltaE = e-parameters[2]
-#po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_5, T_5,energyPO_5] = tpcd_UPOsHam2dof.turningPoint_configdiff(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
-#
-#po_fam_file.close()
 
 
 #%% Load periodic orbit data from ascii files
