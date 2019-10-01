@@ -4,6 +4,7 @@
 
 #Data files
 *.txt
+*.pdf
 
 #C++ executable
 __pycache__
