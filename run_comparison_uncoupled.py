@@ -145,7 +145,6 @@ def half_period_uncoupled(t, x, par):
 #% End problem specific functions
 
 
-
 #%% Setting up parameters and global variables(Using differential correction notation)
     
 N = 4        # dimension of phase space
