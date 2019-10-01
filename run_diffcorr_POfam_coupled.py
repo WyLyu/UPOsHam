@@ -238,6 +238,8 @@ def half_period_coupled(t, x, par):
     return x[3]
 
 
+#% End problem specific functions
+
 
 #%% Setting up parameters and global variables
 

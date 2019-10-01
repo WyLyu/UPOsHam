@@ -42,7 +42,8 @@ def grad_pot_deleonberne(x, par):
     return F
 
 def pot_energy_deleonberne(x, y, par):
-    return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
+    return par[3]*( 1 - np.exp(-par[4]*x) )**2 + \
+            4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
 
@@ -75,11 +76,13 @@ def varEqns_deleonberne(t,PHI,par):
     
     
     # The first order derivative of the potential energy.
-    dVdx = - 2*par[3]*par[4]*np.exp(-par[4]*x)*(np.exp(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) 
+    dVdx = - 2*par[3]*par[4]*np.exp(-par[4]*x)*(np.exp(-par[4]*x) - 1) - \
+        4*par[5]*par[4]*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) 
     dVdy = 8*y*(2*y**2 - 1)*np.exp(-par[5]*par[4]*x)
 
     # The second order derivative of the potential energy. 
-    d2Vdx2 = - ( 2*par[3]*par[4]**2*( np.exp(-par[4]*x) - 2.0*np.exp(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) )
+    d2Vdx2 = - ( 2*par[3]*par[4]**2*( np.exp(-par[4]*x) - 2.0*np.exp(-2*par[4]*x) ) - \
+                4*(par[5]*par[4])**2*x**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) )
         
     d2Vdy2 = 8*(6*y**2 - 1)*np.exp( -par[4]*par[5]*x )
 
@@ -143,7 +146,9 @@ def configdiff_deleonberne(guess1, guess2, ham2dof_model, half_period_model, n_t
     y_diff2 = guess2[1] - y_turn2
     
 
-    print("Initial guess1%s, initial guess2%s, y_diff1 is %s, y_diff2 is%s " %(guess1, guess2, y_diff1, y_diff2))
+    print("Initial guess1%s, initial guess2%s, y_diff1 is %s, y_diff2 is%s " %(guess1, \
+                                                                               guess2, y_diff1, \
+                                                                               y_diff2))
         
     return y_diff1, y_diff2
 

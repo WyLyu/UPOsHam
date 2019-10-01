@@ -225,9 +225,10 @@ def half_period_deleonberne(t,x,par):
     direction = 0 #0: all directions of crossing
     
     return x[2]
-        
-        
-        
+
+
+#% End problem specific functions
+    
         
 #%% Setting up parameters and global variables
     
