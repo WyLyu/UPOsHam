@@ -1,4 +1,4 @@
-# Contributing to UPOsHam
+## Contributing to UPOsHam
 
 Thank you for considering and taking the time to contribute!
 
@@ -9,21 +9,11 @@ The following is a set of guidelines ([borrowed from the Atom project by Github]
 [Code of Conduct](#code-of-conduct)
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
-  * [Unstable periodic orbits](#unstable-periodic-orbits)
-  * [Hamiltonian dynamics](#hamiltonian-dynamics)
 
 [How Can I Contribute?](#how-can-i-contribute)
   * [Reporting Bugs](#reporting-bugs)
   * [Suggesting Enhancements](#suggesting-enhancements)
-  * [Your First Code Contribution](#your-first-code-contribution)
   * [Pull Requests](#pull-requests)
-
-[Styleguides](#styleguides)
-  * [Git Commit Messages](#git-commit-messages)
-  * [JavaScript Styleguide](#javascript-styleguide)
-  * [CoffeeScript Styleguide](#coffeescript-styleguide)
-  * [Specs Styleguide](#specs-styleguide)
-  * [Documentation Styleguide](#documentation-styleguide)
 
 [Additional Notes](#additional-notes)
   * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
@@ -31,15 +21,19 @@ The following is a set of guidelines ([borrowed from the Atom project by Github]
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the [Contributor Covenant](CODE_OF_CONDUCT.md). 
-By participating, you are expected to uphold this code. Please report unacceptable behavior to 
-[shiba@vt.edu](mailto:shiba@vt.edu) or [wl16298@bristol.ac.uk](mailto:wl16298@bristol.ac.uk).
+By participating, you are expected to uphold this code. Please report unacceptable behavior to [wl16298@bristol.ac.uk](mailto:wl16298@bristol.ac.uk) and or [shiba@vt.edu](mailto:shiba@vt.edu).
 
 ## What should I know before I get started?
 
+We recommend familiarity with unstable periodic orbits and their role in Hamiltonian dynamics. Good starting point on these topics are provided in the [README](https://github.com/WyLyu/UPOsHam) for this repository.
+
 ## How Can I Contribute?
 
-## Styleguides
+### Reporting Bugs
 
-## Additional Notes
+As per open-source *modus operandi*, open an issue in Github using the standard style listed [here](https://github.com/atom/atom/blob/master/CONTRIBUTING.md#additional-notes). 
+Alternatively, you can send bug reports with a short description and the script to reproduce the error to the authors: [wl16298@bristol.ac.uk](mailto:wl16298@bristol.ac.uk) and or [shiba@vt.edu](mailto:shiba@vt.edu). 
+
+
 
 
