@@ -19,10 +19,10 @@ Clone/download the git repository using
 ``` git
 $ git clone git@github.com:WyLyu/UPOsHam.git
 $ cd UPOsHam
-$ pip install -r requirements.txt
+$ pip install -r requirements.dat
 ```
 
-and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.dat) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
+and check the modules shown in [requirements.dat](https://github.com/WyLyu/UPOsHam/tree/master/requirements.dat) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
 
 Usage
 -----
