@@ -34,6 +34,12 @@ This project and everyone participating in it is governed by the [Contributor Co
 By participating, you are expected to uphold this code. Please report unacceptable behavior to 
 [shiba@vt.edu](mailto:shiba@vt.edu) or [wl16298@bristol.ac.uk](mailto:wl16298@bristol.ac.uk).
 
+## What should I know before I get started?
 
+## How Can I Contribute?
+
+## Styleguides
+
+## Additional Notes
 
 
