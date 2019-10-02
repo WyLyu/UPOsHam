@@ -22,7 +22,7 @@ $ cd UPOsHam
 $ pip install -r requirements.txt
 ```
 
-and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
+and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.dat) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
 
 Usage
 -----
