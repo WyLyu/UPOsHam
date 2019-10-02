@@ -267,7 +267,7 @@ x0po = np.zeros((4,len(deltaE_vals))) #each column is a different initial condit
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+')
+    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
@@ -446,7 +446,7 @@ ax.set_zlim(-4, 4)
 plt.grid()
 plt.show()
 
-plt.savefig('tpcd_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
+plt.savefig('turningpoint_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
 
 
 

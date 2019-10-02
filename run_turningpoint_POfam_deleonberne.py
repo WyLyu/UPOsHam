@@ -336,7 +336,7 @@ legend = ax.legend(loc='upper left')
 plt.grid()
 plt.show()
 
-plt.savefig('tpcd_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')
+plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')
 
 #%%
 # e is the total energy, n is the number of intervals we want to divide, n_turn is the nth turning point we want to choose.
