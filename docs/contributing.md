@@ -1,5 +1,7 @@
-# Contributing to UPOsHam
-
+---
+title: Contributing to UPOsHam
+bibliography: ../paper/paper.bib
+---
 Thank you for considering and taking the time to contribute!
 
 The following is a set of guidelines ([borrowed from the Atom project by Github](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)) for contributing to this package. As always use your best judgment and feel free to propose changes to this document in a pull request.
@@ -9,8 +11,6 @@ The following is a set of guidelines ([borrowed from the Atom project by Github]
 [Code of Conduct](#code-of-conduct)
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
-  * [Unstable periodic orbits](#unstable-periodic-orbits)
-  * [Hamiltonian dynamics](#hamiltonian-dynamics)
 
 [How Can I Contribute?](#how-can-i-contribute)
   * [Reporting Bugs](#reporting-bugs)
@@ -36,10 +36,16 @@ By participating, you are expected to uphold this code. Please report unacceptab
 
 ## What should I know before I get started?
 
+We recommend familiarity with unstable periodic orbits and their role in Hamiltonian dynamics. Good starting point on this topic are @Koon2011 and @wiggins_role_2016.
+
+
 ## How Can I Contribute?
+
 
 ## Styleguides
 
+
 ## Additional Notes
 
+## References
 
