@@ -1,6 +1,3 @@
----
-bibliography: ../paper/paper.bib
----
 ## Contributing to UPOsHam
 
 Thank you for considering and taking the time to contribute!
@@ -29,7 +26,7 @@ By participating, you are expected to uphold this code. Please report unacceptab
 
 ## What should I know before I get started?
 
-We recommend familiarity with unstable periodic orbits and their role in Hamiltonian dynamics. Good starting point on this topic are the @Koon2011 and @wiggins_role_2016.
+We recommend familiarity with unstable periodic orbits and their role in Hamiltonian dynamics. Good starting point on these topics are provided in the [README](https://github.com/WyLyu/UPOsHam) for this repository.
 
 
 ## How Can I Contribute?
