@@ -20,6 +20,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_coupled(eqNum, par):
+    """This function returns the position of the equilibrium points with 
+        Saddle (EQNUM=1)
+        Centre (EQNUM=2,3)
+    """
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -31,7 +35,8 @@ def init_guess_eqpt_coupled(eqNum, par):
     return x0
 
 def grad_pot_coupled(x, par):
-    
+    """This function returns the gradient of the potential energy function V(x,y)
+    """     
     dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
     dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
     
@@ -40,6 +45,9 @@ def grad_pot_coupled(x, par):
     return F
 
 def pot_energy_coupled(x, y, par):
+    """This function returns the potential energy function V(x,y)
+    """
+    
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
 
 
@@ -70,6 +78,8 @@ def eigvector_coupled(par):
 
 
 def guess_lin_coupled(eqPt, Ax, par):
+    """This function returns an initial guess of the UPO.
+    """
     
     correcx, correcy = eigvector_coupled(par)
     
@@ -170,6 +180,11 @@ def conv_coord_coupled(x1, y1, dxdot1, dydot1):
 
 
 def diffcorr_acc_corr_coupled(coords, phi_t1, x0, par):
+    """This function computes the correction terms to the initial guess of the UPO
+    where correcx0 is the correction in x coodinate.
+    Using correction in x or y coordinates depend on the problem.
+    The return x0 is now our new guess initional condition of the UPO.
+    """
     
     x1, y1, dxdot1, dydot1 = coords
     

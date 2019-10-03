@@ -20,6 +20,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_uncoupled(eqNum, par):
+    """This function returns the position of the equilibrium points with 
+        Saddle (EQNUM=1)
+        Centre (EQNUM=2,3)
+    """
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -32,6 +36,8 @@ def init_guess_eqpt_uncoupled(eqNum, par):
 
 
 def grad_pot_uncoupled(x,par):
+    """This function returns the gradient of the potential energy function V(x,y)
+    """  
     
     dVdx = -par[3]*x[0]+par[4]*(x[0])**3
     dVdy = par[5]*x[1]
@@ -42,13 +48,16 @@ def grad_pot_uncoupled(x,par):
 
 
 def pot_energy_uncoupled(x, y, par):
+    """This function returns the potential energy function V(x,y)
+    """
+    
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
 
 
 def get_coord_uncoupled(x,y, E, par):
     """ this function returns the initial position of x/y-coordinate on the potential energy surface(PES) for a specific energy V.
-    
     """
+    
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2 - E
 #    elif model== 'deleonberne':
 #        return par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]-V
@@ -57,7 +66,6 @@ def get_coord_uncoupled(x,y, E, par):
 
 
 def varEqns_uncoupled(t,PHI,par):
-    
     """
     PHIdot = varEqns_uncoupled(t,PHI) 
     
@@ -115,6 +123,7 @@ def configdiff_uncoupled(guess1, guess2, ham2dof_model, half_period_model, n_tur
     dot product either difference in x coordintes(x_diff1, x_diff2) or difference in 
     y coordinates(y_diff1, y_diff2) is returned as the result.
     """
+    
     TSPAN = [0,40]
     RelTol = 3.e-10
     AbsTol = 1.e-10 

@@ -21,6 +21,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
+    """This function returns the position of the equilibrium points with 
+        Saddle (EQNUM=1)
+        Centre (EQNUM=2,3)
+    """
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -33,7 +37,8 @@ def init_guess_eqpt_deleonberne(eqNum, par):
 
 
 def grad_pot_deleonberne(x, par):
-    
+    """This function returns the gradient of the potential energy function V(x,y)
+    """     
     dVdx = -2*par[3]*par[4]*np.exp(-par[4]*x[0])*(np.exp(-par[4]*x[0]) - 1) - \
         4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*np.exp(-par[5]*par[4]*x[0])
     dVdy = 8*x[1]*(2*x[1]**2 - 1)*np.exp(-par[5]*par[4]*x[0])
@@ -43,6 +48,9 @@ def grad_pot_deleonberne(x, par):
     return F
 
 def pot_energy_deleonberne(x, y, par):
+    """This function returns the potential energy function V(x,y)
+    """
+    
     return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
@@ -60,6 +68,8 @@ def eigvector_deleonberne(par):
 
 
 def guess_lin_deleonberne(eqPt, Ax, par):
+    """This function returns an initial guess of the UPO.
+    """
     
     correcx, correcy = eigvector_deleonberne(par)
     
@@ -159,6 +169,11 @@ def conv_coord_deleonberne(x1, y1, dxdot1, dydot1):
 
 
 def diffcorr_acc_corr_deleonberne(coords, phi_t1, x0, par):
+    """This function computes the correction terms to the initial guess of the UPO
+    where correcy0 is the correction in y coodinate.
+    Using correction in x or y coordinates depend on the problem.
+    The return x0 is now our new guess initional condition of the UPO.
+    """
     
     x1, y1, dxdot1, dydot1 = coords
     

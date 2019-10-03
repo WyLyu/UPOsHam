@@ -21,7 +21,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_coupled(eqNum, par):
-    
+    """This function returns the position of the equilibrium points with 
+        Saddle (EQNUM=1)
+        Centre (EQNUM=2,3)
+    """    
     if eqNum == 1:
         x0 = [0, 0]
     if eqNum == 2:
@@ -32,6 +35,8 @@ def init_guess_eqpt_coupled(eqNum, par):
     return x0
 
 def grad_pot_coupled(x, par):
+    """This function returns the gradient of the potential energy function V(x,y)
+    """
     
     dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
     dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
@@ -41,6 +46,8 @@ def grad_pot_coupled(x, par):
     return F
 
 def pot_energy_coupled(x, y, par):
+    """This function returns the potential energy function V(x,y)
+    """
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
 
 
@@ -119,6 +126,7 @@ def configdiff_coupled(guess1, guess2, ham2dof_model, half_period_model, n_turn,
     either difference in x coordintes(x_diff1, x_diff2) or difference in 
     y coordinates(y_diff1, y_diff2) is returned as the result.
     """
+    
     TSPAN = [0,40]
     RelTol = 3.e-10
     AbsTol = 1.e-10 
