@@ -172,7 +172,7 @@ def plot_iter_orbit_deleonberne(x, ax, e, par):
     
     ax.set_xlabel(r'$x$', fontsize=axis_fs)
     ax.set_ylabel(r'$y$', fontsize=axis_fs)
-    ax.set_zlabel(r'$p_y$', fontsize=axis_fs)
+    ax.set_zlabel(r'$p_x$', fontsize=axis_fs)
     ax.set_title(r'$\Delta E$ = %e' %(np.mean(e) - par[2]) ,fontsize=axis_fs)
     #par(3) is the energy of the saddle
     ax.set_xlim(-0.1, 0.1)
