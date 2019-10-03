@@ -265,7 +265,7 @@ t = time.time()
 #  get the initial conditions and periods for a family of periodic orbits
 
 
-po_fam_file = open("x0_tp_fam_eqPt%s_uncoupled.txt" %eqNum,'a+')
+po_fam_file = open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum,'a+')
 [po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2, nFam, \
                                                     po_fam_file, init_guess_eqpt_uncoupled, \
                                                     grad_pot_uncoupled, jacobian_uncoupled, \
@@ -296,7 +296,7 @@ linecolor = ['b','r']
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
     
-    po_fam_file = open("x0_tp_fam_eqPt%s_uncoupled.txt" %eqNum ,'a+')
+    po_fam_file = open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum ,'a+')
     eTarget = eSaddle + deltaE 
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
