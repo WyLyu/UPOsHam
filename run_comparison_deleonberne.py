@@ -35,6 +35,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
+    """This function returns the position of the equilibrium points with 
+        Saddle (EQNUM=1)
+        Centre (EQNUM=2,3)
+    """
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -47,6 +51,8 @@ def init_guess_eqpt_deleonberne(eqNum, par):
 
 
 def grad_pot_deleonberne(x, par):
+    """This function returns the gradient of the potential energy function V(x,y)
+    """ 
     
     dVdx = -2*par[3]*par[4]*np.exp(-par[4]*x[0])*(np.exp(-par[4]*x[0]) - 1) - \
         4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*np.exp(-par[5]*par[4]*x[0])
@@ -57,6 +63,9 @@ def grad_pot_deleonberne(x, par):
     return F
 
 def pot_energy_deleonberne(x, y, par):
+    """This function returns the potential energy function V(x,y)
+    """
+    
     return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
@@ -70,7 +79,6 @@ def varEqns_deleonberne(t,PHI,par):
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
         dt
-    
     """
     
     phi = PHI[0:16]

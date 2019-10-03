@@ -31,6 +31,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_uncoupled(eqNum, par):
+    """This function returns the position of the equilibrium points with 
+        Saddle (EQNUM=1)
+        Centre (EQNUM=2,3)
+    """
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -43,6 +47,8 @@ def init_guess_eqpt_uncoupled(eqNum, par):
 
 
 def grad_pot_uncoupled(x,par):
+    """This function returns the gradient of the potential energy function V(x,y)
+    """ 
     
     dVdx = -par[3]*x[0]+par[4]*(x[0])**3
     dVdy = par[5]*x[1]
@@ -53,11 +59,13 @@ def grad_pot_uncoupled(x,par):
 
 
 def pot_energy_uncoupled(x, y, par):
+    """This function returns the potential energy function V(x,y)
+    """
+    
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
 
 
 def varEqns_uncoupled(t,PHI,par):
-    
     """
     PHIdot = varEqns_uncoupled(t,PHI) 
     
@@ -67,7 +75,6 @@ def varEqns_uncoupled(t,PHI,par):
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
         dt
-    
     """
     
     phi = PHI[0:16]
