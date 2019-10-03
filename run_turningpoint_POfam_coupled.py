@@ -193,8 +193,8 @@ EPSILON_S = 0.0 #Energy of the saddle
 alpha = 1.00
 beta = 1.00
 epsilon= 1e-1
-parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon]);
-eqNum = 1;  
+parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon])
+eqNum = 1  
 model = 'coupled'
 #eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
@@ -258,7 +258,7 @@ for i in range(len(deltaE_vals)):
 
 
 
-#[x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+#[x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 #%% Load periodic orbit data from ascii files
     
@@ -291,7 +291,7 @@ for i in range(len(deltaE_vals)):
 #
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-#[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+#[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 #
 ##%%
@@ -312,7 +312,7 @@ for i in range(len(deltaE_vals)):
 #
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-#[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+#[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 #
 ##%%
@@ -333,7 +333,7 @@ for i in range(len(deltaE_vals)):
 #
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-#[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+#[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 #
 ##%%
@@ -354,42 +354,42 @@ for i in range(len(deltaE_vals)):
 #
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-#[x0po_5, T_5,energyPO_5] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file) ; 
+#[x0po_5, T_5,energyPO_5] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 
 
 #%% Load Data
 #deltaE = 0.010
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
-#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
+#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_1 = x0podata
 #
 #deltaE = 0.10
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
-#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
+#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_2 = x0podata
 #
 #deltaE = 1.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
-#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
+#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_3 = x0podata
 #
 #deltaE = 2.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
-#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
+#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_4 = x0podata
 #
 #deltaE = 4.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+');
-#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n'); 
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
+#print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_5 = x0podata
@@ -465,8 +465,8 @@ plt.savefig('turningpoint_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='b',label='$\Delta E$ = 0.01')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='b')
-#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o');
+#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #f = lambda t,x : tp_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
@@ -477,8 +477,8 @@ plt.savefig('turningpoint_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='r',label='$\Delta E$ = 0.1')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='r')
-#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o');
+#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #f = lambda t,x : tp_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
@@ -489,8 +489,8 @@ plt.savefig('turningpoint_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='g',label='$\Delta E$ = 1.0')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='g')
-#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o');
+#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
@@ -502,8 +502,8 @@ plt.savefig('turningpoint_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='m',label='$\Delta E$ = 2.0')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='m')
-#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o');
+#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
@@ -515,8 +515,8 @@ plt.savefig('turningpoint_POfam_coupled.pdf', format='pdf', bbox_inches='tight')
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='c',label='$\Delta E$ = 4.0')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='c')
-#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*');
-#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o');
+#ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
+#ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
