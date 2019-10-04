@@ -1,6 +1,7 @@
 -   [Summary](#summary)
 -   [Installation](#installation)
 -   [Usage](#usage)
+-   [Contributing](#contributing)
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
 
@@ -42,6 +43,11 @@ To obtain the unstable periodic orbits for a specific model Hamiltonian using a 
 ```
 
 Other tests can be performed by running the cells in the run\_alltests.ipynb
+
+Contributing
+------------
+
+Guidelines on how to contribute to this package can be found [here](https://github.com/WyLyu/UPOsHam/blob/master/docs/contributing.md) and also be sure to check the [code of conduct](https://github.com/WyLyu/UPOsHam/blob/master/CODE_OF_CONDUCT.md).
 
 Copyright and License
 ---------------------
