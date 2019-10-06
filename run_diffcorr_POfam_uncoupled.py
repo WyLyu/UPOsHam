@@ -28,7 +28,7 @@ def init_guess_eqpt_uncoupled(eqNum, par):
     
     if eqNum == 1:
         x0 = [0, 0]
-    if eqNum == 2:
+    elif eqNum == 2:
         x0 = [np.sqrt(par[3]/par[4]),0] 
     elif eqNum == 3:
         x0 = [-np.sqrt(par[3]/par[4]),0]  

@@ -29,7 +29,7 @@ def init_guess_eqpt_deleonberne(eqNum, par):
     
     if eqNum == 1:
         x0 = [0, 0]
-    if eqNum == 2:
+    elif eqNum == 2:
         x0 = [0, 1/np.sqrt(2)]  # EQNUM = 2, center-center
     elif eqNum == 3:
         x0 = [0, -1/np.sqrt(2)] # EQNUM = 3, center-center
