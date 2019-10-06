@@ -181,6 +181,7 @@ def diffcorr_acc_corr_deleonberne(coords, phi_t1, x0, par):
     dVdy = 8*y1*(2*y1**2 - 1)*np.exp(-par[5]*par[4]*x1)
     vxdot1 = -dVdx
     vydot1 = -dVdy
+    #correction to the initial y0
     correcty0 = 1/(phi_t1[3,1] - phi_t1[2,1]*vydot1*(1/vxdot1))*dydot1
     x0[1] = x0[1] - correcty0
 
