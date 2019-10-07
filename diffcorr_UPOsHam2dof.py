@@ -20,24 +20,38 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 #%
 def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     """
-    GET_EQ_PTS solves the coordinates of the equilibrium point for a Hamiltonian 
-    system of the form KE + PE. 
+    Returns configuration space coordinates of the equilibrium points.
     
-    eqNum = 1 is the saddle-center equilibrium point
-    eqNum = 2 or 3 is the center-center equilibrium point
+    get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the 
+    coordinates of the equilibrium point for a Hamiltonian of the form kinetic 
+    energy (KE) + potential energy (PE). 
     
-    init_guess_eqpt_model: function name that defines the initial guess for the critical point
+    Parameters
+    ----------
+    eqNum : int
+        1 is the saddle-center equilibrium point
+        2 or 3 is the center-center equilibrium point
     
-    grad_pot_model: function name that defines the vector of potential gradient
+    init_guess_eqpt_model : str
+        function name that returns the initial guess for the equilibrium point
     
-    par: list of parameters for the problem
+    grad_pot_model : str
+        function name that defines the vector of potential gradient
+    
+    par : float (list)
+        model parameters 
+   
+    Returns
+    -------
+    float (list)
+        configuration space coordinates
+        
     """
-    #fix the equilibrium point numbering convention here and make a
-    #starting guess at the solution
+    # Fix the equilibrium point numbering convention here and make a starting guess at the solution
     x0 = init_guess_eqpt_model(eqNum, par)
     
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-#    F = lambda x: func_vec_field_eq_pt(model,x,par)
+    # F = lambda x: func_vec_field_eq_pt(model,x,par)
     F = lambda x: grad_pot_model(x, par)
     
     eqPt = fsolve(F, x0, fprime = None) # Call solver
@@ -48,7 +62,27 @@ def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
 #%
 def get_total_energy(orbit, pot_energy_model, parameters):
     """
-    get_total_energy computes the total energy of an input initial conditions
+    Returns total energy (value of Hamiltonian) of a phase space point on an orbit
+    
+    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a 
+    Hamiltonian of the form KE + PE. 
+    
+    Parameters
+    ----------
+    orbit : float (list)
+        phase space coordinates (x,y,px,py) of a point on an orbit
+    
+    pot_energy_model : str
+        function name that returns the potential energy of Hamiltonian
+    
+    parameters : float (list)
+        model parameters 
+   
+    Returns
+    -------
+    scalar
+        total energy (value of Hamiltonian)
+    
     """
 
     x  = orbit[0]
@@ -63,7 +97,30 @@ def get_total_energy(orbit, pot_energy_model, parameters):
 
 #%%
 def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):            
-
+    """
+    Returns projection of the potential energy (PE) surface on the configuration space
+    
+    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a 
+    Hamiltonian of the form kinetic energy (KE) + potential energy (PE). 
+    
+    Parameters
+    ----------
+    xVec, yVec : 1d numpy arrays
+        x,y-coordinates that discretizes the x, y domain of the configuration space
+    
+    pot_energy_model : str
+        function name that returns the potential energy of Hamiltonian
+    
+    parameters : float (list)
+        model parameters 
+   
+    Returns
+    -------
+    2d numpy array
+        values of the PE
+    
+    """
+    
     resX = np.size(xVec)
     resY = np.size(xVec)
     surfProj = np.zeros([resX, resY])
@@ -77,7 +134,6 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     
 #%%
 def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
-    
     """
     function [x,t,phi_tf,PHI] =
     stateTransitionMatrix_boatPR(x0,tf,R,OPTIONS,fixed_step)
