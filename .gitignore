@@ -1,6 +1,8 @@
 #OS junk files
 [Tt]thumbs.db
 *.DS_Store
+.ipynb_checkpoints/
+docs/.Rhistory
 
 #Data files
 *.txt
