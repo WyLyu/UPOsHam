@@ -21,9 +21,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_uncoupled(eqNum, par):
-    """This function returns the position of the equilibrium points with 
-        Saddle (EQNUM=1)
-        Centre (EQNUM=2,3)
+    """
+    Returns configuration space coordinates of the equilibrium points according to the index:
+    Saddle (EQNUM=1)
+    Centre (EQNUM=2,3)
     """
     
     if eqNum == 1:
@@ -37,8 +38,7 @@ def init_guess_eqpt_uncoupled(eqNum, par):
 
 
 def grad_pot_uncoupled(x,par):
-    """This function returns the gradient of the potential energy function V(x,y)
-    """ 
+    """ Returns the gradient of the potential energy function V(x,y) """ 
     
     dVdx = -par[3]*x[0]+par[4]*(x[0])**3
     dVdy = par[5]*x[1]
@@ -49,18 +49,14 @@ def grad_pot_uncoupled(x,par):
 
 
 def pot_energy_uncoupled(x, y, par):
-    """This function returns the potential energy function V(x,y)
+    """ Returns the potential energy function V(x,y)
     """
     
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
 
 
 def eigvector_uncoupled(par):
-    """
-    eigenvectors and eigenvalues of the Jacobian evaluated at the equilibrium point, 
-    which is the correction of the initial condition.
-    check the result obtained from the Jacobian matches the analytic result.
-    """
+    """ Returns the correction factor to the eigenvectors for the linear guess """
 
     correcx = 1
     correcy = 1
@@ -69,16 +65,15 @@ def eigvector_uncoupled(par):
 
 
 def guess_lin_uncoupled(eqPt, Ax, par):
-    """This function returns an initial guess of the UPO.
-    """ 
+    """ Returns an initial guess for the unstable periodic orbit """ 
     
     correcx, correcy = eigvector_uncoupled(par)
     
-
     return [eqPt[0] + Ax*correcx,eqPt[1] + Ax*correcy,0,0]
 
 
 def jacobian_uncoupled(eqPt, par):
+    """ Returns Jacobian of the Hamiltonian vector field """
     
     x,y,px,py = eqPt[0:4]
     
@@ -104,11 +99,9 @@ def jacobian_uncoupled(eqPt, par):
 
 
 def varEqns_uncoupled(t,PHI,par):
-    """
-    PHIdot = varEqns_uncoupled(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
+    """    
+    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
+    Hamiltonian vector field
     
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
@@ -154,6 +147,11 @@ def varEqns_uncoupled(t,PHI,par):
 
 
 def diffcorr_setup_uncoupled():
+    """ Returns settings for differential correction method 
+        
+        Settings include choosing coordinates for event criteria, convergence criteria, and 
+        correction (see references for details on how to choose these coordinates).
+    """
     
     dxdot1 = 1
     correctx0= 0
@@ -170,10 +168,11 @@ def conv_coord_uncoupled(x1, y1, dxdot1, dydot1):
 
 
 def diffcorr_acc_corr_uncoupled(coords, phi_t1, x0, par):
-    """This function computes the correction terms to the initial guess of the UPO
-    where correcx0 is the correction in x coodinate.
-    Using correction in x or y coordinates depend on the problem.
-    The return x0 is now our new guess initional condition of the UPO.
+    """ Returns the new guess initial condition of the unstable periodic orbit after applying 
+    small correction to the guess. 
+        
+    Correcting x or y coordinate depends on the problem and needs to chosen by inspecting the 
+    geometry of the bottleneck in the potential energy surface.
     """
     
     x1, y1, dxdot1, dydot1 = coords
@@ -184,12 +183,15 @@ def diffcorr_acc_corr_uncoupled(coords, phi_t1, x0, par):
     vydot1 = -dVdy
     #correction to the initial x0
     correctx0 = dxdot1/(phi_t1[2,0] - phi_t1[3,0]*(vxdot1/vydot1))
-    x0[0] = x0[0] - correctx0
+    x0[0] = x0[0] - correctx0 # correction in x coodinate.
 
     return x0
 
 
 def plot_iter_orbit_uncoupled(x, ax, e, par):
+    """ Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
+    final points marked 
+    """
     
     label_fs = 10
     axis_fs = 15 # fontsize for publications 
@@ -206,9 +208,7 @@ def plot_iter_orbit_uncoupled(x, ax, e, par):
 
 
 def ham2dof_uncoupled(t, x, par):
-    """
-    Hamilton's equations of motion
-    """
+    """ Returns the Hamiltonian vector field (Hamilton's equations of motion) """
     
     xDot = np.zeros(4)
     
@@ -224,19 +224,17 @@ def ham2dof_uncoupled(t, x, par):
 
 
 def half_period_uncoupled(t, x, par):
-    """
-    Return the turning point where we want to stop the integration                           
+    """ Returns the coordinate for the half-period event for the unstable periodic orbit                          
     
-    pxDot = x[0]
-    pyDot = x[1]
-    xDot = x[2]
-    yDot = x[3]
+    xDot = x[0]
+    yDot = x[1]
+    pxDot = x[2]
+    pyDot = x[3]
     """
     
     terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
-    
+    direction = 0 #0: all directions of crossing, zero can be approached from either direction
+
     return x[3]
  
 
@@ -277,9 +275,7 @@ Ax2  = 2*Ax1 # initial amplitude (2 of 2)
 
 t = time.time()
 
-#  get the initial conditions and periods for a family of periodic orbits
-
-
+# get the initial conditions and periods for a family of periodic orbits
 po_fam_file = open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum,'a+')
 [po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2, nFam, \
                                                     po_fam_file, init_guess_eqpt_uncoupled, \
@@ -290,8 +286,6 @@ po_fam_file = open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum,'a+')
                                                     half_period_uncoupled, pot_energy_uncoupled, \
                                                     varEqns_uncoupled, plot_iter_orbit_uncoupled, \
                                                     parameters)
-#[po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2,nFam, \
-#                                                    po_fam_file, parameters,model)  
 
 poFamRuntime = time.time()-t
 x0podata = np.concatenate((po_x0Fam, po_tpFam),axis=1)
@@ -331,8 +325,7 @@ for i in range(len(deltaE_vals)):
                                                               pot_energy_uncoupled, varEqns_uncoupled, \
                                                               plot_iter_orbit_uncoupled, \
                                                               parameters)
-#    x0poTarget,TTarget = diffcorr_UPOsHam2dof.poBracketEnergy(eTarget, x0podata, \
-#                                                              po_brac_file, parameters, model)
+
     poTarE_runtime = time.time()-t
     model_parameters_file = open("model_parameters_eqPt%s_DelE%s_uncoupled.txt" %(eqNum,deltaE),'a+')
     np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
@@ -340,7 +333,6 @@ for i in range(len(deltaE_vals)):
     po_brac_file.close()
     
     
-    #%
     # target specific periodic orbit
     # Target PO of specific energy with high precision does not work for the
     # model 
