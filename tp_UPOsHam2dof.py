@@ -614,7 +614,7 @@ def turningPoint(model, begin1, begin2, get_coord_model, guess_coords_model, ham
     turningPoint computes the periodic orbit of target energy using turning point method. 
     Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
     trajectories with inital conditions begin1, begin2 are turning in different directions,
-    which returns a negative value of the dot product
+    which results in a negative value of the dot product
 
     Parameters
     ----------
