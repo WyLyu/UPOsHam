@@ -20,17 +20,32 @@ mpl.rcParams['mathtext.rm'] = 'serif'
     
 def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     """
-    GET_EQ_PTS solves the coordinates of the equilibrium point for a Hamiltonian 
-    system of the form KE + PE. 
-    
-    eqNum = 1 is the saddle-center equilibrium point
-    eqNum = 2 or 3 is the center-center equilibrium point
-    
-    init_guess_eqpt_model: function name that defines the initial guess for the critical point
-    
-    grad_pot_model: function name that defines the vector of potential gradient
-    
-    par: list of parameters for the problem
+    Returns configuration space coordinates of the equilibrium points.
+
+    get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
+    coordinates of the equilibrium point for a Hamiltonian of the form kinetic
+    energy (KE) + potential energy (PE).
+
+    Parameters
+    ----------
+    eqNum : int
+        1 is the saddle-center equilibrium point
+        2 or 3 is the center-center equilibrium point
+
+    init_guess_eqpt_model : function name
+        function that returns the initial guess for the equilibrium point
+
+    grad_pot_model : function name
+        function that defines the vector of potential gradient
+
+    par : float (list)
+        model parameters
+
+    Returns
+    -------
+    float (list)
+        configuration space coordinates
+
     """
     #fix the equilibrium point numbering convention here and make a
     #starting guess at the solution
@@ -50,7 +65,27 @@ def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
 #%
 def get_total_energy(orbit, pot_energy_model, parameters):
     """
-    get_total_energy computes the total energy of an input initial conditions
+    Returns total energy (value of Hamiltonian) of a phase space point on an orbit
+
+    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
+    Hamiltonian of the form KE + PE.
+
+    Parameters
+    ----------
+    orbit : float (list)
+        phase space coordinates (x,y,px,py) of a point on an orbit
+
+    pot_energy_model : function name
+        function that returns the potential energy of Hamiltonian
+
+    parameters : float (list)
+        model parameters
+
+    Returns
+    -------
+    scalar
+        total energy (value of Hamiltonian)
+
     """
     x  = orbit[0]
     y  = orbit[1]
@@ -63,7 +98,27 @@ def get_total_energy(orbit, pot_energy_model, parameters):
 
 #%%
 def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):            
+    """
+    Returns projection of the potential energy (PE) surface on the configuration space
 
+    Parameters
+    ----------
+    xVec, yVec : 1d numpy arrays
+        x,y-coordinates that discretizes the x, y domain of the configuration space
+
+    pot_energy_model : function name
+        function that returns the potential energy of Hamiltonian
+
+    parameters : float (list)
+        model parameters
+
+    Returns
+    -------
+    2d numpy array
+        values of the PE
+
+    """
+    
     resX = np.size(xVec)
     resY = np.size(xVec)
     surfProj = np.zeros([resX, resY])
@@ -76,15 +131,47 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     
 #%
 def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
-    
     """
-    stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0)
-    
-    Gets state transition matrix, phi_tf = PHI(0,tf), and the trajectory 
-    (x,t) for a length of time, tf.  
-    
-    In particular, for periodic solutions of % period tf=T, one can obtain 
+    Returns state transition matrix, the trajectory, and the solution of the
+    variational equations over a length of time
+
+    In particular, for periodic solutions of % period tf=T, one can obtain
     the monodromy matrix, PHI(0,T).
+    """
+    """
+    Returns projection of the potential energy (PE) surface on the configuration space
+
+    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
+    Hamiltonian of the form kinetic energy (KE) + potential energy (PE).
+
+    Parameters
+    ----------
+    tf : float
+        final time for the integration
+
+    x0 : float
+        initial condition
+
+    par : float (list)
+        model parameters
+
+    varEqns_model : function name
+        function that returns the variational equations of the dynamical system
+
+    Returns
+    -------
+    t : 1d numpy array
+        solution time
+
+    x : 2d numpy array
+        solution of the phase space coordinates
+
+    phi_tf : 2d numpy array
+        state transition matrix at the final time, tf
+
+    PHI : 1d numpy array,
+        solution of phase space coordinates and corresponding tangent space coordinates
+
     """
 
     N = len(x0)  # N=4 
@@ -135,6 +222,70 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     we also assume the dot roduct is always working for the first iteration(i_iter0), this can be 
     done by ploting the trajectories with the initial guesses and see which directions the 
     trajectories are turning.
+    """
+    """
+    turningPoint computes the periodic orbit of target energy using turning point based on configuration difference method. 
+    Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
+    trajectories with inital conditions begin1, begin2 are turning in different directions,
+    which gives different sign values for configuration difference 
+
+    Parameters
+    ----------
+    begin1 : function name
+        guess initial condition 1 for the unstable periodic orbit
+
+    begin2 : function name
+        guess initial condition 2 for the unstable periodic orbit
+
+    get_coord_model : function name
+        function that returns the phase space coordinate for a given x/y value and total energy E
+        
+    guess_coord_model : function name
+        function that returns the coordinates as guess for the next iteration of the 
+    turning point 
+        
+    ham2dof_model : function name
+        function that returns the Hamiltonian vector field at an input phase space coordinate
+        and time
+
+    half_period_model : function name
+        function that returns the event criteria in terms of the coordinate that is set to zero
+        for half-period of the unstable periodic orbit
+
+    pot_energy_model : function name
+        function that returns the potential energy of Hamiltonian
+
+    varEqns_model : function name
+        function that returns the variational equations of the dynamical system
+
+    plot_iter_orbit_model : function name
+        function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+        coordinate
+    
+    par: float (list)
+        model parameters
+
+    e: float 
+        total energy of the system
+
+    n: int
+        number of intervals that is divided bewteen the 2 initial guesses begin1 and begin2
+        
+    n_turn: int
+        nth turning point that is used to define the dot product
+ 
+    po_fam_file : function name
+        file name to save the members in the family of the unstable periodic orbits      
+    Returns
+    -------
+    x0po : 1d numpy array 
+        Initial condition of the target unstable periodic orbit
+        
+    T : float
+        Time period of the target unstable periodic orbit
+        
+    energyPO : float
+        Energy of the target unstable periodic orbit. 
     """
     axis_fs = 15
     #y_PES = get_y(begin1[0], e,par)
