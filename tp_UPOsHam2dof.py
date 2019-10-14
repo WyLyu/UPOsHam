@@ -611,11 +611,10 @@ def turningPoint(model, begin1, begin2, get_coord_model, guess_coords_model, ham
     we also assume the dot roduct is always working for the first iteration(iter 0), this can be done by ploting the trajectories with the initial guesses and see which directions the trajectories are turning.
     """
     """
-    poTargetEnergy computes the periodic orbit of target energy using bisection method. 
-    
-    Using bisection method on the lower and higher energy values of the POs to find the PO with 
-    the target energy. Use this condition to integrate with event function of half-period 
-    defined by maximum distance from the initial point on the PO
+    turningPoint computes the periodic orbit of target energy using turning point method. 
+    Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
+    trajectories with inital conditions begin1, begin2 are turning in different directions,
+    which returns a negative value of the dot product
 
     Parameters
     ----------
