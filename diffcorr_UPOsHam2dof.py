@@ -100,9 +100,6 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     """
     Returns projection of the potential energy (PE) surface on the configuration space
 
-    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-    Hamiltonian of the form kinetic energy (KE) + potential energy (PE).
-
     Parameters
     ----------
     xVec, yVec : 1d numpy arrays
