@@ -226,7 +226,8 @@ def ham2dof_uncoupled(t, x, par):
 
 
 def half_period_uncoupled(t, x, par):
-    """ Returns the coordinate for the half-period event for the unstable periodic orbit                          
+    """ 
+    Returns the coordinate for the half-period event for the unstable periodic orbit                          
     
     xDot = x[0]
     yDot = x[1]
