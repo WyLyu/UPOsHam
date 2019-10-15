@@ -21,9 +21,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
-    """This function returns the position of the equilibrium points with 
-        Saddle (EQNUM=1)
-        Centre (EQNUM=2,3)
+    """
+    Returns configuration space coordinates of the equilibrium points according to the index:
+    Saddle (EQNUM=1)
+    Centre (EQNUM=2,3)
     """
     
     if eqNum == 1:
@@ -37,8 +38,8 @@ def init_guess_eqpt_deleonberne(eqNum, par):
 
 
 def grad_pot_deleonberne(x, par):
-    """This function returns the gradient of the potential energy function V(x,y)
-    """     
+    """ Returns the gradient of the potential energy function V(x,y) """
+     
     dVdx = -2*par[3]*par[4]*np.exp(-par[4]*x[0])*(np.exp(-par[4]*x[0]) - 1) - \
         4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*np.exp(-par[5]*par[4]*x[0])
     dVdy = 8*x[1]*(2*x[1]**2 - 1)*np.exp(-par[5]*par[4]*x[0])
@@ -48,18 +49,13 @@ def grad_pot_deleonberne(x, par):
     return F
 
 def pot_energy_deleonberne(x, y, par):
-    """This function returns the potential energy function V(x,y)
-    """
+    """ Returns the potential energy function V(x,y) """
     
     return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
 def eigvector_deleonberne(par):
-    """
-    eigenvectors and eigenvalues of the Jacobian evaluated at the equilibrium point, 
-    which is the correction of the initial condition.
-    check the result obtained from the Jacobian matches the analytic result.
-    """
+    """ Returns the correction factor to the eigenvectors for the linear guess """
 
     correcx = 1
     correcy = 0
@@ -68,8 +64,7 @@ def eigvector_deleonberne(par):
 
 
 def guess_lin_deleonberne(eqPt, Ax, par):
-    """This function returns an initial guess of the UPO.
-    """
+    """ Returns an initial guess for the unstable periodic orbit """
     
     correcx, correcy = eigvector_deleonberne(par)
     
@@ -78,6 +73,7 @@ def guess_lin_deleonberne(eqPt, Ax, par):
 
 
 def jacobian_deleonberne(eqPt, par):
+    """ Returns Jacobian of the Hamiltonian vector field """
     
     x,y,px,py = eqPt[0:4]
     # The first order derivative of the Hamiltonian.
@@ -102,11 +98,9 @@ def jacobian_deleonberne(eqPt, par):
 
 
 def varEqns_deleonberne(t,PHI,par):
-    """
-    PHIdot = varEqns_deleonberne(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
+    """    
+    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
+    Hamiltonian vector field
     
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
@@ -153,6 +147,12 @@ def varEqns_deleonberne(t,PHI,par):
 
 
 def diffcorr_setup_deleonberne():
+    """ 
+    Returns settings for differential correction method 
+        
+    Settings include choosing coordinates for event criteria, convergence criteria, and 
+    correction (see references for details on how to choose these coordinates).
+    """
     
     dydot1 = 1
     correcty0= 0
@@ -169,10 +169,12 @@ def conv_coord_deleonberne(x1, y1, dxdot1, dydot1):
 
 
 def diffcorr_acc_corr_deleonberne(coords, phi_t1, x0, par):
-    """This function computes the correction terms to the initial guess of the UPO
-    where correcy0 is the correction in y coodinate.
-    Using correction in x or y coordinates depend on the problem.
-    The return x0 is now our new guess initional condition of the UPO.
+    """ 
+    Returns the new guess initial condition of the unstable periodic orbit after applying 
+    small correction to the guess. 
+        
+    Correcting x or y coordinate depends on the problem and needs to chosen by inspecting the 
+    geometry of the bottleneck in the potential energy surface.
     """
     
     x1, y1, dxdot1, dydot1 = coords
@@ -190,6 +192,10 @@ def diffcorr_acc_corr_deleonberne(coords, phi_t1, x0, par):
 
 
 def plot_iter_orbit_deleonberne(x, ax, e, par):
+    """ 
+    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
+    final points marked 
+    """
     
     label_fs = 10
     axis_fs = 15 # fontsize for publications 
@@ -207,9 +213,7 @@ def plot_iter_orbit_deleonberne(x, ax, e, par):
 
 
 def ham2dof_deleonberne(t, x, par):
-    """
-    Hamilton's equations of motion
-    """
+    """ Returns the Hamiltonian vector field (Hamilton's equations of motion) """
     
     xDot = np.zeros(4)
     
@@ -227,13 +231,13 @@ def ham2dof_deleonberne(t, x, par):
 
 
 def half_period_deleonberne(t,x,par):
-    """
-    Return the turning point where we want to stop the integration                           
+    """ 
+    Returns the coordinate for the half-period event for the unstable periodic orbit                          
     
-    pxDot = x[0]
-    pyDot = x[1]
-    xDot = x[2]
-    yDot = x[3]
+    xDot = x[0]
+    yDot = x[1]
+    pxDot = x[2]
+    pyDot = x[3]
     """
     
     terminal = True

@@ -49,8 +49,7 @@ def grad_pot_uncoupled(x,par):
 
 
 def pot_energy_uncoupled(x, y, par):
-    """ Returns the potential energy function V(x,y)
-    """
+    """ Returns the potential energy function V(x,y) """
     
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
 
@@ -147,10 +146,11 @@ def varEqns_uncoupled(t,PHI,par):
 
 
 def diffcorr_setup_uncoupled():
-    """ Returns settings for differential correction method 
+    """ 
+    Returns settings for differential correction method 
         
-        Settings include choosing coordinates for event criteria, convergence criteria, and 
-        correction (see references for details on how to choose these coordinates).
+    Settings include choosing coordinates for event criteria, convergence criteria, and 
+    correction (see references for details on how to choose these coordinates).
     """
     
     dxdot1 = 1
@@ -168,7 +168,8 @@ def conv_coord_uncoupled(x1, y1, dxdot1, dydot1):
 
 
 def diffcorr_acc_corr_uncoupled(coords, phi_t1, x0, par):
-    """ Returns the new guess initial condition of the unstable periodic orbit after applying 
+    """ 
+    Returns the new guess initial condition of the unstable periodic orbit after applying 
     small correction to the guess. 
         
     Correcting x or y coordinate depends on the problem and needs to chosen by inspecting the 
@@ -189,7 +190,8 @@ def diffcorr_acc_corr_uncoupled(coords, phi_t1, x0, par):
 
 
 def plot_iter_orbit_uncoupled(x, ax, e, par):
-    """ Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
+    """ 
+    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
     final points marked 
     """
     
