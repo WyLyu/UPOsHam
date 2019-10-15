@@ -137,12 +137,6 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
     In particular, for periodic solutions of % period tf=T, one can obtain
     the monodromy matrix, PHI(0,T).
-    """
-    """
-    Returns projection of the potential energy (PE) surface on the configuration space
-
-    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-    Hamiltonian of the form kinetic energy (KE) + potential energy (PE).
 
     Parameters
     ----------
