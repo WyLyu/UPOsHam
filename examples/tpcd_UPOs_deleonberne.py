@@ -10,13 +10,14 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import math
 from scipy import optimize
+import sys
+sys.path.append('./src/')
+import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
-
-import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
