@@ -291,7 +291,7 @@ t = time.time()
 #  get the initial conditions and periods for a family of periodic orbits
 
 
-po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.dat" %eqNum,'a+')
+po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.txt" %eqNum,'a+')
 #[po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2,nFam, po_fam_file, parameters,model)  
 [po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2, nFam, \
                                                     po_fam_file, init_guess_eqpt_deleonberne, \
@@ -312,8 +312,8 @@ po_fam_file.close()
 #%%
 # begins with a family of periodic orbits and steps until crossing the
 # initial condition with target energy 
-# fileName = 'x0po_T_energy_case1_L41.dat'
-# fileName = 'x0po_T.dat'
+# fileName = 'x0po_T_energy_case1_L41.txt'
+# fileName = 'x0po_T.txt'
 
 #deltaE_vals = [0.01, 0.1, 1.00, 2.0, 4.0]
 #linecolor = ['b','r','g','m','c']
@@ -323,14 +323,14 @@ linecolor = ['b','r']
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
     
-    po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.dat" %eqNum ,'a+')
+    po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.txt" %eqNum ,'a+')
     eTarget = eSaddle + deltaE 
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
 
     #%
-    po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_deleonberne.dat" %(eqNum,deltaE),'a+')
+    po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_deleonberne.txt" %(eqNum,deltaE),'a+')
     t = time.time()
     # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
     x0poTarget,TTarget = diffcorr_UPOsHam2dof.poBracketEnergy(eTarget, x0podata, po_brac_file, \
@@ -343,7 +343,7 @@ for i in range(len(deltaE_vals)):
                                                               plot_iter_orbit_deleonberne, \
                                                               parameters)
     poTarE_runtime = time.time()-t
-    model_parameters_file = open("model_parameters_eqPt%s_DelE%s_deleonberne.dat" %(eqNum,deltaE),'a+')
+    model_parameters_file = open("model_parameters_eqPt%s_DelE%s_deleonberne.txt" %(eqNum,deltaE),'a+')
     np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
     model_parameters_file.close()
     po_brac_file.close()
@@ -357,7 +357,7 @@ for i in range(len(deltaE_vals)):
     # Target PO of specific energy with high precision does not work for the
     # model 
     
-    po_target_file = open("x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+    po_target_file = open("x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+')
                     
     [x0po, T,energyPO] = diffcorr_UPOsHam2dof.poTargetEnergy(x0poTarget,eTarget, \
                                                             po_target_file, \
@@ -380,7 +380,7 @@ x0po = np.zeros((4,len(deltaE_vals)))
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+    po_fam_file = open("x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+')
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
