@@ -21,9 +21,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_coupled(eqNum, par):
-    """This function returns the position of the equilibrium points with 
-        Saddle (EQNUM=1)
-        Centre (EQNUM=2,3)
+    """
+    Returns configuration space coordinates of the equilibrium points according to the index:
+    Saddle (EQNUM=1)
+    Centre (EQNUM=2,3)
     """    
     if eqNum == 1:
         x0 = [0, 0]
@@ -35,7 +36,8 @@ def init_guess_eqpt_coupled(eqNum, par):
     return x0
 
 def grad_pot_coupled(x, par):
-    """This function returns the gradient of the potential energy function V(x,y)
+    """
+    Returns the gradient of the potential energy function V(x,y)
     """
     
     dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
@@ -46,14 +48,14 @@ def grad_pot_coupled(x, par):
     return F
 
 def pot_energy_coupled(x, y, par):
-    """This function returns the potential energy function V(x,y)
+    """Returns the potential energy function V(x,y)
     """
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
 
 
 def get_coord_coupled(x, y, E, par):
     """ 
-    this function returns the initial position of x/y-coordinate on the potential energy 
+    Returns the initial position of x/y-coordinate on the potential energy 
     surface(PES) for a specific energy E.
     """
 #    if model == 'uncoupled':
@@ -67,12 +69,9 @@ def get_coord_coupled(x, y, E, par):
 
 
 def varEqns_coupled(t,PHI,par):
-    
-    """
-    PHIdot = varEqns_coupled(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
+    """    
+    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
+    Hamiltonian vector field
     
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
@@ -119,10 +118,9 @@ def varEqns_coupled(t,PHI,par):
 
 def configdiff_coupled(guess1, guess2, ham2dof_model, half_period_model, n_turn, par):
     """
-    configdiff_coupled(model,guess1, guess2,n_turn,par) returns the difference of x(or y) 
-    coordinates between the guess initial conditions and the ith turning points
-    n_turn is the nth turning point we want to choose as our 'turning point' for defining the 
-    dot product
+    Returns the difference of x(or y) coordinates between the guess initial conditions 
+    and the ith turning points
+
     either difference in x coordintes(x_diff1, x_diff2) or difference in 
     y coordinates(y_diff1, y_diff2) is returned as the result.
     """
@@ -162,8 +160,7 @@ def configdiff_coupled(guess1, guess2, ham2dof_model, half_period_model, n_turn,
 
 
 def ham2dof_coupled(t, x, par):
-    """
-    Hamilton's equations of motion
+    """ Returns the Hamiltonian vector field (Hamilton's equations of motion)
     """
     
     xDot = np.zeros(4)
@@ -214,6 +211,10 @@ def guess_coords_coupled(guess1, guess2, i, n, e, get_coord_model, par):
     return xguess, yguess
     
 def plot_iter_orbit_coupled(x, ax, e, par):
+    """ 
+    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
+    final points marked 
+    """
     
     label_fs = 10
     axis_fs = 15 # fontsize for publications 

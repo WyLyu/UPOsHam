@@ -22,10 +22,11 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_uncoupled(eqNum, par):
-    """This function returns the position of the equilibrium points with 
-        Saddle (EQNUM=1)
-        Centre (EQNUM=2,3)
     """
+    Returns configuration space coordinates of the equilibrium points according to the index:
+    Saddle (EQNUM=1)
+    Centre (EQNUM=2,3)
+    """ 
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -38,7 +39,8 @@ def init_guess_eqpt_uncoupled(eqNum, par):
 
 
 def grad_pot_uncoupled(x,par):
-    """This function returns the gradient of the potential energy function V(x,y)
+    """
+    Returns the gradient of the potential energy function V(x,y)
     """     
     
     dVdx = -par[3]*x[0]+par[4]*(x[0])**3
@@ -50,15 +52,16 @@ def grad_pot_uncoupled(x,par):
 
 
 def pot_energy_uncoupled(x, y, par):
-    """This function returns the potential energy function V(x,y)
+    """Returns the potential energy function V(x,y)
     """
     
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
 
 
 def get_coord_uncoupled(x,y, E, par):
-    """ this function returns the initial position of x/y-coordinate on the potential energy surface(PES) for a specific energy V.
-    
+    """ 
+    Returns the initial position of x/y-coordinate on the potential energy 
+    surface(PES) for a specific energy E.
     """
     
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2 - E
@@ -69,11 +72,9 @@ def get_coord_uncoupled(x,y, E, par):
 
 
 def varEqns_uncoupled(t,PHI,par):
-    """
-    PHIdot = varEqns_uncoupled(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
+    """    
+    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
+    Hamiltonian vector field
     
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
@@ -119,8 +120,7 @@ def varEqns_uncoupled(t,PHI,par):
 
 
 def ham2dof_uncoupled(t, x, par):
-    """
-    Hamilton's equations of motion
+    """ Returns the Hamiltonian vector field (Hamilton's equations of motion)
     """
     
     xDot = np.zeros(4)
@@ -169,6 +169,10 @@ def guess_coords_uncoupled(guess1, guess2, i, n, e, get_coord_model, par):
     return xguess, yguess
     
 def plot_iter_orbit_uncoupled(x, ax, e, par):
+    """ 
+    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
+    final points marked 
+    """
     
     label_fs = 10
     axis_fs = 15 # fontsize for publications 
@@ -203,7 +207,7 @@ omega = 1.0
 EPSILON_S = 0.0 #Energy of the saddle
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
 eqNum = 1 
-model = 'uncoupled'
+#model = 'uncoupled'
 #eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_uncoupled, \
                                  grad_pot_uncoupled, parameters)
@@ -240,7 +244,7 @@ for i in range(len(deltaE_vals)):
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
     
     po_fam_file = open("x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model, state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(state0_2, state0_3, \
                                                             get_coord_uncoupled, \
                                                             guess_coords_uncoupled, \
                                                             ham2dof_uncoupled, \

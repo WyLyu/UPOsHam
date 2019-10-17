@@ -146,12 +146,6 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
     In particular, for periodic solutions of % period tf=T, one can obtain
     the monodromy matrix, PHI(0,T).
-    """
-    """
-    Returns projection of the potential energy (PE) surface on the configuration space
-
-    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-    Hamiltonian of the form kinetic energy (KE) + potential energy (PE).
 
     Parameters
     ----------
@@ -517,12 +511,9 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 #%%
 def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_model, par):
     """
-    dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_model, par) returns the value of the dot product for two initial guesses of the PO, guess1 and guess2
-    n_turn is the nth turning point we want to choose as our 'turning point' for defining the dot product
-    """
-    """
     Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points
-
+    
+    Uses turning point method(defined a dot product form before the "actual" turning point.)
     Parameters
     ----------
     guess1 : 1d numpy array 
@@ -596,31 +587,18 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
 
 
 #%%
-def turningPoint(model, begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
+def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
                  half_period_model, varEqns_model, pot_energy_model, plot_iter_orbit_model, par, \
                  e, n, n_turn, po_fam_file):
     """
-    turningPoint(model,begin1,begin2,par,e,n,n_turn,po_fam_file) finds the initial condition of the PO with total energy e, given 2 initial guesses guess1 and guess2 using the turning point method.
-    n is the number of divisons we want to divide
-    n_turn is the nth turning point we want to choose as our 'turning point for defining the dot product'
-    e is the energy of the PES 
-    po_fam_file is the file we want to save our data into 
-    we assume x(or y) coordinate of guess1 is smaller than the x(or y) coordinate of guess2
+    turningPoint computes the periodic orbit of target energy using turning point method.
     
-    we can define the tolerance as the distance of y(or x) coordinate between the turning point and the point on the PES with the same x(or y) coordinate.
-    we also assume the dot roduct is always working for the first iteration(iter 0), this can be done by ploting the trajectories with the initial guesses and see which directions the trajectories are turning.
-    """
-    """
-    turningPoint computes the periodic orbit of target energy using turning point method. 
     Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
     trajectories with inital conditions begin1, begin2 are turning in different directions,
     which results in a negative value of the dot product
 
     Parameters
     ----------
-    model : function name
-        name of the system that is used
-    
     begin1 : function name
         guess initial condition 1 for the unstable periodic orbit
 
