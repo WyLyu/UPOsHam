@@ -178,8 +178,8 @@ eSaddle = 0.0 # energy of the saddle
 
 data_path = "./data/"
 
-#po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-po_fam_file = "x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE)
+#po_fam_file = open("1111x0_tpcd_deltaE%s_uncoupled.dat" %(deltaE),'a+')
+po_fam_file = "x0_tpcd_deltaE%s_uncoupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
@@ -187,8 +187,8 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_tpcd = x0podata
 
 
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-po_fam_file = "x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE)
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+')
+po_fam_file = "x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
@@ -196,8 +196,8 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_turningpoint = x0podata
 
 
-#po_fam_file = open("1111x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-po_fam_file = "x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE)
+#po_fam_file = open("1111x0_diffcorr_deltaE%s_uncoupled.dat" %(deltaE),'a+')
+po_fam_file = "x0_diffcorr_deltaE%s_uncoupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()

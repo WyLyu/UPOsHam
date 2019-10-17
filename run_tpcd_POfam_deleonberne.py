@@ -284,7 +284,7 @@ for i in range(len(E_vals)):
     x0_3 = optimize.newton(f2,-0.15)
     state0_3 = [x0_3,-0.05,0.0,0.0]
     
-    po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+    po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+')
     [x0po_1, T_1,energyPO_1] = tpcd_UPOsHam2dof.turningPoint_configdiff(state0_2, state0_3, \
                                                                         get_coord_deleonberne, \
                                                                         pot_energy_deleonberne, \
@@ -308,7 +308,7 @@ for i in range(len(E_vals)):
     e = E_vals[i]
     deltaE = e - parameters[2]
 
-    po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+    po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+')
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
