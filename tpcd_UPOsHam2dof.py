@@ -137,13 +137,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
     In particular, for periodic solutions of % period tf=T, one can obtain
     the monodromy matrix, PHI(0,T).
-    """
-    """
-    Returns projection of the potential energy (PE) surface on the configuration space
-
-    get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-    Hamiltonian of the form kinetic energy (KE) + potential energy (PE).
-
+    
     Parameters
     ----------
     tf : float
@@ -207,27 +201,11 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
                             guess_coords_model, plot_iter_orbit_model, par, \
                             e, n, n_turn, po_fam_file):
     """
-    turningPoint(model,begin1,begin2,par,e,n,n_turn,po_fam_file) finds the initial condition of 
-    the PO with total energy e, given 2 initial guesses guess1 and guess2 using the turning point 
-    based on configuration difference method.
-    n is the number of divisons we want to divide
-    n_turn is the nth turning point we want to choose as our 
-            'turning point for defining the dot product'
-    e is the energy of the PES 
-    po_fam_file is the file we want to save our data into 
-    we assume x(or y) coordinate of guess1 is smaller than the x(or y) coordinate of guess2
-    
-    we can define the tolerance as the distance of y(or x) coordinate between the turning point 
-    and the point on the PES with the same x(or y) coordinate.
-    we also assume the dot roduct is always working for the first iteration(i_iter0), this can be 
-    done by ploting the trajectories with the initial guesses and see which directions the 
-    trajectories are turning.
-    """
-    """
     turningPoint computes the periodic orbit of target energy using turning point based on configuration difference method. 
+    
     Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
     trajectories with inital conditions begin1, begin2 are turning in different directions,
-    which gives different sign values for configuration difference 
+    which gives different signs(+ or -) for configuration difference 
 
     Parameters
     ----------
