@@ -22,10 +22,11 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
-    """This function returns the position of the equilibrium points with 
-        Saddle (EQNUM=1)
-        Centre (EQNUM=2,3)
     """
+    Returns configuration space coordinates of the equilibrium points according to the index:
+    Saddle (EQNUM=1)
+    Centre (EQNUM=2,3)
+    """ 
     
     if eqNum == 1:
         x0 = [0, 0]
@@ -38,8 +39,9 @@ def init_guess_eqpt_deleonberne(eqNum, par):
 
 
 def grad_pot_deleonberne(x, par):
-    """This function returns the gradient of the potential energy function V(x,y)
-    """     
+    """
+    Returns the gradient of the potential energy function V(x,y)
+    """    
     
     dVdx = -2*par[3]*par[4]*np.exp(-par[4]*x[0])*(np.exp(-par[4]*x[0]) - 1) - \
         4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*np.exp(-par[5]*par[4]*x[0])
@@ -50,7 +52,7 @@ def grad_pot_deleonberne(x, par):
     return F
 
 def pot_energy_deleonberne(x, y, par):
-    """This function returns the potential energy function V(x,y)
+    """Returns the potential energy function V(x,y)
     """
     
     return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
@@ -59,7 +61,7 @@ def pot_energy_deleonberne(x, y, par):
 
 def get_coord_deleonberne(x,y, E, par):
     """ 
-    this function returns the initial position of x/y-coordinate on the potential energy 
+    Returns the initial position of x/y-coordinate on the potential energy 
     surface(PES) for a specific energy E.
     """
 
@@ -68,15 +70,14 @@ def get_coord_deleonberne(x,y, E, par):
 
 
 def varEqns_deleonberne(t,PHI,par):
-    """
-    PHIdot = varEqns_deleonberne(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
+    """    
+    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
+    Hamiltonian vector field
     
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
         dt
+    
     """
     
     phi = PHI[0:16]
@@ -118,8 +119,7 @@ def varEqns_deleonberne(t,PHI,par):
 
 
 def ham2dof_deleonberne(t, x, par):
-    """
-    Hamilton's equations of motion
+    """ Returns the Hamiltonian vector field (Hamilton's equations of motion)
     """
     
     xDot = np.zeros(4)
@@ -169,6 +169,10 @@ def guess_coords_deleonberne(guess1, guess2, i, n, e, get_coord_model, par):
     return xguess, yguess
     
 def plot_iter_orbit_deleonberne(x, ax, e, par):
+    """ 
+    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
+    final points marked 
+    """
     
     label_fs = 10
     axis_fs = 15 # fontsize for publications 
