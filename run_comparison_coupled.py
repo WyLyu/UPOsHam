@@ -175,10 +175,10 @@ eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energ
 
 deltaE = 0.10
 eSaddle = 0.0 # energy of the saddle
-#po_fam_file = open("./data/1111x0_newmethod_deltaE%s_coupled.txt" %(deltaE),'a+')
-#po_fam_file = open("1111x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+')
+#po_fam_file = open("./data/1111x0_newmethod_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_tpcd_deltaE%s_coupled.dat" %(deltaE),'a+')
 data_path = "./data/"
-po_fam_file = "x0_tpcd_deltaE%s_coupled.txt" %(deltaE)
+po_fam_file = "x0_tpcd_deltaE%s_coupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 x0podata = np.loadtxt(data_path + po_fam_file)
@@ -187,8 +187,8 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_tpcd = x0podata
 
 
-#po_fam_file = open("./data/1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-po_fam_file = "x0_turningpoint_deltaE%s_coupled.txt" %(deltaE)
+#po_fam_file = open("./data/1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+po_fam_file = "x0_turningpoint_deltaE%s_coupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 x0podata = np.loadtxt(data_path + po_fam_file)
@@ -197,8 +197,8 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_turningpoint = x0podata
 
 
-#po_fam_file = open("./data/1111x0_diffcorr_deltaE%s_coupled.txt" %(deltaE),'a+')
-po_fam_file = "x0_diffcorr_deltaE%s_coupled.txt" %(deltaE)
+#po_fam_file = open("./data/1111x0_diffcorr_deltaE%s_coupled.dat" %(deltaE),'a+')
+po_fam_file = "x0_diffcorr_deltaE%s_coupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 x0podata = np.loadtxt(data_path + po_fam_file)
