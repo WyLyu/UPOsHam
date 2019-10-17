@@ -220,7 +220,7 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1 
-model = 'deleonberne'
+#model = 'deleonberne'
 #eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
                                  grad_pot_deleonberne, parameters)
@@ -259,7 +259,7 @@ for i in range(len(E_vals)):
     
     po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.dat"%(deltaE),'a+')
     
-    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model, state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint( state0_2, state0_3, \
                                                             get_coord_deleonberne, \
                                                             guess_coords_deleonberne, \
                                                             ham2dof_deleonberne, \

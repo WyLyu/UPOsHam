@@ -203,7 +203,7 @@ omega = 1.0
 EPSILON_S = 0.0 #Energy of the saddle
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
 eqNum = 1 
-model = 'uncoupled'
+#model = 'uncoupled'
 #eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_uncoupled, \
                                  grad_pot_uncoupled, parameters)
@@ -240,7 +240,7 @@ for i in range(len(deltaE_vals)):
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
     
     po_fam_file = open("x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model, state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(state0_2, state0_3, \
                                                             get_coord_uncoupled, \
                                                             guess_coords_uncoupled, \
                                                             ham2dof_uncoupled, \

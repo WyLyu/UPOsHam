@@ -203,7 +203,7 @@ beta = 1.00
 epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon])
 eqNum = 1  
-model = 'coupled'
+#model = 'coupled'
 #eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                    grad_pot_coupled, parameters)
@@ -252,7 +252,7 @@ for i in range(len(deltaE_vals)):
     
     
     po_fam_file = open("x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model, state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(state0_2, state0_3, \
                                                             get_coord_coupled, \
                                                             guess_coords_coupled, \
                                                             ham2dof_coupled, \

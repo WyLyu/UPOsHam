@@ -596,7 +596,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
 
 
 #%%
-def turningPoint(model, begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
+def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
                  half_period_model, varEqns_model, pot_energy_model, plot_iter_orbit_model, par, \
                  e, n, n_turn, po_fam_file):
     """
@@ -618,9 +618,6 @@ def turningPoint(model, begin1, begin2, get_coord_model, guess_coords_model, ham
 
     Parameters
     ----------
-    model : function name
-        name of the system that is used
-    
     begin1 : function name
         guess initial condition 1 for the unstable periodic orbit
 
