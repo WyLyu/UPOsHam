@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import math
 from scipy import optimize
+import sys
+sys.path.append('./src/')
 import tp_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm

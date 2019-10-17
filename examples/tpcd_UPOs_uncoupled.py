@@ -10,8 +10,9 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from scipy import optimize
 import math
+import sys
+sys.path.append('./src/')
 import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
-#from mpl_toolkits.mplot3d import Axes3D
 import matplotlib as mpl
 from matplotlib import cm
 
