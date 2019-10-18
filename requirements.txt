@@ -1,7 +1,7 @@
-scipy==1.1.0
-numpy==1.14.3
-matplotlib==2.2.3
-ipython==7.7.0
+scipy==1.1
+numpy==1.14
+matplotlib==2.2
+ipython==7.7
 
 
 
