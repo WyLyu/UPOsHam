@@ -32,15 +32,15 @@ Usage
 
 Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained using the three methods for the coupled quartic Hamiltonian can be done using
 
-    >> ipython
-    >> run ./tests/compare_methods_coupled.py
+    $ ipython
+    []: run ./tests/compare_methods_coupled.py
 
 and the generated figure is located [here](tests/comparison_coupled.pdf)
 
 To obtain the unstable periodic orbits for a specific model Hamiltonian using a specific method, one uses
 
-    >> ipython
-    >> run ./examples/diffcorr_UPOs_coupled.py
+    $ ipython
+    []: run ./examples/diffcorr_UPOs_coupled.py
 
 Other tests can be performed by running the cells in the ./tests/tests.ipynb
 
