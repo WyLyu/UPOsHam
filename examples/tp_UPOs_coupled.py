@@ -257,7 +257,7 @@ for i in range(len(deltaE_vals)):
     state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
     
     
-    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
     [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(state0_2, state0_3, \
                                                             get_coord_coupled, \
                                                             guess_coords_coupled, \
@@ -281,7 +281,7 @@ x0po = np.zeros((4,len(deltaE_vals))) #each column is a different initial condit
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
@@ -304,7 +304,7 @@ for i in range(len(deltaE_vals)):
 #state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
 #
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 #
@@ -325,7 +325,7 @@ for i in range(len(deltaE_vals)):
 #state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
 #
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 #
@@ -346,7 +346,7 @@ for i in range(len(deltaE_vals)):
 #state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
 #
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 #
@@ -367,42 +367,42 @@ for i in range(len(deltaE_vals)):
 #state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
 #
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #[x0po_5, T_5,energyPO_5] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #po_fam_file.close()
 
 
 #%% Load Data
 #deltaE = 0.010
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_1 = x0podata
 #
 #deltaE = 0.10
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_2 = x0podata
 #
 #deltaE = 1.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_3 = x0podata
 #
 #deltaE = 2.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_4 = x0podata
 #
 #deltaE = 4.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()

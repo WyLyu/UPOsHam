@@ -263,7 +263,7 @@ for i in range(len(E_vals)):
     x0_3 = optimize.newton(f2,-0.15)
     state0_3 = [x0_3,-0.05,0.0,0.0]
     
-    po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.dat"%(deltaE),'a+')
+    po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.txt"%(deltaE),'a+')
     
     [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint( state0_2, state0_3, \
                                                             get_coord_deleonberne, \
@@ -287,7 +287,7 @@ for i in range(len(E_vals)):
     e = E_vals[i]
     deltaE = e - parameters[2]
 
-    po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+    po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
@@ -366,7 +366,7 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(0.1),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(0.1),'a+')
 #[x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
@@ -386,7 +386,7 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
@@ -404,7 +404,7 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
@@ -422,35 +422,35 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 
 #%% Load Data
 #deltaE = 0.10
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_1 = x0podata
 #
 #deltaE = 1.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_2 = x0podata
 #
 #deltaE = 2.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
 #x0po_3 = x0podata
 #
 #deltaE = 4.0
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
 #print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()

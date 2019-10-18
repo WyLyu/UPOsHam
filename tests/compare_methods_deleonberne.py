@@ -35,9 +35,10 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
-    """This function returns the position of the equilibrium points with 
-        Saddle (EQNUM=1)
-        Centre (EQNUM=2,3)
+    """
+    Returns configuration space coordinates of the equilibrium points according to the index:
+    Saddle (EQNUM=1)
+    Centre (EQNUM=2,3)
     """
     
     if eqNum == 1:
@@ -51,7 +52,7 @@ def init_guess_eqpt_deleonberne(eqNum, par):
 
 
 def grad_pot_deleonberne(x, par):
-    """This function returns the gradient of the potential energy function V(x,y)
+    """Returns the gradient of the potential energy function V(x,y)
     """ 
     
     dVdx = -2*par[3]*par[4]*np.exp(-par[4]*x[0])*(np.exp(-par[4]*x[0]) - 1) - \
@@ -63,22 +64,21 @@ def grad_pot_deleonberne(x, par):
     return F
 
 def pot_energy_deleonberne(x, y, par):
-    """This function returns the potential energy function V(x,y)
+    """Returns the potential energy function V(x,y)
     """
     
     return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
 def varEqns_deleonberne(t,PHI,par):
-    """
-    PHIdot = varEqns_deleonberne(t,PHI) 
-    
-    This here is a preliminary state transition, PHI(t,t0),
-    matrix equation attempt for a ball rolling on the surface, based on...
+    """    
+    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
+    Hamiltonian vector field
     
     d PHI(t, t0)
     ------------ =  Df(t) * PHI(t, t0)
         dt
+    
     """
     
     phi = PHI[0:16]
@@ -120,8 +120,8 @@ def varEqns_deleonberne(t,PHI,par):
 
 
 def ham2dof_deleonberne(t, x, par):
-    """
-    Hamilton's equations of motion
+    """ 
+    Returns the Hamiltonian vector field (Hamilton's equations of motion) 
     """
     
     xDot = np.zeros(4)
@@ -170,7 +170,7 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1  
-model = 'deleonberne'
+#model = 'deleonberne'
 #eqPt = tpcd_UPOsHam2dof.get_eq_pts(eqNum, model,parameters)
 
 #eSaddle = tpcd_UPOsHam2dof.get_total_energy(model,[eqPt[0],eqPt[1],0,0], parameters) #energy of the saddle eq pt
@@ -188,8 +188,8 @@ deltaE = 1.0
 eSaddle = 1.0 # energy of the saddle
 
 data_path = "./data/"
-#po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+')
-po_fam_file = "x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE)
+#po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+po_fam_file = "x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
@@ -199,8 +199,8 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_tpcd = x0podata
 
 
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE),'a+')
-po_fam_file = "x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE)
+#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+po_fam_file = "x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)
 #po_fam_file.close()
@@ -209,8 +209,8 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_turningpoint = x0podata
 
 
-#po_fam_file = open("1111x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+')
-po_fam_file = "x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE)
+#po_fam_file = open("1111x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+')
+po_fam_file = "x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE)
 
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 #x0podata = np.loadtxt(po_fam_file.name)

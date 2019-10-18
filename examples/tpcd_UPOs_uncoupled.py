@@ -293,7 +293,7 @@ for i in range(len(deltaE_vals)):
     state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 
-    po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.dat" %(deltaE),'a+')
+    po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
     
     [x0po_1, T_1, energyPO_1] = tpcd_UPOsHam2dof.turningPoint_configdiff(state0_2, state0_3, \
                                                                         get_coord_uncoupled, \
@@ -319,7 +319,7 @@ for i in range(len(deltaE_vals)):
     
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.dat" %(deltaE),'a+')
+    po_fam_file = open("x0_tpcd_deltaE%s_uncoupled.txt" %(deltaE),'a+')
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
