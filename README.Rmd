@@ -11,13 +11,15 @@ output:
     highlight: zenburn
     toc: yes
 bibliography: ./paper/paper.bib
+biblio-style: "apalike"
+link-citations: true
 ---
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 ## Summary
 
-This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ [@wiggins_role_2016]. The three methods [@Pollak_1980,@Koon2011,@naik_finding_2019b] described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
+This Python package is a collection of three methods for computing unstable periodic orbits [@Parker_1989] in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ [@wiggins_role_2016]. The three methods [@Pollak_1980,@Koon2011,@naik_finding_2019b] described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
 
 ## Installation
 
@@ -27,7 +29,12 @@ $ git clone git@github.com:WyLyu/UPOsHam.git
 $ cd UPOsHam
 $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 ```
-and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
+and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. 
+
+### Methods and applications
+
+Methods for computing an unstable periodic orbit at a specified total energy is in the [src](src/) directory and the applications are in the [examples](examples/) directory.
+
 
 ## Usage
 

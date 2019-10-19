@@ -1,5 +1,6 @@
 -   [Summary](#summary)
 -   [Installation](#installation)
+    -   [Methods and applications](#methods-and-applications)
 -   [Usage](#usage)
 -   [Contributing](#contributing)
 -   [Copyright and License](#copyright-and-license)
@@ -10,7 +11,7 @@
 Summary
 -------
 
-This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering (Wiggins 2003). The unstable periodic orbits exist in the bottleneck of the equipotential line *V*(*x*, *y*)=*E* and project as lines on the configuration space (*x*, *y*) (Wiggins 2016). The three methods (Pollak, Child, and Pechukas 1980,Koon et al. (2011),Naik and Wiggins (2019)) described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest.
+This Python package is a collection of three methods for computing unstable periodic orbits (Parker and Chua [1989](#ref-Parker_1989)) in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering (Wiggins [2003](#ref-wiggins_introduction_2003)). The unstable periodic orbits exist in the bottleneck of the equipotential line *V*(*x*, *y*)=*E* and project as lines on the configuration space (*x*, *y*) (Wiggins [2016](#ref-wiggins_role_2016)). The three methods (Pollak, Child, and Pechukas [1980](#ref-Pollak_1980),Koon et al. ([2011](#ref-Koon2011)),Naik and Wiggins ([2019](#ref-naik_finding_2019b))) described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest.
 
 Installation
 ------------
@@ -23,7 +24,11 @@ $ cd UPOsHam
 $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 ```
 
-and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. Specific problems can be imported as modules for use in further analysis.
+and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip.
+
+### Methods and applications
+
+Methods for computing an unstable periodic orbit at a specified total energy is in the [src](src/) directory and the applications are in the [examples](examples/) directory.
 
 Usage
 -----
@@ -62,6 +67,8 @@ References
 Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. *Dynamical systems, the three-body problem and space mission design*. Marsden books.
 
 Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” *Phys. Rev. E* 100 (2). American Physical Society: 022204. doi:[10.1103/PhysRevE.100.022204](https://doi.org/10.1103/PhysRevE.100.022204).
+
+Parker, T. S., and L. O. Chua. 1989. *Practical Numerical Algorithms for Chaotic Systems*. New York, NY, USA: Springer-Verlag New York, Inc.
 
 Pollak, Eli, Mark S. Child, and Philip Pechukas. 1980. “Classical Transition State Theory: A Lower Bound to the Reaction Probability.” *The Journal of Chemical Physics* 72 (3): 1669–78. doi:[10.1063/1.439276](https://doi.org/10.1063/1.439276).
 
