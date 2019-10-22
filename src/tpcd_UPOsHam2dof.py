@@ -283,6 +283,10 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     i_iter = 0
     iter_diff =0  # for counting the correct index
     #while toler < 1e-6 or i_iter< MAXiter:
+    figures = False
+    userchoice = str (input("Figures generating: y or n?"))
+    if userchoice ==str("y"):
+	     figures = True
     while i_iter< MAXiter and n_turn < 5:
         #y_PES = -get_y(guess1[0], e,par)
         #y_turning = guess1[1]
@@ -360,8 +364,9 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
                 energy[j] = get_total_energy(x[j,:], pot_energy_model, par)
             energyPO[i_iter]= np.mean(energy)
             
-            ax = plt.gca(projection='3d')
-            plot_iter_orbit_model(x, ax, e, par)
+            if figures == True:                
+                ax = plt.gca(projection='3d')
+                plot_iter_orbit_model(x, ax, e, par)
             
 #            if model== 'uncoupled':
 #                ax.plot(x[:,0],x[:,1],x[:,3],'-')
@@ -391,8 +396,8 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
             #y_turn= x[-1,1] # y coordinate of turning point
             #y_PES = -get_y(x_turn,e,par)
             #toler = math.sqrt((y_PES-y_turn)**2)
-            plt.grid()
-            plt.show()
+                plt.grid()
+                plt.show()
             guess2 = np.array([result[index,1], result[index,2],0,0])
             guess1 = np.array([result[index-1,1], result[index-1,2],0,0])
             
