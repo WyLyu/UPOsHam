@@ -505,6 +505,10 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
 
 
     attempt = 0
+    figures = False
+    userchoice = str (input("Figures generating: y or n?"))
+    if userchoice ==str("y"):
+	     figures = True
     while abs(drdot1) > MAXdrdot1:
 
         if attempt > MAXattempt:
@@ -543,10 +547,11 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
             for i in range(0,len(x)):
                 e[i] = get_total_energy(x[i,:], pot_energy_model, par)
 
-            ax = plt.gca(projection='3d')
-            plot_iter_orbit_model(x, ax, e, par)
-            plt.grid()
-            plt.show()
+            if figures == True:
+                ax = plt.gca(projection='3d')
+                plot_iter_orbit_model(x, ax, e, par)
+                plt.grid()
+                plt.show()
 
         #=========================================================================
         # differential correction and convergence test, adjust according to
