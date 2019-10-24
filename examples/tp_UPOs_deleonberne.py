@@ -15,7 +15,7 @@ import math
 from scipy import optimize
 import sys
 sys.path.append('./src/')
-import tp_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
+import turning_point ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
@@ -141,7 +141,7 @@ def ham2dof_deleonberne(t, x, par):
 
 def half_period_deleonberne(t,x,par):
     """
-    Return the turning point where we want to stop the integration                           
+    Returns the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
@@ -207,7 +207,7 @@ def plot_iter_orbit_deleonberne(x, ax, e, par):
 #parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 #eqNum = 1  
 #model = 'deleonberne'
-#eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, model,parameters)
+#eqPt = turning_point.get_eq_pts(eqNum, model,parameters)
 
 #%% Setting up parameters and global variables
 """
@@ -227,8 +227,8 @@ LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1 
 #model = 'deleonberne'
-#eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
-eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
+#eqPt = turning_point.get_eq_pts(eqNum,model, parameters)
+eqPt = turning_point.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
                                  grad_pot_deleonberne, parameters)
 
 
@@ -265,7 +265,7 @@ for i in range(len(E_vals)):
     
     po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.txt"%(deltaE),'a+')
     
-    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint( state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = turning_point.turningPoint( state0_2, state0_3, \
                                                             get_coord_deleonberne, \
                                                             guess_coords_deleonberne, \
                                                             ham2dof_deleonberne, \
@@ -317,7 +317,7 @@ for i in range(len(E_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt, x0po[:,i], parameters, \
+    t,x,phi_t1,PHI = turning_point.stateTransitMat(tt, x0po[:,i], parameters, \
                                                       varEqns_deleonberne)
     
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color=linecolor[i], \
@@ -331,7 +331,7 @@ xVec = np.linspace(-1,1,resX)
 yVec = np.linspace(-2,2,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, 
-                   tp_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, \
+                   turning_point.get_pot_surf_proj(xVec, yVec, \
                                                       pot_energy_deleonberne, parameters), \
                                                       [0.01,0.1,1,2,4], zdir='z', offset=0, \
                                                       linewidths = 1.0, cmap=cm.viridis, \
@@ -359,15 +359,15 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #n_turn = 1
 #deltaE = e-parameters[2] #In this case deltaE = 0.1
 #"""Trial initial Condition s.t. one initial condition is on the top of the UPO and the other one is on the bottom of the UPO"""
-#f1 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,0.06,e,parameters)
+#f1 = lambda x: turning_point.get_coordinate(model,x,0.06,e,parameters)
 #x0_2 = optimize.newton(f1,-0.15)
 #state0_2 = [x0_2,0.06,0.0,0.0]
-#f2 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,-0.05,e,parameters)
+#f2 = lambda x: turning_point.get_coordinate(model,x,-0.05,e,parameters)
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(0.1),'a+')
-#[x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_1, T_1,energyPO_1] = turning_point.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 #
@@ -379,15 +379,15 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #n_turn = 1
 #deltaE = e-parameters[2]
 #"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#f1 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,0.06,e,parameters)
+#f1 = lambda x: turning_point.get_coordinate(model,x,0.06,e,parameters)
 #x0_2 = optimize.newton(f1,-0.15)
 #state0_2 = [x0_2,0.06,0.0,0.0]
-#f2 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,-0.05,e,parameters)
+#f2 = lambda x: turning_point.get_coordinate(model,x,-0.05,e,parameters)
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-#[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_2, T_2,energyPO_2] = turning_point.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 ##%%
@@ -397,15 +397,15 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #n_turn = 1
 #deltaE = e-parameters[2]
 #"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#f1 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,0.06,e,parameters)
+#f1 = lambda x: turning_point.get_coordinate(model,x,0.06,e,parameters)
 #x0_2 = optimize.newton(f1,-0.15)
 #state0_2 = [x0_2,0.06,0.0,0.0]
-#f2 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,-0.05,e,parameters)
+#f2 = lambda x: turning_point.get_coordinate(model,x,-0.05,e,parameters)
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-#[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_3, T_3,energyPO_3] = turning_point.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 ##%%
@@ -415,15 +415,15 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #n_turn = 1
 #deltaE = e-parameters[2]
 #"""Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the other one is on the RHS of the UPO"""
-#f1 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,0.06,e,parameters)
+#f1 = lambda x: turning_point.get_coordinate(model,x,0.06,e,parameters)
 #x0_2 = optimize.newton(f1,-0.15)
 #state0_2 = [x0_2,0.06,0.0,0.0]
-#f2 = lambda x: tp_UPOsHam2dof.get_coordinate(model,x,-0.05,e,parameters)
+#f2 = lambda x: turning_point.get_coordinate(model,x,-0.05,e,parameters)
 #x0_3 = optimize.newton(f2,-0.15)
 #state0_3 = [x0_3, -0.05,0.0,0.0]
 #
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-#[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_4, T_4,energyPO_4] = turning_point.turningPoint(model,state0_3,state0_2 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 
@@ -462,11 +462,11 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #axis_fs = 15
 #RelTol = 3.e-10
 #AbsTol = 1.e-10
-#f = lambda t,x : tp_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point.Ham2dof(model,t,x,parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,2],'-',color='b',label='$\Delta E$ = 0.1')
 #ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='b')
@@ -475,11 +475,11 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
-#f = lambda t,x : tp_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point.Ham2dof(model,t,x,parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,2],'-',color='r',label='$\Delta E$ = 1.0')
 #ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='r')
@@ -487,11 +487,11 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #ax.scatter(x[0,0],x[0,1],-x[0,2],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
-#f = lambda t,x : tp_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point.Ham2dof(model,t,x,parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,2],'-',color='g',label='$\Delta E$ = 2.0')
 #ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='g')
@@ -500,11 +500,11 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
-#f = lambda t,x : tp_UPOsHam2dof.Ham2dof(model,t,x,parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point.Ham2dof(model,t,x,parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,2],'-',color='m',label='$\Delta E$ = 4.0')
 #ax.plot(x[:,0],x[:,1],-x[:,2],'-',color='m')
@@ -517,7 +517,7 @@ plt.savefig('turningpoint_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight
 #xVec = np.linspace(-1,2,resX)
 #yVec = np.linspace(-2,2,resX)
 #xMat, yMat = np.meshgrid(xVec, yVec)
-#cset1 = ax.contour(xMat, yMat, tp_UPOsHam2dof.get_pot_surf_proj(model,xVec, yVec,parameters), [1.1,2,3,5],zdir='z', offset=0,
+#cset1 = ax.contour(xMat, yMat, turning_point.get_pot_surf_proj(model,xVec, yVec,parameters), [1.1,2,3,5],zdir='z', offset=0,
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 #
 #ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')

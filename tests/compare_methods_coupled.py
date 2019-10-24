@@ -20,8 +20,8 @@ from mpl_toolkits.mplot3d import Axes3D
 #from functools import partial
 import sys
 sys.path.append('./src/')
-import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
-import diffcorr_UPOsHam2dof
+import turning_point_coord_difference ### import module xxx where xxx is the name of the python file xxx.py 
+import differential_correction
 
 
 #from mpl_toolkits.mplot3d import Axes3D
@@ -164,12 +164,12 @@ epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon])
 eqNum = 1 
 #model = 'coupled'
-#eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
-eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
+#eqPt = differential_correction.get_eq_pts(eqNum,model, parameters)
+eqPt = differential_correction.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                        grad_pot_coupled, parameters)
 
 #energy of the saddle eq pt
-eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_coupled, \
+eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_coupled, \
                                                 parameters)
 
 #%% Load Data
@@ -214,16 +214,16 @@ axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-#soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point_coord_difference.Ham2dof(model,t,x,parameters)
+#soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point_coord_difference.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f= lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_coupled(t,x,parameters), \
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_tpcd[-1,0:4],parameters,model)
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
+#t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt,x0po_1_tpcd[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
                                                       varEqns_coupled)
 
 ax = plt.gca(projection='3d')
@@ -231,8 +231,8 @@ ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-#soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point_coord_difference.Ham2dof(model,t,x,parameters)
+#soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : turning_point_coord_difference.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f = lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_coupled(t,x,parameters), \
@@ -240,8 +240,8 @@ soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_diffcorr,parameters,model)
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
+#t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt,x0po_1_diffcorr,parameters,model)
+t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
                                                       varEqns_coupled)
 
 #ax = plt.gca(projection='3d')
@@ -249,8 +249,8 @@ ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-#soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = lambda t,x : turning_point_coord_difference.Ham2dof(model,t,x,parameters)
+#soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point_coord_difference.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f = lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_coupled(t,x,parameters), \
@@ -258,8 +258,8 @@ soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_outp
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_turningpoint[-1,0:4],parameters,model)
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_turningpoint[-1,0:4], parameters, \
+#t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt,x0po_1_turningpoint[-1,0:4],parameters,model)
+t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt, x0po_1_turningpoint[-1,0:4], parameters, \
                                                       varEqns_coupled)
 
 #ax = plt.gca(projection='3d')
@@ -277,7 +277,7 @@ xMat, yMat = np.meshgrid(xVec, yVec)
 #cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 cset2 = ax.contour(xMat, yMat, \
-                   diffcorr_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, pot_energy_coupled, \
+                   differential_correction.get_pot_surf_proj(xVec, yVec, pot_energy_coupled, \
                                                           parameters), 0.1,zdir='z', offset=0, \
                    linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')

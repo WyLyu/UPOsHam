@@ -14,7 +14,7 @@ from scipy.integrate import solve_ivp
 import time
 import sys
 sys.path.append('./src/')
-import diffcorr_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
+import differential_correction ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
@@ -274,12 +274,12 @@ epsilon= 1e-1
 parameters = np.array([1, omega, EPSILON_S, alpha, beta, omega, epsilon])
 eqNum = 1
 #model = 'coupled'
-#eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
-eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
+#eqPt = differential_correction.get_eq_pts(eqNum,model, parameters)
+eqPt = differential_correction.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                        grad_pot_coupled, parameters)
 
 #energy of the saddle eq pt
-eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_coupled, \
+eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_coupled, \
                                                 parameters) 
 #If orbit is an n-array, e.g. orbit = [orbit_0, orbit_1, ..., orbit_n]
 # 
@@ -299,7 +299,7 @@ t = time.time()
 
 #  get the initial conditions and periods for a family of periodic orbits
 po_fam_file = open("x0_diffcorr_fam_eqPt%s_coupled.txt" %eqNum,'a+')
-[po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2, nFam, \
+[po_x0Fam,po_tpFam] = differential_correction.get_POFam(eqNum, Ax1, Ax2, nFam, \
                                                     po_fam_file, init_guess_eqpt_coupled, \
                                                     grad_pot_coupled, jacobian_coupled, \
                                                     guess_lin_coupled, diffcorr_setup_coupled, \
@@ -340,7 +340,7 @@ for i in range(len(deltaE_vals)):
     po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_coupled.txt" %(eqNum,deltaE),'a+')
     t = time.time()
     # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
-    x0poTarget,TTarget = diffcorr_UPOsHam2dof.poBracketEnergy(eTarget, x0podata, po_brac_file, \
+    x0poTarget,TTarget = differential_correction.poBracketEnergy(eTarget, x0podata, po_brac_file, \
                                                               diffcorr_setup_coupled, \
                                                               conv_coord_coupled, \
                                                               diffcorr_acc_corr_coupled, \
@@ -363,7 +363,7 @@ for i in range(len(deltaE_vals)):
     
     po_target_file = open("x0_diffcorr_deltaE%s_coupled.txt" %(deltaE),'a+')
                     
-    [x0po, T,energyPO] = diffcorr_UPOsHam2dof.poTargetEnergy(x0poTarget,eTarget, \
+    [x0po, T,energyPO] = differential_correction.poTargetEnergy(x0poTarget,eTarget, \
                                                             po_target_file, \
                                                             diffcorr_setup_coupled, \
                                                             conv_coord_coupled, \
@@ -409,7 +409,7 @@ for i in range(len(deltaE_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[1]] 
-    t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po[:,i],parameters,varEqns_coupled)
+    t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt,x0po[:,i],parameters,varEqns_coupled)
     ax = plt.gca(projection='3d')
     ax.plot(x[:,0],x[:,1],x[:,3],'-',color = linecolor[i], label = '$\Delta E$ = %.2f'%(deltaE))
     ax.plot(x[:,0],x[:,1],-x[:,3],'-',color = linecolor[i])
@@ -424,7 +424,7 @@ xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, \
-                   diffcorr_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, pot_energy_coupled, \
+                   differential_correction.get_pot_surf_proj(xVec, yVec, pot_energy_coupled, \
                                                           parameters), [0.01,0.1,1,2,4], \
                                                           zdir='z', offset=0, 
                                                           linewidths = 1.0, cmap=cm.viridis, \
