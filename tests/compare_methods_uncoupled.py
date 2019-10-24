@@ -18,6 +18,8 @@ from mpl_toolkits.mplot3d import Axes3D
 #from scipy.optimize import fsolve
 #import time
 #from functools import partial
+import sys
+sys.path.append('./src/')
 import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import diffcorr_UPOsHam2dof
 
