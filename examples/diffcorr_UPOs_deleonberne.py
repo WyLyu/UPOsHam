@@ -14,7 +14,7 @@ from scipy.integrate import solve_ivp
 import time
 import sys
 sys.path.append('./src/')
-import diffcorr_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
+import differential_correction ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
@@ -264,11 +264,11 @@ LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1  
 model = 'deleonberne'
-eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
+eqPt = differential_correction.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
                                        grad_pot_deleonberne, parameters)
 
 #energy of the saddle eq pt
-eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_deleonberne, \
+eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_deleonberne, \
                                                 parameters) 
 
 #If orbit is an n-array, e.g. orbit = [orbit_0, orbit_1, ..., orbit_n]
@@ -292,8 +292,8 @@ t = time.time()
 
 
 po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.txt" %eqNum,'a+')
-#[po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2,nFam, po_fam_file, parameters,model)  
-[po_x0Fam,po_tpFam] = diffcorr_UPOsHam2dof.get_POFam(eqNum, Ax1, Ax2, nFam, \
+#[po_x0Fam,po_tpFam] = differential_correction.get_POFam(eqNum, Ax1, Ax2,nFam, po_fam_file, parameters,model)  
+[po_x0Fam,po_tpFam] = differential_correction.get_POFam(eqNum, Ax1, Ax2, nFam, \
                                                     po_fam_file, init_guess_eqpt_deleonberne, \
                                                     grad_pot_deleonberne, jacobian_deleonberne, \
                                                     guess_lin_deleonberne, diffcorr_setup_deleonberne, \
@@ -333,7 +333,7 @@ for i in range(len(deltaE_vals)):
     po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_deleonberne.txt" %(eqNum,deltaE),'a+')
     t = time.time()
     # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
-    x0poTarget,TTarget = diffcorr_UPOsHam2dof.poBracketEnergy(eTarget, x0podata, po_brac_file, \
+    x0poTarget,TTarget = differential_correction.poBracketEnergy(eTarget, x0podata, po_brac_file, \
                                                               diffcorr_setup_deleonberne, \
                                                               conv_coord_deleonberne, \
                                                               diffcorr_acc_corr_deleonberne, \
@@ -359,7 +359,7 @@ for i in range(len(deltaE_vals)):
     
     po_target_file = open("x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+')
                     
-    [x0po, T,energyPO] = diffcorr_UPOsHam2dof.poTargetEnergy(x0poTarget,eTarget, \
+    [x0po, T,energyPO] = differential_correction.poTargetEnergy(x0poTarget,eTarget, \
                                                             po_target_file, \
                                                             diffcorr_setup_deleonberne, \
                                                             conv_coord_deleonberne, \
@@ -406,7 +406,7 @@ for i in range(len(deltaE_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[1]] 
-    t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po[:,i],parameters,varEqns_deleonberne)
+    t,x,phi_t1,PHI = differential_correction.stateTransitMat(tt,x0po[:,i],parameters,varEqns_deleonberne)
     ax = plt.gca(projection='3d')
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color = linecolor[i], label = '$\Delta E$ = %.2f'%(deltaE))
     ax.plot(x[:,0],x[:,1],-x[:,2],'-',color = linecolor[i])
@@ -422,7 +422,7 @@ xVec = np.linspace(-1,1,resX)
 yVec = np.linspace(-2,2,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, \
-                   diffcorr_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, pot_energy_deleonberne, \
+                   differential_correction.get_pot_surf_proj(xVec, yVec, pot_energy_deleonberne, \
                                                           parameters), [0.01,0.1,1,2,4], \
                                                           zdir='z', offset=0, 
                                                           linewidths = 1.0, cmap=cm.viridis, \
