@@ -12,7 +12,7 @@ import math
 from scipy import optimize
 import sys
 sys.path.append('./src/')
-import turning_point_coord_difference ### import module xxx where xxx is the name of the python file xxx.py 
+import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 
@@ -184,7 +184,7 @@ def ham2dof_deleonberne(t, x, par):
 
 def half_period_deleonberne(t,x,par):
     """
-    Returns the turning point where we want to stop the integration                           
+    Return the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
@@ -250,8 +250,8 @@ LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1 
 model = 'deleonberne'
-#eqPt = turning_point_coord_difference.get_eq_pts(eqNum, model,parameters)
-eqPt = turning_point_coord_difference.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
+#eqPt = tpcd_UPOsHam2dof.get_eq_pts(eqNum, model,parameters)
+eqPt = tpcd_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
                                        grad_pot_deleonberne, parameters)
 
 
@@ -288,7 +288,7 @@ for i in range(len(E_vals)):
     state0_3 = [x0_3,-0.05,0.0,0.0]
     
     po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = turning_point_coord_difference.turningPoint_configdiff(state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tpcd_UPOsHam2dof.turningPoint_configdiff(state0_2, state0_3, \
                                                                         get_coord_deleonberne, \
                                                                         pot_energy_deleonberne, \
                                                                         varEqns_deleonberne, \
@@ -341,7 +341,7 @@ for i in range(len(E_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = turning_point_coord_difference.stateTransitMat(tt, x0po[:,i], parameters, \
+    t,x,phi_t1,PHI = tpcd_UPOsHam2dof.stateTransitMat(tt, x0po[:,i], parameters, \
                                                       varEqns_deleonberne)
     
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color=linecolor[i], \
@@ -355,7 +355,7 @@ xVec = np.linspace(-1,1,resX)
 yVec = np.linspace(-2,2,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, 
-                   turning_point_coord_difference.get_pot_surf_proj(xVec, yVec, \
+                   tpcd_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, \
                                                       pot_energy_deleonberne, parameters), \
                                                       [0.01,0.1,1,2,4], zdir='z', offset=0, \
                                                       linewidths = 1.0, cmap=cm.viridis, \
