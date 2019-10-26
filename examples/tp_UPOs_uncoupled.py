@@ -16,7 +16,7 @@ import math
 from scipy import optimize
 import sys
 sys.path.append('./src/')
-import turning_point ### import module xxx where xxx is the name of the python file xxx.py 
+import tp_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
@@ -140,7 +140,7 @@ def ham2dof_uncoupled(t, x, par):
 
 def half_period_uncoupled(t, x, par):
     """
-    Returns the turning point where we want to stop the integration                           
+    Return the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
@@ -210,8 +210,8 @@ EPSILON_S = 0.0 #Energy of the saddle
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
 eqNum = 1 
 #model = 'uncoupled'
-#eqPt = turning_point.get_eq_pts(eqNum,model, parameters)
-eqPt = turning_point.get_eq_pts(eqNum, init_guess_eqpt_uncoupled, \
+#eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
+eqPt = tp_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_uncoupled, \
                                  grad_pot_uncoupled, parameters)
 
 
@@ -246,7 +246,7 @@ for i in range(len(deltaE_vals)):
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
     
     po_fam_file = open("x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = turning_point.turningPoint(state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(state0_2, state0_3, \
                                                             get_coord_uncoupled, \
                                                             guess_coords_uncoupled, \
                                                             ham2dof_uncoupled, \
@@ -264,7 +264,7 @@ Trial initial Condition s.t. one initial condition is on the LHS of the UPO and 
 is on the RHS of the UPO
 """
 
-#[x0po_1, T_1,energyPO_1] = turning_point.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_1, T_1,energyPO_1] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 
 
 #%% Load periodic orbit data from ascii files
@@ -300,7 +300,7 @@ for i in range(len(deltaE_vals)):
                      rtol=RelTol, atol=AbsTol)
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = turning_point.stateTransitMat(tt, x0po[:,i], parameters, varEqns_uncoupled)
+    t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt, x0po[:,i], parameters, varEqns_uncoupled)
     
     
     ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \
@@ -314,7 +314,7 @@ xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, 
-                   turning_point.get_pot_surf_proj(xVec, yVec, \
+                   tp_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, \
                                                       pot_energy_uncoupled, parameters), \
                                                       [0.01,0.1,1,2,4], zdir='z', offset=0, \
                                                       linewidths = 1.0, cmap=cm.viridis, \
@@ -349,7 +349,7 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #n_turn=1
 #deltaE = e-parameters[2]
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_2, T_2,energyPO_2] = turning_point.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_2, T_2,energyPO_2] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 # 
@@ -362,7 +362,7 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #n_turn=1
 #deltaE = e-parameters[2]
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_3, T_3,energyPO_3] = turning_point.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_3, T_3,energyPO_3] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 #
@@ -375,7 +375,7 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #n_turn=1
 #deltaE = e-parameters[2]
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_4, T_4,energyPO_4] = turning_point.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_4, T_4,energyPO_4] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 #
@@ -388,7 +388,7 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #n_turn=1
 #deltaE = e-parameters[2]
 #po_fam_file = open("1111x0_turningpoint_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-#[x0po_5, T_5,energyPO_5] = turning_point.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
+#[x0po_5, T_5,energyPO_5] = tp_UPOsHam2dof.turningPoint(model,state0_2,state0_3 ,parameters,e,n,n_turn,po_fam_file)  
 #
 #po_fam_file.close()
 
@@ -437,11 +437,11 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #axis_fs = 15
 #RelTol = 3.e-10
 #AbsTol = 1.e-10
-#f = partial(turning_point.uncoupled2dof, par=parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_1[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_1[-1,0:4],parameters,model)
 #
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='b',label='$\Delta E$ = 0.01')
@@ -450,11 +450,11 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
-#f = partial(turning_point.uncoupled2dof, par=parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_2[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_2[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='r',label='$\Delta E$ = 0.1')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='r')
@@ -462,11 +462,11 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #ax.scatter(x[0,0],x[0,1],-x[0,3],s=20,marker='o')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
-#f = partial(turning_point.uncoupled2dof, par=parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_3[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_3[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='g',label='$\Delta E$ = 1.0')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='g')
@@ -475,11 +475,11 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
-#f = partial(turning_point.uncoupled2dof, par=parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_4[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_4[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='m',label='$\Delta E$ = 2.0')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='m')
@@ -488,11 +488,11 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 #
 #
-#f = partial(turning_point.uncoupled2dof, par=parameters) 
-#soln = solve_ivp(f, TSPAN, x0po_5[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : turning_point.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+#f = partial(tp_UPOsHam2dof.uncoupled2dof, par=parameters) 
+#soln = solve_ivp(f, TSPAN, x0po_5[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tp_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 #te = soln.t_events[0]
 #tt = [0,te[1]]
-#t,x,phi_t1,PHI = turning_point.stateTransitMat(tt,x0po_5[-1,0:4],parameters,model)
+#t,x,phi_t1,PHI = tp_UPOsHam2dof.stateTransitMat(tt,x0po_5[-1,0:4],parameters,model)
 #ax = plt.gca(projection='3d')
 #ax.plot(x[:,0],x[:,1],x[:,3],'-',color='c',label='$\Delta E$ = 4.0')
 #ax.plot(x[:,0],x[:,1],-x[:,3],'-',color='c')
@@ -506,9 +506,9 @@ plt.savefig('turningpoint_POfam_uncoupled.pdf',format='pdf',bbox_inches='tight')
 #xVec = np.linspace(-4,4,resX)
 #yVec = np.linspace(-4,4,resX)
 #xMat, yMat = np.meshgrid(xVec, yVec)
-##cset1 = ax.contour(xMat, yMat, turning_point.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
+##cset1 = ax.contour(xMat, yMat, tp_UPOsHam2dof.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 ##                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
-#cset2 = ax.contour(xMat, yMat, turning_point.get_pot_surf_proj(model,xVec, yVec,parameters), [0.01,0.1,1,2,4],zdir='z', offset=0,
+#cset2 = ax.contour(xMat, yMat, tp_UPOsHam2dof.get_pot_surf_proj(model,xVec, yVec,parameters), [0.01,0.1,1,2,4],zdir='z', offset=0,
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 #ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 #ax.set_xlabel('$x$', fontsize=axis_fs)

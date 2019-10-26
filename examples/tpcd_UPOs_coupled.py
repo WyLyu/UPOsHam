@@ -13,7 +13,7 @@ import math
 from scipy import optimize
 import sys
 sys.path.append('./src/')
-import turning_point_coord_difference ### import module xxx where xxx is the name of the python file xxx.py 
+import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import matplotlib as mpl
 from matplotlib import cm
 
@@ -179,7 +179,7 @@ def ham2dof_coupled(t, x, par):
 
 def half_period_coupled(t, x, par):
     """
-    Returns the turning point where we want to stop the integration                           
+    Return the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
@@ -246,8 +246,8 @@ epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon])
 eqNum = 1  
 model = 'coupled'
-#eqPt = turning_point_coord_difference.get_eq_pts(eqNum,model, parameters)
-eqPt = turning_point_coord_difference.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
+#eqPt = tpcd_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
+eqPt = tpcd_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                        grad_pot_coupled, parameters)
 
 
@@ -294,7 +294,7 @@ for i in range(len(deltaE_vals)):
     
     
     po_fam_file = open("x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = turning_point_coord_difference.turningPoint_configdiff(state0_2, state0_3, \
+    [x0po_1, T_1,energyPO_1] = tpcd_UPOsHam2dof.turningPoint_configdiff(state0_2, state0_3, \
                                                                         get_coord_coupled, \
                                                                         pot_energy_coupled, \
                                                                         varEqns_coupled, \
@@ -342,7 +342,7 @@ for i in range(len(deltaE_vals)):
                      rtol=RelTol, atol=AbsTol)
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = turning_point_coord_difference.stateTransitMat(tt, x0po[:,i], parameters, varEqns_coupled)
+    t,x,phi_t1,PHI = tpcd_UPOsHam2dof.stateTransitMat(tt, x0po[:,i], parameters, varEqns_coupled)
     
     
     ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \
@@ -356,7 +356,7 @@ xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, 
-                   turning_point_coord_difference.get_pot_surf_proj(xVec, yVec, \
+                   tpcd_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, \
                                                       pot_energy_coupled, parameters), \
                                                       [0.01,0.1,1,2,4], zdir='z', offset=0, \
                                                       linewidths = 1.0, cmap=cm.viridis, \
