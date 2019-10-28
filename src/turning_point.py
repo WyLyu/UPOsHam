@@ -589,7 +589,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
 #%%
 def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
                  half_period_model, varEqns_model, pot_energy_model, plot_iter_orbit_model, par, \
-                 e, n, n_turn, po_fam_file):
+                 e, n, n_turn, show_itrsteps_plots, po_fam_file):
     """
     turningPoint computes the periodic orbit of target energy using turning point method.
     
@@ -642,6 +642,9 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
     n_turn: int
         nth turning point that is used to define the dot product
  
+    show_itrsteps_plots: logical
+        flag (True or False) to show iteration of the UPOs in plots
+
     po_fam_file : function name
         file name to save the members in the family of the unstable periodic orbits      
     Returns
@@ -755,38 +758,17 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
                 energy[j] = get_total_energy(x[j,:], pot_energy_model, par)
             energyPO[iter] = np.mean(energy)
             
-            ax = plt.gca(projection='3d')
-            plot_iter_orbit_model(x, ax, e, par)
-            
-#            if model== 'uncoupled':
-#                ax.plot(x[:,0],x[:,1],x[:,3],'-')
-#                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-#                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-#                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
-#            elif model== 'coupled':
-#                ax.plot(x[:,0],x[:,1],x[:,3],'-')
-#                ax.plot(x[:,0],x[:,1],-x[:,3],'--')
-#                ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-#                ax.scatter(x[-1,0],x[-1,1],x[-1,3],s=20,marker='o')
-#            elif model == 'deleonberne':
-#                ax.plot(x[:,0],x[:,1],x[:,2],'-')
-#                ax.plot(x[:,0],x[:,1],-x[:,2],'--')
-#                ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
-#                ax.scatter(x[-1,0],x[-1,1],x[-1,2],s=20,marker='o')
-#            else:
-#                print("The model you are chosen does not exist ")
-#            ax.set_xlabel('$x$', fontsize=axis_fs)
-#            ax.set_ylabel('$y$', fontsize=axis_fs)
-#            ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#            ax.set_title('$\Delta E$ = %e' %(np.mean(energy) - par[2] ) ,fontsize=axis_fs)
-#            ax.set_xlim(-1, 1)
-#            ax.set_ylim(-1, 1)
+            if show_itrsteps_plots: # show iteration of the UPOs in plots
+                ax = plt.gca(projection='3d')
+                plot_iter_orbit_model(x, ax, e, par)
+                plt.grid()
+                plt.show()
+
 #            #x_turn= x[-1,0]  # x coordinate of turning point
 #            #y_turn= x[-1,1] # y coordinate of turning point
 #            #y_PES = -get_y(x_turn,e,par)
 #            #toler = math.sqrt((y_PES-y_turn)**2)
-#            plt.grid()
-#            plt.show()
+
             
             guess2 = np.array([result[index,1], result[index,2],0,0])
             guess1 = np.array([result[index-1,1], result[index-1,2],0,0])
