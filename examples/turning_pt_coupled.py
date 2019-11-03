@@ -119,6 +119,71 @@ for i in range(len(deltaE_vals)):
     po_fam_file.close()
     x0po[:,i] = x0podata[-1,0:4] 
 
+
+#%%
+
+#%% Plotting the Family
+
+TSPAN = [0,30]
+plt.close('all')
+axis_fs = 15
+RelTol = 3.e-10
+AbsTol = 1.e-10
+
+f = lambda t,x : coupled.ham2dof_coupled(t,x,parameters) 
+
+ax = plt.gca(projection='3d')
+
+for i in range(len(deltaE_vals)):
+    
+    soln = solve_ivp(f, TSPAN, x0po[:,i], method='RK45', dense_output=True, \
+                    events = lambda t,x : coupled.half_period_coupled(t,x,parameters), \
+                    rtol=RelTol, atol=AbsTol)
+    te = soln.t_events[0]
+    tt = [0,te[2]]
+    t,x,phi_t1,PHI = tp.stateTransitMat(tt, x0po[:,i], parameters, \
+                    coupled.varEqns_coupled)
+    
+    
+    ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \
+            label='$\Delta E$ = %.2f'%(deltaE_vals[i]))
+    ax.scatter(x[0,0],x[0,1],x[0,3], s=20, marker='*')
+    ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
+
+
+resX = 100
+xVec = np.linspace(-4,4,resX)
+yVec = np.linspace(-4,4,resX)
+xMat, yMat = np.meshgrid(xVec, yVec)
+cset1 = ax.contour(xMat, yMat, 
+                   tp.get_pot_surf_proj(xVec, yVec, \
+                        coupled.pot_energy_coupled, parameters), \
+                        [0.01,0.1,1,2,4], zdir='z', offset=0, \
+                        linewidths = 1.0, cmap=cm.viridis, \
+                        alpha = 0.8)
+
+ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')
+ax.set_xlabel('$x$', fontsize=axis_fs)
+ax.set_ylabel('$y$', fontsize=axis_fs)
+ax.set_zlabel('$p_y$', fontsize=axis_fs)
+#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
+legend = ax.legend(loc='upper left')
+ax.set_xlim(-4, 4)
+ax.set_ylim(-4, 4)
+ax.set_zlim(-4, 4)
+
+plt.grid()
+
+
+if show_final_plot:
+    plt.show()
+
+if save_final_plot:  
+    plt.savefig('./tests/plots/tp_coupled_upos.pdf', format='pdf', \
+                bbox_inches='tight')
+
+
+
 #%%
 #e=0.1
 #n=12
@@ -240,65 +305,7 @@ for i in range(len(deltaE_vals)):
 #po_fam_file.close()
 #x0po_5 = x0podata
 
-#%% Plotting the Family
 
-TSPAN = [0,30]
-plt.close('all')
-axis_fs = 15
-RelTol = 3.e-10
-AbsTol = 1.e-10
-
-f = lambda t,x : coupled.ham2dof_coupled(t,x,parameters) 
-
-ax = plt.gca(projection='3d')
-
-for i in range(len(deltaE_vals)):
-    
-    soln = solve_ivp(f, TSPAN, x0po[:,i], method='RK45', dense_output=True, \
-                    events = lambda t,x : coupled.half_period_coupled(t,x,parameters), \
-                    rtol=RelTol, atol=AbsTol)
-    te = soln.t_events[0]
-    tt = [0,te[2]]
-    t,x,phi_t1,PHI = tp.stateTransitMat(tt, x0po[:,i], parameters, \
-                    coupled.varEqns_coupled)
-    
-    
-    ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \
-            label='$\Delta E$ = %.2f'%(deltaE_vals[i]))
-    ax.scatter(x[0,0],x[0,1],x[0,3], s=20, marker='*')
-    ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
-
-
-resX = 100
-xVec = np.linspace(-4,4,resX)
-yVec = np.linspace(-4,4,resX)
-xMat, yMat = np.meshgrid(xVec, yVec)
-cset1 = ax.contour(xMat, yMat, 
-                   tp.get_pot_surf_proj(xVec, yVec, \
-                        coupled.pot_energy_coupled, parameters), \
-                        [0.01,0.1,1,2,4], zdir='z', offset=0, \
-                        linewidths = 1.0, cmap=cm.viridis, \
-                        alpha = 0.8)
-
-ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')
-ax.set_xlabel('$x$', fontsize=axis_fs)
-ax.set_ylabel('$y$', fontsize=axis_fs)
-ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
-legend = ax.legend(loc='upper left')
-ax.set_xlim(-4, 4)
-ax.set_ylim(-4, 4)
-ax.set_zlim(-4, 4)
-
-plt.grid()
-
-
-if show_final_plot:
-    plt.show()
-
-if save_final_plot:  
-    plt.savefig('./tests/plots/tp_coupled_upos.pdf', format='pdf', \
-                bbox_inches='tight')
 
 
 #%% Plotting the Family
