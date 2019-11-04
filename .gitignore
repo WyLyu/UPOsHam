@@ -3,6 +3,10 @@
 *.DS_Store
 .ipynb_checkpoints/
 docs/.Rhistory
+MANIFEST
+UPOsHam.egg-info/
+dist/
+docs/*
 
 #Data files
 *.dat
