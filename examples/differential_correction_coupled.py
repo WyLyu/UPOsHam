@@ -45,7 +45,7 @@ linecolor = ['b','r']
 
 
 eqPt = diffcorr.get_eq_pts(eqNum, coupled.init_guess_eqpt_coupled, \
-                                       coupled.grad_pot_coupled, parameters)
+                            coupled.grad_pot_coupled, parameters)
 
 #energy of the saddle eq pt
 eSaddle = diffcorr.get_total_energy([eqPt[0],eqPt[1],0,0], \

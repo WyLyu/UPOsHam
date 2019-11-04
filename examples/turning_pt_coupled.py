@@ -21,8 +21,15 @@ mpl.rcParams['mathtext.rm'] = 'serif'
 
 # This needs testing for installation 
 import sys
+import importlib
 sys.path.insert(0, './src/')
+
+import turning_point
+importlib.reload(turning_point)
 import turning_point as tp
+
+import coupled_quartic_hamiltonian
+importlib.reload(coupled_quartic_hamiltonian)
 import coupled_quartic_hamiltonian as coupled
 # This needs testing for installation
 
@@ -158,9 +165,9 @@ xMat, yMat = np.meshgrid(xVec, yVec)
 cset1 = ax.contour(xMat, yMat, 
                    tp.get_pot_surf_proj(xVec, yVec, \
                         coupled.pot_energy_coupled, parameters), \
-                        [0.01,0.1,1,2,4], zdir='z', offset=0, \
-                        linewidths = 1.0, cmap=cm.viridis, \
-                        alpha = 0.8)
+                    [0.01,0.1,1,2,4], zdir='z', offset=0, \
+                    linewidths = 1.0, cmap=cm.viridis, \
+                    alpha = 0.8)
 
 ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
