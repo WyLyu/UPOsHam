@@ -139,7 +139,7 @@ for i in range(len(E_vals)):
     
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color=linecolor[i], \
             label='$\Delta E$ = %.2f'%(deltaE))
-    ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
+    ax.scatter(x[0,0],x[0,1],x[0,2],s=10,marker='*')
     ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
     
@@ -153,7 +153,7 @@ cset1 = ax.contour(xMat, yMat, tp.get_pot_surf_proj(xVec, yVec, \
                     linewidths = 1.0, cmap=cm.viridis, \
                     alpha = 0.8)
 
-ax.scatter(eqPt[0], eqPt[1], s = 200, c = 'r', marker = 'X')
+ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_x$', fontsize=axis_fs)
