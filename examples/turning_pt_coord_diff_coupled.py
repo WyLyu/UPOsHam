@@ -28,8 +28,6 @@ mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
 
-
-
 #%% Setting up parameters and global variables
 
 save_final_plot = True
