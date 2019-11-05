@@ -581,7 +581,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
     p2 = xx2[:,2:]
     p_perpendicular_2 = math.sqrt(np.dot(p2[-3,:],p2[-3,:]))*p2[-2,:] - np.dot(p2[-2,:],p2[-3,:])*p2[-3,:]
     dotproduct = np.dot(p_perpendicular_1,p_perpendicular_2)
-    print("Initial guess1%s, intial guess2%s, dot product is%s" %(guess1,guess2,dotproduct))
+    print("Initial guess1%s, initial guess2%s, dot product is%s" %(guess1,guess2,dotproduct))
     
     return x_turn1,x_turn2,y_turn1,y_turn2, dotproduct
 
