@@ -483,8 +483,8 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
 
     """
 
-    # set show = 1 to plot successive approximations (default=0)
-    show = 1
+    # set show = 1 to plot successive approximations for debuggin/tinkering 
+    show = 0 # (default=0)
     # axesFontName = 'factory'
     # axesFontName = 'Times New Roman'
     # label_fs = 20; axis_fs = 30; # fontsize for publications
