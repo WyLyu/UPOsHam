@@ -136,7 +136,7 @@ def ham2dof_uncoupled(t, x, par):
 
 def half_period_uncoupled(t, x, par):
     """
-    Return the turning point where we want to stop the integration                           
+    Returns the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
