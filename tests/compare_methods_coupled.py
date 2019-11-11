@@ -207,7 +207,7 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 #po_fam_file.close()
 x0po_1_diffcorr = x0podata[0:4]
 
-#%%
+#%% Integrate the Hamilton's equations w.r.t the initial conditions for the full period T and plot the UPOs 
 TSPAN = [0,30]
 plt.close('all')
 axis_fs = 15

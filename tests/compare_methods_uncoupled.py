@@ -211,7 +211,7 @@ x0po_1_diffcorr = x0podata[0:4]
 x0po_1_analytic = [0, -math.sqrt(2*(deltaE + eSaddle)),0,0]
 
 
-#%%
+#%% Integrate the Hamilton's equations w.r.t the initial conditions for the full period T and plot the UPOs
 TSPAN = [0,30]
 plt.close('all')
 axis_fs = 15
