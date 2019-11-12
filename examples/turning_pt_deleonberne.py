@@ -81,7 +81,7 @@ for i in range(len(E_vals)):
     [x0po_1, T_1,energyPO_1] = tp.turningPoint( 
         state0_2, state0_3, deleonberne.get_coord_deleonberne, \
         deleonberne.guess_coords_deleonberne, deleonberne.ham2dof_deleonberne, \
-        deleonberne.half_period_deleonberne, deleonberne.varEqns_deleonberne, \
+        deleonberne.half_period_deleonberne, deleonberne.variational_eqns_deleonberne, \
         deleonberne.pot_energy_deleonberne, \
         deleonberne.plot_iter_orbit_deleonberne, 
         parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
@@ -129,8 +129,8 @@ for i in range(len(E_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tp.stateTransitMat(tt, x0po[:,i], parameters, \
-                                        deleonberne.varEqns_deleonberne)
+    t,x,phi_t1,PHI = tp.state_transit_matrix(tt, x0po[:,i], parameters, \
+                                        deleonberne.variational_eqns_deleonberne)
     
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color=linecolor[i], \
             label='$\Delta E$ = %.2f'%(deltaE))

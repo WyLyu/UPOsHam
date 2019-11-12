@@ -128,7 +128,7 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     
     
 #%
-def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
+def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0): 
     """
     Returns state transition matrix, the trajectory, and the solution of the
     variational equations over a length of time
@@ -147,7 +147,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     par : float (list)
         model parameters
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     Returns
@@ -179,7 +179,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     PHI_0[N**2:N+N**2] = x0                           # initial condition for trajectory
 
     
-    f = lambda t,PHI: varEqns_model(t,PHI,par) # Use partial in order to pass parameters to function
+    f = lambda t,PHI: variational_eqns_model(t,PHI,par) # Use partial in order to pass parameters to function
     soln = solve_ivp(f, TSPAN, list(PHI_0), method='RK45', dense_output=True, \
                      events = None, rtol=RelTol, atol=AbsTol)
     t = soln.t
@@ -194,7 +194,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
 
 #%%
-def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, varEqns_model, \
+def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, variational_eqns_model, \
                             configdiff_model, ham2dof_model, half_period_model, \
                             guess_coords_model, plot_iter_orbit_model, par, \
                             e, n, n_turn, show_itrsteps_plots, po_fam_file):
@@ -231,7 +231,7 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -320,7 +320,7 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
             te = soln.t_events[0]
             tt = [0,te[1]]
             
-            t,x,phi_t1,PHI = stateTransitMat(tt, guesspo, par, varEqns_model)
+            t,x,phi_t1,PHI = state_transit_matrix(tt, guesspo, par, variational_eqns_model)
             
             T[i_iter]= tt[-1]*2
             print("period is%s " %T[i_iter])

@@ -129,7 +129,7 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
 
 
 #%%
-def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
+def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0):
     """
     Returns state transition matrix, the trajectory, and the solution of the
     variational equations over a length of time
@@ -148,7 +148,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     par : float (list)
         model parameters
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     Returns
@@ -179,7 +179,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     PHI_0[N**2:N+N**2] = x0                    # initial condition for trajectory
 
 
-    f = lambda t,PHI: varEqns_model(t,PHI,par) # Use partial in order to pass parameters to function
+    f = lambda t,PHI: variational_eqns_model(t,PHI,par) # Use partial in order to pass parameters to function
     soln = solve_ivp(f, TSPAN, list(PHI_0), method='RK45', dense_output=True, \
                      events = None, rtol=RelTol, atol=AbsTol)
     t = soln.t
@@ -193,7 +193,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
 
 #%%
-def removeInfinitesimals(A, TOL=1.e-14):
+def remove_infinitesimals(A, TOL=1.e-14):
     """
     Returns any complex matrix A with entries where the real or complex part has absolute
     value smaller than TOL set to 0
@@ -211,7 +211,7 @@ def removeInfinitesimals(A, TOL=1.e-14):
 
 
 #%%
-def cleanUpMatrix(A):
+def clean_up_matrix(A):
     """
     Returns any complex matrix A with entries where the real or complex part has absolute
     value smaller than TOL set to 0, where TOL is set inside this function.
@@ -232,7 +232,7 @@ def cleanUpMatrix(A):
 
 
 #%%
-def eigGet(A,discrete):
+def eig_get(A,discrete):
     """
     Returns the eigenvalues and eigenvectors of the matrix A spanning the three local subspaces
     <Es,Eu,Ec> where A is MxM and s+u+c=M, which locally approximate the invariant manifolds
@@ -268,8 +268,8 @@ def eigGet(A,discrete):
     D,V  =np.linalg.eig(A) # obtain eigenvectors (V) and eigenvalues (D) of matrix A
     D  = np.diagflat(D) + np.zeros((len(A), len(A[0])),dtype=np.complex_)
     V  = V + np.zeros((len(A), len(A[0])),dtype=np.complex_)
-    V = cleanUpMatrix(V)
-    D = cleanUpMatrix(D)
+    V = clean_up_matrix(V)
+    D = clean_up_matrix(D)
     s=0
     u=0
     c=0
@@ -282,7 +282,7 @@ def eigGet(A,discrete):
                     jj=jj+1
                 Ws = np.append(Ws,V[:,k] /V[jj,k])# stable   (s dimensional)
                 Ws = np.reshape(Ws,(s+1,M))
-                Ws[:,s] = removeInfinitesimals(Ws[:,s])
+                Ws[:,s] = remove_infinitesimals(Ws[:,s])
                 s=s+1
             elif D[k,k].real > 0:
                 un = np.append(un,D[k,k])
@@ -291,7 +291,7 @@ def eigGet(A,discrete):
                     jj=jj+1
                 Wu = np.append(Wu,V[:,k]/V[jj,k])# unstable (u dimensional)
                 Wu = np.reshape(Wu,(u+1,M))
-                Wu[:,u] = removeInfinitesimals(Wu[:,u])
+                Wu[:,u] = remove_infinitesimals(Wu[:,u])
                 u=u+1
 
             else:
@@ -301,7 +301,7 @@ def eigGet(A,discrete):
                     jj=jj+1
                 Wc = np.append(Wc,V[:,k]/V[jj,k])# center   (c dimensional)
                 Wc = np.reshape(Wc,(c+1,M))
-                Wc[:,c] = removeInfinitesimals(Wc[:,c])
+                Wc[:,c] = remove_infinitesimals(Wc[:,c])
                 c=c+1
     Ws = np.transpose(Ws)
     Wu = np.transpose(Wu)
@@ -312,7 +312,7 @@ def eigGet(A,discrete):
 
 
 #%%
-def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian_model, \
+def get_po_guess_linear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian_model, \
                       guess_lin_model, par):
     """
     Returns an initial guess for the differential correction method.
@@ -361,7 +361,7 @@ def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian
 
     # Get the eigenvalues and eigenvectors of Jacobian of ODEs at equil. point
 
-    def eqPointEig(eqPt, parameters):
+    def eq_pt_eig(eqPt, parameters):
         """
         Returns all the eigenvectors locally spanning the 3 subspaces for the phase
         space in an infinitesimal region around an equilibrium point
@@ -385,7 +385,7 @@ def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian
 
 
         Df = jacobian_model(eqPt, parameters)
-        Es,Eu,Ec,Vs,Vu,Vc = eigGet(Df,0)	# find the eigenvectors
+        Es,Eu,Ec,Vs,Vu,Vc = eig_get(Df,0)	# find the eigenvectors
 
         # give the +y directed column vectors
         if Vs[1,0]<0:
@@ -394,7 +394,7 @@ def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian
             Vu = -Vu
         return Es,Eu,Ec,Vs,Vu,Vc
 
-    [Es,Eu,Ec,Vs,Vu,Vc] = eqPointEig(eqPt, par)
+    [Es,Eu,Ec,Vs,Vu,Vc] = eq_pt_eig(eqPt, par)
 
     L = abs(Ec[0].imag)
     # This is where the linearized guess based on center manifold needs
@@ -408,8 +408,8 @@ def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian
 
 
 #%%
-def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr_model, \
-                   ham2dof_model, half_period_model, pot_energy_model, varEqns_model, \
+def get_po_diffcorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr_model, \
+                   ham2dof_model, half_period_model, pot_energy_model, variational_eqns_model, \
                    plot_iter_orbit_model, par):
     """
     Returns an initial condition and time period of an unstable periodic orbit using differential
@@ -447,7 +447,7 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -516,7 +516,7 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
         # half-period event
 
         # Events option not necessary anymore
-        t,x,phi_t1,PHI = stateTransitMat(t1,x0,par,varEqns_model)
+        t,x,phi_t1,PHI = state_transit_matrix(t1,x0,par,variational_eqns_model)
 
 
         print('::poDifCor : iteration',attempt+1)
@@ -547,10 +547,10 @@ def get_PODiffCorr(x0, diffcorr_setup_model, conv_coord_model, diffcorr_acc_corr
 
 
 #%%
-def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_model, \
+def get_po_fam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_model, \
               jacobian_model, guess_lin_model, diffcorr_setup_model, conv_coord_model, \
               diffcorr_acc_corr_model, ham2dof_model, half_period_model, pot_energy_model, \
-              varEqns_model, plot_iter_orbit_model, par):
+              variational_eqns_model, plot_iter_orbit_model, par):
     """
     Returns a family of unstable periodic orbits given two seed initial conditions and time periods
 
@@ -605,7 +605,7 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -635,18 +635,18 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
     T    = np.zeros((nFam,1))
     energyPO = np.zeros((nFam,1))
 
-    x0poGuess1,TGuess1 = get_POGuessLinear(eqNum, Ax1, init_guess_eqpt_model, grad_pot_model, \
+    x0poGuess1,TGuess1 = get_po_guess_linear(eqNum, Ax1, init_guess_eqpt_model, grad_pot_model, \
                                            jacobian_model, guess_lin_model, par)
-    x0poGuess2,TGuess2 = get_POGuessLinear(eqNum, Ax2, init_guess_eqpt_model, grad_pot_model, \
+    x0poGuess2,TGuess2 = get_po_guess_linear(eqNum, Ax2, init_guess_eqpt_model, grad_pot_model, \
                                            jacobian_model, guess_lin_model, par)
 
     # Get the first two periodic orbit initial conditions
     iFam = 0
     print('::poFamGet : number',iFam)
-    x0po1,tfpo1 = get_PODiffCorr(x0poGuess1, diffcorr_setup_model, conv_coord_model, \
+    x0po1,tfpo1 = get_po_diffcorr(x0poGuess1, diffcorr_setup_model, conv_coord_model, \
                                  diffcorr_acc_corr_model, ham2dof_model, \
                                  half_period_model, pot_energy_model, \
-                                 varEqns_model, plot_iter_orbit_model, par)
+                                 variational_eqns_model, plot_iter_orbit_model, par)
 
     energyPO[iFam] = get_total_energy(x0po1, pot_energy_model, par)
 
@@ -654,10 +654,10 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
     iFam = 1
     print('::poFamGet : number',iFam)
 
-    x0po2,tfpo2 = get_PODiffCorr(x0poGuess2, diffcorr_setup_model, conv_coord_model, \
+    x0po2,tfpo2 = get_po_diffcorr(x0poGuess2, diffcorr_setup_model, conv_coord_model, \
                                  diffcorr_acc_corr_model, ham2dof_model, \
                                  half_period_model, pot_energy_model, \
-                                 varEqns_model, plot_iter_orbit_model, par)
+                                 variational_eqns_model, plot_iter_orbit_model, par)
 
     energyPO[iFam] = get_total_energy(x0po2, pot_energy_model, par)
 
@@ -678,10 +678,10 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
         x0po_g = [ x0po[i-1,0] + dx, x0po[i-1,1] + dy, 0, 0]
 
       # differential correction takes place in the following function
-        x0po_i,tfpo_i = get_PODiffCorr(x0po_g, diffcorr_setup_model, conv_coord_model, \
+        x0po_i,tfpo_i = get_po_diffcorr(x0po_g, diffcorr_setup_model, conv_coord_model, \
                                        diffcorr_acc_corr_model, ham2dof_model, \
                                        half_period_model, pot_energy_model, \
-                                       varEqns_model, plot_iter_orbit_model, par)
+                                       variational_eqns_model, plot_iter_orbit_model, par)
 
 
         x0po[i,:] = x0po_i
@@ -701,9 +701,9 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
 
 
 #%%
-def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, \
+def po_bracket_energy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, \
                     conv_coord_model, diffcorr_acc_corr_model, ham2dof_model, \
-                    half_period_model, pot_energy_model, varEqns_model, \
+                    half_period_model, pot_energy_model, variational_eqns_model, \
                     plot_iter_orbit_model, par):
     """
     Returns two unstable periodic orbits that bracket (bound in energy values) the unstable
@@ -748,7 +748,7 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -798,11 +798,11 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
             scaleFactor = scaleFactor
             x0po_g = [ x0po[iFam-1,0] + scaleFactor*dx, x0po[iFam-1,1] + scaleFactor*dy, 0, 0]
 
-            [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, diffcorr_setup_model, \
+            [x0po_iFam,tfpo_iFam] = get_po_diffcorr(x0po_g, diffcorr_setup_model, \
                                                     conv_coord_model, \
                                                     diffcorr_acc_corr_model, ham2dof_model, \
                                                     half_period_model, pot_energy_model, \
-                                                    varEqns_model, plot_iter_orbit_model, \
+                                                    variational_eqns_model, plot_iter_orbit_model, \
                                                     par)
 
             energyPO[iFam] = get_total_energy(x0po_iFam, pot_energy_model, par)
@@ -822,11 +822,11 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
             scaleFactor = scaleFactor*1e-2
             x0po_g = [ x0po[iFam-2,0] + scaleFactor*dx, x0po[iFam-2,1] + scaleFactor*dy, 0, 0]
 
-            [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, diffcorr_setup_model, \
+            [x0po_iFam,tfpo_iFam] = get_po_diffcorr(x0po_g, diffcorr_setup_model, \
                                                     conv_coord_model, \
                                                     diffcorr_acc_corr_model, ham2dof_model, \
                                                     half_period_model, pot_energy_model, \
-                                                    varEqns_model, plot_iter_orbit_model, \
+                                                    variational_eqns_model, plot_iter_orbit_model, \
                                                     par)
 
             energyPO[iFam-1] = get_total_energy(x0po_iFam, pot_energy_model, par)
@@ -854,11 +854,11 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
 
 
 #%%
-def poTargetEnergy(x0po, energyTarget, po_target_file, diffcorr_setup_model, conv_coord_model, \
+def po_target_energy(x0po, energyTarget, po_target_file, diffcorr_setup_model, conv_coord_model, \
                    diffcorr_acc_corr_model, ham2dof_model, half_period_model, pot_energy_model, \
-                   varEqns_model, plot_iter_orbit_model, par):
+                   variational_eqns_model, plot_iter_orbit_model, par):
     """
-    poTargetEnergy computes the periodic orbit of target energy using bisection method. 
+    po_target_energy computes the periodic orbit of target energy using bisection method. 
     
     Using bisection method on the lower and higher energy values of the POs to find the PO with 
     the target energy. Use this condition to integrate with event function of half-period 
@@ -892,7 +892,7 @@ def poTargetEnergy(x0po, energyTarget, po_target_file, diffcorr_setup_model, con
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -937,11 +937,11 @@ def poTargetEnergy(x0po, energyTarget, po_target_file, diffcorr_setup_model, con
 
 
         c = 0.5*(a + b) # guess based on midpoint
-        [x0po_iFam,tfpo_iFam] = get_PODiffCorr(c, diffcorr_setup_model, \
+        [x0po_iFam,tfpo_iFam] = get_po_diffcorr(c, diffcorr_setup_model, \
                                                     conv_coord_model, \
                                                     diffcorr_acc_corr_model, ham2dof_model, \
                                                     half_period_model, pot_energy_model, \
-                                                    varEqns_model, plot_iter_orbit_model, \
+                                                    variational_eqns_model, plot_iter_orbit_model, \
                                                     par)
 
         energyPO = get_total_energy(x0po_iFam, pot_energy_model, par)

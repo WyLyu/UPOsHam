@@ -96,7 +96,7 @@ def jacobian_coupled(eqPt, par):
     return Df
 
 
-def varEqns_coupled(t,PHI,par):
+def variational_eqns_coupled(t,PHI,par):
     """    
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field

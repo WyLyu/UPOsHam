@@ -81,7 +81,7 @@ for i in range(len(deltaE_vals)):
     [x0po_1, T_1,energyPO_1] = tp.turningPoint(
         state0_2, state0_3, uncoupled.get_coord_uncoupled, \
         uncoupled.guess_coords_uncoupled, uncoupled.ham2dof_uncoupled, \
-        uncoupled.half_period_uncoupled, uncoupled.varEqns_uncoupled, \
+        uncoupled.half_period_uncoupled, uncoupled.variational_eqns_uncoupled, \
         uncoupled.pot_energy_uncoupled, uncoupled.plot_iter_orbit_uncoupled, \
         parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
     po_fam_file.close()
@@ -121,8 +121,8 @@ for i in range(len(deltaE_vals)):
                      rtol=RelTol, atol=AbsTol)
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tp.stateTransitMat(tt, x0po[:,i], parameters, \
-                                        uncoupled.varEqns_uncoupled)
+    t,x,phi_t1,PHI = tp.state_transit_matrix(tt, x0po[:,i], parameters, \
+                                        uncoupled.variational_eqns_uncoupled)
     
     
     ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \

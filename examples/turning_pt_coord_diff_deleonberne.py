@@ -77,7 +77,7 @@ for i in range(len(E_vals)):
     po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+')
     [x0po_1, T_1,energyPO_1] = tpcd.turningPoint_configdiff(
         state0_2, state0_3, deleonberne.get_coord_deleonberne, \
-        deleonberne.pot_energy_deleonberne, deleonberne.varEqns_deleonberne, \
+        deleonberne.pot_energy_deleonberne, deleonberne.variational_eqns_deleonberne, \
         deleonberne.configdiff_deleonberne, \
         deleonberne.ham2dof_deleonberne, \
         deleonberne.half_period_deleonberne, \
@@ -127,8 +127,8 @@ for i in range(len(E_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tpcd.stateTransitMat(tt, x0po[:,i], parameters, \
-                                        deleonberne.varEqns_deleonberne)
+    t,x,phi_t1,PHI = tpcd.state_transit_matrix(tt, x0po[:,i], parameters, \
+                                        deleonberne.variational_eqns_deleonberne)
     
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color=linecolor[i], \
             label='$\Delta E$ = %.2f'%(deltaE))

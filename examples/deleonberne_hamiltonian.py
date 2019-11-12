@@ -91,7 +91,7 @@ def jacobian_deleonberne(eqPt, par):
     return Df
 
 
-def varEqns_deleonberne(t,PHI,par):
+def variational_eqns_deleonberne(t,PHI,par):
     """    
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field

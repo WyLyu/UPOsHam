@@ -93,7 +93,7 @@ for i in range(len(deltaE_vals)):
                                         coupled.guess_coords_coupled, \
                                         coupled.ham2dof_coupled, \
                                         coupled.half_period_coupled, \
-                                        coupled.varEqns_coupled, \
+                                        coupled.variational_eqns_coupled, \
                                         coupled.pot_energy_coupled, \
                                         coupled.plot_iter_orbit_coupled, \
                                         parameters, \
@@ -136,8 +136,8 @@ for i in range(len(deltaE_vals)):
                     rtol=RelTol, atol=AbsTol)
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tp.stateTransitMat(tt, x0po[:,i], parameters, \
-                    coupled.varEqns_coupled)
+    t,x,phi_t1,PHI = tp.state_transit_matrix(tt, x0po[:,i], parameters, \
+                    coupled.variational_eqns_coupled)
     
     
     ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \

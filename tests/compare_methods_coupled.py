@@ -54,7 +54,7 @@ def pot_energy_coupled(x, y, par):
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
 
 
-def varEqns_coupled(t,PHI,par):
+def variational_eqns_coupled(t,PHI,par):
     """    
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
@@ -193,8 +193,8 @@ soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, 
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
-                                                      varEqns_coupled)
+t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
+                                                      variational_eqns_coupled)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
@@ -209,8 +209,8 @@ soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
-                                                      varEqns_coupled)
+t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
+                                                      variational_eqns_coupled)
 
 ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
@@ -223,8 +223,8 @@ soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_outp
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_turningpoint[-1,0:4], parameters, \
-                                                      varEqns_coupled)
+t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
+                                                      variational_eqns_coupled)
 
 ax.plot(x[:,0],x[:,1],x[:,3],'-.',label='$\Delta E$ = 0.1, using tp')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')

@@ -129,7 +129,7 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     
     
 #%
-def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
+def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0): 
     """
     Returns state transition matrix, the trajectory, and the solution of the
     variational equations over a length of time
@@ -148,7 +148,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     par : float (list)
         model parameters
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     Returns
@@ -180,7 +180,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     PHI_0[N**2:N+N**2] = x0                           # initial condition for trajectory
 
     
-    f = lambda t,PHI: varEqns_model(t,PHI,par) # Use partial in order to pass parameters to function
+    f = lambda t,PHI: variational_eqns_model(t,PHI,par) # Use partial in order to pass parameters to function
     soln = solve_ivp(f, TSPAN, list(PHI_0), method='RK45', dense_output=True, \
                      events = None, rtol=RelTol, atol=AbsTol)
     t = soln.t
@@ -194,7 +194,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
 
 #%%
-def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_model, par):
+def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, variational_eqns_model, par):
     """
     Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points
     
@@ -214,7 +214,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
         function that returns the Hamiltonian vector field at an input phase space coordinate
         and time
                     
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     par : float (list)
@@ -247,7 +247,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
     turn1 = soln1.sol(t1)
     x_turn1 = turn1[0,-1] 
     y_turn1 = turn1[1,-1] 
-    t,xx1,phi_t1,PHI = stateTransitMat(t1,guess1,par,varEqns_model)
+    t,xx1,phi_t1,PHI = state_transit_matrix(t1,guess1,par,variational_eqns_model)
     x1 = xx1[:,0]
     y1 = xx1[:,1]
     p1 = xx1[:,2:]
@@ -260,7 +260,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
     turn2 = soln1.sol(t2)
     x_turn2 = turn2[0,-1] 
     y_turn2 = turn2[1,-1] 
-    t,xx2,phi_t1,PHI = stateTransitMat(t2,guess2,par,varEqns_model)
+    t,xx2,phi_t1,PHI = state_transit_matrix(t2,guess2,par,variational_eqns_model)
     x2 = xx2[:,0]
     y2 = xx2[:,1]
     p2 = xx2[:,2:]
@@ -273,7 +273,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
 
 #%%
 def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
-                 half_period_model, varEqns_model, pot_energy_model, plot_iter_orbit_model, par, \
+                 half_period_model, variational_eqns_model, pot_energy_model, plot_iter_orbit_model, par, \
                  e, n, n_turn, show_itrsteps_plots, po_fam_file):
     """
     turningPoint computes the periodic orbit of target energy using turning point method.
@@ -308,7 +308,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -369,7 +369,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
             x_turn1,x_turn2,y_turn1,y_turn2, dotpro = dotproduct(guess1, guess, n_turn, \
                                                                  ham2dof_model, \
                                                                  half_period_model, \
-                                                                 varEqns_model, \
+                                                                 variational_eqns_model, \
                                                                  par)
             result[i,0] = dotpro
             result[i,1] = guess[0]
@@ -406,7 +406,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
                              events = lambda t,x: half_period_model(t,x,par),rtol=RelTol, atol=AbsTol)
             te = soln.t_events[0]
             tt = [0,te[1]]
-            t,x,phi_t1,PHI = stateTransitMat(tt,guesspo,par,varEqns_model)
+            t,x,phi_t1,PHI = state_transit_matrix(tt,guesspo,par,variational_eqns_model)
             T[iter] = tt[-1]*2
             print("period is%s " %T[iter])
             energy = np.zeros(len(x))

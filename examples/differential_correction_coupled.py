@@ -68,7 +68,7 @@ t = time.time()
 
 #  get the initial conditions and periods for a family of periodic orbits
 po_fam_file = open("x0_diffcorr_fam_eqPt%s_coupled.dat" %eqNum,'a+')
-[po_x0Fam,po_tpFam] = diffcorr.get_POFam(eqNum, Ax1, Ax2, nFam, \
+[po_x0Fam,po_tpFam] = diffcorr.get_po_fam(eqNum, Ax1, Ax2, nFam, \
                                         po_fam_file, \
                                         coupled.init_guess_eqpt_coupled, \
                                         coupled.grad_pot_coupled, \
@@ -80,7 +80,7 @@ po_fam_file = open("x0_diffcorr_fam_eqPt%s_coupled.dat" %eqNum,'a+')
                                         coupled.ham2dof_coupled, \
                                         coupled.half_period_coupled, \
                                         coupled.pot_energy_coupled, \
-                                        coupled.varEqns_coupled, \
+                                        coupled.variational_eqns_coupled, \
                                         coupled.plot_iter_orbit_coupled, \
                                         parameters)  
 
@@ -104,18 +104,16 @@ for i in range(len(deltaE_vals)):
     po_fam_file.close()
     
     
-    #%
     po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_coupled.dat" %(eqNum,deltaE),'a+')
     t = time.time()
-    # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
-    x0poTarget,TTarget = diffcorr.poBracketEnergy(eTarget, x0podata, po_brac_file, \
+    x0poTarget,TTarget = diffcorr.po_bracket_energy(eTarget, x0podata, po_brac_file, \
                                                 coupled.diffcorr_setup_coupled, \
                                                 coupled.conv_coord_coupled, \
                                                 coupled.diffcorr_acc_corr_coupled, \
                                                 coupled.ham2dof_coupled, \
                                                 coupled.half_period_coupled, \
                                                 coupled.pot_energy_coupled, \
-                                                coupled.varEqns_coupled, \
+                                                coupled.variational_eqns_coupled, \
                                                 coupled.plot_iter_orbit_coupled, \
                                                 parameters)
     poTarE_runtime = time.time()-t
@@ -132,7 +130,7 @@ for i in range(len(deltaE_vals)):
     
     po_target_file = open("x0_diffcorr_deltaE%s_coupled.dat" %(deltaE),'a+')
                     
-    [x0po, T,energyPO] = diffcorr.poTargetEnergy(x0poTarget,eTarget, \
+    [x0po, T,energyPO] = diffcorr.po_target_energy(x0poTarget,eTarget, \
                                                 po_target_file, \
                                                 coupled.diffcorr_setup_coupled, \
                                                 coupled.conv_coord_coupled, \
@@ -140,7 +138,7 @@ for i in range(len(deltaE_vals)):
                                                 coupled.ham2dof_coupled, \
                                                 coupled.half_period_coupled, \
                                                 coupled.pot_energy_coupled, \
-                                                coupled.varEqns_coupled, \
+                                                coupled.variational_eqns_coupled, \
                                                 coupled.plot_iter_orbit_coupled, \
                                                 parameters)
 
@@ -182,9 +180,9 @@ for i in range(len(deltaE_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[1]] 
-    t,x,phi_t1,PHI = diffcorr.stateTransitMat(tt,x0po[:,i], \
+    t,x,phi_t1,PHI = diffcorr.state_transit_matrix(tt,x0po[:,i], \
                                             parameters, \
-                                            coupled.varEqns_coupled)
+                                            coupled.variational_eqns_coupled)
 
 
     
