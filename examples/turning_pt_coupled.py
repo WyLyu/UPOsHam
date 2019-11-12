@@ -60,11 +60,6 @@ xLeft = [0.0,0.01]
 xRight = [0.05,0.11]
 linecolor = ['b','r']
 
-"""
-e is the total energy, 
-n is the number of intervals we want to divide, 
-n_turn is the nth turning point we want to choose.
-"""
 for i in range(len(deltaE_vals)):
     
     e = deltaE_vals[i]
@@ -72,10 +67,9 @@ for i in range(len(deltaE_vals)):
     n_turn = 1
     deltaE = e - parameters[2]
     
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
-    other one is on the RHS of the UPO
-    """
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
+    #other one is on the RHS of the UPO
+
     x = xLeft[i]
     f2 = lambda y: coupled.get_coord_coupled(x, y, e, parameters)
     yanalytic = math.sqrt(2/(parameters[1]+parameters[6]))*(-math.sqrt( e + \

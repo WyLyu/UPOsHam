@@ -63,10 +63,9 @@ for i in range(len(E_vals)):
     e = E_vals[i] # total energy.
     deltaE = e - parameters[2]
     
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO 
-    and the other one is on the RHS of the UPO
-    """
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO 
+    #and the other one is on the RHS of the UPO
+    
     f1 = lambda x: deleonberne.get_coord_deleonberne(x,0.06,e,parameters)
     x0_2 = optimize.newton(f1,-0.15)
     state0_2 = [x0_2,0.06,0.0,0.0]

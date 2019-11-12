@@ -71,10 +71,9 @@ for i in range(len(deltaE_vals)):
     n_turn = 1 # nth turning point we want to choose
     deltaE = e - parameters[2]
     
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
-    other one is on the RHS of the UPO
-    """
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
+    #other one is on the RHS of the UPO
+    
     state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
     

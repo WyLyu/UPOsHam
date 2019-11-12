@@ -34,13 +34,7 @@ import deleonberne_hamiltonian as deleonberne
 # This needs testing for installation
 
 #%% Setting up parameters and global variables
-"""
-Initial Condition for the true periodic orbit
-H = T + V where T is the kinetic energy and V is the potential energy. In our example, 
-the potential energy V = -0.5*alpha*x**2+0.25*beta*x**4+0.5*omega*y**2.
-If we fix x, then y = +- math.sqrt((V +0.5*alpha*x**2-0.25*beta*x**4)/(0.5*omega) ) so that
-the point starts at the potential energy surface V.
-"""
+
 save_final_plot = True
 show_final_plot = False
 show_itrsteps_plots = False # show iteration of the UPOs in plots
@@ -70,11 +64,10 @@ for i in range(len(E_vals)):
     
     e = E_vals[i] # total energy
     deltaE = e - parameters[2]
-    
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
-    other one is on the RHS of the UPO
-    """
+        
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
+    #other one is on the RHS of the UPO
+
     f1 = lambda x: deleonberne.get_coord_deleonberne(x,0.06,e,parameters)
     x0_2 = optimize.newton(f1,-0.15)
     state0_2 = [x0_2,0.06,0.0,0.0]

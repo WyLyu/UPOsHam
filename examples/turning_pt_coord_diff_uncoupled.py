@@ -44,13 +44,6 @@ parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
 eqNum = 1  
 eqPt = tpcd.get_eq_pts(eqNum, uncoupled.init_guess_eqpt_uncoupled, \
                         uncoupled.grad_pot_uncoupled, parameters)
-"""
-Initial Condition for the true periodic orbit
-H = T + V where T is the kinetic energy and V is the potential energy. In our example, 
-the potential energy V = -0.5*alpha*x**2+0.25*beta*x**4+0.5*omega*y**2.
-If we fix x, then y = +- math.sqrt((V + 0.5*alpha*x**2-0.25*beta*x**4)/(0.5*omega) ) so that
-the point starts at the potential energy surface V.
-"""
 
 #%%
 
@@ -62,11 +55,7 @@ deltaE_vals = [0.1, 1.00]
 xLeft = [0.0,0.01]
 xRight = [0.05,0.18]
 linecolor = ['b','r']
-"""
-e is the total energy
-n is the number of intervals we want to divide
-n_turn is the nth turning point we want to choose.
-"""
+
 for i in range(len(deltaE_vals)):
     
     e = deltaE_vals[i]
@@ -74,10 +63,9 @@ for i in range(len(deltaE_vals)):
     n_turn = 1
     deltaE = e-parameters[2]
     
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
-    other one is on the RHS of the UPO
-    """    
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
+    #other one is on the RHS of the UPO
+       
     state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
 
