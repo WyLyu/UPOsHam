@@ -296,18 +296,18 @@ def ham2dof_deleonberne(t, x, par):
 
 
 def half_period_deleonberne(t,x,par):
-    """ 
-    Returns the coordinate for the half-period event for the unstable periodic orbit                          
+    """
+    Returns the turning point where we want to stop the integration                           
     
-    xDot = x[0]
-    yDot = x[1]
-    pxDot = x[2]
-    pyDot = x[3]
+    pxDot = x[0]
+    pyDot = x[1]
+    xDot = x[2]
+    yDot = x[3]
     """
     
-    terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
-    
     return x[2]
+        
+half_period_deleonberne.terminal = True 
+# The zero can be approached from either direction
+half_period_deleonberne.direction=0#0: all directions of crossing
 

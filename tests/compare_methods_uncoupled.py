@@ -133,12 +133,11 @@ def half_period_uncoupled(t, x, par):
     yDot = x[3]
     """
     
-    terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
-    
     return x[3]
 
+half_period_uncoupled.terminal = True 
+# The zero can be approached from either direction
+half_period_uncoupled.direction=0#0: all directions of crossing
 
 #% End problem specific functions
 

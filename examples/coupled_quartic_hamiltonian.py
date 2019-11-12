@@ -305,18 +305,18 @@ def ham2dof_coupled(t, x, par):
     return list(xDot)    
 
 def half_period_coupled(t, x, par):
-    """ 
-    Returns the coordinate for the half-period event for the unstable periodic orbit                          
+    """
+    Returns the turning point where we want to stop the integration                           
     
-    xDot = x[0]
-    yDot = x[1]
-    pxDot = x[2]
-    pyDot = x[3]
+    pxDot = x[0]
+    pyDot = x[1]
+    xDot = x[2]
+    yDot = x[3]
     """
     
-    terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
-    
     return x[3]
+
+half_period_coupled.terminal = True 
+# The zero can be approached from either direction
+half_period_coupled.direction=0#0: all directions of crossing
 
