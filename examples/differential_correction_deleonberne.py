@@ -12,9 +12,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import time
-# import sys
-# sys.path.append('../src/')
-# import deleonberne ### import module xxx where xxx is the name of the python file xxx.py 
 
 # This needs testing for installation 
 import sys
@@ -49,7 +46,6 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1  
-# model = 'deleonberne'
 eqPt = diffcorr.get_eq_pts(eqNum, deleonberne.init_guess_eqpt_deleonberne, \
                             deleonberne.grad_pot_deleonberne, parameters)
 
@@ -98,10 +94,6 @@ po_fam_file.close()
 
 
 #%%
-# begins with a family of periodic orbits and steps until crossing the
-# initial condition with target energy 
-# fileName = 'x0po_T_energy_case1_L41.txt'
-# fileName = 'x0po_T.txt'
 
 #deltaE_vals = [0.01, 0.1, 1.00, 2.0, 4.0]
 #linecolor = ['b','r','g','m','c']
@@ -117,10 +109,9 @@ for i in range(len(deltaE_vals)):
     x0podata = np.loadtxt(po_fam_file.name)
     po_fam_file.close()
 
-    #%
     po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_deleonberne.dat" %(eqNum,deltaE),'a+')
     t = time.time()
-    # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
+
     x0poTarget,TTarget = diffcorr.poBracketEnergy(
         eTarget, x0podata, po_brac_file, \
         deleonberne.diffcorr_setup_deleonberne, \
@@ -221,8 +212,7 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_x$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' \
-#                %(energyPO_1,energyPO_2,energyPO_3,energyPO_4,energyPO_5) ,fontsize=axis_fs)
+
 
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-1.5, 1.5)
@@ -230,7 +220,6 @@ ax.set_ylim(-1.5, 1.5)
 ax.set_zlim(-4, 4)
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -239,7 +228,5 @@ if save_final_plot:
     plt.savefig('./tests/plots/diff_corr_deleonberne_upos.pdf', format='pdf', \
                         bbox_inches='tight')
 
-
-# plt.savefig('diffcorr_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')
 
 

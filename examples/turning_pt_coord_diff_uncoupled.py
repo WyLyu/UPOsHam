@@ -42,8 +42,6 @@ omega = 1.0
 EPSILON_S = 0.0 #Energy of the saddle
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
 eqNum = 1  
-model = 'uncoupled'
-#eqPt = tpcd.get_eq_pts(eqNum,model, parameters)
 eqPt = tpcd.get_eq_pts(eqNum, uncoupled.init_guess_eqpt_uncoupled, \
                         uncoupled.grad_pot_uncoupled, parameters)
 """
@@ -139,7 +137,7 @@ for i in range(len(deltaE_vals)):
             label='$\Delta E$ = %.2f'%(deltaE_vals[i]))
     ax.scatter(x[0,0],x[0,1],x[0,3], s=10, marker='*')
     ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
-
+    # ax.plot(x[:,0], x[:,1], zs=0, zdir='z') # 2D projection of the UPO
 
 
 ax = plt.gca(projection='3d')
@@ -157,14 +155,13 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
+
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-2, 2)
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -173,4 +170,3 @@ if save_final_plot:
     plt.savefig('./tests/plots/tpcd_uncoupled_upos.pdf', format='pdf', \
                         bbox_inches='tight')
 
-# plt.savefig('tpcd_POfam_coupled.pdf',format='pdf',bbox_inches='tight')

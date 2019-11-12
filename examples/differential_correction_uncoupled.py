@@ -38,8 +38,6 @@ beta = 1.00
 epsilon= 1e-1
 parameters = np.array([1, omega, EPSILON_S, alpha, beta, omega, epsilon])
 eqNum = 1 
-model = 'uncoupled'
-#eqPt = diffcorr.get_eq_pts(eqNum,model, parameters)
 eqPt = diffcorr.get_eq_pts(eqNum, uncoupled.init_guess_eqpt_uncoupled, \
                             uncoupled.grad_pot_uncoupled, \
                             parameters)
@@ -100,7 +98,7 @@ for i in range(len(deltaE_vals)):
     #%
     po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_uncoupled.txt" %(eqNum,deltaE),'a+')
     t = time.time()
-    # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
+    
     x0poTarget,TTarget = diffcorr.poBracketEnergy(
         eTarget, x0podata, po_brac_file, \
         uncoupled.diffcorr_setup_uncoupled, uncoupled.conv_coord_uncoupled, \
@@ -193,8 +191,7 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' \
-#                %(energyPO_1,energyPO_2,energyPO_3,energyPO_4,energyPO_5) ,fontsize=axis_fs)
+
 
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
@@ -202,7 +199,6 @@ ax.set_ylim(-4, 4)
 ax.set_zlim(-4, 4)
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -210,9 +206,5 @@ if show_final_plot:
 if save_final_plot:  
     plt.savefig('./tests/plots/diff_corr_uncoupled_upos.pdf', format='pdf', \
                         bbox_inches='tight')
-
-# plt.savefig('diffcorr_POfam_uncoupled.pdf', format='pdf', bbox_inches='tight')
-
-
 
 

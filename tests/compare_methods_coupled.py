@@ -7,31 +7,16 @@ Created on Wed Jul 31 16:45:58 2019
 
 import numpy as np
 import matplotlib.pyplot as plt
-#from scipy.integrate import odeint,quad,trapz,solve_ivp
 from scipy.integrate import solve_ivp
-#import math
-#from IPython.display import Image # for Notebook
-#from IPython.core.display import HTML
 from mpl_toolkits.mplot3d import Axes3D
-#from numpy import linalg as LA
-#import scipy.linalg as linalg
-#from scipy.optimize import fsolve
-#import time
-#from functools import partial
 import sys
 sys.path.append('./src/')
 import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
 import diffcorr_UPOsHam2dof
-
-
-#from mpl_toolkits.mplot3d import Axes3D
 import matplotlib as mpl
 from matplotlib import cm
-#from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
-
-#from scipy import optimize
 
 
 #% Begin problem specific functions
@@ -163,8 +148,6 @@ beta = 1.00
 epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon])
 eqNum = 1 
-#model = 'coupled'
-#eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum,model, parameters)
 eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                        grad_pot_coupled, parameters)
 
@@ -177,35 +160,25 @@ eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energ
 
 deltaE = 0.10
 eSaddle = 0.0 # energy of the saddle
-#po_fam_file = open("./data/1111x0_newmethod_deltaE%s_coupled.txt" %(deltaE),'a+')
-#po_fam_file = open("1111x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+')
+
 data_path = "./data/"
 po_fam_file = "x0_tpcd_deltaE%s_coupled.txt" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
-#x0podata = np.loadtxt(po_fam_file.name)
 x0podata = np.loadtxt(data_path + po_fam_file)
-
-#po_fam_file.close()
 x0po_1_tpcd = x0podata
 
 
-#po_fam_file = open("./data/1111x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
 po_fam_file = "x0_turningpoint_deltaE%s_coupled.txt" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
-#x0podata = np.loadtxt(po_fam_file.name)
 x0podata = np.loadtxt(data_path + po_fam_file)
-
-#po_fam_file.close()
 x0po_1_turningpoint = x0podata
 
 
-#po_fam_file = open("./data/1111x0_diffcorr_deltaE%s_coupled.txt" %(deltaE),'a+')
 po_fam_file = "x0_diffcorr_deltaE%s_coupled.txt" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
-#x0podata = np.loadtxt(po_fam_file.name)
 x0podata = np.loadtxt(data_path + po_fam_file)
-#po_fam_file.close()
 x0po_1_diffcorr = x0podata[0:4]
+
 
 #%% Integrate the Hamilton's equations w.r.t the initial conditions for the full period T and plot the UPOs 
 TSPAN = [0,30]
@@ -214,15 +187,12 @@ axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-#soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f= lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_coupled(t,x,parameters), \
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_tpcd[-1,0:4],parameters,model)
 t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
                                                       varEqns_coupled)
 
@@ -231,8 +201,7 @@ ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-#soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
+
 f = lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_coupled(t,x,parameters), \
@@ -240,17 +209,13 @@ soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_diffcorr,parameters,model)
 t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
                                                       varEqns_coupled)
 
-#ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)
-#soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f = lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_coupled(t,x,parameters), \
@@ -258,11 +223,9 @@ soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_outp
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt,x0po_1_turningpoint[-1,0:4],parameters,model)
 t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_turningpoint[-1,0:4], parameters, \
                                                       varEqns_coupled)
 
-#ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,3],'-.',label='$\Delta E$ = 0.1, using tp')
 ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')

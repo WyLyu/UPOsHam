@@ -19,7 +19,6 @@ import turning_point_coord_difference as tpcd
 import coupled_quartic_hamiltonian as coupled
 # This needs testing for installation 
 
-# import tpcd ### import module xxx where xxx is the name of the python file xxx.py 
 
 import matplotlib as mpl
 from matplotlib import cm
@@ -163,14 +162,13 @@ ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
+
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-4, 4)
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -178,13 +176,5 @@ if show_final_plot:
 if save_final_plot:  
     plt.savefig('./tests/plots/tpcd_coupled_upos.pdf', format='pdf', \
                         bbox_inches='tight')
-
-# plt.savefig('tpcd_POfam_coupled.pdf',format='pdf',bbox_inches='tight')
-
-
-
-
-
-
 
 

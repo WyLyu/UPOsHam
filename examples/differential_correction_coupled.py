@@ -194,7 +194,6 @@ for i in range(len(deltaE_vals)):
     ax.plot(x[:,0],x[:,1],-x[:,3],'-',color = linecolor[i])
     ax.scatter(x[0,0],x[0,1],x[0,3],s=10,marker='*')
     ax.scatter(x[0,0],x[0,1],-x[0,3],s=10,marker='o')
-    # ax.plot(x[:,0], x[:,1], zs=0, zdir='z') # 2D projection of the UPO
 
 
 # Plotting equipotential lines
@@ -213,8 +212,7 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' \
-#                %(energyPO_1,energyPO_2,energyPO_3,energyPO_4,energyPO_5) ,fontsize=axis_fs)
+
 
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
@@ -230,8 +228,4 @@ if save_final_plot:
     plt.savefig('./tests/plots/diff_corr_coupled_upos.pdf', format='pdf', \
                         bbox_inches='tight')
 
-
-
-
-plt.close(figH)
 

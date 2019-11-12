@@ -44,7 +44,6 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1 
-# model = 'deleonberne'
 eqPt = tpcd.get_eq_pts(eqNum, deleonberne.init_guess_eqpt_deleonberne, \
                         deleonberne.grad_pot_deleonberne, parameters)
 
@@ -136,6 +135,7 @@ for i in range(len(E_vals)):
             label='$\Delta E$ = %.2f'%(deltaE))
     ax.scatter(x[0,0],x[0,1],x[0,2],s=10,marker='*')
     ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
+    # ax.plot(x[:,0], x[:,1], zs=0, zdir='z') # 2D projection of the UPO
 
     
 resX = 100
@@ -154,14 +154,13 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_x$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1]-parameters[2],energyPO_2[-1]-parameters[2],energyPO_3[-1]-parameters[2],energyPO_4[-1]-parameters[2],energyPO_5[-1]-parameters[2]) ,fontsize=axis_fs)
+
 ax.set_xlim(-1.5, 1.5)
 ax.set_ylim(-1.5, 1.5)
 ax.set_zlim(-4, 4)
 legend = ax.legend(loc='upper left')
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -170,4 +169,3 @@ if save_final_plot:
     plt.savefig('./tests/plots/tpcd_deleonberne_upos.pdf', format='pdf', \
                         bbox_inches='tight')
 
-# plt.savefig('tpcd_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')

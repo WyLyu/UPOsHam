@@ -51,7 +51,6 @@ def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     x0 = init_guess_eqpt_model(eqNum, par)
 
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-    # F = lambda x: func_vec_field_eq_pt(model,x,par)
     F = lambda x: grad_pot_model(x, par)
 
     eqPt = fsolve(F, x0, fprime = None) # Call solver
@@ -401,21 +400,6 @@ def get_POGuessLinear(eqNum, Ax, init_guess_eqpt_model, grad_pot_model, jacobian
     # This is where the linearized guess based on center manifold needs
     # to be entered.
     x0poGuess = guess_lin_model(eqPt, Ax, par)
-#    print(np.shape(x0poGuess))
-
-#    if eqNum == 1:
-#        if model =='uncoupled':
-#            x0poGuess[0]  = eqPt[0]+Ax
-#            x0poGuess[1]  = eqPt[1]+Ax
-#        elif model =='coupled':
-#            correcx, correcy = eigvector_coupled(par)
-#            x0poGuess[0]  = eqPt[0]-Ax*correcx
-#            x0poGuess[1]  = eqPt[1]-Ax*correcy
-#        elif model == 'deleonberne':
-#            x0poGuess[0]  = eqPt[0] - Ax
-#            x0poGuess[1]  = eqPt[1]
-#        else:
-#            print("The model you are chosen does not exist")
 
     TGuess = 2*math.pi/L
 
@@ -688,13 +672,10 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
 
         dx  = x0po[i-1,0] - x0po[i-2,0]
         dy  = x0po[i-1,1] - x0po[i-2,1]
-#         dOrbit = x0po[iFam-1,:] - x0po[iFam-2,:]
         dt  = T[i-1] - T[i-2]
 
-#         x0po_g = x0po[iFam-1,:]' + dOrbit'
         t1po_g =   (T[i-1] + dt)/2 + delt
         x0po_g = [ x0po[i-1,0] + dx, x0po[i-1,1] + dy, 0, 0]
-#         t1po_g = T[iFam-2] + abs(dt)
 
       # differential correction takes place in the following function
         x0po_i,tfpo_i = get_PODiffCorr(x0po_g, diffcorr_setup_model, conv_coord_model, \
@@ -704,7 +685,6 @@ def get_POFam(eqNum,Ax1,Ax2,nFam,po_fam_file,init_guess_eqpt_model, grad_pot_mod
 
 
         x0po[i,:] = x0po_i
-#         T   [iFam]     = 2*t1_iFam
         T[i]        = 2*tfpo_i
 
 
@@ -788,9 +768,6 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
 
     """
 
-    #delt = guessed change in period between successive orbits in family
-    #delt = -1.e-9    # <==== may need to be changed
-    #delt = -1.e-12
     #energyTol = 1e-10 # decrease tolerance for higher target energy
     energyTol = 1e-6
     N = 4  # dimension of phase space
@@ -811,8 +788,6 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
 
     while finished == 1 or iFam < 200:
 
-#         FAMNUM = sprintf('::poFamGet : number %d',iFam)
-#         disp(FAMNUM)
 
         #change in initial guess for next step
         dx  = x0po[iFam-1,0] - x0po[iFam-2,0]
@@ -822,8 +797,6 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
         if energyPO[iFam-1] < energyTarget:
             scaleFactor = scaleFactor
             x0po_g = [ x0po[iFam-1,0] + scaleFactor*dx, x0po[iFam-1,1] + scaleFactor*dy, 0, 0]
-    #             x0po_g = [ (x0po(iFam-1,1) + scaleFactor*dx), ...
-    #                 (x0po(iFam-1,2)), 0, 0]
 
             [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, diffcorr_setup_model, \
                                                     conv_coord_model, \
@@ -848,8 +821,6 @@ def poBracketEnergy(energyTarget, x0podata, po_brac_file, diffcorr_setup_model, 
             break
             scaleFactor = scaleFactor*1e-2
             x0po_g = [ x0po[iFam-2,0] + scaleFactor*dx, x0po[iFam-2,1] + scaleFactor*dy, 0, 0]
-    #             x0po_g = [ (x0po(iFam-2,1) + scaleFactor*dx) ...
-    #                 (x0po(iFam-2,2)) 0 0]
 
             [x0po_iFam,tfpo_iFam] = get_PODiffCorr(x0po_g, diffcorr_setup_model, \
                                                     conv_coord_model, \
@@ -965,10 +936,6 @@ def poTargetEnergy(x0po, energyTarget, po_target_file, diffcorr_setup_model, con
     while iter < iterMax:
 
 
-    #         dx = 0.5*(b(1) - a(1));
-    #         dy = 0.5*(b(2) - a(2));
-
-    #         c = [a(1) + dx a(2) + dy 0 0];
         c = 0.5*(a + b) # guess based on midpoint
         [x0po_iFam,tfpo_iFam] = get_PODiffCorr(c, diffcorr_setup_model, \
                                                     conv_coord_model, \
@@ -978,8 +945,6 @@ def poTargetEnergy(x0po, energyTarget, po_target_file, diffcorr_setup_model, con
                                                     par)
 
         energyPO = get_total_energy(x0po_iFam, pot_energy_model, par)
-    #         x0po(iFam,1:N) = x0po_iFam ;
-    #         T(iFam,1)      = 2*tfpo_iFam ;
 
         c = x0po_iFam;
         iter = iter + 1;
