@@ -158,6 +158,11 @@ def diffcorr_setup_uncoupled():
 
 
 def conv_coord_uncoupled(x1, y1, dxdot1, dydot1):
+    """
+    Returns the variable we want to keep fixed during differential correction.
+    
+    dxdot1----fix x, dydot1----fix y.
+    """
     return dxdot1
 
 
