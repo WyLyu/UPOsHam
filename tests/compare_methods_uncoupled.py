@@ -136,7 +136,7 @@ def ham2dof_uncoupled(t, x, par):
 
 def half_period_uncoupled(t, x, par):
     """
-    Return the turning point where we want to stop the integration                           
+    Returns the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
@@ -211,7 +211,7 @@ x0po_1_diffcorr = x0podata[0:4]
 x0po_1_analytic = [0, -math.sqrt(2*(deltaE + eSaddle)),0,0]
 
 
-#%%
+#%% Integrate the Hamilton's equations w.r.t the initial conditions for the full period T and plot the UPOs
 TSPAN = [0,30]
 plt.close('all')
 axis_fs = 15
