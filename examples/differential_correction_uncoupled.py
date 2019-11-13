@@ -64,7 +64,7 @@ Ax2  = 2*Ax1 # initial amplitude (2 of 2)
 t = time.time()
 
 # get the initial conditions and periods for a family of periodic orbits
-with open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum,'a+') as po_fam_file:
+with open("x0_diffcorr_fam_eqPt%s_uncoupled.dat" %eqNum,'a+') as po_fam_file:
     [po_x0Fam,po_tpFam] = diffcorr.get_po_fam(
         eqNum, Ax1, Ax2, nFam, po_fam_file, uncoupled.init_guess_eqpt_uncoupled, \
         uncoupled.grad_pot_uncoupled, uncoupled.jacobian_uncoupled, \
@@ -88,14 +88,14 @@ linecolor = ['b','r']
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
     
-    with open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum ,'a+') as po_fam_file:
+    with open("x0_diffcorr_fam_eqPt%s_uncoupled.dat" %eqNum ,'a+') as po_fam_file:
         eTarget = eSaddle + deltaE 
         print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
         x0podata = np.loadtxt(po_fam_file.name)
     
     
     #%
-    with open("x0po_T_energyPO_eqPt%s_brac%s_uncoupled.txt" %(eqNum,deltaE),'a+') as po_brac_file:
+    with open("x0po_T_energyPO_eqPt%s_brac%s_uncoupled.dat" %(eqNum,deltaE),'a+') as po_brac_file:
         t = time.time()
     
         x0poTarget,TTarget = diffcorr.po_bracket_energy(
@@ -108,7 +108,7 @@ for i in range(len(deltaE_vals)):
 
         poTarE_runtime = time.time()-t
         with open(
-            "model_parameters_eqPt%s_DelE%s_uncoupled.txt" %(eqNum,deltaE),'a+') as model_parameters_file:
+            "model_parameters_eqPt%s_DelE%s_uncoupled.dat" %(eqNum,deltaE),'a+') as model_parameters_file:
             np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
     
     
@@ -116,7 +116,7 @@ for i in range(len(deltaE_vals)):
     # Target PO of specific energy with high precision does not work for the
     # model 
     
-    with open("x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+')as po_target_file:
+    with open("x0_diffcorr_deltaE%s_uncoupled.dat" %(deltaE),'a+')as po_target_file:
 
         [x0po, T,energyPO] = diffcorr.po_target_energy(
             x0poTarget,eTarget, po_target_file, \
@@ -134,7 +134,7 @@ x0po = np.zeros((4,len(deltaE_vals)))
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    with open("x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+') as po_fam_file:
+    with open("x0_diffcorr_deltaE%s_uncoupled.dat" %(deltaE),'a+') as po_fam_file:
         print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
         x0podata = np.loadtxt(po_fam_file.name)
     x0po[:,i] = x0podata[0:4]

@@ -87,7 +87,7 @@ for i in range(len(deltaE_vals)):
     state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
     
     
-    with open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+') as po_fam_file:
+    with open("x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+') as po_fam_file:
         [x0po_1, T_1,energyPO_1] = tp.turningPoint(state0_2, state0_3, \
                                             coupled.get_coord_coupled, \
                                             coupled.guess_coords_coupled, \
@@ -109,7 +109,7 @@ x0po = np.zeros((4,len(deltaE_vals))) #each column is a different initial condit
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    with open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+') as po_fam_file:
+    with open("x0_turningpoint_deltaE%s_coupled.dat" %(deltaE),'a+') as po_fam_file:
         print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
         x0podata = np.loadtxt(po_fam_file.name)
         x0po[:,i] = x0podata[-1,0:4] 
