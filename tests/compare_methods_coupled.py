@@ -10,9 +10,8 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from mpl_toolkits.mplot3d import Axes3D
 import sys
-sys.path.append('./src/')
-import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
-import diffcorr_UPOsHam2dof
+sys.path.append('./src/') 
+import differential_correction
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
@@ -147,11 +146,11 @@ beta = 1.00
 epsilon= 1e-1
 parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega,epsilon])
 eqNum = 1 
-eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
+eqPt = differential_correction.get_eq_pts(eqNum, init_guess_eqpt_coupled, \
                                        grad_pot_coupled, parameters)
 
 #energy of the saddle eq pt
-eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_coupled, \
+eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_coupled, \
                                                 parameters)
 
 #%% Load Data
@@ -192,7 +191,7 @@ soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, 
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
+t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
                                                       variational_eqns_coupled)
 
 ax = plt.gca(projection='3d')
@@ -208,7 +207,7 @@ soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
+t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
                                                       variational_eqns_coupled)
 
 ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
@@ -222,7 +221,7 @@ soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_outp
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
+t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
                                                       variational_eqns_coupled)
 
 ax.plot(x[:,0],x[:,1],x[:,3],'-.',label='$\Delta E$ = 0.1, using tp')
@@ -239,8 +238,8 @@ xMat, yMat = np.meshgrid(xVec, yVec)
 #cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 cset2 = ax.contour(xMat, yMat, \
-                   diffcorr_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, pot_energy_coupled, \
-                                                          parameters), 0.1,zdir='z', offset=0, \
+                   differential_correction.get_pot_surf_proj(xVec, yVec, pot_energy_coupled, \
+                                                          parameters), [0.1], zdir='z', offset=0, \
                    linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
