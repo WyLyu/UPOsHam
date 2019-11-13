@@ -76,17 +76,15 @@ for i in range(len(E_vals)):
     x0_3 = optimize.newton(f2,-0.15)
     state0_3 = [x0_3,-0.05,0.0,0.0]
     
-    po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.dat"%(deltaE),'a+')
+    with open("x0_turningpoint_deltaE%s_deleonberne.dat"%(deltaE),'a+') as po_fam_file:
     
-    [x0po_1, T_1,energyPO_1] = tp.turningPoint( 
-        state0_2, state0_3, deleonberne.get_coord_deleonberne, \
-        deleonberne.guess_coords_deleonberne, deleonberne.ham2dof_deleonberne, \
-        deleonberne.half_period_deleonberne, deleonberne.variational_eqns_deleonberne, \
-        deleonberne.pot_energy_deleonberne, \
-        deleonberne.plot_iter_orbit_deleonberne, 
-        parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
-    
-    po_fam_file.close()
+        [x0po_1, T_1,energyPO_1] = tp.turningPoint( 
+            state0_2, state0_3, deleonberne.get_coord_deleonberne, \
+            deleonberne.guess_coords_deleonberne, deleonberne.ham2dof_deleonberne, \
+            deleonberne.half_period_deleonberne, deleonberne.variational_eqns_deleonberne, \
+            deleonberne.pot_energy_deleonberne, \
+            deleonberne.plot_iter_orbit_deleonberne, 
+            parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
 
 
 
@@ -99,11 +97,10 @@ for i in range(len(E_vals)):
     e = E_vals[i]
     deltaE = e - parameters[2]
 
-    po_fam_file = open("x0_turningpoint_deltaE%s_deleonberne.dat"%(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
-    x0po[:,i] = x0podata[-1,0:4] 
+    with open("x0_turningpoint_deltaE%s_deleonberne.dat"%(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
+        x0po[:,i] = x0podata[-1,0:4] 
    
     
 #%% Plotting the family

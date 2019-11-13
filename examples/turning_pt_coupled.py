@@ -87,19 +87,18 @@ for i in range(len(deltaE_vals)):
     state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
     
     
-    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tp.turningPoint(state0_2, state0_3, \
-                                        coupled.get_coord_coupled, \
-                                        coupled.guess_coords_coupled, \
-                                        coupled.ham2dof_coupled, \
-                                        coupled.half_period_coupled, \
-                                        coupled.variational_eqns_coupled, \
-                                        coupled.pot_energy_coupled, \
-                                        coupled.plot_iter_orbit_coupled, \
-                                        parameters, \
-                                        e, n, n_turn, show_itrsteps_plots, \
-                                        po_fam_file) 
-    po_fam_file.close()
+    with open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+') as po_fam_file:
+        [x0po_1, T_1,energyPO_1] = tp.turningPoint(state0_2, state0_3, \
+                                            coupled.get_coord_coupled, \
+                                            coupled.guess_coords_coupled, \
+                                            coupled.ham2dof_coupled, \
+                                            coupled.half_period_coupled, \
+                                            coupled.variational_eqns_coupled, \
+                                            coupled.pot_energy_coupled, \
+                                            coupled.plot_iter_orbit_coupled, \
+                                            parameters, \
+                                            e, n, n_turn, show_itrsteps_plots, \
+                                            po_fam_file) 
 
 
 
@@ -110,11 +109,10 @@ x0po = np.zeros((4,len(deltaE_vals))) #each column is a different initial condit
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
-    x0po[:,i] = x0podata[-1,0:4] 
+    with open("x0_turningpoint_deltaE%s_coupled.txt" %(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
+        x0po[:,i] = x0podata[-1,0:4] 
 
 
 #%% Plotting the Family

@@ -77,14 +77,13 @@ for i in range(len(deltaE_vals)):
     state0_2 = [-0.1 , -math.sqrt(2*e+0.1**2-0.5*0.1**4),0.0,0.0]
     state0_3 = [0.11 , -math.sqrt(2*e+0.11**2-0.5*0.11**4),0.0,0.0]
     
-    po_fam_file = open("x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tp.turningPoint(
-        state0_2, state0_3, uncoupled.get_coord_uncoupled, \
-        uncoupled.guess_coords_uncoupled, uncoupled.ham2dof_uncoupled, \
-        uncoupled.half_period_uncoupled, uncoupled.variational_eqns_uncoupled, \
-        uncoupled.pot_energy_uncoupled, uncoupled.plot_iter_orbit_uncoupled, \
-        parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
-    po_fam_file.close()
+    with open("x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+') as po_fam_file:
+        [x0po_1, T_1,energyPO_1] = tp.turningPoint(
+            state0_2, state0_3, uncoupled.get_coord_uncoupled, \
+            uncoupled.guess_coords_uncoupled, uncoupled.ham2dof_uncoupled, \
+            uncoupled.half_period_uncoupled, uncoupled.variational_eqns_uncoupled, \
+            uncoupled.pot_energy_uncoupled, uncoupled.plot_iter_orbit_uncoupled, \
+            parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
 
 
 
@@ -95,11 +94,10 @@ x0po = np.zeros((4,len(deltaE_vals))) #each column is a different initial condit
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
-    x0po[:,i] = x0podata[-1,0:4] 
+    with open("x0_turningpoint_deltaE%s_uncoupled.dat" %(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
+        x0po[:,i] = x0podata[-1,0:4] 
 
 
 #%% Plotting the Family

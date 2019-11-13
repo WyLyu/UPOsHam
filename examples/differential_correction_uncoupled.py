@@ -64,19 +64,19 @@ Ax2  = 2*Ax1 # initial amplitude (2 of 2)
 t = time.time()
 
 # get the initial conditions and periods for a family of periodic orbits
-po_fam_file = open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum,'a+')
-[po_x0Fam,po_tpFam] = diffcorr.get_po_fam(
-    eqNum, Ax1, Ax2, nFam, po_fam_file, uncoupled.init_guess_eqpt_uncoupled, \
-    uncoupled.grad_pot_uncoupled, uncoupled.jacobian_uncoupled, \
-    uncoupled.guess_lin_uncoupled, uncoupled.diffcorr_setup_uncoupled, \
-    uncoupled.conv_coord_uncoupled, uncoupled.diffcorr_acc_corr_uncoupled, \
-    uncoupled.ham2dof_uncoupled, uncoupled.half_period_uncoupled, \
-    uncoupled.pot_energy_uncoupled, uncoupled.variational_eqns_uncoupled, \
-    uncoupled.plot_iter_orbit_uncoupled, parameters)
+with open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum,'a+') as po_fam_file:
+    [po_x0Fam,po_tpFam] = diffcorr.get_po_fam(
+        eqNum, Ax1, Ax2, nFam, po_fam_file, uncoupled.init_guess_eqpt_uncoupled, \
+        uncoupled.grad_pot_uncoupled, uncoupled.jacobian_uncoupled, \
+        uncoupled.guess_lin_uncoupled, uncoupled.diffcorr_setup_uncoupled, \
+        uncoupled.conv_coord_uncoupled, uncoupled.diffcorr_acc_corr_uncoupled, \
+        uncoupled.ham2dof_uncoupled, uncoupled.half_period_uncoupled, \
+        uncoupled.pot_energy_uncoupled, uncoupled.variational_eqns_uncoupled, \
+        uncoupled.plot_iter_orbit_uncoupled, parameters)
 
-poFamRuntime = time.time()-t
-x0podata = np.concatenate((po_x0Fam, po_tpFam),axis=1)
-po_fam_file.close()
+    poFamRuntime = time.time()-t
+    x0podata = np.concatenate((po_x0Fam, po_tpFam),axis=1)
+
 
 #%%
 
@@ -88,48 +88,43 @@ linecolor = ['b','r']
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
     
-    po_fam_file = open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum ,'a+')
-    eTarget = eSaddle + deltaE 
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
+    with open("x0_diffcorr_fam_eqPt%s_uncoupled.txt" %eqNum ,'a+') as po_fam_file:
+        eTarget = eSaddle + deltaE 
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
     
     
     #%
-    po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_uncoupled.txt" %(eqNum,deltaE),'a+')
-    t = time.time()
+    with open("x0po_T_energyPO_eqPt%s_brac%s_uncoupled.txt" %(eqNum,deltaE),'a+') as po_brac_file:
+        t = time.time()
     
-    x0poTarget,TTarget = diffcorr.po_bracket_energy(
-        eTarget, x0podata, po_brac_file, \
-        uncoupled.diffcorr_setup_uncoupled, uncoupled.conv_coord_uncoupled, \
-        uncoupled.diffcorr_acc_corr_uncoupled, uncoupled.ham2dof_uncoupled, \
-        uncoupled.half_period_uncoupled, uncoupled.pot_energy_uncoupled, \
-        uncoupled.variational_eqns_uncoupled, uncoupled.plot_iter_orbit_uncoupled, \
-        parameters)
+        x0poTarget,TTarget = diffcorr.po_bracket_energy(
+            eTarget, x0podata, po_brac_file, \
+            uncoupled.diffcorr_setup_uncoupled, uncoupled.conv_coord_uncoupled, \
+            uncoupled.diffcorr_acc_corr_uncoupled, uncoupled.ham2dof_uncoupled, \
+            uncoupled.half_period_uncoupled, uncoupled.pot_energy_uncoupled, \
+            uncoupled.variational_eqns_uncoupled, uncoupled.plot_iter_orbit_uncoupled, \
+            parameters)
 
-    poTarE_runtime = time.time()-t
-    model_parameters_file = open(
-        "model_parameters_eqPt%s_DelE%s_uncoupled.txt" %(eqNum,deltaE),'a+')
-    np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
-    model_parameters_file.close()
-    po_brac_file.close()
+        poTarE_runtime = time.time()-t
+        with open(
+            "model_parameters_eqPt%s_DelE%s_uncoupled.txt" %(eqNum,deltaE),'a+') as model_parameters_file:
+            np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
     
     
     # target specific periodic orbit
     # Target PO of specific energy with high precision does not work for the
     # model 
     
-    po_target_file = open("x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+')
+    with open("x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+')as po_target_file:
 
-    [x0po, T,energyPO] = diffcorr.po_target_energy(
-        x0poTarget,eTarget, po_target_file, \
-        uncoupled.diffcorr_setup_uncoupled, uncoupled.conv_coord_uncoupled, \
-        uncoupled.diffcorr_acc_corr_uncoupled, \
-        uncoupled.ham2dof_uncoupled, uncoupled.half_period_uncoupled, \
-        uncoupled.pot_energy_uncoupled, uncoupled.variational_eqns_uncoupled, \
-        uncoupled.plot_iter_orbit_uncoupled, parameters)
-    
-    po_target_file.close()
+        [x0po, T,energyPO] = diffcorr.po_target_energy(
+            x0poTarget,eTarget, po_target_file, \
+            uncoupled.diffcorr_setup_uncoupled, uncoupled.conv_coord_uncoupled, \
+            uncoupled.diffcorr_acc_corr_uncoupled, \
+            uncoupled.ham2dof_uncoupled, uncoupled.half_period_uncoupled, \
+            uncoupled.pot_energy_uncoupled, uncoupled.variational_eqns_uncoupled, \
+            uncoupled.plot_iter_orbit_uncoupled, parameters)
 
 
 #%% Load periodic orbit data from ascii files
@@ -139,10 +134,9 @@ x0po = np.zeros((4,len(deltaE_vals)))
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
+    with open("x0_diffcorr_deltaE%s_uncoupled.txt" %(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
     x0po[:,i] = x0podata[0:4]
 
 
