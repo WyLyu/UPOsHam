@@ -6,12 +6,18 @@ output:
   html_document:
     theme: united
     toc: yes
+    fig_width: 6 
+    fig_height: 6
   md_document:
     toc: yes
     variant: markdown_github
+    fig_width: 6 
+    fig_height: 6
   pdf_document:
     highlight: zenburn
     toc: yes
+    fig_width: 6 
+    fig_height: 6 
 biblio-style: apalike
 ---
 
@@ -19,7 +25,7 @@ biblio-style: apalike
 
 ## Summary
 
-This Python package is a collection of three methods for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@Parker_1989, @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods implemented here (and available under [source](src/) directory) has been used in [@Pollak_1980,@Deleon_Berne_1981,@koon_heteroclinic_2000,@Koon2011,@naik_geometry_2017,@ross_experimental_2018,@naik_finding_2019b] for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have chosen three Hamiltonian systems that have two wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. A brief description of these systems can be found in the [paper](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). 
+This Python package is a collection of three methods for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@Parker_1989, @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods implemented here (and available under [src](src/) directory) has been used in [@Pollak_1980,@Deleon_Berne_1981,@koon_heteroclinic_2000,@Koon2011,@naik_geometry_2017,@ross_experimental_2018,@naik_finding_2019b] for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have chosen three Hamiltonian systems that have two wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. A brief description of these systems can be found in the [paper](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). 
 
 ## Installation
 
@@ -39,28 +45,28 @@ and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsH
 The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default shows at 2 total energy levels) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method can be run from the command line by calling
 
 ```
->>> python examples/differential_correction_deleonberne.py
+$ python examples/differential_correction_deleonberne.py
 ```
 
 This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
 
-![Unstable periodic orbits for De Leon-Berne Hamiltonian](tests/plots/diff_corr_deleonberne_upos.pdf)
+![](tests/plots/diff_corr_deleonberne_upos.pdf){width=80%}
+
+__Fig. Unstable periodic orbits for De Leon-Berne Hamiltonian__
+
 
 The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems. 
 
 
-### Comparing methods for applications
+### Comparing the methods for the coupled quartic Hamiltonian
 
-Methods for computing an unstable periodic orbit at a specified total energy is in the [src](src/) directory and the applications are in the [examples](examples/) directory.
-
-
-__Comparison of the three methods for the coupled quartic Hamiltonian__
+We demonstrate how the UPOs computed using the different methods compare with each other for a specific system: coupled quartic Hamiltonian.
 
 Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained using the three methods for the coupled quartic Hamiltonian can be done using
 
 ```
 $ ipython
-[]: run ./tests/compare_methods_coupled.py
+>>> run ./tests/compare_methods_coupled.py
 ```
 and the generated figure is located [here](tests/comparison_coupled.pdf)
 
@@ -68,7 +74,7 @@ To obtain the unstable periodic orbits for a specific model Hamiltonian using a 
 
 ```
 $ ipython
-[]: run ./examples/diffcorr_UPOs_coupled.py
+>>> run ./examples/diffcorr_UPOs_coupled.py
 ```
 
 Other tests can be performed by running the cells in the ./tests/tests.ipynb
