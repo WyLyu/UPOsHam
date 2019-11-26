@@ -1,42 +1,58 @@
 ---
 title: "UPOsHam"
+bibliography: ./paper/paper.bib
+link-citations: yes
 output:
-  md_document:
-    toc: yes
-    variant: markdown_github
   html_document:
     theme: united
     toc: yes
+  md_document:
+    toc: yes
+    variant: markdown_github
   pdf_document:
     highlight: zenburn
     toc: yes
-bibliography: ./paper/paper.bib
-biblio-style: "apalike"
-link-citations: true
+biblio-style: apalike
 ---
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 ## Summary
 
-This Python package is a collection of three methods for computing unstable periodic orbits [@Parker_1989] in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ [@wiggins_role_2016]. The three methods [@Pollak_1980,@Koon2011,@naik_finding_2019b] described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy and a brief description can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest. 
+This Python package is a collection of three methods for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@Parker_1989, @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods implemented here (and available under [source](src/) directory) has been used in [@Pollak_1980,@Deleon_Berne_1981,@koon_heteroclinic_2000,@Koon2011,@naik_geometry_2017,@ross_experimental_2018,@naik_finding_2019b] for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have chosen three Hamiltonian systems that have two wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. A brief description of these systems can be found in the [paper](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). 
 
 ## Installation
 
 Clone/download the git repository using
+
 ```git
 $ git clone git@github.com:WyLyu/UPOsHam.git
 $ cd UPOsHam
 $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 ```
+
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. 
-
-### Methods and applications
-
-Methods for computing an unstable periodic orbit at a specified total energy is in the [src](src/) directory and the applications are in the [examples](examples/) directory.
 
 
 ## Usage
+
+The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default shows at 2 total energy levels) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method can be run from the command line by calling
+
+```
+>>> python examples/differential_correction_deleonberne.py
+```
+
+This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
+
+![Unstable periodic orbits for De Leon-Berne Hamiltonian](tests/plots/diff_corr_deleonberne_upos.pdf)
+
+The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems. 
+
+
+### Comparing methods for applications
+
+Methods for computing an unstable periodic orbit at a specified total energy is in the [src](src/) directory and the applications are in the [examples](examples/) directory.
+
 
 __Comparison of the three methods for the coupled quartic Hamiltonian__
 
@@ -59,7 +75,7 @@ Other tests can be performed by running the cells in the ./tests/tests.ipynb
 
 ## Contributing
 
-Guidelines on how to contribute to this package can be found  [here](https://github.com/WyLyu/UPOsHam/blob/master/docs/contributing.md) and also be sure to check the [code of conduct](https://github.com/WyLyu/UPOsHam/blob/master/CODE_OF_CONDUCT.md).
+Guidelines on how to contribute to this package can be found  [here](https://github.com/WyLyu/UPOsHam/blob/master/docs/contributing.md) along with the code of conduct [here](https://github.com/WyLyu/UPOsHam/blob/master/CODE_OF_CONDUCT.md) for engaging with the fellow contributors.
 
 
 ## Copyright and License
