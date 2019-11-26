@@ -35,7 +35,7 @@ The example scripts that computes the unstable periodic orbits (UPOs) for a give
 
 This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
 
-<embed src="tests/plots/diff_corr_deleonberne_upos.pdf" style="width:80.0%" />
+<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:80.0%" />
 
 **Fig. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 

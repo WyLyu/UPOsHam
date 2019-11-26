@@ -3,16 +3,16 @@ title: "UPOsHam"
 bibliography: ./paper/paper.bib
 link-citations: yes
 output:
-  md_document:
-    fig_height: 6
-    fig_width: 6
-    toc: yes
-    variant: markdown_github
   html_document:
     fig_height: 6
     fig_width: 6
     theme: united
     toc: yes
+  md_document:
+    fig_height: 6
+    fig_width: 6
+    toc: yes
+    variant: markdown_github
   pdf_document:
     fig_height: 6
     fig_width: 6
@@ -50,7 +50,7 @@ $ python examples/differential_correction_deleonberne.py
 
 This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
 
-![](tests/plots/diff_corr_deleonberne_upos.pdf){width=80%}
+![](tests/plots/diff_corr_deleonberne_upos.png){width=80%}
 
 __Fig. Unstable periodic orbits for De Leon-Berne Hamiltonian__
 
