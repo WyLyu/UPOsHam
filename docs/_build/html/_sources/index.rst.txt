@@ -12,6 +12,8 @@ Welcome to UPOsHam's documentation!
 
    doc
 
+   contributing
+
    
 Indices and tables
 ==================
