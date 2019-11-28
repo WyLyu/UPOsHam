@@ -154,10 +154,704 @@
 <h1>Unstable Periodic Orbits in Hamiltonian systems<a class="headerlink" href="#unstable-periodic-orbits-in-hamiltonian-systems" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Turning point</p></li>
-<li><p>Turning point based on configuratio difference</p></li>
-<li><p>Differential correction</p></li>
+<ul>
+<li><dl>
+<dt>Turning point</dt><dd><span class="target" id="module-turning_point"></span><p>Created on Thu Sep 12 17:34:06 2019</p>
+<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
+<dl class="function">
+<dt id="turning_point.dotproduct">
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points</p>
+<p>Uses turning point method(defined a dot product form before the “actual” turning point.)
+Parameters
+———-
+guess1 : 1d numpy array</p>
+<blockquote>
+<div><p>guess initial condition 1 for the unstable periodic orbit</p>
+</div></blockquote>
+<dl class="simple">
+<dt>guess2<span class="classifier">1d numpy array </span></dt><dd><p>guess initial condition 2 for the unstable periodic orbit</p>
+</dd>
+<dt>n_turn<span class="classifier">int</span></dt><dd><p>nth turning point that is used to define the dot product</p>
+</dd>
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x_turn1<span class="classifier">float</span></dt><dd><p>x coordinate of the turning point with initional condition guess1</p>
+</dd>
+<dt>x_turn2<span class="classifier">float</span></dt><dd><p>x coordinate of the turning point with initional condition guess2</p>
+</dd>
+<dt>y_turn1<span class="classifier">float</span></dt><dd><p>y coordinate of the turning point with initional condition guess1</p>
+</dd>
+<dt>y_turn2<span class="classifier">float</span></dt><dd><p>y coordinate of the turning point with initional condition guess2</p>
+</dd>
+<dt>dotproduct<span class="classifier">float</span></dt><dd><p>value of the dotproduct</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point.get_eq_pts">
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_eq_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns configuration space coordinates of the equilibrium points.</p>
+<p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
+coordinates of the equilibrium point for a Hamiltonian of the form kinetic
+energy (KE) + potential energy (PE).</p>
+<dl class="simple">
+<dt>eqNum<span class="classifier">int</span></dt><dd><p>1 is the saddle-center equilibrium point
+2 or 3 is the center-center equilibrium point</p>
+</dd>
+<dt>init_guess_eqpt_model<span class="classifier">function name</span></dt><dd><p>function that returns the initial guess for the equilibrium point</p>
+</dd>
+<dt>grad_pot_model<span class="classifier">function name</span></dt><dd><p>function that defines the vector of potential gradient</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>float (list)</dt><dd><p>configuration space coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point.get_pot_surf_proj">
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
+<dl class="simple">
+<dt>xVec, yVec<span class="classifier">1d numpy arrays</span></dt><dd><p>x,y-coordinates that discretizes the x, y domain of the configuration space</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>parameters<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>2d numpy array</dt><dd><p>values of the PE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point.get_total_energy">
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
+<p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
+Hamiltonian of the form KE + PE.</p>
+<dl class="simple">
+<dt>orbit<span class="classifier">float (list)</span></dt><dd><p>phase space coordinates (x,y,px,py) of a point on an orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>parameters<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>scalar</dt><dd><p>total energy (value of Hamiltonian)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point.stateTransitMat">
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">stateTransitMat</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.stateTransitMat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns state transition matrix, the trajectory, and the solution of the
+variational equations over a length of time</p>
+<p>In particular, for periodic solutions of % period tf=T, one can obtain
+the monodromy matrix, PHI(0,T).</p>
+<dl class="simple">
+<dt>tf<span class="classifier">float</span></dt><dd><p>final time for the integration</p>
+</dd>
+<dt>x0<span class="classifier">float</span></dt><dd><p>initial condition</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>t<span class="classifier">1d numpy array</span></dt><dd><p>solution time</p>
+</dd>
+<dt>x<span class="classifier">2d numpy array</span></dt><dd><p>solution of the phase space coordinates</p>
+</dd>
+<dt>phi_tf<span class="classifier">2d numpy array</span></dt><dd><p>state transition matrix at the final time, tf</p>
+</dd>
+<dt>PHI<span class="classifier">1d numpy array,</span></dt><dd><p>solution of phase space coordinates and corresponding tangent space coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point.turningPoint">
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">turningPoint</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.turningPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>turningPoint computes the periodic orbit of target energy using turning point method.</p>
+<p>Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
+trajectories with inital conditions begin1, begin2 are turning in different directions,
+which results in a negative value of the dot product</p>
+<dl class="simple">
+<dt>begin1<span class="classifier">function name</span></dt><dd><p>guess initial condition 1 for the unstable periodic orbit</p>
+</dd>
+<dt>begin2<span class="classifier">function name</span></dt><dd><p>guess initial condition 2 for the unstable periodic orbit</p>
+</dd>
+<dt>get_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the phase space coordinate for a given x/y value and total energy E</p>
+</dd>
+<dt>guess_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the coordinates as guess for the next iteration of the</p>
+</dd>
+</dl>
+<p>turning point</p>
+<dl class="simple">
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>half_period_model<span class="classifier">function name</span></dt><dd><p>function that returns the event criteria in terms of the coordinate that is set to zero
+for half-period of the unstable periodic orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>plot_iter_orbit_model<span class="classifier">function name</span></dt><dd><p>function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+coordinate</p>
+</dd>
+<dt>par: float (list)</dt><dd><p>model parameters</p>
+</dd>
+<dt>e: float </dt><dd><p>total energy of the system</p>
+</dd>
+<dt>n: int</dt><dd><p>number of intervals that is divided bewteen the 2 initial guesses begin1 and begin2</p>
+</dd>
+<dt>n_turn: int</dt><dd><p>nth turning point that is used to define the dot product</p>
+</dd>
+<dt>show_itrsteps_plots: logical</dt><dd><p>flag (True or False) to show iteration of the UPOs in plots</p>
+</dd>
+<dt>po_fam_file<span class="classifier">function name</span></dt><dd><p>file name to save the members in the family of the unstable periodic orbits</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0po<span class="classifier">1d numpy array </span></dt><dd><p>Initial condition of the target unstable periodic orbit</p>
+</dd>
+<dt>T<span class="classifier">float</span></dt><dd><p>Time period of the target unstable periodic orbit</p>
+</dd>
+<dt>energyPO<span class="classifier">float</span></dt><dd><p>Energy of the target unstable periodic orbit.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Turning point based on configuration difference</dt><dd><span class="target" id="module-turning_point_coord_difference"></span><p>Created on Mon Sep  9 17:49:31 2019</p>
+<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
+<dl class="function">
+<dt id="turning_point_coord_difference.get_eq_pts">
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_eq_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns configuration space coordinates of the equilibrium points.</p>
+<p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
+coordinates of the equilibrium point for a Hamiltonian of the form kinetic
+energy (KE) + potential energy (PE).</p>
+<dl class="simple">
+<dt>eqNum<span class="classifier">int</span></dt><dd><p>1 is the saddle-center equilibrium point
+2 or 3 is the center-center equilibrium point</p>
+</dd>
+<dt>init_guess_eqpt_model<span class="classifier">function name</span></dt><dd><p>function that returns the initial guess for the equilibrium point</p>
+</dd>
+<dt>grad_pot_model<span class="classifier">function name</span></dt><dd><p>function that defines the vector of potential gradient</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>float (list)</dt><dd><p>configuration space coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point_coord_difference.get_pot_surf_proj">
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
+<dl class="simple">
+<dt>xVec, yVec<span class="classifier">1d numpy arrays</span></dt><dd><p>x,y-coordinates that discretizes the x, y domain of the configuration space</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>parameters<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>2d numpy array</dt><dd><p>values of the PE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point_coord_difference.get_total_energy">
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
+<p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
+Hamiltonian of the form KE + PE.</p>
+<dl class="simple">
+<dt>orbit<span class="classifier">float (list)</span></dt><dd><p>phase space coordinates (x,y,px,py) of a point on an orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>parameters<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>scalar</dt><dd><p>total energy (value of Hamiltonian)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point_coord_difference.stateTransitMat">
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">stateTransitMat</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.stateTransitMat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns state transition matrix, the trajectory, and the solution of the
+variational equations over a length of time</p>
+<p>In particular, for periodic solutions of % period tf=T, one can obtain
+the monodromy matrix, PHI(0,T).</p>
+<dl class="simple">
+<dt>tf<span class="classifier">float</span></dt><dd><p>final time for the integration</p>
+</dd>
+<dt>x0<span class="classifier">float</span></dt><dd><p>initial condition</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>t<span class="classifier">1d numpy array</span></dt><dd><p>solution time</p>
+</dd>
+<dt>x<span class="classifier">2d numpy array</span></dt><dd><p>solution of the phase space coordinates</p>
+</dd>
+<dt>phi_tf<span class="classifier">2d numpy array</span></dt><dd><p>state transition matrix at the final time, tf</p>
+</dd>
+<dt>PHI<span class="classifier">1d numpy array,</span></dt><dd><p>solution of phase space coordinates and corresponding tangent space coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="turning_point_coord_difference.turningPoint_configdiff">
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">turningPoint_configdiff</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">configdiff_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.turningPoint_configdiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>turningPoint computes the periodic orbit of target energy using turning point based on configuration difference method.</p>
+<p>Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
+trajectories with inital conditions begin1, begin2 are turning in different directions,
+which gives different signs(+ or -) for configuration difference</p>
+<dl class="simple">
+<dt>begin1<span class="classifier">function name</span></dt><dd><p>guess initial condition 1 for the unstable periodic orbit</p>
+</dd>
+<dt>begin2<span class="classifier">function name</span></dt><dd><p>guess initial condition 2 for the unstable periodic orbit</p>
+</dd>
+<dt>get_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the phase space coordinate for a given x/y value and total energy E</p>
+</dd>
+<dt>guess_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the coordinates as guess for the next iteration of the</p>
+</dd>
+</dl>
+<p>turning point</p>
+<dl class="simple">
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>half_period_model<span class="classifier">function name</span></dt><dd><p>function that returns the event criteria in terms of the coordinate that is set to zero
+for half-period of the unstable periodic orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>plot_iter_orbit_model<span class="classifier">function name</span></dt><dd><p>function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+coordinate</p>
+</dd>
+<dt>par: float (list)</dt><dd><p>model parameters</p>
+</dd>
+<dt>e: float </dt><dd><p>total energy of the system</p>
+</dd>
+<dt>n: int</dt><dd><p>number of intervals that is divided bewteen the 2 initial guesses begin1 and begin2</p>
+</dd>
+<dt>n_turn: int</dt><dd><p>nth turning point that is used to define the dot product</p>
+</dd>
+<dt>show_itrsteps_plots: logical</dt><dd><p>flag (True or False) to show iteration of the UPOs in plots</p>
+</dd>
+<dt>po_fam_file<span class="classifier">function name</span></dt><dd><p>file name to save the members in the family of the unstable periodic orbits</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0po<span class="classifier">1d numpy array </span></dt><dd><p>Initial condition of the target unstable periodic orbit</p>
+</dd>
+<dt>T<span class="classifier">float</span></dt><dd><p>Time period of the target unstable periodic orbit</p>
+</dd>
+<dt>energyPO<span class="classifier">float</span></dt><dd><p>Energy of the target unstable periodic orbit.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Differential correction</dt><dd><span class="target" id="module-differential_correction"></span><p>Created on Tue Sep 10 18:32:28 2019</p>
+<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
+<dl class="function">
+<dt id="differential_correction.cleanUpMatrix">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">cleanUpMatrix</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.cleanUpMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns any complex matrix A with entries where the real or complex part has absolute
+value smaller than TOL set to 0, where TOL is set inside this function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.eigGet">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">eigGet</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">discrete</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.eigGet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the eigenvalues and eigenvectors of the matrix A spanning the three local subspaces
+&lt;Es,Eu,Ec&gt; where A is MxM and s+u+c=M, which locally approximate the invariant manifolds
+&lt;Ws,Wu,Wc&gt;</p>
+<p>This function is designed for continuous dynamical systems only.</p>
+<dl class="simple">
+<dt>A<span class="classifier">2d numpy array</span></dt><dd><p>Input matrix</p>
+</dd>
+<dt>discrete<span class="classifier">int</span></dt><dd><p>flag to set if the dynamical system is discrete or continuous</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>sn,un,cn,Ws,Wu,Wc<span class="classifier">1d numpy array</span></dt><dd><p>eigenvalues and corresponding eigenvectors</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.get_PODiffCorr">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_PODiffCorr</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_PODiffCorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an initial condition and time period of an unstable periodic orbit using differential
+correction</p>
+<p>The initial condition is generated using a small (first-order derived using state transition
+matrix) correction of the initial guess where the assumption is the unstable periodic orbit
+projects as a function nameaight line on the configuration space.</p>
+<dl class="simple">
+<dt>x0<span class="classifier">float</span></dt><dd><p>guess of the initial condition for the unstable periodic orbit</p>
+</dd>
+<dt>diffcorr_setup_model<span class="classifier">function name</span></dt><dd><p>function that returns the combination of coordinates for applying terminal and periodic
+orbit conditions</p>
+</dd>
+<dt>conv_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the coordinate for convergence criteria</p>
+</dd>
+<dt>diffcorr_acc_corr_model<span class="classifier">function name</span></dt><dd><p>function that returns the corrected phase space coordinate and where the correction term
+is derived</p>
+</dd>
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>half_period_model<span class="classifier">function name</span></dt><dd><p>function that returns the event criteria in terms of the coordinate that is set to zero
+for half-period of the unstable periodic orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>plot_iter_orbit_model<span class="classifier">function name</span></dt><dd><p>function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+coordinate</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0po<span class="classifier">1d numpy array</span></dt><dd><p>initial condition for the periodic orbit</p>
+</dd>
+<dt>t1<span class="classifier">float</span></dt><dd><p>time period for the periodic orbit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.get_POFam">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_POFam</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax1</em>, <em class="sig-param">Ax2</em>, <em class="sig-param">nFam</em>, <em class="sig-param">po_fam_file</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_POFam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a family of unstable periodic orbits given two seed initial conditions and time periods</p>
+<dl class="simple">
+<dt>eqNum<span class="classifier">int</span></dt><dd><p>1 is the saddle-center equilibrium point
+2 or 3 is the center-center equilibrium point</p>
+</dd>
+<dt>Ax1, Ax2<span class="classifier">float</span></dt><dd><p>amplitude of the guess periodic orbit (typically 1e-4 or 1e-5)</p>
+</dd>
+<dt>nFam<span class="classifier">int</span></dt><dd><p>number of members in the family (monotonically increasing energy) of the unstable 
+periodic orbits</p>
+</dd>
+<dt>po_fam_file<span class="classifier">function name</span></dt><dd><p>file name to save the members in the family of the unstable periodic orbits</p>
+</dd>
+<dt>init_guess_eqpt_model: function name</dt><dd><p>function that returns the initial guess for the equilibrium point</p>
+</dd>
+<dt>grad_pot_model<span class="classifier">function name</span></dt><dd><p>function that returns gradient of the potential energy function.</p>
+</dd>
+<dt>jacobian_model<span class="classifier">function name</span></dt><dd><p>function that returns Jacobian of the vector field.</p>
+</dd>
+<dt>guess_lin_model<span class="classifier">function name</span></dt><dd><p>function that returns the initial guess based on linearization around the
+equilibrium point.</p>
+</dd>
+<dt>diffcorr_setup_model<span class="classifier">function name</span></dt><dd><p>function that returns the combination of coordinates for applying terminal and periodic
+orbit conditions</p>
+</dd>
+<dt>conv_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the coordinate for convergence criteria</p>
+</dd>
+<dt>diffcorr_acc_corr_model<span class="classifier">function name</span></dt><dd><p>function that returns the corrected phase space coordinate and where the correction term
+is derived</p>
+</dd>
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>half_period_model<span class="classifier">function name</span></dt><dd><p>function that returns the event criteria in terms of the coordinate that is set to zero
+for half-period of the unstable periodic orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>plot_iter_orbit_model<span class="classifier">function name</span></dt><dd><p>function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+coordinate</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0po<span class="classifier">2d numpy array</span></dt><dd><p>array of initial conditions for the members in the family of the unstable periodic orbits</p>
+</dd>
+<dt>T<span class="classifier">1d numpy array</span></dt><dd><p>column vector of time period for the members in the family of the unstable periodic orbits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.get_POGuessLinear">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_POGuessLinear</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_POGuessLinear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an initial guess for the differential correction method.</p>
+<p>Uses a small displacement from the equilibrium point (in a direction on the collinear point’s
+center manifold) as a first guess for a planar periodic orbit (called a Lyapunov orbit). This
+initial condition and period are to be used as a first guess for the differential correction
+routine.</p>
+<dl class="simple">
+<dt>eqNum<span class="classifier">int</span></dt><dd><p>index of the equilibrium point (typically 1 or 2 or 3)</p>
+</dd>
+<dt>Ax<span class="classifier">float</span></dt><dd><p>small nondimensional amplitude of the periodic orbit (&lt;&lt; 1)</p>
+</dd>
+<dt>init_guess_eqpt_model<span class="classifier">function name</span></dt><dd><p>function that returns an initial guess to solve the equilibrium point using numerical
+solvers.</p>
+</dd>
+<dt>grad_pot_model<span class="classifier">function name</span></dt><dd><p>function that returns gradient of the potential energy function.</p>
+</dd>
+<dt>jacobian_model<span class="classifier">function name</span></dt><dd><p>function that returns Jacobian of the vector field.</p>
+</dd>
+<dt>guess_lin_model<span class="classifier">function name</span></dt><dd><p>function that returns the initial guess based on linearization around the
+equilibrium point.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0poGuess<span class="classifier">1d numpy array</span></dt><dd><p>guess initial condition for the periodic orbit (first guess)</p>
+</dd>
+<dt>TGuess<span class="classifier">float</span></dt><dd><p>gues time period for the periodic orbit (first guess)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.get_eq_pts">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_eq_pts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns configuration space coordinates of the equilibrium points.</p>
+<p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
+coordinates of the equilibrium point for a Hamiltonian of the form kinetic
+energy (KE) + potential energy (PE).</p>
+<dl class="simple">
+<dt>eqNum<span class="classifier">int</span></dt><dd><p>1 is the saddle-center equilibrium point
+2 or 3 is the center-center equilibrium point</p>
+</dd>
+<dt>init_guess_eqpt_model<span class="classifier">function name</span></dt><dd><p>function that returns the initial guess for the equilibrium point</p>
+</dd>
+<dt>grad_pot_model<span class="classifier">function name</span></dt><dd><p>function that defines the vector of potential gradient</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>float (list)</dt><dd><p>configuration space coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.get_pot_surf_proj">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
+<dl class="simple">
+<dt>xVec, yVec<span class="classifier">1d numpy arrays</span></dt><dd><p>x,y-coordinates that discretizes the x, y domain of the configuration space</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>parameters<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>2d numpy array</dt><dd><p>values of the PE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.get_total_energy">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
+<p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
+Hamiltonian of the form KE + PE.</p>
+<dl class="simple">
+<dt>orbit<span class="classifier">float (list)</span></dt><dd><p>phase space coordinates (x,y,px,py) of a point on an orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>parameters<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>scalar</dt><dd><p>total energy (value of Hamiltonian)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.poBracketEnergy">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">poBracketEnergy</code><span class="sig-paren">(</span><em class="sig-param">energyTarget</em>, <em class="sig-param">x0podata</em>, <em class="sig-param">po_brac_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.poBracketEnergy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns two unstable periodic orbits that bracket (bound in energy values) the unstable
+periodic orbit at the desired energy</p>
+<p>Generates a family of periodic orbits (po) given a pair of seed initial conditions from a 
+data file, while targeting a specific periodic orbit. This is performed using a scaling 
+factor of the numerical continuation step size which is used to obtain initial guess for 
+the periodic orbit. The energy of target periodic orbit should be higher than the input 
+periodic orbit.</p>
+<dl class="simple">
+<dt>energyTarget<span class="classifier">float</span></dt><dd><p>energy of the target unstable periodic orbit</p>
+</dd>
+<dt>x0podata<span class="classifier">2d numpy array</span></dt><dd><p>array of input members of the family of the unstable periodic orbit</p>
+</dd>
+<dt>po_brac_file<span class="classifier">str</span></dt><dd><p>file name to save the 2 bounds of the target unstable periodic orbit</p>
+</dd>
+<dt>diffcorr_setup_model<span class="classifier">function name</span></dt><dd><p>function that returns the combination of coordinates for applying terminal and periodic
+orbit conditions</p>
+</dd>
+<dt>conv_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the coordinate for convergence criteria</p>
+</dd>
+<dt>diffcorr_acc_corr_model<span class="classifier">function name</span></dt><dd><p>function that returns the corrected phase space coordinate and where the correction term
+is derived</p>
+</dd>
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>half_period_model<span class="classifier">function name</span></dt><dd><p>function that returns the event criteria in terms of the coordinate that is set to zero
+for half-period of the unstable periodic orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>plot_iter_orbit_model<span class="classifier">function name</span></dt><dd><p>function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+coordinate</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0po<span class="classifier">2d numpy array</span></dt><dd><p>2 bracketing unstable periodic orbits that bound the desired unstable periodic orbit</p>
+</dd>
+<dt>T<span class="classifier">1d numpy array</span></dt><dd><p>time period of the 2 bracketing unstable periodic orbits</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.poTargetEnergy">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">poTargetEnergy</code><span class="sig-paren">(</span><em class="sig-param">x0po</em>, <em class="sig-param">energyTarget</em>, <em class="sig-param">po_target_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.poTargetEnergy" title="Permalink to this definition">¶</a></dt>
+<dd><p>poTargetEnergy computes the periodic orbit of target energy using bisection method.</p>
+<p>Using bisection method on the lower and higher energy values of the POs to find the PO with 
+the target energy. Use this condition to integrate with event function of half-period 
+defined by maximum distance from the initial point on the PO</p>
+<dl class="simple">
+<dt>x0po<span class="classifier">1d numpy array</span></dt><dd><p>Initial conditions for the periodic orbit with the last two initial conditions 
+bracketing (lower and higher than) the target energy</p>
+</dd>
+<dt>diffcorr_setup_model<span class="classifier">function name</span></dt><dd><p>function that returns the combination of coordinates for applying terminal and periodic
+orbit conditions</p>
+</dd>
+<dt>conv_coord_model<span class="classifier">function name</span></dt><dd><p>function that returns the coordinate for convergence criteria</p>
+</dd>
+<dt>diffcorr_acc_corr_model<span class="classifier">function name</span></dt><dd><p>function that returns the corrected phase space coordinate and where the correction term
+is derived</p>
+</dd>
+<dt>ham2dof_model<span class="classifier">function name</span></dt><dd><p>function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p>
+</dd>
+<dt>half_period_model<span class="classifier">function name</span></dt><dd><p>function that returns the event criteria in terms of the coordinate that is set to zero
+for half-period of the unstable periodic orbit</p>
+</dd>
+<dt>pot_energy_model<span class="classifier">function name</span></dt><dd><p>function that returns the potential energy of Hamiltonian</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+<dt>plot_iter_orbit_model<span class="classifier">function name</span></dt><dd><p>function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
+coordinate</p>
+</dd>
+<dt>par: float (list)</dt><dd><p>model parameters</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>x0_PO<span class="classifier">1d numpy array </span></dt><dd><p>Initial condition of the target unstable periodic orbit</p>
+</dd>
+<dt>T_PO<span class="classifier">float</span></dt><dd><p>Time period of the target unstable periodic orbit</p>
+</dd>
+<dt>ePO<span class="classifier">float</span></dt><dd><p>Energy of the target unstable periodic orbit.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.removeInfinitesimals">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">removeInfinitesimals</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">TOL=1e-14</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.removeInfinitesimals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns any complex matrix A with entries where the real or complex part has absolute
+value smaller than TOL set to 0</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="differential_correction.stateTransitMat">
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">stateTransitMat</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.stateTransitMat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns state transition matrix, the trajectory, and the solution of the
+variational equations over a length of time</p>
+<p>In particular, for periodic solutions of % period tf=T, one can obtain
+the monodromy matrix, PHI(0,T).</p>
+<dl class="simple">
+<dt>tf<span class="classifier">float</span></dt><dd><p>final time for the integration</p>
+</dd>
+<dt>x0<span class="classifier">float</span></dt><dd><p>initial condition</p>
+</dd>
+<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
+</dd>
+<dt>varEqns_model<span class="classifier">function name</span></dt><dd><p>function that returns the variational equations of the dynamical system</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>t<span class="classifier">1d numpy array</span></dt><dd><p>solution time</p>
+</dd>
+<dt>x<span class="classifier">2d numpy array</span></dt><dd><p>solution of the phase space coordinates</p>
+</dd>
+<dt>phi_tf<span class="classifier">2d numpy array</span></dt><dd><p>state transition matrix at the final time, tf</p>
+</dd>
+<dt>PHI<span class="classifier">1d numpy array,</span></dt><dd><p>solution of phase space coordinates and corresponding tangent space coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd>
+</dl>
+</li>
 </ul>
 </div>
 <div class="section" id="problems">
