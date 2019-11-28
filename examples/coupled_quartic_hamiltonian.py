@@ -320,3 +320,4 @@ half_period_coupled.terminal = True
 # The zero can be approached from either direction
 half_period_coupled.direction=0#0: all directions of crossing
 
+
