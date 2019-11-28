@@ -9,18 +9,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import math
-#from IPython.display import Image # for Notebook
-#from IPython.core.display import HTML
 from mpl_toolkits.mplot3d import Axes3D
-#from numpy import linalg as LA
-#import scipy.linalg as linalg
 from scipy.optimize import fsolve
-#import time
-#from functools import partial
-#from scipy import optimize
 import matplotlib as mpl
-
-#from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
@@ -61,7 +52,6 @@ def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     x0 = init_guess_eqpt_model(eqNum, par)
     
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-#    F = lambda x: func_vec_field_eq_pt(model,x,par)
     F = lambda x: grad_pot_model(x, par)
     
     eqPt = fsolve(F, x0, fprime = None) # Call solver
@@ -139,7 +129,7 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     
     
 #%
-def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
+def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0): 
     """
     Returns state transition matrix, the trajectory, and the solution of the
     variational equations over a length of time
@@ -158,7 +148,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     par : float (list)
         model parameters
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     Returns
@@ -190,7 +180,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     PHI_0[N**2:N+N**2] = x0                           # initial condition for trajectory
 
     
-    f = lambda t,PHI: varEqns_model(t,PHI,par) # Use partial in order to pass parameters to function
+    f = lambda t,PHI: variational_eqns_model(t,PHI,par) # Use partial in order to pass parameters to function
     soln = solve_ivp(f, TSPAN, list(PHI_0), method='RK45', dense_output=True, \
                      events = None, rtol=RelTol, atol=AbsTol)
     t = soln.t
@@ -203,313 +193,8 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     return t,x,phi_tf,PHI
 
 
-#def func_vec_field_eq_pt(model,x,par):
-#    """ vecor field(same as pxdot, pydot), used to find the equilibrium points of the system.
-#    """
-#    if model == 'uncoupled':
-#        dVdx = -par[3]*x[0]+par[4]*(x[0])**3
-#        dVdy = par[5]*x[1]
-#    elif model == 'coupled':
-#        dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
-#        dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
-#    elif model == 'deleonberne':
-#        dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-#        dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-#    else:
-#        print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-#    F = [-dVdx, -dVdy]
-#    return F
-#    
-#
-##%%
-#def get_eq_pts(eqNum,model, par):
-#    """
-#    GET_EQ_PTS_BP solves the saddle center equilibrium point for a system with
-#    KE + PE. 
-#     H = 1/2*px^2+omega/2*py^2 -(1/2)*alpha*x^2+1/4*beta*x^4+ omega/2y^2 with alpha > 0
-#    --------------------------------------------------------------------------
-#       Uncouled potential energy surface notations:
-#    
-#               Well (stable, EQNUM = 2)    
-#    
-#                   Saddle (EQNUM=1)
-#    
-#               Well (stable, EQNUM = 3)    
-#    
-#    --------------------------------------------------------------------------
-#       
-#    
-#    """
-#    #fix the equilibrium point numbering convention here and make a
-#    #starting guess at the solution
-#    if 	eqNum == 1:
-#        
-#        x0 = [0, 0]                  # EQNUM = 1, saddle  
-#    elif 	eqNum == 2: 
-#        if model == 'uncoupled':
-#            eqPt = [+math.sqrt(par[3]/par[4]),0]    # EQNUM = 2, stable
-#            return eqPt
-#        elif model == 'coupled':
-#            eqPt = [+math.sqrt(par[3]-par[6]/par[4]),0] # EQNUM = 2, stable
-#            return eqPt
-#        elif model== 'deleonberne':
-#            eqPt = [0, 1/math.sqrt(2)]    # EQNUM = 2, stable
-#            return eqPt
-#        else:
-#            print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-#    elif 	eqNum == 3:
-#        if model == 'uncoupled':
-#            eqPt = [-math.sqrt(par[3]/par[4]),0]    # EQNUM = 2, stable
-#            return eqPt
-#        elif model == 'coupled':
-#            eqPt = [-math.sqrt(par[3]-par[6]/par[4]),0] # EQNUM = 2, stable
-#            return eqPt
-#        elif model== 'deleonberne':
-#            eqPt = [0, -1/math.sqrt(2)]    # EQNUM = 2, stable
-#            return eqPt
-#        else:
-#            print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-#    
-#    # F(xEq) = 0 at the equilibrium point, solve using in-built function
-#    F = lambda x: func_vec_field_eq_pt(model,x,par)
-#    eqPt = fsolve(F,x0, fprime=None) # Call solver
-#    return eqPt
-#
-#
-##%% get potential energy
-#def get_potential_energy(model,x,y,par):
-#    """ enter the definition of the potential energy function  
-#    """      
-#    
-#    if model == 'uncoupled':
-#        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2
-#    elif model == 'coupled':
-#        pot_energy =  -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2
-#    elif model== 'deleonberne':
-#        pot_energy = par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]
-#    else:
-#        print("The model you are chosen does not exist, enter the definition of the potential ernergy")
-#                
-#    return pot_energy
-#
-#
-##%%
-#def get_total_energy(model,orbit, parameters):
-#    """
-#    get_total_energy_deleonberne computes the total energy of an input orbit
-#    (represented as M x N with M time steps and N = 4, dimension of phase
-#    space for the model) for the 2 DoF DeLeon-Berne potential.
-#    
-#    Orbit can be different initial conditions for the periodic orbit of
-#    different energy.
-#    """
-#
-#    
-#
-#    x  = orbit[0]
-#    y  = orbit[1]
-#    px = orbit[2]
-#    py = orbit[3]
-#    
-#      
-#    e = (1/(2*parameters[0]))*(px**2) + (1/(2*parameters[1]))*(py**2) +  get_potential_energy(model,x, y,parameters)   
-#        
-#    return e
-#
-#
-##%%
-#def get_pot_surf_proj(model,xVec, yVec,par):            
-#
-#    resX = np.size(xVec)
-#    resY = np.size(xVec)
-#    surfProj = np.zeros([resX, resY])
-#    for i in range(len(xVec)):
-#        for j in range(len(yVec)):
-#            surfProj[i,j] = get_potential_energy(model,xVec[j], yVec[i],par)
-#
-#    return surfProj 
-#
-#
-##%%
-#def get_coordinate(model,x,y, V,par):
-#    """ this function returns the initial position of x/y-coordinate on the potential energy surface(PES) for a specific energy V.
-#    
-#    """
-#    if model == 'uncoupled':
-#        return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2-V
-#    elif model =='coupled':
-#        return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2+0.5*par[6]*(x-y)**2 -V
-#    elif model== 'deleonberne':
-#        return par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]-V
-#    else:
-#        print("The model you are chosen does not exist, enter the function for finding coordinates on the PES for given x or y and V")
-#    
-#    
-##%%
-#def stateTransitMat(tf,x0,par,model,fixed_step=0): 
-#    """
-#    function [x,t,phi_tf,PHI] =
-#    stateTransitionMatrix_boatPR(x0,tf,R,OPTIONS,fixed_step)
-#    
-#    Gets state transition matrix, phi_tf = PHI(0,tf), and the trajectory 
-#    (x,t) for a length of time, tf.  
-#    
-#    In particular, for periodic solutions of % period tf=T, one can obtain 
-#    the monodromy matrix, PHI(0,T).
-#    """
-#    
-#
-#    N = len(x0)  # N=4 
-#    RelTol=3e-14
-#    AbsTol=1e-14  
-#    tf = tf[-1]
-#    if fixed_step == 0:
-#        TSPAN = [ 0 , tf ] 
-#    else:
-#        TSPAN = np.linspace(0, tf, fixed_step)
-#    PHI_0 = np.zeros(N+N**2)
-#    PHI_0[0:N**2] = np.reshape(np.identity(N),(N**2)) # initial condition for state transition matrix
-#    PHI_0[N**2:N+N**2] = x0                    # initial condition for trajectory
-#
-#    
-#    f = lambda t,PHI: varEqns(t,PHI,par, model) # Use partial in order to pass parameters to function
-#    soln = solve_ivp(f, TSPAN, list(PHI_0),method='RK45',dense_output=True, events = None,rtol=RelTol, atol=AbsTol)
-#    t = soln.t
-#    PHI = soln.y
-#    PHI = PHI.transpose()
-#    x = PHI[:,N**2:N+N**2]		   # trajectory from time 0 to tf
-#    phi_tf = np.reshape(PHI[len(t)-1,0:N**2],(N,N)) # state transition matrix, PHI(O,tf)
-#
-#    
-#    return t,x,phi_tf,PHI
-#
-#
-##%%
-#def varEqns(t,PHI,par,model):
-#    """
-#    PHIdot = varEqns_bp(t,PHI) 
-#    
-#    This here is a preliminary state transition, PHI(t,t0),
-#    matrix equation attempt for a ball rolling on the surface, based on...
-#    
-#    d PHI(t, t0)
-#    ------------ =  Df(t) * PHI(t, t0)
-#        dt
-#    
-#    """
-#    phi = PHI[0:16]
-#    phimatrix  = np.reshape(PHI[0:16],(4,4))
-#    x,y,px,py = PHI[16:20]
-#    
-#    
-#    if model == 'uncoupled':
-#        # The first order derivative of the Hamiltonian.
-#        dVdx = -par[3]*x+par[4]*x**3
-#        dVdy = par[5]*y
-#    
-#        # The following is the Jacobian matrix 
-#        d2Vdx2 = -par[3]+par[4]*3*x**2
-#            
-#        d2Vdy2 = par[5]
-#    
-#        d2Vdydx = 0
-#    elif model == 'coupled':
-#        # The first order derivative of the Hamiltonian.
-#        dVdx = (-par[3]+par[6])*x+par[4]*x**3-par[6]*y
-#        dVdy = (par[5]+par[6])*y-par[6]*x
-#
-#        # The following is the Jacobian matrix 
-#        d2Vdx2 = -par[3]+par[6]+par[4]*3*x**2
-#            
-#        d2Vdy2 = par[5]+par[6]
-#    
-#        d2Vdydx = -par[6]
-#    elif model == 'deleonberne':
-#        # The first order derivative of the Hamiltonian.
-#        dVdx = - 2*par[3]*par[4]*math.e**(-par[4]*x)*(math.e**(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) 
-#        dVdy = 8*y*(2*y**2 - 1)*math.e**(-par[5]*par[4]*x)
-#    
-#        # The following is the Jacobian matrix 
-#        d2Vdx2 = - ( 2*par[3]*par[4]**2*( math.e**(-par[4]*x) - 2.0*math.e**(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) )
-#            
-#        d2Vdy2 = 8*(6*y**2 - 1)*math.e**( -par[4]*par[5]*x )
-#    
-#        d2Vdydx = -8*y*par[4]*par[5]*math.e**( -par[4]*par[5]*x )*(2*y**2 - 1)
-#        
-#    else:
-#        print("The model you are chosen does not exist")
-#    
-#    
-#    d2Vdxdy = d2Vdydx    
-#
-#    Df    = np.array([[  0,     0,    par[0],    0],
-#              [0,     0,    0,    par[1]],
-#              [-d2Vdx2,  -d2Vdydx,   0,    0],
-#              [-d2Vdxdy, -d2Vdy2,    0,    0]])
-#
-#    
-#    phidot = np.matmul(Df, phimatrix) # variational equation
-#
-#    PHIdot        = np.zeros(20)
-#    PHIdot[0:16]  = np.reshape(phidot,(1,16)) 
-#    PHIdot[16]    = px/par[0]
-#    PHIdot[17]    = py/par[1]
-#    PHIdot[18]    = -dVdx 
-#    PHIdot[19]    = -dVdy
-#    
-#    return list(PHIdot)
-#
-#
-##%% 
-#def half_period(t,x,model):
-#    """
-#    Return the turning point where we want to stop the integration                           
-#    
-#    pxDot = x[0]
-#    pyDot = x[1]
-#    xDot = x[2]
-#    yDot = x[3]
-#    """
-#    terminal = True
-#    # The zero can be approached from either direction
-#    direction = 0 #0: all directions of crossing
-#    if model =='uncoupled':
-#        return x[3]
-#    elif model =='coupled':
-#        return x[3]
-#    elif model =='deleonberne':
-#        return x[2]
-#    else:
-#        print("specify an event for integration, either choose to return p_x or to return p_y")
-#
-#
-##%% Hamilton's equations
-#def Ham2dof(model,t,x, par):
-#    """ Enter the definition of Hamilton's equations, used for ploting trajectories later.
-#    """
-#    xDot = np.zeros(4)
-#    
-#    if model == 'uncoupled':
-#        dVdx = -par[3]*x[0]+par[4]*(x[0])**3
-#        dVdy = par[5]*x[1]
-#    elif model == 'coupled':
-#        dVdx = (-par[3]+par[6])*x[0]+par[4]*(x[0])**3-par[6]*x[1]
-#        dVdy = (par[5]+par[6])*x[1]-par[6]*x[0]
-#    elif model == 'deleonberne':
-#        dVdx = -2*par[3]*par[4]*math.e**(-par[4]*x[0])*(math.e**(-par[4]*x[0]) - 1) - 4*par[5]*par[4]*x[1]**2*(x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-#        dVdy = 8*x[1]*(2*x[1]**2 - 1)*math.e**(-par[5]*par[4]*x[0])
-#    else:
-#        print("The model you are chosen does not exist, enter the definition of Hamilton's equations")
-#        
-#    xDot[0] = x[2]/par[0]
-#    xDot[1] = x[3]/par[1]
-#    xDot[2] = -dVdx 
-#    xDot[3] = -dVdy
-#    return list(xDot)    
-
-
 #%%
-def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_model, par):
+def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, variational_eqns_model, par):
     """
     Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points
     
@@ -529,7 +214,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
         function that returns the Hamiltonian vector field at an input phase space coordinate
         and time
                     
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     par : float (list)
@@ -562,7 +247,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
     turn1 = soln1.sol(t1)
     x_turn1 = turn1[0,-1] 
     y_turn1 = turn1[1,-1] 
-    t,xx1,phi_t1,PHI = stateTransitMat(t1,guess1,par,varEqns_model)
+    t,xx1,phi_t1,PHI = state_transit_matrix(t1,guess1,par,variational_eqns_model)
     x1 = xx1[:,0]
     y1 = xx1[:,1]
     p1 = xx1[:,2:]
@@ -575,7 +260,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
     turn2 = soln1.sol(t2)
     x_turn2 = turn2[0,-1] 
     y_turn2 = turn2[1,-1] 
-    t,xx2,phi_t1,PHI = stateTransitMat(t2,guess2,par,varEqns_model)
+    t,xx2,phi_t1,PHI = state_transit_matrix(t2,guess2,par,variational_eqns_model)
     x2 = xx2[:,0]
     y2 = xx2[:,1]
     p2 = xx2[:,2:]
@@ -588,7 +273,7 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
 
 #%%
 def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
-                 half_period_model, varEqns_model, pot_energy_model, plot_iter_orbit_model, par, \
+                 half_period_model, variational_eqns_model, pot_energy_model, plot_iter_orbit_model, par, \
                  e, n, n_turn, show_itrsteps_plots, po_fam_file):
     """
     turningPoint computes the periodic orbit of target energy using turning point method.
@@ -623,7 +308,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -660,9 +345,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
     """
 
     axis_fs = 15
-    #y_PES = get_y(begin1[0], e,par)
-    #y_turning = begin1[1]
-    #toler = math.sqrt((y_PES-y_turning)**2)
+    
     guess1 = begin1
     guess2 = begin2
     MAXiter = 30
@@ -675,36 +358,10 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
     energyPO = np.zeros((MAXiter ,1))
     iter = 0
     iter_diff =0  # for counting the correct index
-    #while toler < 1e-6 or iter < MAXiter:
+    
     while iter < MAXiter and n_turn < 10:
-        #y_PES = -get_y(guess1[0], e,par)
-        #y_turning = guess1[1]
-        #toler = math.sqrt((y_PES-y_turning)**2)
+
         for i in range(0,n+1):
-            # the product product between guess1 and each guess is recorded in "result" matrix
-#            if model == 'uncoupled':
-#                h = (guess2[0] - guess1[0])*i/n
-#                print("h is ",h)
-#                xguess = guess1[0]+h
-#                f = lambda y: get_coordinate(model,xguess,y, e,par)
-#                yanalytic = math.sqrt((e +0.5*par[3]*xguess**2-0.25*par[4]*xguess**4)/(0.5*par[1])) #uncoupled
-#                yguess = optimize.newton(f,yanalytic)   # to find the x coordinate for a given y
-#            elif model == 'coupled':
-#                h = (guess2[0] - guess1[0])*i/n
-#                print("h is ",h)
-#                xguess = guess1[0]+h
-#                f = lambda y: get_coordinate(model,xguess,y, e,par)
-#                yanalytic = math.sqrt(2/(par[1]+par[6]))*(-math.sqrt( e +0.5*par[3]* xguess**2- 0.25*par[4]*xguess**4 -0.5*par[6]* xguess**2 + (par[6]*xguess)**2/(2*(par[1] +par[6]) )) +par[6]/(math.sqrt(2*(par[1]+par[6])) )*xguess ) #coupled
-#                yguess = optimize.newton(f,yanalytic)
-#            elif model == 'deleonberne':
-#                h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
-#                print("h is ",h)
-#                yguess = guess1[1]+h
-#                f = lambda x: get_coordinate(model,x,yguess,e,par)
-#                xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y 
-#            else:
-#                print("The model you are chosen does not exist")
-#                break
             
             xguess, yguess = guess_coords_model(guess1, guess2, i, n, e, get_coord_model, par)
             
@@ -712,7 +369,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
             x_turn1,x_turn2,y_turn1,y_turn2, dotpro = dotproduct(guess1, guess, n_turn, \
                                                                  ham2dof_model, \
                                                                  half_period_model, \
-                                                                 varEqns_model, \
+                                                                 variational_eqns_model, \
                                                                  par)
             result[i,0] = dotpro
             result[i,1] = guess[0]
@@ -749,7 +406,7 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
                              events = lambda t,x: half_period_model(t,x,par),rtol=RelTol, atol=AbsTol)
             te = soln.t_events[0]
             tt = [0,te[1]]
-            t,x,phi_t1,PHI = stateTransitMat(tt,guesspo,par,varEqns_model)
+            t,x,phi_t1,PHI = state_transit_matrix(tt,guesspo,par,variational_eqns_model)
             T[iter] = tt[-1]*2
             print("period is%s " %T[iter])
             energy = np.zeros(len(x))
@@ -764,10 +421,6 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
                 plt.grid()
                 plt.show()
 
-#            #x_turn= x[-1,0]  # x coordinate of turning point
-#            #y_turn= x[-1,1] # y coordinate of turning point
-#            #y_PES = -get_y(x_turn,e,par)
-#            #toler = math.sqrt((y_PES-y_turn)**2)
 
             
             guess2 = np.array([result[index,1], result[index,2],0,0])
@@ -794,7 +447,6 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
                 break
             n_turn = n_turn+1
             print("the nth turning point we pick is ", n_turn)
-            #index = int((n+1)*(re_iter-1)+i_turn[re_iter-1])
             index = int((n+1)*(iter-iter_diff)+i_turn[iter-iter_diff])
             print("index is ", index)
             xguess2=result2[index+iter_diff,1]
@@ -806,11 +458,8 @@ def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_mo
                     
 
         
-        #print("tolerance is ", toler)
         print(result)
         print("the nth turning point we pick is ", n_turn)
-        #print(guess1)
-        #print(guess2)
         iter = iter +1
 
     end = MAXiter

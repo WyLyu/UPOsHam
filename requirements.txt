@@ -1,7 +1,7 @@
-scipy==1
-numpy==1
-matplotlib==2
-ipython==7
+scipy
+numpy
+matplotlib
+ipython
 
 
 
