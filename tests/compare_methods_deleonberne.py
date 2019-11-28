@@ -8,31 +8,15 @@ Created on Wed Jul 31 16:53:45 2019
 
 import numpy as np
 import matplotlib.pyplot as plt
-#from scipy.integrate import odeint,quad,trapz,solve_ivp
 from scipy.integrate import solve_ivp
-#import math
-#from IPython.display import Image # for Notebook
-#from IPython.core.display import HTML
 from mpl_toolkits.mplot3d import Axes3D
-#from numpy import linalg as LA
-#import scipy.linalg as linalg
-#from scipy.optimize import fsolve
-#import time
-#from functools import partial
 import sys
 sys.path.append('./src/')
-import tpcd_UPOsHam2dof ### import module xxx where xxx is the name of the python file xxx.py 
-import diffcorr_UPOsHam2dof
-
-
-#from mpl_toolkits.mplot3d import Axes3D
+import differential_correction
 import matplotlib as mpl
 from matplotlib import cm
-#from pylab import rcParams
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
-
-#from scipy import optimize
 
 
 #% Begin problem specific functions
@@ -72,7 +56,7 @@ def pot_energy_deleonberne(x, y, par):
     return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
-def varEqns_deleonberne(t,PHI,par):
+def variational_eqns_deleonberne(t,PHI,par):
     """    
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
@@ -143,7 +127,7 @@ def ham2dof_deleonberne(t, x, par):
 
 def half_period_deleonberne(t,x,par):
     """
-    Return the turning point where we want to stop the integration                           
+    Returns the turning point where we want to stop the integration                           
     
     pxDot = x[0]
     pyDot = x[1]
@@ -151,12 +135,11 @@ def half_period_deleonberne(t,x,par):
     yDot = x[3]
     """
     
-    terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
-    
     return x[2]
         
+half_period_deleonberne.terminal = True 
+# The zero can be approached from either direction
+half_period_deleonberne.direction=0#0: all directions of crossing
 
 #% End problem specific functions
 
@@ -172,16 +155,11 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1  
-#model = 'deleonberne'
-#eqPt = tpcd_UPOsHam2dof.get_eq_pts(eqNum, model,parameters)
-
-#eSaddle = tpcd_UPOsHam2dof.get_total_energy(model,[eqPt[0],eqPt[1],0,0], parameters) #energy of the saddle eq pt
-
-eqPt = diffcorr_UPOsHam2dof.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
+eqPt = differential_correction.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
                                        grad_pot_deleonberne, parameters)
 
 #energy of the saddle eq pt
-eSaddle = diffcorr_UPOsHam2dof.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_deleonberne, \
+eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_deleonberne, \
                                                 parameters)
 
 
@@ -190,92 +168,72 @@ deltaE = 1.0
 eSaddle = 1.0 # energy of the saddle
 
 data_path = "./data/"
-#po_fam_file = open("1111x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-po_fam_file = "x0_tpcd_deltaE%s_deleonberne.txt" %(deltaE)
+po_fam_file = "x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
-#x0podata = np.loadtxt(po_fam_file.name)
-#po_fam_file.close()
-
 x0podata = np.loadtxt(data_path + po_fam_file)
 
 x0po_1_tpcd = x0podata
 
 
-#po_fam_file = open("1111x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-po_fam_file = "x0_turningpoint_deltaE%s_deleonberne.txt" %(deltaE)
+po_fam_file = "x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
-#x0podata = np.loadtxt(po_fam_file.name)
-#po_fam_file.close()
 x0podata = np.loadtxt(data_path + po_fam_file)
 
 x0po_1_turningpoint = x0podata
 
 
-#po_fam_file = open("1111x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE),'a+')
-po_fam_file = "x0_diffcorr_deltaE%s_deleonberne.txt" %(deltaE)
-
+po_fam_file = "x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
-#x0podata = np.loadtxt(po_fam_file.name)
-#po_fam_file.close()
 x0podata = np.loadtxt(data_path + po_fam_file)
 
 x0po_1_diffcorr = x0podata[0:4]
 
 
-#%%
+#%% Integrate the Hamilton's equations w.r.t the initial conditions for the full period T and plot the UPOs
 TSPAN = [0,30]
 plt.close('all')
 axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)  
-#soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f= lambda t,x: ham2dof_deleonberne(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_deleonberne(t,x,parameters), \
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = tpcd_UPOsHam2dof.stateTransitMat(tt,x0po_1_tpcd[-1,0:4],parameters,model)
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_tpcd[-1,0:4], parameters, \
-                                                      varEqns_deleonberne)
+t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
+                                                      variational_eqns_deleonberne)
 
 ax = plt.gca(projection='3d')
 ax.plot(x[:,0],x[:,1],x[:,2],':',label='$\Delta E$ = 0.1, using tpcd')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)  
-#soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f= lambda t,x: ham2dof_deleonberne(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_deleonberne(t,x,parameters), \
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = tpcd_UPOsHam2dof.stateTransitMat(tt,x0po_1_diffcorr,parameters,model)
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_diffcorr, parameters, \
-                                                      varEqns_deleonberne)
+t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_diffcorr, parameters, \
+                                                      variational_eqns_deleonberne)
 
-#ax = plt.gca(projection='3d')
+
 ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 0.1, using dcnc')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
-#f = lambda t,x : tpcd_UPOsHam2dof.Ham2dof(model,t,x,parameters)  
-#soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, events = lambda t,x : tpcd_UPOsHam2dof.half_period(t,x,model),rtol=RelTol, atol=AbsTol)
 f= lambda t,x: ham2dof_deleonberne(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, \
                  events = lambda t,x : half_period_deleonberne(t,x,parameters), \
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-#t,x,phi_t1,PHI = tpcd_UPOsHam2dof.stateTransitMat(tt,x0po_1_turningpoint[-1,0:4],parameters,model)
-t,x,phi_t1,PHI = diffcorr_UPOsHam2dof.stateTransitMat(tt, x0po_1_turningpoint[-1,0:4], parameters, \
-                                                      varEqns_deleonberne)
+t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
+                                                      variational_eqns_deleonberne)
 
-#ax = plt.gca(projection='3d')
+
 ax.plot(x[:,0],x[:,1],x[:,2],'-.',label='$\Delta E$ = 0.1, using tp')
 ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
 ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
@@ -290,8 +248,8 @@ xMat, yMat = np.meshgrid(xVec, yVec)
 #cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
 #                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 cset2 = ax.contour(xMat, yMat, \
-                   diffcorr_UPOsHam2dof.get_pot_surf_proj(xVec, yVec, pot_energy_deleonberne, \
-                                                          parameters), 2.0, zdir='z', offset=0,
+                   differential_correction.get_pot_surf_proj(xVec, yVec, pot_energy_deleonberne, \
+                                                          parameters), [2.0], zdir='z', offset=0,
                        linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
