@@ -12,9 +12,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import time
-# import sys
-# sys.path.append('../src/')
-# import deleonberne ### import module xxx where xxx is the name of the python file xxx.py 
 
 # This needs testing for installation 
 import sys
@@ -49,7 +46,6 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1  
-# model = 'deleonberne'
 eqPt = diffcorr.get_eq_pts(eqNum, deleonberne.init_guess_eqpt_deleonberne, \
                             deleonberne.grad_pot_deleonberne, parameters)
 
@@ -78,30 +74,24 @@ t = time.time()
 #  get the initial conditions and periods for a family of periodic orbits
 
 
-po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.dat" %eqNum,'a+')
-#[po_x0Fam,po_tpFam] = deleonberne.get_POFam(eqNum, Ax1, Ax2,nFam, po_fam_file, parameters,model)  
-[po_x0Fam,po_tpFam] = diffcorr.get_POFam(
-    eqNum, Ax1, Ax2, nFam, po_fam_file, \
-    deleonberne.init_guess_eqpt_deleonberne, \
-    deleonberne.grad_pot_deleonberne, deleonberne.jacobian_deleonberne, \
-    deleonberne.guess_lin_deleonberne, deleonberne.diffcorr_setup_deleonberne, \
-    deleonberne.conv_coord_deleonberne, \
-    deleonberne.diffcorr_acc_corr_deleonberne, \
-    deleonberne.ham2dof_deleonberne, deleonberne.half_period_deleonberne, \
-    deleonberne.pot_energy_deleonberne, deleonberne.varEqns_deleonberne, \
-    deleonberne.plot_iter_orbit_deleonberne, parameters)  
+with open("x0_diffcorr_fam_eqPt%s_deleonberne.dat" %eqNum,'a+') as po_fam_file:
+    [po_x0Fam,po_tpFam] = diffcorr.get_po_fam(
+        eqNum, Ax1, Ax2, nFam, po_fam_file, \
+        deleonberne.init_guess_eqpt_deleonberne, \
+        deleonberne.grad_pot_deleonberne, deleonberne.jacobian_deleonberne, \
+        deleonberne.guess_lin_deleonberne, deleonberne.diffcorr_setup_deleonberne, \
+        deleonberne.conv_coord_deleonberne, \
+        deleonberne.diffcorr_acc_corr_deleonberne, \
+        deleonberne.ham2dof_deleonberne, deleonberne.half_period_deleonberne, \
+        deleonberne.pot_energy_deleonberne, deleonberne.variational_eqns_deleonberne, \
+        deleonberne.plot_iter_orbit_deleonberne, parameters)  
 
-poFamRuntime = time.time()-t
-x0podata = np.concatenate((po_x0Fam, po_tpFam),axis=1)
-po_fam_file.close()
+    poFamRuntime = time.time()-t
+    x0podata = np.concatenate((po_x0Fam, po_tpFam),axis=1)
 
 
 
 #%%
-# begins with a family of periodic orbits and steps until crossing the
-# initial condition with target energy 
-# fileName = 'x0po_T_energy_case1_L41.txt'
-# fileName = 'x0po_T.txt'
 
 #deltaE_vals = [0.01, 0.1, 1.00, 2.0, 4.0]
 #linecolor = ['b','r','g','m','c']
@@ -111,32 +101,28 @@ linecolor = ['b','r']
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
     
-    po_fam_file = open("x0_diffcorr_fam_eqPt%s_deleonberne.dat" %eqNum ,'a+')
-    eTarget = eSaddle + deltaE 
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
+    with open("x0_diffcorr_fam_eqPt%s_deleonberne.dat" %eqNum ,'a+') as po_fam_file:
+        eTarget = eSaddle + deltaE 
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
 
-    #%
-    po_brac_file = open("x0po_T_energyPO_eqPt%s_brac%s_deleonberne.dat" %(eqNum,deltaE),'a+')
-    t = time.time()
-    # [x0poTarget,TTarget] = bracket_POEnergy_bp(eTarget, x0podata, po_brac_file)
-    x0poTarget,TTarget = diffcorr.poBracketEnergy(
-        eTarget, x0podata, po_brac_file, \
-        deleonberne.diffcorr_setup_deleonberne, \
-        deleonberne.conv_coord_deleonberne, 
-        deleonberne.diffcorr_acc_corr_deleonberne, 
-        deleonberne.ham2dof_deleonberne, deleonberne.half_period_deleonberne, \
-        deleonberne.pot_energy_deleonberne, deleonberne.varEqns_deleonberne, \
-        deleonberne.plot_iter_orbit_deleonberne, parameters)
+    with open("x0po_T_energyPO_eqPt%s_brac%s_deleonberne.dat" %(eqNum,deltaE),'a+') as po_brac_file:
+        t = time.time()
+
+        x0poTarget,TTarget = diffcorr.po_bracket_energy(
+            eTarget, x0podata, po_brac_file, \
+            deleonberne.diffcorr_setup_deleonberne, \
+            deleonberne.conv_coord_deleonberne, 
+            deleonberne.diffcorr_acc_corr_deleonberne, 
+            deleonberne.ham2dof_deleonberne, deleonberne.half_period_deleonberne, \
+            deleonberne.pot_energy_deleonberne, deleonberne.variational_eqns_deleonberne, \
+            deleonberne.plot_iter_orbit_deleonberne, parameters)
 
 
-    poTarE_runtime = time.time()-t
-    model_parameters_file = open(
-        "model_parameters_eqPt%s_DelE%s_deleonberne.dat" %(eqNum,deltaE),'a+')
-    np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
-    model_parameters_file.close()
-    po_brac_file.close()
+        poTarE_runtime = time.time()-t
+        with open(
+            "model_parameters_eqPt%s_DelE%s_deleonberne.dat" %(eqNum,deltaE),'a+') as model_parameters_file:
+            np.savetxt(model_parameters_file.name, parameters,fmt='%1.16e')
     
     
 
@@ -147,17 +133,15 @@ for i in range(len(deltaE_vals)):
     # Target PO of specific energy with high precision does not work for the
     # model 
     
-    po_target_file = open("x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+')
+    with open("x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+') as po_target_file:
                     
-    [x0po, T,energyPO] = diffcorr.poTargetEnergy(x0poTarget,eTarget, \
-        po_target_file, deleonberne.diffcorr_setup_deleonberne, \
-        deleonberne.conv_coord_deleonberne, \
-        deleonberne.diffcorr_acc_corr_deleonberne, \
-        deleonberne.ham2dof_deleonberne, deleonberne.half_period_deleonberne, \
-        deleonberne.pot_energy_deleonberne, deleonberne.varEqns_deleonberne, \
-        deleonberne.plot_iter_orbit_deleonberne, parameters)
-    
-    po_target_file.close()
+        [x0po, T,energyPO] = diffcorr.po_target_energy(x0poTarget,eTarget, \
+            po_target_file, deleonberne.diffcorr_setup_deleonberne, \
+            deleonberne.conv_coord_deleonberne, \
+            deleonberne.diffcorr_acc_corr_deleonberne, \
+            deleonberne.ham2dof_deleonberne, deleonberne.half_period_deleonberne, \
+            deleonberne.pot_energy_deleonberne, deleonberne.variational_eqns_deleonberne, \
+            deleonberne.plot_iter_orbit_deleonberne, parameters)
 
 
 
@@ -168,11 +152,10 @@ x0po = np.zeros((4,len(deltaE_vals)))
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
-    x0po[:,i] = x0podata[0:4]
+    with open("x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
+        x0po[:,i] = x0podata[0:4]
 
 
 #%% Plotting the Family
@@ -194,8 +177,8 @@ for i in range(len(deltaE_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[1]] 
-    t,x,phi_t1,PHI = diffcorr.stateTransitMat(tt,x0po[:,i],parameters, \
-                                            deleonberne.varEqns_deleonberne)
+    t,x,phi_t1,PHI = diffcorr.state_transit_matrix(tt,x0po[:,i],parameters, \
+                                            deleonberne.variational_eqns_deleonberne)
     ax = plt.gca(projection='3d')
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color = linecolor[i], label = '$\Delta E$ = %.2f'%(deltaE))
     ax.plot(x[:,0],x[:,1],-x[:,2],'-',color = linecolor[i])
@@ -221,8 +204,7 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_x$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' \
-#                %(energyPO_1,energyPO_2,energyPO_3,energyPO_4,energyPO_5) ,fontsize=axis_fs)
+
 
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-1.5, 1.5)
@@ -230,7 +212,6 @@ ax.set_ylim(-1.5, 1.5)
 ax.set_zlim(-4, 4)
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -239,7 +220,5 @@ if save_final_plot:
     plt.savefig('./tests/plots/diff_corr_deleonberne_upos.pdf', format='pdf', \
                         bbox_inches='tight')
 
-
-# plt.savefig('diffcorr_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')
 
 

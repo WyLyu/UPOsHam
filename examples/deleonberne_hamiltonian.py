@@ -11,7 +11,7 @@ from scipy.integrate import solve_ivp
 import time
 import math
 from scipy import optimize
- 
+
 
 
 #% Begin problem specific functions
@@ -92,7 +92,7 @@ def jacobian_deleonberne(eqPt, par):
     return Df
 
 
-def varEqns_deleonberne(t,PHI,par):
+def variational_eqns_deleonberne(t,PHI,par):
     """    
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
@@ -160,6 +160,11 @@ def diffcorr_setup_deleonberne():
 
 
 def conv_coord_deleonberne(x1, y1, dxdot1, dydot1):
+    """
+    Returns the variable we want to keep fixed during differential correction.
+    
+    dxdot1----fix x, dydot1----fix y.
+    """
     return dydot1
 
 
@@ -257,7 +262,7 @@ def plot_iter_orbit_deleonberne(x, ax, e, par):
     Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and 
     final points marked 
     """
-    
+
     label_fs = 10
     axis_fs = 15 # fontsize for publications 
     
@@ -292,24 +297,19 @@ def ham2dof_deleonberne(t, x, par):
 
 
 def half_period_deleonberne(t,x,par):
-    """ 
-    Returns the coordinate for the half-period event for the unstable periodic orbit                          
-    
-    xDot = x[0]
-    yDot = x[1]
-    pxDot = x[2]
-    pyDot = x[3]
     """
+    Returns the turning point where we want to stop the integration                           
     
-    terminal = True
-    # The zero can be approached from either direction
-    direction = 0 #0: all directions of crossing
+    pxDot = x[0]
+    pyDot = x[1]
+    xDot = x[2]
+    yDot = x[3]
+    """
     
     return x[2]
 
-
-#% End problem specific functions
-    
-
-
+        
+half_period_deleonberne.terminal = True 
+# The zero can be approached from either direction
+half_period_deleonberne.direction=0#0: all directions of crossing
 

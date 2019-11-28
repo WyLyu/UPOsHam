@@ -91,7 +91,7 @@ def jacobian_uncoupled(eqPt, par):
     return Df
 
 
-def varEqns_uncoupled(t,PHI,par):
+def variational_eqns_uncoupled(t,PHI,par):
     """    
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
@@ -158,6 +158,11 @@ def diffcorr_setup_uncoupled():
 
 
 def conv_coord_uncoupled(x1, y1, dxdot1, dydot1):
+    """
+    Returns the variable we want to keep fixed during differential correction.
+    
+    dxdot1----fix x, dydot1----fix y.
+    """
     return dxdot1
 
 
@@ -168,10 +173,6 @@ def get_coord_uncoupled(x,y, E, par):
     """
     
     return -0.5*par[3]*x**2+0.25*par[4]*x**4 +0.5*par[5]*y**2 - E
-#    elif model== 'deleonberne':
-#        return par[3]*( 1 - math.e**(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*math.e**(-par[5]*par[4]*x) + par[2]-V
-#    else:
-#        print("The model you are chosen does not exist, enter the function for finding coordinates on the PES for given x or y and V")
 
 
 def diffcorr_acc_corr_uncoupled(coords, phi_t1, x0, par):
@@ -292,21 +293,19 @@ def ham2dof_uncoupled(t, x, par):
 
 
 def half_period_uncoupled(t, x, par):
-    """ 
-    Returns the coordinate for the half-period event for the unstable periodic orbit                          
+    """
+    Returns the turning point where we want to stop the integration                           
     
-    xDot = x[0]
-    yDot = x[1]
-    pxDot = x[2]
-    pyDot = x[3]
+    pxDot = x[0]
+    pyDot = x[1]
+    xDot = x[2]
+    yDot = x[3]
     """
     
-    terminal = True
-    direction = 0 #0: all directions of crossing, zero can be approached from either direction
-
     return x[3]
- 
 
-#% End problem specific functions
 
+half_period_uncoupled.terminal = True 
+# The zero can be approached from either direction
+half_period_uncoupled.direction=0#0: all directions of crossing
 
