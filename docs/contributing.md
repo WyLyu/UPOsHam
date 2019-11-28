@@ -4,7 +4,6 @@ Thank you for considering and taking the time to contribute!
 
 The following is a set of guidelines ([borrowed from the Atom project by Github](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)) for contributing to this package. As always use your best judgment and feel free to propose changes to this document in a pull request.
 
-#### Table Of Contents
 
 [Code of Conduct](#code-of-conduct)
 
