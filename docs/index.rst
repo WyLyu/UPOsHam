@@ -11,13 +11,19 @@ in two degrees of freedom Hamiltonian (*Ham*) systems
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Methods:
 
-   doc
+   methods
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contributing and reporting
+   :caption: Examples:
+
+   examples
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contributing and reporting:
 
    contributing
 
