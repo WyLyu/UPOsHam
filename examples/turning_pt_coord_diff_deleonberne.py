@@ -44,7 +44,6 @@ ALPHA = 1.00
 LAMBDA = 1.5
 parameters = np.array([MASS_A, MASS_B, EPSILON_S, D_X, LAMBDA, ALPHA])
 eqNum = 1 
-# model = 'deleonberne'
 eqPt = tpcd.get_eq_pts(eqNum, deleonberne.init_guess_eqpt_deleonberne, \
                         deleonberne.grad_pot_deleonberne, parameters)
 
@@ -64,10 +63,9 @@ for i in range(len(E_vals)):
     e = E_vals[i] # total energy.
     deltaE = e - parameters[2]
     
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO 
-    and the other one is on the RHS of the UPO
-    """
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO 
+    #and the other one is on the RHS of the UPO
+    
     f1 = lambda x: deleonberne.get_coord_deleonberne(x,0.06,e,parameters)
     x0_2 = optimize.newton(f1,-0.15)
     state0_2 = [x0_2,0.06,0.0,0.0]
@@ -76,18 +74,16 @@ for i in range(len(E_vals)):
     x0_3 = optimize.newton(f2,-0.15)
     state0_3 = [x0_3,-0.05,0.0,0.0]
     
-    po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tpcd.turningPoint_configdiff(
-        state0_2, state0_3, deleonberne.get_coord_deleonberne, \
-        deleonberne.pot_energy_deleonberne, deleonberne.varEqns_deleonberne, \
-        deleonberne.configdiff_deleonberne, \
-        deleonberne.ham2dof_deleonberne, \
-        deleonberne.half_period_deleonberne, \
-        deleonberne.guess_coords_deleonberne, \
-        deleonberne.plot_iter_orbit_deleonberne, \
-        parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
-
-    po_fam_file.close()
+    with open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+') as po_fam_file:
+        [x0po_1, T_1,energyPO_1] = tpcd.turningPoint_configdiff(
+            state0_2, state0_3, deleonberne.get_coord_deleonberne, \
+            deleonberne.pot_energy_deleonberne, deleonberne.variational_eqns_deleonberne, \
+            deleonberne.configdiff_deleonberne, \
+            deleonberne.ham2dof_deleonberne, \
+            deleonberne.half_period_deleonberne, \
+            deleonberne.guess_coords_deleonberne, \
+            deleonberne.plot_iter_orbit_deleonberne, \
+            parameters, e, n, n_turn, show_itrsteps_plots, po_fam_file) 
 
 
 #%% Load periodic orbit data from ascii files
@@ -99,11 +95,10 @@ for i in range(len(E_vals)):
     e = E_vals[i]
     deltaE = e - parameters[2]
 
-    po_fam_file = open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
-    x0po[:,i] = x0podata[-1,0:4] 
+    with open("x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
+        x0po[:,i] = x0podata[-1,0:4] 
 
 
 #%% Plotting the Family
@@ -129,13 +124,14 @@ for i in range(len(E_vals)):
     
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tpcd.stateTransitMat(tt, x0po[:,i], parameters, \
-                                        deleonberne.varEqns_deleonberne)
+    t,x,phi_t1,PHI = tpcd.state_transit_matrix(tt, x0po[:,i], parameters, \
+                                        deleonberne.variational_eqns_deleonberne)
     
     ax.plot(x[:,0],x[:,1],x[:,2],'-',color=linecolor[i], \
             label='$\Delta E$ = %.2f'%(deltaE))
     ax.scatter(x[0,0],x[0,1],x[0,2],s=10,marker='*')
     ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
+    # ax.plot(x[:,0], x[:,1], zs=0, zdir='z') # 2D projection of the UPO
 
     
 resX = 100
@@ -154,14 +150,13 @@ ax.scatter(eqPt[0], eqPt[1], s = 50, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_x$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1]-parameters[2],energyPO_2[-1]-parameters[2],energyPO_3[-1]-parameters[2],energyPO_4[-1]-parameters[2],energyPO_5[-1]-parameters[2]) ,fontsize=axis_fs)
+
 ax.set_xlim(-1.5, 1.5)
 ax.set_ylim(-1.5, 1.5)
 ax.set_zlim(-4, 4)
 legend = ax.legend(loc='upper left')
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -170,4 +165,3 @@ if save_final_plot:
     plt.savefig('./tests/plots/tpcd_deleonberne_upos.pdf', format='pdf', \
                         bbox_inches='tight')
 
-# plt.savefig('tpcd_POfam_deleonberne.pdf',format='pdf',bbox_inches='tight')

@@ -19,7 +19,6 @@ import turning_point_coord_difference as tpcd
 import coupled_quartic_hamiltonian as coupled
 # This needs testing for installation 
 
-# import tpcd ### import module xxx where xxx is the name of the python file xxx.py 
 
 import matplotlib as mpl
 from matplotlib import cm
@@ -54,11 +53,7 @@ deltaE_vals = [0.1, 1.00]
 xLeft = [0.0,0.01]
 xRight = [0.05,0.18]
 linecolor = ['b','r']
-"""
-e is the total energy
-n is the number of intervals we want to divide
-n_turn is the nth turning point we want to choose.
-"""
+
 for i in range(len(deltaE_vals)):
     
     e = deltaE_vals[i]
@@ -66,10 +61,9 @@ for i in range(len(deltaE_vals)):
     n_turn = 2
     deltaE = e - parameters[2]
     
-    """
-    Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
-    other one is on the RHS of the UPO
-    """
+    #Trial initial Condition s.t. one initial condition is on the LHS of the UPO and the 
+    #other one is on the RHS of the UPO
+
     x = xLeft[i]
     f2 = lambda y: coupled.get_coord_coupled(x, y, e, parameters)
     yanalytic = math.sqrt(2/(parameters[1]+parameters[6]))*(-math.sqrt( e + \
@@ -87,20 +81,19 @@ for i in range(len(deltaE_vals)):
     state0_3 = [x, optimize.newton(f3,yanalytic),0.0,0.0]
     
     
-    po_fam_file = open("x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+')
-    [x0po_1, T_1,energyPO_1] = tpcd.turningPoint_configdiff(state0_2, state0_3, \
-                                        coupled.get_coord_coupled, \
-                                        coupled.pot_energy_coupled, \
-                                        coupled.varEqns_coupled, \
-                                        coupled.configdiff_coupled, \
-                                        coupled.ham2dof_coupled, \
-                                        coupled.half_period_coupled, \
-                                        coupled.guess_coords_coupled, \
-                                        coupled.plot_iter_orbit_coupled, \
-                                        parameters, \
-                                        e,n,n_turn, show_itrsteps_plots, \
-                                        po_fam_file) 
-    po_fam_file.close()
+    with open("x0_tpcd_deltaE%s_coupled.dat" %(deltaE),'a+') as po_fam_file:
+        [x0po_1, T_1,energyPO_1] = tpcd.turningPoint_configdiff(state0_2, state0_3, \
+                                            coupled.get_coord_coupled, \
+                                            coupled.pot_energy_coupled, \
+                                            coupled.variational_eqns_coupled, \
+                                            coupled.configdiff_coupled, \
+                                            coupled.ham2dof_coupled, \
+                                            coupled.half_period_coupled, \
+                                            coupled.guess_coords_coupled, \
+                                            coupled.plot_iter_orbit_coupled, \
+                                            parameters, \
+                                            e,n,n_turn, show_itrsteps_plots, \
+                                            po_fam_file) 
 
 
 
@@ -111,11 +104,10 @@ x0po = np.zeros((4,len(deltaE_vals))) #each column is a different initial condit
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
 
-    po_fam_file = open("x0_tpcd_deltaE%s_coupled.txt" %(deltaE),'a+')
-    print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
-    x0podata = np.loadtxt(po_fam_file.name)
-    po_fam_file.close()
-    x0po[:,i] = x0podata[-1,0:4] 
+    with open("x0_tpcd_deltaE%s_coupled.dat" %(deltaE),'a+') as po_fam_file:
+        print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
+        x0podata = np.loadtxt(po_fam_file.name)
+        x0po[:,i] = x0podata[-1,0:4] 
 
 
 #%% Plotting the Family
@@ -138,8 +130,8 @@ for i in range(len(deltaE_vals)):
                     rtol=RelTol, atol=AbsTol)
     te = soln.t_events[0]
     tt = [0,te[2]]
-    t,x,phi_t1,PHI = tpcd.stateTransitMat(tt, x0po[:,i], parameters, \
-                    coupled.varEqns_coupled)
+    t,x,phi_t1,PHI = tpcd.state_transit_matrix(tt, x0po[:,i], parameters, \
+                    coupled.variational_eqns_coupled)
     
     
     ax.plot(x[:,0],x[:,1],x[:,3],'-', color=linecolor[i], \
@@ -163,14 +155,13 @@ ax.scatter(eqPt[0], eqPt[1], s = 100, c = 'r', marker = 'X')
 ax.set_xlabel('$x$', fontsize=axis_fs)
 ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_y$', fontsize=axis_fs)
-#ax.set_title('$\Delta E$ = %1.e,%1.e,%1.e,%1.e,%1.e' %(energyPO_1[-1],energyPO_2[-1],energyPO_3[-1],energyPO_4[-1],energyPO_5[-1]) ,fontsize=axis_fs)
+
 legend = ax.legend(loc='upper left')
 ax.set_xlim(-4, 4)
 ax.set_ylim(-4, 4)
 ax.set_zlim(-4, 4)
 
 plt.grid()
-# plt.show()
 
 if show_final_plot:
     plt.show()
@@ -178,13 +169,5 @@ if show_final_plot:
 if save_final_plot:  
     plt.savefig('./tests/plots/tpcd_coupled_upos.pdf', format='pdf', \
                         bbox_inches='tight')
-
-# plt.savefig('tpcd_POfam_coupled.pdf',format='pdf',bbox_inches='tight')
-
-
-
-
-
-
 
 

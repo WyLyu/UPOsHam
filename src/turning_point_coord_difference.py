@@ -13,7 +13,6 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import fsolve
 from scipy import optimize
 import matplotlib as mpl
-
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
@@ -52,7 +51,6 @@ def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     x0 = init_guess_eqpt_model(eqNum, par)
     
     # F(xEq) = 0 at the equilibrium point, solve using in-built function
-#    F = lambda x: func_vec_field_eq_pt(model,x,par)
     F = lambda x: grad_pot_model(x, par)
     
     eqPt = fsolve(F, x0, fprime = None) # Call solver
@@ -130,7 +128,7 @@ def get_pot_surf_proj(xVec, yVec, pot_energy_model, par):
     
     
 #%
-def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0): 
+def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0): 
     """
     Returns state transition matrix, the trajectory, and the solution of the
     variational equations over a length of time
@@ -149,7 +147,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     par : float (list)
         model parameters
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     Returns
@@ -181,7 +179,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
     PHI_0[N**2:N+N**2] = x0                           # initial condition for trajectory
 
     
-    f = lambda t,PHI: varEqns_model(t,PHI,par) # Use partial in order to pass parameters to function
+    f = lambda t,PHI: variational_eqns_model(t,PHI,par) # Use partial in order to pass parameters to function
     soln = solve_ivp(f, TSPAN, list(PHI_0), method='RK45', dense_output=True, \
                      events = None, rtol=RelTol, atol=AbsTol)
     t = soln.t
@@ -196,7 +194,7 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
 
 #%%
-def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, varEqns_model, \
+def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, variational_eqns_model, \
                             configdiff_model, ham2dof_model, half_period_model, \
                             guess_coords_model, plot_iter_orbit_model, par, \
                             e, n, n_turn, show_itrsteps_plots, po_fam_file):
@@ -233,7 +231,7 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     pot_energy_model : function name
         function that returns the potential energy of Hamiltonian
 
-    varEqns_model : function name
+    variational_eqns_model : function name
         function that returns the variational equations of the dynamical system
 
     plot_iter_orbit_model : function name
@@ -270,9 +268,6 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     """
     axis_fs = 15
     
-    #y_PES = get_y(begin1[0], e,par)
-    #y_turning = begin1[1]
-    #toler = math.sqrt((y_PES-y_turning)**2)
     guess1 = begin1
     guess2 = begin2
     MAXiter = 30
@@ -286,40 +281,11 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     energyPO = np.zeros((MAXiter ,1))
     i_iter = 0
     iter_diff =0  # for counting the correct index
-    #while toler < 1e-6 or i_iter< MAXiter:
+
     while i_iter< MAXiter and n_turn < 5:
-        #y_PES = -get_y(guess1[0], e,par)
-        #y_turning = guess1[1]
-        #toler = math.sqrt((y_PES-y_turning)**2)
         for i in range(0,n+1):
             # the x difference between guess1 and each guess is recorded in "result" matrix
             
-#            if model == 'uncoupled':
-#                h = (guess2[0] - guess1[0])*i/n
-#                print("h is ",h)
-#                xguess = guess1[0]+h
-#                f = lambda y: get_coord_model(xguess,y,e,par)
-#                yanalytic = math.sqrt((e +0.5*par[3]*xguess**2-0.25*par[4]*xguess**4)/(0.5*par[1])) #uncoupled
-#                yguess = optimize.newton(f,yanalytic)   # to find the x coordinate for a given y
-#            elif model == 'coupled':
-#                h = (guess2[0] - guess1[0])*i/n
-#                print("h is ",h)
-#                xguess = guess1[0]+h
-#                f = lambda y: get_coord_model(xguess,y,e,par)
-#                yanalytic = math.sqrt(2/(par[1]+par[6]))*(-math.sqrt( e +0.5*par[3]* xguess**2 - \
-#                                     0.25*par[4]*xguess**4 -0.5*par[6]* xguess**2 + \
-#                                     (par[6]*xguess)**2/(2*(par[1] +par[6]) )) + 
-#                                    par[6]/(math.sqrt(2*(par[1]+par[6])) )*xguess ) #coupled
-#                yguess = optimize.newton(f,yanalytic) 
-#            elif model == 'deleonberne':
-#                h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
-#                print("h is ",h)
-#                yguess = guess1[1]+h
-#                f = lambda x: get_coord_model(x,yguess,e,par)
-#                xguess = optimize.newton(f,-0.2)   # to find the x coordinate for a given y 
-#            else:
-#                print("The model you are chosen does not exist")
-#                break
             
             xguess, yguess = guess_coords_model(guess1, guess2, i, n, e, get_coord_model, par)
             
@@ -354,7 +320,7 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
             te = soln.t_events[0]
             tt = [0,te[1]]
             
-            t,x,phi_t1,PHI = stateTransitMat(tt, guesspo, par, varEqns_model)
+            t,x,phi_t1,PHI = state_transit_matrix(tt, guesspo, par, variational_eqns_model)
             
             T[i_iter]= tt[-1]*2
             print("period is%s " %T[i_iter])
@@ -368,10 +334,6 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
                 ax = plt.gca(projection='3d')
                 plot_iter_orbit_model(x, ax, e, par)
             
-                #x_turn= x[-1,0]  # x coordinate of turning point
-                #y_turn= x[-1,1] # y coordinate of turning point
-                #y_PES = -get_y(x_turn,e,par)
-                #toler = math.sqrt((y_PES-y_turn)**2)
                 plt.grid()
                 plt.show()
 
@@ -401,7 +363,6 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
                 break
             n_turn = n_turn+1
             print("nth turningpoint we pick is ", n_turn)
-            #index = int((n+1)*(re_iter-1)+i_turn[re_iter-1])
             index = int((n+1)*(i_iter-iter_diff)+i_turn[i_iter-iter_diff])
             print("index is ", index)
             xguess2=result2[index+iter_diff,1]
@@ -413,7 +374,6 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
                     
 
         
-        #print("tolerance is ", toler)
         print(result)
         print("nth turningpoint we pick is ", n_turn)
         i_iter= i_iter+1
