@@ -13,6 +13,7 @@ import math
 from scipy import optimize
 
 
+
 #% Begin problem specific functions
 def init_guess_eqpt_deleonberne(eqNum, par):
     """
@@ -306,6 +307,7 @@ def half_period_deleonberne(t,x,par):
     """
     
     return x[2]
+
         
 half_period_deleonberne.terminal = True 
 # The zero can be approached from either direction
