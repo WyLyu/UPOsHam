@@ -509,11 +509,13 @@ def stateTransitMat(tf,x0,par,varEqns_model,fixed_step=0):
 
 
 #%%
-def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_model, par):
+def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, \
+                varEqns_model, par):
     """
     Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points
     
     Uses turning point method(defined a dot product form before the "actual" turning point.)
+    
     Parameters
     ----------
     guess1 : 1d numpy array 
@@ -548,9 +550,12 @@ def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, varEqns_
 
     y_turn2 : float
         y coordinate of the turning point with initional condition guess2
+
     dotproduct : float
-        value of the dotproduct
+        value of the dot product
+
     """
+
     TSPAN = [0,40]
     RelTol = 3.e-10
     AbsTol = 1.e-10 
