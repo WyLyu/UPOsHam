@@ -3,14 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to UPOsHam's documentation!
+Homepage of UPOsHam’s documentation
 ===================================
 
+Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) 
+in two degrees of freedom Hamiltonian (*Ham*) systems
+
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Contents:
 
    doc
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contributing and reporting
 
    contributing
 
