@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.abspath('../src/'))
 project = 'UPOsHam'
 copyright = '2019, Wenyang Lyu, Shibabrat Naik, Stephen Wiggins'
 author = 'Wenyang Lyu, Shibabrat Naik, Stephen Wiggins'
+master_doc = 'index'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
