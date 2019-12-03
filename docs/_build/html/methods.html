@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="De Leon-Berne Hamiltonian" href="examples.html" />
-    <link rel="prev" title="Homepage of UPOsHam’s documentation" href="index.html" /> 
+    <link rel="prev" title="Unstable Periodic Orbits in Hamiltonian systems" href="doc.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -80,7 +80,11 @@
               
             
             
-              <p class="caption"><span class="caption-text">Methods:</span></p>
+              <p class="caption"><span class="caption-text">Theory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Methods:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Differential correction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#turning-point">Turning point</a></li>
@@ -91,12 +95,12 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">De Leon-Berne Hamiltonian</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html#coupled-and-uncouple-quartic-hamiltonian">Coupled and uncouple quartic Hamiltonian</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Contributing and reporting</span></p>
+<p class="caption"><span class="caption-text">Contributing and reporting:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to UPOsHam</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#code-of-conduct">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#what-should-i-know-before-i-get-started">What should I know before I get started?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#how-can-i-contribute">How Can I Contribute?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#id1">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#id2">What should I know before I get started?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#id3">How Can I Contribute?</a></li>
 </ul>
 
             
@@ -168,14 +172,14 @@
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
 <dl class="function">
 <dt id="differential_correction.clean_up_matrix">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">clean_up_matrix</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.clean_up_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">clean_up_matrix</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#clean_up_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.clean_up_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns any complex matrix A with entries where the real or complex part has absolute
 value smaller than TOL set to 0, where TOL is set inside this function.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="differential_correction.eig_get">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">eig_get</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">discrete</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.eig_get" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">eig_get</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">discrete</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#eig_get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.eig_get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the eigenvalues and eigenvectors of the matrix A spanning the three local subspaces
 &lt;Es,Eu,Ec&gt; where A is MxM and s+u+c=M, which locally approximate the invariant manifolds
 &lt;Ws,Wu,Wc&gt;</p>
@@ -198,7 +202,7 @@ value smaller than TOL set to 0, where TOL is set inside this function.</p>
 
 <dl class="function">
 <dt id="differential_correction.get_eq_pts">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_eq_pts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#get_eq_pts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.get_eq_pts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns configuration space coordinates of the equilibrium points.</p>
 <p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
 coordinates of the equilibrium point for a Hamiltonian of the form kinetic
@@ -224,7 +228,7 @@ energy (KE) + potential energy (PE).</p>
 
 <dl class="function">
 <dt id="differential_correction.get_po_diffcorr">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_diffcorr</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_po_diffcorr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_diffcorr</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#get_po_diffcorr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.get_po_diffcorr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an initial condition and time period of an unstable periodic orbit using differential
 correction</p>
 <p>The initial condition is generated using a small (first-order derived using state transition
@@ -262,7 +266,7 @@ coordinate</p></li>
 
 <dl class="function">
 <dt id="differential_correction.get_po_fam">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_fam</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax1</em>, <em class="sig-param">Ax2</em>, <em class="sig-param">nFam</em>, <em class="sig-param">po_fam_file</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_po_fam" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_fam</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax1</em>, <em class="sig-param">Ax2</em>, <em class="sig-param">nFam</em>, <em class="sig-param">po_fam_file</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#get_po_fam"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.get_po_fam" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a family of unstable periodic orbits given two seed initial conditions and time periods</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -311,7 +315,7 @@ coordinate</p></li>
 
 <dl class="function">
 <dt id="differential_correction.get_po_guess_linear">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_guess_linear</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_po_guess_linear" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_guess_linear</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#get_po_guess_linear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.get_po_guess_linear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an initial guess for the differential correction method.</p>
 <p>Uses a small displacement from the equilibrium point (in a direction on the collinear point’s
 center manifold) as a first guess for a planar periodic orbit (called a Lyapunov orbit). This
@@ -342,7 +346,7 @@ equilibrium point.</p></li>
 
 <dl class="function">
 <dt id="differential_correction.get_pot_surf_proj">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#get_pot_surf_proj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -363,7 +367,7 @@ equilibrium point.</p></li>
 
 <dl class="function">
 <dt id="differential_correction.get_total_energy">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#get_total_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.get_total_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
 <p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
 Hamiltonian of the form KE + PE.</p>
@@ -386,7 +390,7 @@ Hamiltonian of the form KE + PE.</p>
 
 <dl class="function">
 <dt id="differential_correction.po_bracket_energy">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">po_bracket_energy</code><span class="sig-paren">(</span><em class="sig-param">energyTarget</em>, <em class="sig-param">x0podata</em>, <em class="sig-param">po_brac_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.po_bracket_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">po_bracket_energy</code><span class="sig-paren">(</span><em class="sig-param">energyTarget</em>, <em class="sig-param">x0podata</em>, <em class="sig-param">po_brac_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#po_bracket_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.po_bracket_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns two unstable periodic orbits that bracket (bound in energy values) the unstable
 periodic orbit at the desired energy</p>
 <p>Generates a family of periodic orbits (po) given a pair of seed initial conditions from a
@@ -428,7 +432,7 @@ coordinate</p></li>
 
 <dl class="function">
 <dt id="differential_correction.po_target_energy">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">po_target_energy</code><span class="sig-paren">(</span><em class="sig-param">x0po</em>, <em class="sig-param">energyTarget</em>, <em class="sig-param">po_target_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.po_target_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">po_target_energy</code><span class="sig-paren">(</span><em class="sig-param">x0po</em>, <em class="sig-param">energyTarget</em>, <em class="sig-param">po_target_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#po_target_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.po_target_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>po_target_energy computes the periodic orbit of target energy using bisection method.</p>
 <p>Using bisection method on the lower and higher energy values of the POs to find the PO with
 the target energy. Use this condition to integrate with event function of half-period
@@ -467,14 +471,14 @@ coordinate</p></li>
 
 <dl class="function">
 <dt id="differential_correction.remove_infinitesimals">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">remove_infinitesimals</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">TOL=1e-14</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.remove_infinitesimals" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">remove_infinitesimals</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">TOL=1e-14</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#remove_infinitesimals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.remove_infinitesimals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns any complex matrix A with entries where the real or complex part has absolute
 value smaller than TOL set to 0</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="differential_correction.state_transit_matrix">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#state_transit_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns state transition matrix, the trajectory, and the solution of the
 variational equations over a length of time</p>
 <p>In particular, for periodic solutions of % period tf=T, one can obtain
@@ -509,7 +513,7 @@ the monodromy matrix, PHI(0,T).</p>
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
 <dl class="function">
 <dt id="turning_point.dotproduct">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#dotproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points</p>
 <p>Uses turning point method(defined a dot product form before the “actual” turning point.)
 :param guess1: guess initial condition 1 for the unstable periodic orbit
@@ -544,7 +548,7 @@ the monodromy matrix, PHI(0,T).</p>
 
 <dl class="function">
 <dt id="turning_point.get_eq_pts">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_eq_pts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#get_eq_pts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.get_eq_pts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns configuration space coordinates of the equilibrium points.</p>
 <p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
 coordinates of the equilibrium point for a Hamiltonian of the form kinetic
@@ -570,7 +574,7 @@ energy (KE) + potential energy (PE).</p>
 
 <dl class="function">
 <dt id="turning_point.get_pot_surf_proj">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#get_pot_surf_proj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -591,7 +595,7 @@ energy (KE) + potential energy (PE).</p>
 
 <dl class="function">
 <dt id="turning_point.get_total_energy">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#get_total_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.get_total_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
 <p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
 Hamiltonian of the form KE + PE.</p>
@@ -614,7 +618,7 @@ Hamiltonian of the form KE + PE.</p>
 
 <dl class="function">
 <dt id="turning_point.state_transit_matrix">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#state_transit_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns state transition matrix, the trajectory, and the solution of the
 variational equations over a length of time</p>
 <p>In particular, for periodic solutions of % period tf=T, one can obtain
@@ -642,7 +646,7 @@ the monodromy matrix, PHI(0,T).</p>
 
 <dl class="function">
 <dt id="turning_point.turningPoint">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">turningPoint</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.turningPoint" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">turningPoint</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#turningPoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.turningPoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>turningPoint computes the periodic orbit of target energy using turning point method.</p>
 <p>Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
 trajectories with inital conditions begin1, begin2 are turning in different directions,
@@ -691,7 +695,7 @@ coordinate</p></li>
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
 <dl class="function">
 <dt id="turning_point_coord_difference.get_eq_pts">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_eq_pts" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point_coord_difference.html#get_eq_pts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point_coord_difference.get_eq_pts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns configuration space coordinates of the equilibrium points.</p>
 <p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
 coordinates of the equilibrium point for a Hamiltonian of the form kinetic
@@ -717,7 +721,7 @@ energy (KE) + potential energy (PE).</p>
 
 <dl class="function">
 <dt id="turning_point_coord_difference.get_pot_surf_proj">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point_coord_difference.html#get_pot_surf_proj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point_coord_difference.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -738,7 +742,7 @@ energy (KE) + potential energy (PE).</p>
 
 <dl class="function">
 <dt id="turning_point_coord_difference.get_total_energy">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_total_energy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point_coord_difference.html#get_total_energy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point_coord_difference.get_total_energy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
 <p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
 Hamiltonian of the form KE + PE.</p>
@@ -761,7 +765,7 @@ Hamiltonian of the form KE + PE.</p>
 
 <dl class="function">
 <dt id="turning_point_coord_difference.state_transit_matrix">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point_coord_difference.html#state_transit_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point_coord_difference.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns state transition matrix, the trajectory, and the solution of the
 variational equations over a length of time</p>
 <p>In particular, for periodic solutions of % period tf=T, one can obtain
@@ -789,7 +793,7 @@ the monodromy matrix, PHI(0,T).</p>
 
 <dl class="function">
 <dt id="turning_point_coord_difference.turningPoint_configdiff">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">turningPoint_configdiff</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">configdiff_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.turningPoint_configdiff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">turningPoint_configdiff</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">configdiff_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point_coord_difference.html#turningPoint_configdiff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point_coord_difference.turningPoint_configdiff" title="Permalink to this definition">¶</a></dt>
 <dd><p>turningPoint computes the periodic orbit of target energy using turning point based on configuration difference method.</p>
 <p>Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
 trajectories with inital conditions begin1, begin2 are turning in different directions,
@@ -843,7 +847,7 @@ coordinate</p></li>
         <a href="examples.html" class="btn btn-neutral float-right" title="De Leon-Berne Hamiltonian" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Homepage of UPOsHam’s documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="doc.html" class="btn btn-neutral float-left" title="Unstable Periodic Orbits in Hamiltonian systems" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
