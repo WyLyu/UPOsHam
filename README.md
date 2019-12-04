@@ -3,6 +3,7 @@
 -   [Usage](#usage)
     -   [Comparing the methods for the coupled quartic Hamiltonian](#comparing-the-methods-for-the-coupled-quartic-hamiltonian)
 -   [Contributing](#contributing)
+-   [Acknowledgements](#acknowledgements)
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
 
@@ -65,6 +66,11 @@ Contributing
 ------------
 
 Guidelines on how to contribute to this package can be found [here](https://github.com/WyLyu/UPOsHam/blob/master/docs/contributing.md) along with the code of conduct [here](https://github.com/WyLyu/UPOsHam/blob/master/CODE_OF_CONDUCT.md) for engaging with the fellow contributors.
+
+Acknowledgements
+----------------
+
+We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary 2019. We acknowledge contributions from Shane Ross for writing the early MATLAB version of the differential correction and numerical continuation code.
 
 Copyright and License
 ---------------------
