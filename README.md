@@ -32,15 +32,15 @@ and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsH
 Usage
 -----
 
-The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names `<method>_<system>.py`. For example, to compute the unstable periodic orbits (the default shows at 2 total energy levels) for the De Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the differential correction method can be run from the command line by calling
+The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names `<method>_<system>.py`. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the differential correction method, from the root directory call the demonstration script at the command-line usingg
 
     $ python examples/differential_correction_deleonberne.py
 
-This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
+This will save data files in the root directory and save the following plot in the [plots](tests/plots/) directory.
 
 <img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:80.0%" />
 
-**Fig. Unstable periodic orbits for De Leon-Berne Hamiltonian**
+**Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 
 The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems.
 
