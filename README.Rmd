@@ -1,14 +1,14 @@
 ---
 title: "UPOsHam"
 output:
-  pdf_document:
-    highlight: zenburn
-    toc: yes
   md_document:
     toc: yes
     variant: markdown_github
   html_document:
     theme: united
+    toc: yes
+  pdf_document:
+    highlight: zenburn
     toc: yes
 bibliography: ./paper/paper.bib
 ---
