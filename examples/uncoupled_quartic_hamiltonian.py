@@ -232,6 +232,7 @@ def configdiff_uncoupled(guess1, guess2, ham2dof_model, half_period_model, n_tur
     x_diff2 = guess2[0] - x_turn2
     y_diff2 = guess2[1] - y_turn2
     
+
     print("Initial guess1%s, initial guess2%s, x_diff1 is %s, x_diff2 is%s " %(guess1, \
                                                                                guess2, \
                                                                                x_diff1, \
@@ -303,7 +304,8 @@ def half_period_uncoupled(t, x, par):
     
     return x[3]
 
+
 half_period_uncoupled.terminal = True 
 # The zero can be approached from either direction
 half_period_uncoupled.direction=0#0: all directions of crossing
- 
+

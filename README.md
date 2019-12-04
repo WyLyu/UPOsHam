@@ -3,8 +3,11 @@
 -   [Usage](#usage)
     -   [Comparing the methods for the coupled quartic Hamiltonian](#comparing-the-methods-for-the-coupled-quartic-hamiltonian)
 -   [Contributing](#contributing)
+-   [Acknowledgements](#acknowledgements)
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
+
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
@@ -29,15 +32,15 @@ and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsH
 Usage
 -----
 
-The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names `<method>_<system>.py`. For example, to compute the unstable periodic orbits (the default shows at 2 total energy levels) for the De Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the differential correction method can be run from the command line by calling
+The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names `<method>_<system>.py`. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the differential correction method, from the root directory call the demonstration script at the command-line usingg
 
     $ python examples/differential_correction_deleonberne.py
 
-This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
+This will save data files in the root directory and save the plot in the [./tests/plots](tests/plots/) directory.
 
 <img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:80.0%" />
 
-**Fig. Unstable periodic orbits for De Leon-Berne Hamiltonian**
+**Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 
 The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems.
 
@@ -64,6 +67,11 @@ Contributing
 
 Guidelines on how to contribute to this package can be found [here](https://github.com/WyLyu/UPOsHam/blob/master/docs/contributing.md) along with the code of conduct [here](https://github.com/WyLyu/UPOsHam/blob/master/CODE_OF_CONDUCT.md) for engaging with the fellow contributors.
 
+Acknowledgements
+----------------
+
+We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary 2019. We acknowledge contributions from Shane Ross for writing the early MATLAB version of the differential correction and numerical continuation code.
+
 Copyright and License
 ---------------------
 
@@ -82,7 +90,7 @@ Koon, Wang Sang, Martin W. Lo, Jerrold E. Marsden, and Shane D. Ross. 2000. “H
 
 Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics in Nonlinear Ship Motion.” *Communications in Nonlinear Science and Numerical Simulation* 47 (June): 48–70.
 
-Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” *Phys. Rev. E* 100 (2). American Physical Society: 022204. doi:[10.1103/PhysRevE.100.022204](https://doi.org/10.1103/PhysRevE.100.022204).
+Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” *Phys. Rev. E* 100 (2): 022204. doi:[10.1103/PhysRevE.100.022204](https://doi.org/10.1103/PhysRevE.100.022204).
 
 Parker, T. S., and L. O. Chua. 1989. *Practical Numerical Algorithms for Chaotic Systems*. New York, NY, USA: Springer-Verlag New York, Inc.
 
