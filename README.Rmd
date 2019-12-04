@@ -11,11 +11,17 @@ output:
   html_document:
     toc: yes
   pdf_document:
+<<<<<<< HEAD
     fig_height: 6
     fig_width: 6
     highlight: zenburn
     toc: yes
 biblio-style: apalike
+=======
+    highlight: zenburn
+    toc: yes
+bibliography: ./paper/paper.bib
+>>>>>>> update-readme
 ---
 
 [![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
