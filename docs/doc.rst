@@ -2,26 +2,17 @@
 Unstable Periodic Orbits in Hamiltonian systems
 ===============================================
 
-Differential correction
-=======================
-   .. automodule:: differential_correction
-      :members:
+.. image:: ../tests/plots/diff_corr_deleonberne_upos.png
 
-Turning point
-=============
-   .. automodule:: turning_point
-      :members:
+.. toctree::
+   :maxdepth: 2
 
-Turning point based on configuration difference
-===============================================
-   .. automodule:: turning_point_coord_difference
-      :members:
+.. mdinclude:: ../README.md
 
 
-Examples
-========
+ 
 
-* Uncoupled quartic Hamiltonian
-* Coupled quartic Hamiltonian
-* De Leon-Berne Hamiltonian
+
+
+
 
