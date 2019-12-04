@@ -1,29 +1,25 @@
 ---
 title: "UPOsHam"
+bibliography: ./paper/paper.bib
 link-citations: yes
 output:
-pdf_document:
-    fig_height: 6
-    fig_width: 6
-    highlight: zenburn
-    toc: yes
-md_document:
+  md_document:
     fig_height: 6
     fig_width: 6
     toc: yes
     variant: markdown_github
-html_document:
+  pdf_document:
     fig_height: 6
     fig_width: 6
-    theme: united
+    highlight: zenburn
     toc: yes
 biblio-style: apalike
-bibliography: ./paper/paper.bib
 ---
 
-[![Documentation Status](https://uposham.readthedocs.io/en/latest/?badge=latest)](https://readthedocs.org/projects/uposham/badge/?version=latest)
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
       
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
+
 
 ## Summary
 
