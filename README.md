@@ -36,7 +36,7 @@ The example scripts that computes the unstable periodic orbits (UPOs) for a give
 
     $ python examples/differential_correction_deleonberne.py
 
-This will save data files in the root directory and save the following plot in the [plots](tests/plots/) directory.
+This will save data files in the root directory and save the plot in the [./tests/plots](tests/plots/) directory.
 
 <img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:80.0%" />
 
