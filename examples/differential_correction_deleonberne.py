@@ -166,7 +166,7 @@ AbsTol = 1.e-10
 
 plt.close('all')
 axis_fs = 15
-
+figh = plt.figure(figsize = (6,6))
 
 for i in range(len(deltaE_vals)):
     deltaE = deltaE_vals[i]
@@ -180,7 +180,8 @@ for i in range(len(deltaE_vals)):
     t,x,phi_t1,PHI = diffcorr.state_transit_matrix(tt,x0po[:,i],parameters, \
                                             deleonberne.variational_eqns_deleonberne)
     ax = plt.gca(projection='3d')
-    ax.plot(x[:,0],x[:,1],x[:,2],'-',color = linecolor[i], label = '$\Delta E$ = %.2f'%(deltaE))
+    ax.plot(x[:,0],x[:,1],x[:,2],'-',color = linecolor[i], \
+        label = '$\Delta E$ = %.2f'%(deltaE))
     ax.plot(x[:,0],x[:,1],-x[:,2],'-',color = linecolor[i])
     ax.scatter(x[0,0],x[0,1],x[0,2],s=10,marker='*')
     ax.scatter(x[0,0],x[0,1],-x[0,2],s=10,marker='o')
@@ -188,7 +189,6 @@ for i in range(len(deltaE_vals)):
     
 
 
-ax = plt.gca(projection='3d')
 resX = 100
 xVec = np.linspace(-1,1,resX)
 yVec = np.linspace(-2,2,resX)
@@ -218,7 +218,9 @@ if show_final_plot:
 
 if save_final_plot:  
     plt.savefig('./tests/plots/diff_corr_deleonberne_upos.pdf', format='pdf', \
-                        bbox_inches='tight')
+                bbox_inches='tight')
+    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.png', \
+                bbox_inches='tight')
 
 
 
