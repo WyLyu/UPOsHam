@@ -6,6 +6,8 @@
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
 
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 Summary

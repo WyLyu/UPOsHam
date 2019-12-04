@@ -1,18 +1,20 @@
 ---
 title: "UPOsHam"
 output:
+  pdf_document:
+    highlight: zenburn
+    toc: yes
   md_document:
     toc: yes
     variant: markdown_github
   html_document:
     theme: united
     toc: yes
-  pdf_document:
-    highlight: zenburn
-    toc: yes
 bibliography: ./paper/paper.bib
 ---
 
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
+      
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 ## Summary
