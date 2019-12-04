@@ -6,18 +6,15 @@
 -   [Copyright and License](#copyright-and-license)
 -   [References](#references)
 
-[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://uposham.readthedocs.io/en/latest/?badge=latest)](https://readthedocs.org/projects/uposham/badge/?version=latest)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 Summary
 -------
 
-<<<<<<< HEAD
 This Python package is a collection of three methods for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems that model a diverse array of problems in physical sciences and engineering (Parker and Chua [1989](#ref-Parker_1989); Wiggins [2003](#ref-wiggins_introduction_2003)). The unstable periodic orbits exist in the bottleneck of the equipotential line *V*(*x*, *y*)=*E* and project as lines on the configuration space (*x*, *y*) for the Hamiltonian system of the form kinetic plus potential energy (Wiggins [2016](#ref-wiggins_role_2016)). The three methods implemented here (and available under [src](src/) directory) has been used in (Pollak, Child, and Pechukas [1980](#ref-Pollak_1980); De Leon and Berne [1981](#ref-Deleon_Berne_1981); Wang Sang Koon et al. [2000](#ref-koon_heteroclinic_2000); W. S. Koon et al. [2011](#ref-Koon2011); Naik and Ross [2017](#ref-naik_geometry_2017); Ross et al. [2018](#ref-ross_experimental_2018); Naik and Wiggins [2019](#ref-naik_finding_2019b)) for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have chosen three Hamiltonian systems that have two wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. A brief description of these systems can be found in the [paper](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf).
-=======
-This Python package is a collection of three methods for computing unstable periodic orbits in Hamiltonian systems that model a diverse array of problems in physical sciences and engineering (Wiggins 2003,Parker and Chua (1989)). The unstable periodic orbits exist in the bottleneck of the equipotential line *V*(*x*, *y*)=*E* and project as lines on the configuration space (*x*, *y*) (Wiggins 2016). The three methods described below have been implemented for three Hamiltonian systems of the form kinetic plus potential energy (Pollak, Child, and Pechukas 1980,Koon et al. (2011),Naik and Wiggins (2019)). A brief description of the methods and the applications can be found in the [paper.pdf](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). The scripts are written as demonstration of how to modify and adapt the code for a problem of interest.
->>>>>>> update-readme
+
 
 Installation
 ------------
@@ -90,9 +87,8 @@ Koon, Wang Sang, Martin W. Lo, Jerrold E. Marsden, and Shane D. Ross. 2000. “H
 Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics in Nonlinear Ship Motion.” *Communications in Nonlinear Science and Numerical Simulation* 47 (June): 48–70.
 
 Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” *Phys. Rev. E* 100 (2). American Physical Society: 022204. doi:[10.1103/PhysRevE.100.022204](https://doi.org/10.1103/PhysRevE.100.022204).
-=======
+
 Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” *Phys. Rev. E* 100 (2): 022204. doi:[10.1103/PhysRevE.100.022204](https://doi.org/10.1103/PhysRevE.100.022204).
->>>>>>> update-readme
 
 Parker, T. S., and L. O. Chua. 1989. *Practical Numerical Algorithms for Chaotic Systems*. New York, NY, USA: Springer-Verlag New York, Inc.
 
