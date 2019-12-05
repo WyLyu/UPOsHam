@@ -30,7 +30,7 @@ implemented in this package has been used for transition dynamics in chemical re
 
 Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
 
-### DeLeon-Berne Hamiltonian {#dbham}
+## DeLeon-Berne Hamiltonian {#dbham}
 
 This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change [@Deleon_Berne_1981; @DeLeon_Marston_1989] and exhibits regular and chaotic dynamics relevant for chemical reactions. 
 
@@ -40,7 +40,7 @@ This Hamiltonian has been studied as a model of isomerization of a single molecu
 Fig. Unstable periodic orbits for the De Leon-Berne Hamiltonian computed using differential correction method.
 
 
-### Coupled quartic Hamiltonian
+## Coupled quartic Hamiltonian
 
 
 ![](../tests/plots/diff_corr_coupled_upos.png)

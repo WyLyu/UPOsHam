@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jul 30 10:02:48 2019
+
 @author: Wenyang Lyu and Shibabrat Naik
+
 Script to define expressions for the coupled quartic Hamiltonian
 """
 
@@ -101,9 +103,7 @@ def variational_eqns_coupled(t,PHI,par):
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
     
-    d PHI(t, t0)
-    ------------ =  Df(t) * PHI(t, t0)
-        dt
+    d PHI(t, t0)/dt =  Df(t) * PHI(t, t0)    
     
     """
     

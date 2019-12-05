@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jul 30 10:02:48 2019
+
 @author: Wenyang Lyu and Shibabrat Naik
-Script to define expressions for the coupled quartic Hamiltonian
+
+Script to define expressions for the De-Leon Berne Hamiltonian
 """
 
 import numpy as np
@@ -97,23 +99,23 @@ def variational_eqns_deleonberne(t,PHI,par):
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
     
-    d PHI(t, t0)
-    ------------ =  Df(t) * PHI(t, t0)
-        dt
-    
+    d PHI(t, t0)/dt =  Df(t) * PHI(t, t0)
+
     """
     
     phi = PHI[0:16]
     phimatrix  = np.reshape(PHI[0:16],(4,4))
     x,y,px,py = PHI[16:20]
     
-    
     # The first order derivative of the potential energy.
-    dVdx = - 2*par[3]*par[4]*np.exp(-par[4]*x)*(np.exp(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) 
+    dVdx = - 2*par[3]*par[4]*np.exp(-par[4]*x)*(np.exp(-par[4]*x) - 1) \
+        - 4*par[5]*par[4]*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) 
     dVdy = 8*y*(2*y**2 - 1)*np.exp(-par[5]*par[4]*x)
 
     # The second order derivative of the potential energy. 
-    d2Vdx2 = - ( 2*par[3]*par[4]**2*( np.exp(-par[4]*x) - 2.0*np.exp(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) )
+    d2Vdx2 = - ( 2*par[3]*par[4]**2*( np.exp(-par[4]*x) \
+        - 2.0*np.exp(-2*par[4]*x) ) \
+        - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) )
         
     d2Vdy2 = 8*(6*y**2 - 1)*np.exp( -par[4]*par[5]*x )
 
