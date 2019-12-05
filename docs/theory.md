@@ -1,7 +1,6 @@
 -   [Introduction](#introduction)
-    -   [Examples](#examples)
-        -   [DeLeon-Berne Hamiltonian](#dbham)
-        -   [Coupled and uncoupled quartic Hamiltonian](#coupled-and-uncoupled-quartic-hamiltonian)
+    -   [DeLeon-Berne Hamiltonian](#dbham)
+    -   [Coupled quartic Hamiltonian](#coupled-quartic-hamiltonian)
 -   [References](#references)
 
 Introduction
@@ -9,14 +8,11 @@ Introduction
 
 Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering (Parker and Chua [1989](#ref-Parker_1989); Wiggins [2003](#ref-wiggins_introduction_2003)). The unstable periodic orbits exist in the bottleneck of the equipotential line *V*(*x*, *y*)=*E* and project as lines on the configuration space (*x*, *y*) for the Hamiltonian system of the form kinetic plus potential energy (Wiggins [2016](#ref-wiggins_role_2016)). The three methods
 
--   Differential correction
--   Turning point
+-   Differential correction (Wang Sang Koon et al. [2000](#ref-koon_heteroclinic_2000); W. S. Koon et al. [2011](#ref-Koon2011); Naik and Ross [2017](#ref-naik_geometry_2017); Ross et al. [2018](#ref-ross_experimental_2018); Naik and Wiggins [2019](#ref-naik_finding_2019b))
+-   Turning point (Pollak, Child, and Pechukas [1980](#ref-Pollak_1980); Nelson De Leon and Berne [1981](#ref-Deleon_Berne_1981))
 -   Turning point based on configuration difference
 
-implemented has been used in (Pollak, Child, and Pechukas [1980](#ref-Pollak_1980); Nelson De Leon and Berne [1981](#ref-Deleon_Berne_1981); Wang Sang Koon et al. [2000](#ref-koon_heteroclinic_2000); W. S. Koon et al. [2011](#ref-Koon2011); Naik and Ross [2017](#ref-naik_geometry_2017); Ross et al. [2018](#ref-ross_experimental_2018); Naik and Wiggins [2019](#ref-naik_finding_2019b)) for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point.
-
-Examples
---------
+implemented in this package has been used for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point.
 
 Consider the following two degrees-of-freedom Hamiltonian model where *x*, *y* are configuration space coordinates and *p*<sub>*x*</sub>, *p*<sub>*y*</sub> are corresponding momenta, *V*(*x*, *y*) is the potential energy, and *T*(*x*, *y*) is the kinetic energy.
 
@@ -24,28 +20,15 @@ Consider the following two degrees-of-freedom Hamiltonian model where *x*, *y*
 
 This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change (Nelson De Leon and Berne [1981](#ref-Deleon_Berne_1981); N De Leon and Marston [1989](#ref-DeLeon_Marston_1989)) and exhibits regular and chaotic dynamics relevant for chemical reactions.
 
-\begin{equation}
-\mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V_{\rm DB}(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V_{\rm DB}(x, y)
-\end{equation}
-where the potential energy function $V\_{\\rm DB}(x,y)$ is
+![](../tests/plots/diff_corr_deleonberne_upos.png)
 
-\begin{equation}
-\begin{aligned}
-V_{\rm DB}(x,y) = &  V(x) + V(y) + V(x,y) \\
-V(y) = & 4y^2(y^2 - 1) + \epsilon_s \\
-V(x) = & D_x\left[ 1 - \exp(-\lambda x) \right]^2 \\
-V(x,y) = & 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
-\end{aligned}
-\label{eqn:pot_energy_db}
-\end{equation}
-The parameters in the model are *m*<sub>*A*</sub>, *m*<sub>*B*</sub> which represent mass of the isomers, while *ϵ*<sub>*s*</sub>, *D*<sub>*x*</sub> denote the energy of the saddle, dissociation energy of the Morse oscillator, respectively, and will be kept fixed in this study, *λ*, *ζ* denote the range of the Morse oscillator and coupling parameter between the *x* and *y* configuration space coordinates, respectively.
+Fig. Unstable periodic orbits for the De Leon-Berne Hamiltonian computed using differential correction method.
 
-### Coupled and uncoupled quartic Hamiltonian
+### Coupled quartic Hamiltonian
 
-\begin{equation}
-    \mathcal{H}(x,y,p_x,p_y) = \frac{p_x^2}{2} - \alpha \frac{x^2}{2} + \beta \frac{x^4}{4} + \frac{\omega}{2}\left( p_y^2 + y^2 \right) + \frac{\epsilon}{2}(x - y)^2
-\end{equation}
-when *ϵ* = 0, this system becomes uncoupled quartic system.
+![](../tests/plots/diff_corr_coupled_upos.png)
+
+Fig. Unstable periodic orbits for the coupled quartic Hamiltonian computed using differential correction method.
 
 References
 ==========

@@ -22,13 +22,11 @@ biblio-style: apalike
 
 Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering [@Parker_1989; @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods
 
-- Differential correction 
-- Turning point
+- Differential correction [@koon_heteroclinic_2000;@Koon2011;@naik_geometry_2017;@ross_experimental_2018;@naik_finding_2019b]
+- Turning point [@Pollak_1980;@Deleon_Berne_1981]
 - Turning point based on configuration difference
 
-implemented has been used in [@Pollak_1980;@Deleon_Berne_1981;@koon_heteroclinic_2000;@Koon2011;@naik_geometry_2017;@ross_experimental_2018;@naik_finding_2019b] for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. 
-
-## Examples {#examples}
+implemented in this package has been used for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. 
 
 Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
 
@@ -36,31 +34,18 @@ Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are
 
 This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change [@Deleon_Berne_1981; @DeLeon_Marston_1989] and exhibits regular and chaotic dynamics relevant for chemical reactions. 
 
-\begin{equation}
-\mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V_{\rm DB}(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V_{\rm DB}(x, y)
-\end{equation}    
-where the potential energy function $V_{\rm DB}(x,y)$ is 
 
-\begin{equation}
-\begin{aligned}
-V_{\rm DB}(x,y) = &  V(x) + V(y) + V(x,y) \\
-V(y) = & 4y^2(y^2 - 1) + \epsilon_s \\
-V(x) = & D_x\left[ 1 - \exp(-\lambda x) \right]^2 \\
-V(x,y) = & 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
-\end{aligned}
-\label{eqn:pot_energy_db}
-\end{equation}
+![](../tests/plots/diff_corr_deleonberne_upos.png)
 
-The parameters in the model are $m_A, m_B$ which represent mass of the isomers, while $\epsilon_s, D_x$ denote the energy of the saddle, dissociation energy of the Morse oscillator, respectively, and will be kept fixed in this study, $\lambda, \zeta$ denote the range of the Morse oscillator and coupling parameter between the $x$ and $y$ configuration space coordinates, respectively.
+Fig. Unstable periodic orbits for the De Leon-Berne Hamiltonian computed using differential correction method.
 
-### Coupled and uncoupled quartic Hamiltonian
 
-\begin{equation}
-    \mathcal{H}(x,y,p_x,p_y) = \frac{p_x^2}{2} - \alpha \frac{x^2}{2} + \beta \frac{x^4}{4} + \frac{\omega}{2}\left( p_y^2 + y^2 \right) + \frac{\epsilon}{2}(x - y)^2
-\end{equation}
+### Coupled quartic Hamiltonian
 
-when $\epsilon = 0$, this system becomes uncoupled quartic system.
 
+![](../tests/plots/diff_corr_coupled_upos.png)
+
+Fig. Unstable periodic orbits for the coupled quartic Hamiltonian computed using differential correction method.
 
 
 
