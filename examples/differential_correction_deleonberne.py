@@ -219,7 +219,7 @@ if show_final_plot:
 if save_final_plot:  
     plt.savefig('./tests/plots/diff_corr_deleonberne_upos.pdf', format='pdf', \
                 bbox_inches='tight')
-    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.png', \
+    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.png', dpi = 300, \
                 bbox_inches='tight')
 
 
