@@ -7,7 +7,7 @@ Unstable Periodic Orbits in Hamiltonian systems
 .. toctree::
    :maxdepth: 2
 
-.. mdinclude:: ../README.md
+.. mdinclude:: theory.md
 
 
  
