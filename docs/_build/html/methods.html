@@ -83,6 +83,8 @@
               <p class="caption"><span class="caption-text">Theory</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id1">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id17">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods:</span></p>
 <ul class="current">
@@ -513,22 +515,17 @@ the monodromy matrix, PHI(0,T).</p>
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
 <dl class="function">
 <dt id="turning_point.dotproduct">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#dotproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#dotproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points</p>
-<p>Uses turning point method(defined a dot product form before the “actual” turning point.)
-:param guess1: guess initial condition 1 for the unstable periodic orbit
-:type guess1: 1d numpy array
-:param guess2: guess initial condition 2 for the unstable periodic orbit
-:type guess2: 1d numpy array
-:param n_turn: nth turning point that is used to define the dot product
-:type n_turn: int
-:param ham2dof_model: function that returns the Hamiltonian vector field at an input phase space coordinate</p>
-<blockquote>
-<div><p>and time</p>
-</div></blockquote>
+<p>Uses turning point method(defined a dot product form before the “actual” turning point.)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>guess1</strong> (<em>1d numpy array</em>) – guess initial condition 1 for the unstable periodic orbit</p></li>
+<li><p><strong>guess2</strong> (<em>1d numpy array</em>) – guess initial condition 2 for the unstable periodic orbit</p></li>
+<li><p><strong>n_turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – nth turning point that is used to define the dot product</p></li>
+<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
+and time</p></li>
 <li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
 <li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
@@ -539,7 +536,7 @@ the monodromy matrix, PHI(0,T).</p>
 <li><p><strong>x_turn2</strong> (<em>float</em>) – x coordinate of the turning point with initional condition guess2</p></li>
 <li><p><strong>y_turn1</strong> (<em>float</em>) – y coordinate of the turning point with initional condition guess1</p></li>
 <li><p><strong>y_turn2</strong> (<em>float</em>) – y coordinate of the turning point with initional condition guess2</p></li>
-<li><p><strong>dotproduct</strong> (<em>float</em>) – value of the dotproduct</p></li>
+<li><p><strong>dotproduct</strong> (<em>float</em>) – value of the dot product</p></li>
 </ul>
 </p>
 </dd>

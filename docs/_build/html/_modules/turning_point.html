@@ -81,6 +81,8 @@
               <p class="caption"><span class="caption-text">Theory</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc.html#id1">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc.html#id16">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods:</span></p>
 <ul>
@@ -358,11 +360,13 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="dotproduct"><a class="viewcode-back" href="../methods.html#turning_point.dotproduct">[docs]</a><span class="k">def</span> <span class="nf">dotproduct</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span><span class="n">n_turn</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">variational_eqns_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="dotproduct"><a class="viewcode-back" href="../methods.html#turning_point.dotproduct">[docs]</a><span class="k">def</span> <span class="nf">dotproduct</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span><span class="n">n_turn</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> \
+                <span class="n">varEqns_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points</span>
 <span class="sd">    </span>
 <span class="sd">    Uses turning point method(defined a dot product form before the &quot;actual&quot; turning point.)</span>
+<span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    guess1 : 1d numpy array </span>
@@ -397,9 +401,12 @@
 
 <span class="sd">    y_turn2 : float</span>
 <span class="sd">        y coordinate of the turning point with initional condition guess2</span>
+
 <span class="sd">    dotproduct : float</span>
-<span class="sd">        value of the dotproduct</span>
+<span class="sd">        value of the dot product</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">TSPAN</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
     <span class="n">RelTol</span> <span class="o">=</span> <span class="mf">3.e-10</span>
     <span class="n">AbsTol</span> <span class="o">=</span> <span class="mf">1.e-10</span> 
