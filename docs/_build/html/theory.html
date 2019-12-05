@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>biblio-style: apalike &mdash; UPOsHam 0.1.0 documentation</title>
+  <title>Introduction &mdash; UPOsHam 0.1.0 documentation</title>
   
 
   
@@ -81,7 +81,8 @@
               <p class="caption"><span class="caption-text">Theory</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc.html#introduction">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id1">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id17">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods:</span></p>
 <ul>
@@ -145,7 +146,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>biblio-style: apalike</li>
+      <li>Introduction</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -164,33 +165,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <hr class="docutils" />
-<p>title: “UPOsHam”
-bibliography: ../paper/paper.bib
-link-citations: yes
-output:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>md_document:</dt><dd><p>fig_height: 6
-fig_width: 6
-toc: yes
-variant: markdown_github</p>
-</dd>
-<dt>html_document:</dt><dd><p>toc: yes</p>
-</dd>
-<dt>pdf_document:</dt><dd><p>fig_height: 6
-fig_width: 6
-highlight: zenburn
-toc: yes</p>
+  <ul class="simple">
+<li><p><a class="reference external" href="#introduction">Introduction</a></p>
+<ul>
+<li><p><a class="reference external" href="#examples">Examples</a></p>
+<ul>
+<li><p><a class="reference external" href="#dbham">DeLeon-Berne Hamiltonian</a></p></li>
+<li><p><a class="reference external" href="#coupled-and-uncoupled-quartic-hamiltonian">Coupled and uncoupled quartic Hamiltonian</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#references">References</a></p></li>
+</ul>
+<div class="section" id="id1">
+<h1>Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering (Parker and Chua <a class="reference external" href="#ref-Parker_1989">1989</a>; Wiggins <a class="reference external" href="#ref-wiggins_introduction_2003">2003</a>). The unstable periodic orbits exist in the bottleneck of the equipotential line <em>V</em>(<em>x</em>, <em>y</em>)=<em>E</em> and project as lines on the configuration space (<em>x</em>, <em>y</em>) for the Hamiltonian system of the form kinetic plus potential energy (Wiggins <a class="reference external" href="#ref-wiggins_role_2016">2016</a>). The three methods</p>
+<ul class="simple">
+<li><p>Differential correction</p></li>
+<li><p>Turning point</p></li>
+<li><p>Turning point based on configuration difference</p></li>
+</ul>
+<p>implemented has been used in (Pollak, Child, and Pechukas <a class="reference external" href="#ref-Pollak_1980">1980</a>; Nelson De Leon and Berne <a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>; Wang Sang Koon et al. <a class="reference external" href="#ref-koon_heteroclinic_2000">2000</a>; W. S. Koon et al. <a class="reference external" href="#ref-Koon2011">2011</a>; Naik and Ross <a class="reference external" href="#ref-naik_geometry_2017">2017</a>; Ross et al. <a class="reference external" href="#ref-ross_experimental_2018">2018</a>; Naik and Wiggins <a class="reference external" href="#ref-naik_finding_2019b">2019</a>) for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point.</p>
+<div class="section" id="id12">
+<h2>Examples<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following two degrees-of-freedom Hamiltonian model where <em>x</em>, <em>y</em> are configuration space coordinates and <em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span>, <em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span> are corresponding momenta, <em>V</em>(<em>x</em>, <em>y</em>) is the potential energy, and <em>T</em>(<em>x</em>, <em>y</em>) is the kinetic energy.</p>
+<div class="section" id="id13">
+<h3>DeLeon-Berne Hamiltonian<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change (Nelson De Leon and Berne <a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>; N De Leon and Marston <a class="reference external" href="#ref-DeLeon_Marston_1989">1989</a>) and exhibits regular and chaotic dynamics relevant for chemical reactions.</p>
+<p>begin{equation}
+mathcal{H}(x,y,p_x,p_y) = T(p_x, p<em>y) + V</em>{rm DB}(x, y) = frac{p_x^2}{2m_A} + frac{p_y^2}{2m<em>B} + V</em>{rm DB}(x, y)
+end{equation}
+where the potential energy function $V_{rm DB}(x,y)$ is</p>
+<p>begin{equation}
+begin{aligned}
+V_{rm DB}(x,y) = &amp;  V(x) + V(y) + V(x,y) V(y) = &amp; 4y^2(y^2 - 1) + epsilon_s V(x) = &amp; D_xleft[ 1 - exp(-lambda x) right]^2 V(x,y) = &amp; 4y^2(y^2 - 1)left[ exp(-zeta lambda x) - 1 right]
+end{aligned}
+label{eqn:pot_energy_db}
+end{equation}
+The parameters in the model are <em>m</em><span class="raw-html-m2r"><sub>*A*</sub></span>, <em>m</em><span class="raw-html-m2r"><sub>*B*</sub></span> which represent mass of the isomers, while <em>ϵ</em><span class="raw-html-m2r"><sub>*s*</sub></span>, <em>D</em><span class="raw-html-m2r"><sub>*x*</sub></span> denote the energy of the saddle, dissociation energy of the Morse oscillator, respectively, and will be kept fixed in this study, <em>λ</em>, <em>ζ</em> denote the range of the Morse oscillator and coupling parameter between the <em>x</em> and <em>y</em> configuration space coordinates, respectively.</p>
+</div>
+<div class="section" id="id16">
+<h3>Coupled and uncoupled quartic Hamiltonian<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>begin{equation}</dt><dd><p>mathcal{H}(x,y,p_x,p_y) = frac{p_x^2}{2} - alpha frac{x^2}{2} + beta frac{x^4}{4} + frac{omega}{2}left( p_y^2 + y^2 right) + frac{epsilon}{2}(x - y)^2</p>
 </dd>
 </dl>
-</div></blockquote>
-<div class="section" id="biblio-style-apalike">
-<h1>biblio-style: apalike<a class="headerlink" href="#biblio-style-apalike" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>This Python package is a collection of three methods for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [&#64;Parker_1989; &#64;wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [&#64;wiggins_role_2016]. The three methods implemented here (and available under <a class="reference external" href="src/">src</a> directory) has been used in [&#64;Pollak_1980;&#64;Deleon_Berne_1981;&#64;koon_heteroclinic_2000;&#64;Koon2011;&#64;naik_geometry_2017;&#64;ross_experimental_2018;&#64;naik_finding_2019b] for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have chosen three Hamiltonian systems that have two wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point.</p>
+<p>end{equation}
+when <em>ϵ</em> = 0, this system becomes uncoupled quartic system.</p>
 </div>
+</div>
+</div>
+<div class="section" id="id17">
+<h1>References<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h1>
+<p>De Leon, N, and C. Clay Marston. 1989. “Order in Chaos and the Dynamics and Kinetics of Unimolecular Conformational Isomerization.” <em>The Journal of Chemical Physics</em> 91 (6): 3405–25. doi:<a class="reference external" href="https://doi.org/10.1063/1.456915">10.1063/1.456915</a>.</p>
+<p>De Leon, Nelson, and B. J. Berne. 1981. “Intramolecular Rate Process: Isomerization Dynamics and the Transition to Chaos.” <em>The Journal of Chemical Physics</em> 75 (7): 3495–3510. doi:<a class="reference external" href="https://doi.org/10.1063/1.442459">10.1063/1.442459</a>.</p>
+<p>Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. <em>Dynamical systems, the three-body problem and space mission design</em>. Marsden books.</p>
+<p>Koon, Wang Sang, Martin W. Lo, Jerrold E. Marsden, and Shane D. Ross. 2000. “Heteroclinic Connections Between Periodic Orbits and Resonance Transitions in Celestial Mechanics.” <em>Chaos: An Interdisciplinary Journal of Nonlinear Science</em> 10 (2): 427–69.</p>
+<p>Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics in Nonlinear Ship Motion.” <em>Communications in Nonlinear Science and Numerical Simulation</em> 47 (June): 48–70.</p>
+<p>Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” <em>Phys. Rev. E</em> 100 (2): 022204. doi:<a class="reference external" href="https://doi.org/10.1103/PhysRevE.100.022204">10.1103/PhysRevE.100.022204</a>.</p>
+<p>Parker, T. S., and L. O. Chua. 1989. <em>Practical Numerical Algorithms for Chaotic Systems</em>. New York, NY, USA: Springer-Verlag New York, Inc.</p>
+<p>Pollak, Eli, Mark S. Child, and Philip Pechukas. 1980. “Classical Transition State Theory: A Lower Bound to the Reaction Probability.” <em>The Journal of Chemical Physics</em> 72 (3): 1669–78. doi:<a class="reference external" href="https://doi.org/10.1063/1.439276">10.1063/1.439276</a>.</p>
+<p>Ross, Shane D., Amir E. BozorgMagham, Shibabrat Naik, and Lawrence N. Virgin. 2018. “Experimental Validation of Phase Space Conduits of Transition Between Potential Wells.” <em>Phys. Rev. E</em> 98 (5): 052214.</p>
+<p>Wiggins, Stephen. 2003. <em>Introduction to Applied Nonlinear Dynamical Systems and Chaos</em>. 2nd ed. Texts in Applied Mathematics 2. New York: Springer.</p>
+<p>———. 2016. “The Role of Normally Hyperbolic Invariant Manifolds (NHIMs) in the Context of the Phase Space Setting for Chemical Reaction Dynamics.” <em>Regular and Chaotic Dynamics</em> 21 (6): 621–38. doi:<a class="reference external" href="https://doi.org/10.1134/S1560354716060034">10.1134/S1560354716060034</a>.</p>
 </div>
 
 
