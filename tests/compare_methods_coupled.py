@@ -159,7 +159,7 @@ eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_en
 deltaE = 0.10
 eSaddle = 0.0 # energy of the saddle
 
-data_path = "./data/"
+data_path = "../data/"
 po_fam_file = "x0_tpcd_deltaE%s_coupled.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 x0podata = np.loadtxt(data_path + po_fam_file)
@@ -191,13 +191,7 @@ soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, 
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
-                                                      variational_eqns_coupled)
-
-ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,3],'-',label='$\Delta E$ = 0.1, using tpcd')
-ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
+t,x_tpcd,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, variational_eqns_coupled)
 
 
 f = lambda t,x: ham2dof_coupled(t,x,parameters)
@@ -207,12 +201,9 @@ soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
-                                                      variational_eqns_coupled)
+t,x_diffcorr,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_diffcorr, parameters, variational_eqns_coupled)
 
-ax.plot(x[:,0],x[:,1],x[:,3],':',label='$\Delta E$ = 0.1, using dcnc')
-ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
+
 
 f = lambda t,x: ham2dof_coupled(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_output=True, \
@@ -221,16 +212,24 @@ soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4], method='RK45',dense_outp
 
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
-                                                      variational_eqns_coupled)
-
-ax.plot(x[:,0],x[:,1],x[:,3],'-.',label='$\Delta E$ = 0.1, using tp')
-ax.scatter(x[0,0],x[0,1],x[0,3],s=20,marker='*')
-ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
+t,x_turningpoint,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, variational_eqns_coupled)
 
 
-
+fig = plt.figure(figsize = (10,10))
 ax = plt.gca(projection='3d')
+ax.plot(x_tpcd[:,0],x_tpcd[:,1],x_tpcd[:,2],':',label='$\Delta E$ = 0.1, using tpcd')
+ax.scatter(x_tpcd[0,0],x_tpcd[0,1],x_tpcd[0,2],s=20,marker='*')
+ax.plot(x_tpcd[:,0], x_tpcd[:,1], zs=0, zdir='z')
+
+ax.plot(x_diffcorr[:,0],x_diffcorr[:,1],x_diffcorr[:,2],'-',label='$\Delta E$ = 0.1, using dcnc')
+ax.scatter(x_diffcorr[0,0],x_diffcorr[0,1],x_diffcorr[0,2],s=20,marker='*')
+ax.plot(x_diffcorr[:,0], x_diffcorr[:,1], zs=0, zdir='z')
+
+ax.plot(x_turningpoint[:,0],x_turningpoint[:,1],x_turningpoint[:,2],'-.',label='$\Delta E$ = 0.1, using tp')
+ax.scatter(x_turningpoint[0,0],x_turningpoint[0,1],x_turningpoint[0,2],s=20,marker='*')
+ax.plot(x_turningpoint[:,0], x_turningpoint[:,1], zs=0, zdir='z')
+
+
 resX = 100
 xVec = np.linspace(-4,4,resX)
 yVec = np.linspace(-4,4,resX)
@@ -247,11 +246,14 @@ ax.set_ylabel('$y$', fontsize=axis_fs)
 ax.set_zlabel('$p_y$', fontsize=axis_fs)
 legend = ax.legend(loc='upper left')
 
-ax.set_xlim(-2, 2)
-ax.set_ylim(-2, 2)
-ax.set_zlim(-0.5, 0.5)
+ax.set_xlim(-1.5, 1.5)
+ax.set_ylim(-1.5, 1.5)
+ax.set_zlim(-0.05, 0.05)
 plt.grid()
 plt.show()
-plt.savefig('comparison_coupled.pdf',format='pdf',bbox_inches='tight')
 
+plt.savefig('./plots/comparison_coupled.pdf', format='pdf', \
+            bbox_inches='tight')
+plt.savefig('./plots/comparison_coupled.png', dpi = 300, \
+            bbox_inches='tight')
 
