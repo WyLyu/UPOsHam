@@ -53,7 +53,8 @@ def pot_energy_deleonberne(x, y, par):
     """Returns the potential energy function V(x,y)
     """
     
-    return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) + par[2]
+    return par[3]*( 1 - np.exp(-par[4]*x) )**2 + 4*y**2*(y**2 \
+        - 1)*np.exp(-par[5]*par[4]*x) + par[2]
 
 
 def variational_eqns_deleonberne(t,PHI,par):
@@ -73,11 +74,15 @@ def variational_eqns_deleonberne(t,PHI,par):
     
     
     # The first order derivative of the potential energy.
-    dVdx = - 2*par[3]*par[4]*np.exp(-par[4]*x)*(np.exp(-par[4]*x) - 1) - 4*par[5]*par[4]*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) 
+    dVdx = - 2*par[3]*par[4]*np.exp(-par[4]*x)*(np.exp(-par[4]*x) - 1) \
+        - 4*par[5]*par[4]*y**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) 
     dVdy = 8*y*(2*y**2 - 1)*np.exp(-par[5]*par[4]*x)
 
     # The second order derivative of the potential energy. 
-    d2Vdx2 = - ( 2*par[3]*par[4]**2*( np.exp(-par[4]*x) - 2.0*np.exp(-2*par[4]*x) ) - 4*(par[5]*par[4])**2*x**2*(y**2 - 1)*np.exp(-par[5]*par[4]*x) )
+    d2Vdx2 = - ( 2*par[3]*par[4]**2*( np.exp(-par[4]*x) \
+                - 2.0*np.exp(-2*par[4]*x) ) \
+                - 4*(par[5]*par[4])**2*x**2*(y**2 \
+                - 1)*np.exp(-par[5]*par[4]*x) )
         
     d2Vdy2 = 8*(6*y**2 - 1)*np.exp( -par[4]*par[5]*x )
 
@@ -159,15 +164,15 @@ eqPt = differential_correction.get_eq_pts(eqNum, init_guess_eqpt_deleonberne, \
                                        grad_pot_deleonberne, parameters)
 
 #energy of the saddle eq pt
-eSaddle = differential_correction.get_total_energy([eqPt[0],eqPt[1],0,0], pot_energy_deleonberne, \
-                                                parameters)
+eSaddle = differential_correction.get_total_energy([eqPt[0], \
+            eqPt[1],0,0], pot_energy_deleonberne, parameters)
 
 
 #%% Load Data
 deltaE = 1.0
 eSaddle = 1.0 # energy of the saddle
 
-data_path = "./data/"
+data_path = "../data/"
 po_fam_file = "x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE)
 print('Loading the periodic orbit family from data file',po_fam_file,'\n') 
 x0podata = np.loadtxt(data_path + po_fam_file)
@@ -189,12 +194,15 @@ x0podata = np.loadtxt(data_path + po_fam_file)
 x0po_1_diffcorr = x0podata[0:4]
 
 
-#%% Integrate the Hamilton's equations w.r.t the initial conditions for the full period T and plot the UPOs
+#%% Integrate the Hamilton's equations w.r.t the initial conditions 
+# for the full period T and plot the UPOs
+
 TSPAN = [0,30]
 plt.close('all')
 axis_fs = 15
 RelTol = 3.e-10
 AbsTol = 1.e-10
+
 
 f= lambda t,x: ham2dof_deleonberne(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, \
@@ -202,13 +210,9 @@ soln = solve_ivp(f, TSPAN, x0po_1_tpcd[-1,0:4],method='RK45',dense_output=True, 
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_tpcd[-1,0:4], parameters, \
-                                                      variational_eqns_deleonberne)
+t,x_tpcd,phi_t1,PHI = differential_correction.state_transit_matrix( \
+    tt, x0po_1_tpcd[-1,0:4], parameters, variational_eqns_deleonberne)
 
-ax = plt.gca(projection='3d')
-ax.plot(x[:,0],x[:,1],x[:,2],':',label='$\Delta E$ = 0.1, using tpcd')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
-ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 f= lambda t,x: ham2dof_deleonberne(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
@@ -216,13 +220,9 @@ soln = solve_ivp(f, TSPAN, x0po_1_diffcorr,method='RK45',dense_output=True, \
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_diffcorr, parameters, \
-                                                      variational_eqns_deleonberne)
+t,x_diffcorr,phi_t1,PHI = differential_correction.state_transit_matrix( \
+    tt, x0po_1_diffcorr, parameters, variational_eqns_deleonberne)
 
-
-ax.plot(x[:,0],x[:,1],x[:,2],'-',label='$\Delta E$ = 0.1, using dcnc')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
-ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
 
 f= lambda t,x: ham2dof_deleonberne(t,x,parameters)
 soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_output=True, \
@@ -230,17 +230,25 @@ soln = solve_ivp(f, TSPAN, x0po_1_turningpoint[-1,0:4],method='RK45',dense_outpu
                  rtol=RelTol, atol=AbsTol)
 te = soln.t_events[0]
 tt = [0,te[2]]
-t,x,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
+t,x_turningpoint,phi_t1,PHI = differential_correction.state_transit_matrix(tt, x0po_1_turningpoint[-1,0:4], parameters, \
                                                       variational_eqns_deleonberne)
 
 
-ax.plot(x[:,0],x[:,1],x[:,2],'-.',label='$\Delta E$ = 0.1, using tp')
-ax.scatter(x[0,0],x[0,1],x[0,2],s=20,marker='*')
-ax.plot(x[:,0], x[:,1], zs=0, zdir='z')
-
-
-
+fig = plt.figure(figsize = (10,10))
 ax = plt.gca(projection='3d')
+
+ax.plot(x_tpcd[:,0],x_tpcd[:,1],x_tpcd[:,2],':',label='$\Delta E$ = 0.1, using tpcd')
+ax.scatter(x_tpcd[0,0],x_tpcd[0,1],x_tpcd[0,2],s=20,marker='*')
+ax.plot(x_tpcd[:,0], x_tpcd[:,1], zs=0, zdir='z')
+
+ax.plot(x_diffcorr[:,0],x_diffcorr[:,1],x_diffcorr[:,2],'-',label='$\Delta E$ = 0.1, using dcnc')
+ax.scatter(x_diffcorr[0,0],x_diffcorr[0,1],x_diffcorr[0,2],s=20,marker='*')
+ax.plot(x_diffcorr[:,0], x_diffcorr[:,1], zs=0, zdir='z')
+
+ax.plot(x_turningpoint[:,0],x_turningpoint[:,1],x_turningpoint[:,2],'-.',label='$\Delta E$ = 0.1, using tp')
+ax.scatter(x_turningpoint[0,0],x_turningpoint[0,1],x_turningpoint[0,2],s=20,marker='*')
+ax.plot(x_turningpoint[:,0], x_turningpoint[:,1], zs=0, zdir='z')
+
 resX = 100
 xVec = np.linspace(-1,1,resX)
 yVec = np.linspace(-2,2,resX)
@@ -263,5 +271,8 @@ ax.set_zlim(-4, 4)
 plt.grid()
 plt.show()
 
-plt.savefig('comparison_deleonberne.pdf',format='pdf',bbox_inches='tight')
+plt.savefig('./plots/comparison_deleonberne.pdf', format='pdf', \
+            bbox_inches='tight')
+plt.savefig('./plots/comparison_deleonberne.pdf', dpi = 300, \
+            bbox_inches='tight')
 
