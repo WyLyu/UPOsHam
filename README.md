@@ -1,11 +1,15 @@
--   [Summary](#summary)
--   [Installation](#installation)
--   [Usage](#usage)
-    -   [Comparing the methods for the coupled quartic Hamiltonian](#comparing-the-methods-for-the-coupled-quartic-hamiltonian)
--   [Contributing](#contributing)
--   [Acknowledgements](#acknowledgements)
--   [Copyright and License](#copyright-and-license)
--   [References](#references)
+-   [UPOsHam](#uposham)
+    -   [Summary](#summary)
+    -   [Installation](#installation)
+    -   [Usage](#usage)
+        -   [Comparing the methods for the coupled quartic Hamiltonian](#comparing-the-methods-for-the-coupled-quartic-hamiltonian)
+    -   [Contributing](#contributing)
+    -   [Acknowledgements](#acknowledgements)
+    -   [Copyright and License](#copyright-and-license)
+    -   [References](#references)
+
+UPOsHam
+=======
 
 [![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
 
@@ -19,12 +23,13 @@ This Python package is a collection of three methods for computing unstable peri
 Installation
 ------------
 
-Clone/download the git repository using
+Clone the git repository, install the requirements, and install the package manually:
 
-``` git
+``` bash
 $ git clone git@github.com:WyLyu/UPOsHam.git
 $ cd UPOsHam
 $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
+$ python setup.py install
 ```
 
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip.
