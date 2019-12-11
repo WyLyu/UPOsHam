@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Contributing to UPOsHam" href="contributing.html" />
+    <link rel="next" title="Differential correction" href="methods.html" />
     <link rel="prev" title="Homepage of UPOsHam’s documentation" href="index.html" /> 
 </head>
 
@@ -80,20 +80,34 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">Theory</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Unstable Periodic Orbits in Hamiltonian systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#differential-correction">Differential correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#turning-point">Turning point</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#turning-point-based-on-configuration-difference">Turning point based on configuration difference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id1">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id12">DeLeon-Berne Hamiltonian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">Coupled quartic Hamiltonian</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id16">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Methods</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Differential correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html#turning-point">Turning point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html#turning-point-based-on-configuration-difference">Turning point based on configuration difference</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">De Leon-Berne Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#module-coupled_quartic_hamiltonian">Coupled quartic Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#module-uncoupled_quartic_hamiltonian">Uncoupled quartic Hamiltonian</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing and reporting</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to UPOsHam</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#code-of-conduct">Code of Conduct</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#what-should-i-know-before-i-get-started">What should I know before I get started?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#how-can-i-contribute">How Can I Contribute?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#id1">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#id2">What should I know before I get started?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#id3">How Can I Contribute?</a></li>
 </ul>
 
             
@@ -160,684 +174,51 @@
             
   <div class="section" id="unstable-periodic-orbits-in-hamiltonian-systems">
 <h1>Unstable Periodic Orbits in Hamiltonian systems<a class="headerlink" href="#unstable-periodic-orbits-in-hamiltonian-systems" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="section" id="differential-correction">
-<h1>Differential correction<a class="headerlink" href="#differential-correction" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><span class="target" id="module-differential_correction"></span><p>Created on Tue Sep 10 18:32:28 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<dl class="function">
-<dt id="differential_correction.clean_up_matrix">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">clean_up_matrix</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.clean_up_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns any complex matrix A with entries where the real or complex part has absolute
-value smaller than TOL set to 0, where TOL is set inside this function.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.eig_get">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">eig_get</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">discrete</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.eig_get" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the eigenvalues and eigenvectors of the matrix A spanning the three local subspaces
-&lt;Es,Eu,Ec&gt; where A is MxM and s+u+c=M, which locally approximate the invariant manifolds
-&lt;Ws,Wu,Wc&gt;</p>
-<p>This function is designed for continuous dynamical systems only.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>2d numpy array</em>) – Input matrix</p></li>
-<li><p><strong>discrete</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – flag to set if the dynamical system is discrete or continuous</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>sn,un,cn,Ws,Wu,Wc</strong> – eigenvalues and corresponding eigenvectors</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>1d numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.get_eq_pts">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_eq_pts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns configuration space coordinates of the equilibrium points.</p>
-<p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
-coordinates of the equilibrium point for a Hamiltonian of the form kinetic
-energy (KE) + potential energy (PE).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eqNum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – 1 is the saddle-center equilibrium point
-2 or 3 is the center-center equilibrium point</p></li>
-<li><p><strong>init_guess_eqpt_model</strong> (<em>function name</em>) – function that returns the initial guess for the equilibrium point</p></li>
-<li><p><strong>grad_pot_model</strong> (<em>function name</em>) – function that defines the vector of potential gradient</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>configuration space coordinates</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.get_po_diffcorr">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_diffcorr</code><span class="sig-paren">(</span><em class="sig-param">x0</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_po_diffcorr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an initial condition and time period of an unstable periodic orbit using differential
-correction</p>
-<p>The initial condition is generated using a small (first-order derived using state transition
-matrix) correction of the initial guess where the assumption is the unstable periodic orbit
-projects as a function nameaight line on the configuration space.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – guess of the initial condition for the unstable periodic orbit</p></li>
-<li><p><strong>diffcorr_setup_model</strong> (<em>function name</em>) – function that returns the combination of coordinates for applying terminal and periodic
-orbit conditions</p></li>
-<li><p><strong>conv_coord_model</strong> (<em>function name</em>) – function that returns the coordinate for convergence criteria</p></li>
-<li><p><strong>diffcorr_acc_corr_model</strong> (<em>function name</em>) – function that returns the corrected phase space coordinate and where the correction term
-is derived</p></li>
-<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
-and time</p></li>
-<li><p><strong>half_period_model</strong> (<em>function name</em>) – function that returns the event criteria in terms of the coordinate that is set to zero
-for half-period of the unstable periodic orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>plot_iter_orbit_model</strong> (<em>function name</em>) – function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
-coordinate</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x0po</strong> (<em>1d numpy array</em>) – initial condition for the periodic orbit</p></li>
-<li><p><strong>t1</strong> (<em>float</em>) – time period for the periodic orbit</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.get_po_fam">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_fam</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax1</em>, <em class="sig-param">Ax2</em>, <em class="sig-param">nFam</em>, <em class="sig-param">po_fam_file</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_po_fam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a family of unstable periodic orbits given two seed initial conditions and time periods</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eqNum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – 1 is the saddle-center equilibrium point
-2 or 3 is the center-center equilibrium point</p></li>
-<li><p><strong>Ax2</strong> (<em>Ax1</em><em>,</em>) – amplitude of the guess periodic orbit (typically 1e-4 or 1e-5)</p></li>
-<li><p><strong>nFam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – number of members in the family (monotonically increasing energy) of the unstable
-periodic orbits</p></li>
-<li><p><strong>po_fam_file</strong> (<em>function name</em>) – file name to save the members in the family of the unstable periodic orbits</p></li>
-<li><p><strong>init_guess_eqpt_model</strong> (<em>function name</em>) – function that returns the initial guess for the equilibrium point</p></li>
-<li><p><strong>grad_pot_model</strong> (<em>function name</em>) – function that returns gradient of the potential energy function.</p></li>
-<li><p><strong>jacobian_model</strong> (<em>function name</em>) – function that returns Jacobian of the vector field.</p></li>
-<li><p><strong>guess_lin_model</strong> (<em>function name</em>) – function that returns the initial guess based on linearization around the
-equilibrium point.</p></li>
-<li><p><strong>diffcorr_setup_model</strong> (<em>function name</em>) – function that returns the combination of coordinates for applying terminal and periodic
-orbit conditions</p></li>
-<li><p><strong>conv_coord_model</strong> (<em>function name</em>) – function that returns the coordinate for convergence criteria</p></li>
-<li><p><strong>diffcorr_acc_corr_model</strong> (<em>function name</em>) – function that returns the corrected phase space coordinate and where the correction term
-is derived</p></li>
-<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
-and time</p></li>
-<li><p><strong>half_period_model</strong> (<em>function name</em>) – function that returns the event criteria in terms of the coordinate that is set to zero
-for half-period of the unstable periodic orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>plot_iter_orbit_model</strong> (<em>function name</em>) – function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
-coordinate</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="simple">
-<dt>par<span class="classifier">float (list)</span></dt><dd><p>model parameters</p>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p><strong>x0po</strong> (<em>2d numpy array</em>) – array of initial conditions for the members in the family of the unstable periodic orbits</p></li>
-<li><p><strong>T</strong> (<em>1d numpy array</em>) – column vector of time period for the members in the family of the unstable periodic orbits</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.get_po_guess_linear">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_po_guess_linear</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">Ax</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">jacobian_model</em>, <em class="sig-param">guess_lin_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_po_guess_linear" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an initial guess for the differential correction method.</p>
-<p>Uses a small displacement from the equilibrium point (in a direction on the collinear point’s
-center manifold) as a first guess for a planar periodic orbit (called a Lyapunov orbit). This
-initial condition and period are to be used as a first guess for the differential correction
-routine.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eqNum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – index of the equilibrium point (typically 1 or 2 or 3)</p></li>
-<li><p><strong>Ax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – small nondimensional amplitude of the periodic orbit (&lt;&lt; 1)</p></li>
-<li><p><strong>init_guess_eqpt_model</strong> (<em>function name</em>) – function that returns an initial guess to solve the equilibrium point using numerical
-solvers.</p></li>
-<li><p><strong>grad_pot_model</strong> (<em>function name</em>) – function that returns gradient of the potential energy function.</p></li>
-<li><p><strong>jacobian_model</strong> (<em>function name</em>) – function that returns Jacobian of the vector field.</p></li>
-<li><p><strong>guess_lin_model</strong> (<em>function name</em>) – function that returns the initial guess based on linearization around the
-equilibrium point.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x0poGuess</strong> (<em>1d numpy array</em>) – guess initial condition for the periodic orbit (first guess)</p></li>
-<li><p><strong>TGuess</strong> (<em>float</em>) – gues time period for the periodic orbit (first guess)</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.get_pot_surf_proj">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>yVec</strong> (<em>xVec</em><em>,</em>) – x,y-coordinates that discretizes the x, y domain of the configuration space</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>values of the PE</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>2d numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.get_total_energy">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.get_total_energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
-<p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-Hamiltonian of the form KE + PE.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – phase space coordinates (x,y,px,py) of a point on an orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>total energy (value of Hamiltonian)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>scalar</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.po_bracket_energy">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">po_bracket_energy</code><span class="sig-paren">(</span><em class="sig-param">energyTarget</em>, <em class="sig-param">x0podata</em>, <em class="sig-param">po_brac_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.po_bracket_energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns two unstable periodic orbits that bracket (bound in energy values) the unstable
-periodic orbit at the desired energy</p>
-<p>Generates a family of periodic orbits (po) given a pair of seed initial conditions from a
-data file, while targeting a specific periodic orbit. This is performed using a scaling
-factor of the numerical continuation step size which is used to obtain initial guess for
-the periodic orbit. The energy of target periodic orbit should be higher than the input
-periodic orbit.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>energyTarget</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – energy of the target unstable periodic orbit</p></li>
-<li><p><strong>x0podata</strong> (<em>2d numpy array</em>) – array of input members of the family of the unstable periodic orbit</p></li>
-<li><p><strong>po_brac_file</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – file name to save the 2 bounds of the target unstable periodic orbit</p></li>
-<li><p><strong>diffcorr_setup_model</strong> (<em>function name</em>) – function that returns the combination of coordinates for applying terminal and periodic
-orbit conditions</p></li>
-<li><p><strong>conv_coord_model</strong> (<em>function name</em>) – function that returns the coordinate for convergence criteria</p></li>
-<li><p><strong>diffcorr_acc_corr_model</strong> (<em>function name</em>) – function that returns the corrected phase space coordinate and where the correction term
-is derived</p></li>
-<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
-and time</p></li>
-<li><p><strong>half_period_model</strong> (<em>function name</em>) – function that returns the event criteria in terms of the coordinate that is set to zero
-for half-period of the unstable periodic orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>plot_iter_orbit_model</strong> (<em>function name</em>) – function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
-coordinate</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x0po</strong> (<em>2d numpy array</em>) – 2 bracketing unstable periodic orbits that bound the desired unstable periodic orbit</p></li>
-<li><p><strong>T</strong> (<em>1d numpy array</em>) – time period of the 2 bracketing unstable periodic orbits</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.po_target_energy">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">po_target_energy</code><span class="sig-paren">(</span><em class="sig-param">x0po</em>, <em class="sig-param">energyTarget</em>, <em class="sig-param">po_target_file</em>, <em class="sig-param">diffcorr_setup_model</em>, <em class="sig-param">conv_coord_model</em>, <em class="sig-param">diffcorr_acc_corr_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.po_target_energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>po_target_energy computes the periodic orbit of target energy using bisection method.</p>
-<p>Using bisection method on the lower and higher energy values of the POs to find the PO with
-the target energy. Use this condition to integrate with event function of half-period
-defined by maximum distance from the initial point on the PO</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x0po</strong> (<em>1d numpy array</em>) – Initial conditions for the periodic orbit with the last two initial conditions
-bracketing (lower and higher than) the target energy</p></li>
-<li><p><strong>diffcorr_setup_model</strong> (<em>function name</em>) – function that returns the combination of coordinates for applying terminal and periodic
-orbit conditions</p></li>
-<li><p><strong>conv_coord_model</strong> (<em>function name</em>) – function that returns the coordinate for convergence criteria</p></li>
-<li><p><strong>diffcorr_acc_corr_model</strong> (<em>function name</em>) – function that returns the corrected phase space coordinate and where the correction term
-is derived</p></li>
-<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
-and time</p></li>
-<li><p><strong>half_period_model</strong> (<em>function name</em>) – function that returns the event criteria in terms of the coordinate that is set to zero
-for half-period of the unstable periodic orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>plot_iter_orbit_model</strong> (<em>function name</em>) – function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
-coordinate</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x0_PO</strong> (<em>1d numpy array</em>) – Initial condition of the target unstable periodic orbit</p></li>
-<li><p><strong>T_PO</strong> (<em>float</em>) – Time period of the target unstable periodic orbit</p></li>
-<li><p><strong>ePO</strong> (<em>float</em>) – Energy of the target unstable periodic orbit.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.remove_infinitesimals">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">remove_infinitesimals</code><span class="sig-paren">(</span><em class="sig-param">A</em>, <em class="sig-param">TOL=1e-14</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.remove_infinitesimals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns any complex matrix A with entries where the real or complex part has absolute
-value smaller than TOL set to 0</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="differential_correction.state_transit_matrix">
-<code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#differential_correction.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns state transition matrix, the trajectory, and the solution of the
-variational equations over a length of time</p>
-<p>In particular, for periodic solutions of % period tf=T, one can obtain
-the monodromy matrix, PHI(0,T).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – final time for the integration</p></li>
-<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – initial condition</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>t</strong> (<em>1d numpy array</em>) – solution time</p></li>
-<li><p><strong>x</strong> (<em>2d numpy array</em>) – solution of the phase space coordinates</p></li>
-<li><p><strong>phi_tf</strong> (<em>2d numpy array</em>) – state transition matrix at the final time, tf</p></li>
-<li><p><strong>PHI</strong> (<em>1d numpy array,</em>) – solution of phase space coordinates and corresponding tangent space coordinates</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-</div>
-<div class="section" id="turning-point">
-<h1>Turning point<a class="headerlink" href="#turning-point" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><span class="target" id="module-turning_point"></span><p>Created on Thu Sep 12 17:34:06 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<dl class="function">
-<dt id="turning_point.dotproduct">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points</p>
-<p>Uses turning point method(defined a dot product form before the “actual” turning point.)
-:param guess1: guess initial condition 1 for the unstable periodic orbit
-:type guess1: 1d numpy array
-:param guess2: guess initial condition 2 for the unstable periodic orbit
-:type guess2: 1d numpy array
-:param n_turn: nth turning point that is used to define the dot product
-:type n_turn: int
-:param ham2dof_model: function that returns the Hamiltonian vector field at an input phase space coordinate</p>
-<blockquote>
-<div><p>and time</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x_turn1</strong> (<em>float</em>) – x coordinate of the turning point with initional condition guess1</p></li>
-<li><p><strong>x_turn2</strong> (<em>float</em>) – x coordinate of the turning point with initional condition guess2</p></li>
-<li><p><strong>y_turn1</strong> (<em>float</em>) – y coordinate of the turning point with initional condition guess1</p></li>
-<li><p><strong>y_turn2</strong> (<em>float</em>) – y coordinate of the turning point with initional condition guess2</p></li>
-<li><p><strong>dotproduct</strong> (<em>float</em>) – value of the dotproduct</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point.get_eq_pts">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_eq_pts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns configuration space coordinates of the equilibrium points.</p>
-<p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
-coordinates of the equilibrium point for a Hamiltonian of the form kinetic
-energy (KE) + potential energy (PE).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eqNum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – 1 is the saddle-center equilibrium point
-2 or 3 is the center-center equilibrium point</p></li>
-<li><p><strong>init_guess_eqpt_model</strong> (<em>function name</em>) – function that returns the initial guess for the equilibrium point</p></li>
-<li><p><strong>grad_pot_model</strong> (<em>function name</em>) – function that defines the vector of potential gradient</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>configuration space coordinates</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point.get_pot_surf_proj">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>yVec</strong> (<em>xVec</em><em>,</em>) – x,y-coordinates that discretizes the x, y domain of the configuration space</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>values of the PE</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>2d numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point.get_total_energy">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.get_total_energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
-<p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-Hamiltonian of the form KE + PE.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – phase space coordinates (x,y,px,py) of a point on an orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>total energy (value of Hamiltonian)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>scalar</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point.state_transit_matrix">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns state transition matrix, the trajectory, and the solution of the
-variational equations over a length of time</p>
-<p>In particular, for periodic solutions of % period tf=T, one can obtain
-the monodromy matrix, PHI(0,T).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – final time for the integration</p></li>
-<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – initial condition</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>t</strong> (<em>1d numpy array</em>) – solution time</p></li>
-<li><p><strong>x</strong> (<em>2d numpy array</em>) – solution of the phase space coordinates</p></li>
-<li><p><strong>phi_tf</strong> (<em>2d numpy array</em>) – state transition matrix at the final time, tf</p></li>
-<li><p><strong>PHI</strong> (<em>1d numpy array,</em>) – solution of phase space coordinates and corresponding tangent space coordinates</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point.turningPoint">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">turningPoint</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point.turningPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>turningPoint computes the periodic orbit of target energy using turning point method.</p>
-<p>Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
-trajectories with inital conditions begin1, begin2 are turning in different directions,
-which results in a negative value of the dot product</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>begin1</strong> (<em>function name</em>) – guess initial condition 1 for the unstable periodic orbit</p></li>
-<li><p><strong>begin2</strong> (<em>function name</em>) – guess initial condition 2 for the unstable periodic orbit</p></li>
-<li><p><strong>get_coord_model</strong> (<em>function name</em>) – function that returns the phase space coordinate for a given x/y value and total energy E</p></li>
-<li><p><strong>guess_coord_model</strong> (<em>function name</em>) – function that returns the coordinates as guess for the next iteration of the</p></li>
-<li><p><strong>point</strong> (<em>turning</em>) – </p></li>
-<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
-and time</p></li>
-<li><p><strong>half_period_model</strong> (<em>function name</em>) – function that returns the event criteria in terms of the coordinate that is set to zero
-for half-period of the unstable periodic orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>plot_iter_orbit_model</strong> (<em>function name</em>) – function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
-coordinate</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-<li><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – total energy of the system</p></li>
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – number of intervals that is divided bewteen the 2 initial guesses begin1 and begin2</p></li>
-<li><p><strong>n_turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – nth turning point that is used to define the dot product</p></li>
-<li><p><strong>show_itrsteps_plots</strong> (<em>logical</em>) – flag (True or False) to show iteration of the UPOs in plots</p></li>
-<li><p><strong>po_fam_file</strong> (<em>function name</em>) – file name to save the members in the family of the unstable periodic orbits</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x0po</strong> (<em>1d numpy array</em>) – Initial condition of the target unstable periodic orbit</p></li>
-<li><p><strong>T</strong> (<em>float</em>) – Time period of the target unstable periodic orbit</p></li>
-<li><p><strong>energyPO</strong> (<em>float</em>) – Energy of the target unstable periodic orbit.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-</div>
-<div class="section" id="turning-point-based-on-configuration-difference">
-<h1>Turning point based on configuration difference<a class="headerlink" href="#turning-point-based-on-configuration-difference" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><span class="target" id="module-turning_point_coord_difference"></span><p>Created on Mon Sep  9 17:49:31 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<dl class="function">
-<dt id="turning_point_coord_difference.get_eq_pts">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_eq_pts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns configuration space coordinates of the equilibrium points.</p>
-<p>get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par) solves the
-coordinates of the equilibrium point for a Hamiltonian of the form kinetic
-energy (KE) + potential energy (PE).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>eqNum</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – 1 is the saddle-center equilibrium point
-2 or 3 is the center-center equilibrium point</p></li>
-<li><p><strong>init_guess_eqpt_model</strong> (<em>function name</em>) – function that returns the initial guess for the equilibrium point</p></li>
-<li><p><strong>grad_pot_model</strong> (<em>function name</em>) – function that defines the vector of potential gradient</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>configuration space coordinates</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point_coord_difference.get_pot_surf_proj">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_pot_surf_proj</code><span class="sig-paren">(</span><em class="sig-param">xVec</em>, <em class="sig-param">yVec</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_pot_surf_proj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns projection of the potential energy (PE) surface on the configuration space</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>yVec</strong> (<em>xVec</em><em>,</em>) – x,y-coordinates that discretizes the x, y domain of the configuration space</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>values of the PE</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>2d numpy array</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point_coord_difference.get_total_energy">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_total_energy</code><span class="sig-paren">(</span><em class="sig-param">orbit</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.get_total_energy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns total energy (value of Hamiltonian) of a phase space point on an orbit</p>
-<p>get_total_energy(orbit, pot_energy_model, parameters) returns the total energy for a
-Hamiltonian of the form KE + PE.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>orbit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – phase space coordinates (x,y,px,py) of a point on an orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>total energy (value of Hamiltonian)</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>scalar</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point_coord_difference.state_transit_matrix">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">state_transit_matrix</code><span class="sig-paren">(</span><em class="sig-param">tf</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">fixed_step=0</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.state_transit_matrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns state transition matrix, the trajectory, and the solution of the
-variational equations over a length of time</p>
-<p>In particular, for periodic solutions of % period tf=T, one can obtain
-the monodromy matrix, PHI(0,T).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – final time for the integration</p></li>
-<li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – initial condition</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>t</strong> (<em>1d numpy array</em>) – solution time</p></li>
-<li><p><strong>x</strong> (<em>2d numpy array</em>) – solution of the phase space coordinates</p></li>
-<li><p><strong>phi_tf</strong> (<em>2d numpy array</em>) – state transition matrix at the final time, tf</p></li>
-<li><p><strong>PHI</strong> (<em>1d numpy array,</em>) – solution of phase space coordinates and corresponding tangent space coordinates</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="turning_point_coord_difference.turningPoint_configdiff">
-<code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">turningPoint_configdiff</code><span class="sig-paren">(</span><em class="sig-param">begin1</em>, <em class="sig-param">begin2</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">pot_energy_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">configdiff_model</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">guess_coords_model</em>, <em class="sig-param">plot_iter_orbit_model</em>, <em class="sig-param">par</em>, <em class="sig-param">e</em>, <em class="sig-param">n</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">show_itrsteps_plots</em>, <em class="sig-param">po_fam_file</em><span class="sig-paren">)</span><a class="headerlink" href="#turning_point_coord_difference.turningPoint_configdiff" title="Permalink to this definition">¶</a></dt>
-<dd><p>turningPoint computes the periodic orbit of target energy using turning point based on configuration difference method.</p>
-<p>Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
-trajectories with inital conditions begin1, begin2 are turning in different directions,
-which gives different signs(+ or -) for configuration difference</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>begin1</strong> (<em>function name</em>) – guess initial condition 1 for the unstable periodic orbit</p></li>
-<li><p><strong>begin2</strong> (<em>function name</em>) – guess initial condition 2 for the unstable periodic orbit</p></li>
-<li><p><strong>get_coord_model</strong> (<em>function name</em>) – function that returns the phase space coordinate for a given x/y value and total energy E</p></li>
-<li><p><strong>guess_coord_model</strong> (<em>function name</em>) – function that returns the coordinates as guess for the next iteration of the</p></li>
-<li><p><strong>point</strong> (<em>turning</em>) – </p></li>
-<li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field at an input phase space coordinate
-and time</p></li>
-<li><p><strong>half_period_model</strong> (<em>function name</em>) – function that returns the event criteria in terms of the coordinate that is set to zero
-for half-period of the unstable periodic orbit</p></li>
-<li><p><strong>pot_energy_model</strong> (<em>function name</em>) – function that returns the potential energy of Hamiltonian</p></li>
-<li><p><strong>variational_eqns_model</strong> (<em>function name</em>) – function that returns the variational equations of the dynamical system</p></li>
-<li><p><strong>plot_iter_orbit_model</strong> (<em>function name</em>) – function to plot the computed orbit in the 3D phase space of 2 position and 1 momentum
-coordinate</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
-<li><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – total energy of the system</p></li>
-<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – number of intervals that is divided bewteen the 2 initial guesses begin1 and begin2</p></li>
-<li><p><strong>n_turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – nth turning point that is used to define the dot product</p></li>
-<li><p><strong>show_itrsteps_plots</strong> (<em>logical</em>) – flag (True or False) to show iteration of the UPOs in plots</p></li>
-<li><p><strong>po_fam_file</strong> (<em>function name</em>) – file name to save the members in the family of the unstable periodic orbits</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>x0po</strong> (<em>1d numpy array</em>) – Initial condition of the target unstable periodic orbit</p></li>
-<li><p><strong>T</strong> (<em>float</em>) – Time period of the target unstable periodic orbit</p></li>
-<li><p><strong>energyPO</strong> (<em>float</em>) – Energy of the target unstable periodic orbit.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div></blockquote>
-</div>
-<div class="section" id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Uncoupled quartic Hamiltonian</p></li>
-<li><p>Coupled quartic Hamiltonian</p></li>
-<li><p>De Leon-Berne Hamiltonian</p></li>
+<li><p><a class="reference external" href="#introduction">Introduction</a></p>
+<ul>
+<li><p><a class="reference external" href="#dbham">DeLeon-Berne Hamiltonian</a></p></li>
+<li><p><a class="reference external" href="#coupled-quartic-hamiltonian">Coupled quartic Hamiltonian</a></p></li>
 </ul>
+</li>
+<li><p><a class="reference external" href="#references">References</a></p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h1>Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering (Parker and Chua <a class="reference external" href="#ref-Parker_1989">1989</a>; Wiggins <a class="reference external" href="#ref-wiggins_introduction_2003">2003</a>). The unstable periodic orbits exist in the bottleneck of the equipotential line <em>V</em>(<em>x</em>, <em>y</em>)=<em>E</em> and project as lines on the configuration space (<em>x</em>, <em>y</em>) for the Hamiltonian system of the form kinetic plus potential energy (Wiggins <a class="reference external" href="#ref-wiggins_role_2016">2016</a>). The three methods</p>
+<ul class="simple">
+<li><p>Differential correction (Wang Sang Koon et al. <a class="reference external" href="#ref-koon_heteroclinic_2000">2000</a>; W. S. Koon et al. <a class="reference external" href="#ref-Koon2011">2011</a>; Naik and Ross <a class="reference external" href="#ref-naik_geometry_2017">2017</a>; Ross et al. <a class="reference external" href="#ref-ross_experimental_2018">2018</a>; Naik and Wiggins <a class="reference external" href="#ref-naik_finding_2019b">2019</a>)</p></li>
+<li><p>Turning point (Pollak, Child, and Pechukas <a class="reference external" href="#ref-Pollak_1980">1980</a>; Nelson De Leon and Berne <a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>)</p></li>
+<li><p>Turning point based on configuration difference</p></li>
+</ul>
+<p>implemented in this package has been used for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point.</p>
+<p>Consider the following two degrees-of-freedom Hamiltonian model where <em>x</em>, <em>y</em> are configuration space coordinates and <em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span>, <em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span> are corresponding momenta, <em>V</em>(<em>x</em>, <em>y</em>) is the potential energy, and <em>T</em>(<em>x</em>, <em>y</em>) is the kinetic energy.</p>
+<div class="section" id="id12">
+<h2>DeLeon-Berne Hamiltonian<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change (Nelson De Leon and Berne <a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>; N De Leon and Marston <a class="reference external" href="#ref-DeLeon_Marston_1989">1989</a>) and exhibits regular and chaotic dynamics relevant for chemical reactions.</p>
+<a class="reference external image-reference" href="../tests/plots/diff_corr_deleonberne_upos.png"><img alt="" src="_images/diff_corr_deleonberne_upos.png" /></a>
+<p>Fig. Unstable periodic orbits for the De Leon-Berne Hamiltonian computed using differential correction method.</p>
+</div>
+<div class="section" id="id15">
+<h2>Coupled quartic Hamiltonian<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="../tests/plots/diff_corr_coupled_upos.png"><img alt="" src="_images/diff_corr_coupled_upos.png" /></a>
+<p>Fig. Unstable periodic orbits for the coupled quartic Hamiltonian computed using differential correction method.</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h1>References<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h1>
+<p>De Leon, N, and C. Clay Marston. 1989. “Order in Chaos and the Dynamics and Kinetics of Unimolecular Conformational Isomerization.” <em>The Journal of Chemical Physics</em> 91 (6): 3405–25. doi:<a class="reference external" href="https://doi.org/10.1063/1.456915">10.1063/1.456915</a>.</p>
+<p>De Leon, Nelson, and B. J. Berne. 1981. “Intramolecular Rate Process: Isomerization Dynamics and the Transition to Chaos.” <em>The Journal of Chemical Physics</em> 75 (7): 3495–3510. doi:<a class="reference external" href="https://doi.org/10.1063/1.442459">10.1063/1.442459</a>.</p>
+<p>Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. <em>Dynamical systems, the three-body problem and space mission design</em>. Marsden books.</p>
+<p>Koon, Wang Sang, Martin W. Lo, Jerrold E. Marsden, and Shane D. Ross. 2000. “Heteroclinic Connections Between Periodic Orbits and Resonance Transitions in Celestial Mechanics.” <em>Chaos: An Interdisciplinary Journal of Nonlinear Science</em> 10 (2): 427–69.</p>
+<p>Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics in Nonlinear Ship Motion.” <em>Communications in Nonlinear Science and Numerical Simulation</em> 47 (June): 48–70.</p>
+<p>Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic Invariant Manifolds in Two and Three Degrees of Freedom with Hénon-Heiles-Type Potential.” <em>Phys. Rev. E</em> 100 (2): 022204. doi:<a class="reference external" href="https://doi.org/10.1103/PhysRevE.100.022204">10.1103/PhysRevE.100.022204</a>.</p>
+<p>Parker, T. S., and L. O. Chua. 1989. <em>Practical Numerical Algorithms for Chaotic Systems</em>. New York, NY, USA: Springer-Verlag New York, Inc.</p>
+<p>Pollak, Eli, Mark S. Child, and Philip Pechukas. 1980. “Classical Transition State Theory: A Lower Bound to the Reaction Probability.” <em>The Journal of Chemical Physics</em> 72 (3): 1669–78. doi:<a class="reference external" href="https://doi.org/10.1063/1.439276">10.1063/1.439276</a>.</p>
+<p>Ross, Shane D., Amir E. BozorgMagham, Shibabrat Naik, and Lawrence N. Virgin. 2018. “Experimental Validation of Phase Space Conduits of Transition Between Potential Wells.” <em>Phys. Rev. E</em> 98 (5): 052214.</p>
+<p>Wiggins, Stephen. 2003. <em>Introduction to Applied Nonlinear Dynamical Systems and Chaos</em>. 2nd ed. Texts in Applied Mathematics 2. New York: Springer.</p>
+<p>———. 2016. “The Role of Normally Hyperbolic Invariant Manifolds (NHIMs) in the Context of the Phase Space Setting for Chemical Reaction Dynamics.” <em>Regular and Chaotic Dynamics</em> 21 (6): 621–38. doi:<a class="reference external" href="https://doi.org/10.1134/S1560354716060034">10.1134/S1560354716060034</a>.</p>
 </div>
 
 
@@ -848,7 +229,7 @@ coordinate</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to UPOsHam" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="methods.html" class="btn btn-neutral float-right" title="Differential correction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Homepage of UPOsHam’s documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

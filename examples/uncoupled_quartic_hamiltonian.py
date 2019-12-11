@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jul 30 10:02:48 2019
+
 @author: Wenyang Lyu and Shibabrat Naik
-Script to define expressions for the coupled quartic Hamiltonian
+
+Script to define expressions for the uncoupled quartic Hamiltonian
 """
 
 import numpy as np
@@ -14,6 +16,24 @@ from scipy import optimize
  
 
 #% Begin problem specific functions
+def upo_analytical(total_energy, t, par):
+    """
+    Returns the analytical solution of the unstable periodic orbit at 
+    total energy and discretized at the time points, t.
+    """
+    
+    OMEGA = par[5]
+
+    y_t = np.real(np.sqrt(total_energy/2)*( np.exp(1j*OMEGA*t) \
+                                     + np.exp(-1j*OMEGA*t)))
+    
+    py_t = np.real(1j*np.sqrt(total_energy/2)*( np.exp(1j*OMEGA*t) \
+                                     - np.exp(-1j*OMEGA*t)))
+    
+    return np.array([y_t,py_t])
+
+
+
 def init_guess_eqpt_uncoupled(eqNum, par):
     """
     Returns configuration space coordinates of the equilibrium points according to the index:
@@ -96,9 +116,7 @@ def variational_eqns_uncoupled(t,PHI,par):
     Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the 
     Hamiltonian vector field
     
-    d PHI(t, t0)
-    ------------ =  Df(t) * PHI(t, t0)
-        dt
+    d PHI(t, t0)/dt =  Df(t) * PHI(t, t0)
     
     """
     

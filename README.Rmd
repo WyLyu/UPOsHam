@@ -3,16 +3,13 @@ title: "UPOsHam"
 bibliography: ./paper/paper.bib
 link-citations: yes
 output:
-  html_document:
-    fig_height: 6
-    fig_width: 6
-    theme: united
-    toc: yes
   md_document:
     fig_height: 6
     fig_width: 6
     toc: yes
     variant: markdown_github
+  html_document:
+    toc: yes
   pdf_document:
     fig_height: 6
     fig_width: 6
@@ -21,11 +18,15 @@ output:
 biblio-style: apalike
 ---
 
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
+      
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 ## Summary
 
+
 This Python package is a collection of three methods for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems that model a diverse array of problems in physical sciences and engineering [@Parker_1989; @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods implemented here (and available under [src](src/) directory) has been used in [@Pollak_1980;@Deleon_Berne_1981;@koon_heteroclinic_2000;@Koon2011;@naik_geometry_2017;@ross_experimental_2018;@naik_finding_2019b] for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have chosen three Hamiltonian systems that have two wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. A brief description of these systems can be found in the [paper](https://github.com/WyLyu/UPOsHam/tree/master/paper/paper.pdf). 
+
 
 ## Installation
 
@@ -42,17 +43,18 @@ and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsH
 
 ## Usage
 
-The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default shows at 2 total energy levels) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method can be run from the command line by calling
+The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method, from the root directory call the demonstration script at the command-line usingg
 
 ```
 $ python examples/differential_correction_deleonberne.py
 ```
 
-This will save data files in the current directory and save the following plot in the [plots](tests/plots/) directory.
+This will save data files in the root directory and save the plot in the [./tests/plots](tests/plots/) directory.
 
-![](tests/plots/diff_corr_deleonberne_upos.png){width=80%}
 
-__Fig. Unstable periodic orbits for De Leon-Berne Hamiltonian__
+![](tests/plots/diff_corr_deleonberne_upos.png){width="80.00000%"}
+
+__Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian__
 
 
 The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems. 
@@ -82,6 +84,11 @@ Other tests can be performed by running the cells in the ./tests/tests.ipynb
 ## Contributing
 
 Guidelines on how to contribute to this package can be found  [here](https://github.com/WyLyu/UPOsHam/blob/master/docs/contributing.md) along with the code of conduct [here](https://github.com/WyLyu/UPOsHam/blob/master/CODE_OF_CONDUCT.md) for engaging with the fellow contributors.
+
+
+## Acknowledgements
+
+We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary 2019. We acknowledge contributions from Shane Ross for writing the early MATLAB version of the differential correction and numerical continuation code.
 
 
 ## Copyright and License

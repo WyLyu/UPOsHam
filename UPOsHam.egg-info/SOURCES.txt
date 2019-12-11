@@ -5,6 +5,6 @@ UPOsHam.egg-info/SOURCES.txt
 UPOsHam.egg-info/dependency_links.txt
 UPOsHam.egg-info/top_level.txt
 src/__init__.py
-src/diffcorr_UPOsHam2dof.py
-src/tp_UPOsHam2dof.py
-src/tpcd_UPOsHam2dof.py
+src/differential_correction.py
+src/turning_point.py
+src/turning_point_coord_difference.py
