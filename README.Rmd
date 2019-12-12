@@ -44,7 +44,7 @@ $ python setup.py install
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. 
 
 
-## Usage
+## Usage and Tests
 
 The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method, from the root directory call the demonstration script at the command-line usingg
 
@@ -63,13 +63,13 @@ __Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian__
 The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems. 
 
 
-### Comparing the methods for the coupled quartic Hamiltonian
+__Comparing the methods for the coupled quartic Hamiltonian__
 
 We demonstrate how the UPOs computed using the different methods compare with each other for a specific system: coupled quartic Hamiltonian.
 
 Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained using the three methods for the coupled quartic Hamiltonian can be done using
 
-```
+```bash
 $ ipython
 >>> run ./tests/compare_methods_coupled.py
 ```
@@ -77,12 +77,22 @@ and the generated figure is located [here](tests/comparison_coupled.pdf)
 
 To obtain the unstable periodic orbits for a specific model Hamiltonian using a specific method, one uses
 
-```
+```bash
 $ ipython
 >>> run ./examples/diffcorr_UPOs_coupled.py
 ```
 
-Other tests can be performed by running the cells in the ./tests/tests.ipynb
+__Tests__
+
+The uncoupled quartic Hamiltonian is an example of a system where the unstable periodic orbits can be obtained in explicit analytical form. This system is used for testing the numerical solutions obtained using the methods implemented in this package. 
+
+Passing a test constitutes the following:
+
+1. The Hausdorff distance between a given numerical and analytical orbits is within $10^{-8}$. This is implemented using Scipy's spatial module.
+
+2. The element wise comparison test of the orbits agree upto 6 decimal places. This is performed using Numpy's testing module. 
+
+Other nonlinear examples systems can not be solved in this explicit analytical form and these are tested by performing plotting comparison of the orbits obtained using the methods. These are available in the [Jupyter](./tests/tests.ipynb) notebook.
 
 ## Contributing
 
