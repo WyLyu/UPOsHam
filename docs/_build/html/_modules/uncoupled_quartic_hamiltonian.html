@@ -86,9 +86,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html">Differential correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html#turning-point">Turning point</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html#turning-point-based-on-configuration-difference">Turning point based on configuration difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential_correction.html">Differential correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turning_point.html">Turning point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turning_point_coord_difference.html">Turning point based on configuration difference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -183,6 +183,24 @@
  
 
 <span class="c1">#% Begin problem specific functions</span>
+<div class="viewcode-block" id="upo_analytical"><a class="viewcode-back" href="../examples.html#uncoupled_quartic_hamiltonian.upo_analytical">[docs]</a><span class="k">def</span> <span class="nf">upo_analytical</span><span class="p">(</span><span class="n">total_energy</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the analytical solution of the unstable periodic orbit at </span>
+<span class="sd">    total energy and discretized at the time points, t.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">OMEGA</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+    <span class="n">y_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">total_energy</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">OMEGA</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> \
+                                     <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">OMEGA</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+    
+    <span class="n">py_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">total_energy</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">OMEGA</span><span class="o">*</span><span class="n">t</span><span class="p">)</span> \
+                                     <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">OMEGA</span><span class="o">*</span><span class="n">t</span><span class="p">)))</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y_t</span><span class="p">,</span><span class="n">py_t</span><span class="p">])</span></div>
+
+
+
 <div class="viewcode-block" id="init_guess_eqpt_uncoupled"><a class="viewcode-back" href="../examples.html#uncoupled_quartic_hamiltonian.init_guess_eqpt_uncoupled">[docs]</a><span class="k">def</span> <span class="nf">init_guess_eqpt_uncoupled</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns configuration space coordinates of the equilibrium points according to the index:</span>

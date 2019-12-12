@@ -19,7 +19,9 @@ in two degrees of freedom Hamiltonian (*Ham*) systems
    :maxdepth: 2
    :caption: Methods
 
-   methods
+   differential_correction
+   turning_point
+   turning_point_coord_difference
 
 .. toctree::
    :maxdepth: 2

@@ -86,9 +86,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html">Differential correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html#turning-point">Turning point</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html#turning-point-based-on-configuration-difference">Turning point based on configuration difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential_correction.html">Differential correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turning_point.html">Turning point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turning_point_coord_difference.html">Turning point based on configuration difference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -185,7 +185,7 @@
 
 
 <span class="c1">#%</span>
-<div class="viewcode-block" id="get_eq_pts"><a class="viewcode-back" href="../methods.html#differential_correction.get_eq_pts">[docs]</a><span class="k">def</span> <span class="nf">get_eq_pts</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="get_eq_pts"><a class="viewcode-back" href="../differential_correction.html#differential_correction.get_eq_pts">[docs]</a><span class="k">def</span> <span class="nf">get_eq_pts</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns configuration space coordinates of the equilibrium points.</span>
 
@@ -226,7 +226,7 @@
 
 
 <span class="c1">#%</span>
-<div class="viewcode-block" id="get_total_energy"><a class="viewcode-back" href="../methods.html#differential_correction.get_total_energy">[docs]</a><span class="k">def</span> <span class="nf">get_total_energy</span><span class="p">(</span><span class="n">orbit</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="get_total_energy"><a class="viewcode-back" href="../differential_correction.html#differential_correction.get_total_energy">[docs]</a><span class="k">def</span> <span class="nf">get_total_energy</span><span class="p">(</span><span class="n">orbit</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns total energy (value of Hamiltonian) of a phase space point on an orbit</span>
 
@@ -262,7 +262,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="get_pot_surf_proj"><a class="viewcode-back" href="../methods.html#differential_correction.get_pot_surf_proj">[docs]</a><span class="k">def</span> <span class="nf">get_pot_surf_proj</span><span class="p">(</span><span class="n">xVec</span><span class="p">,</span> <span class="n">yVec</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="get_pot_surf_proj"><a class="viewcode-back" href="../differential_correction.html#differential_correction.get_pot_surf_proj">[docs]</a><span class="k">def</span> <span class="nf">get_pot_surf_proj</span><span class="p">(</span><span class="n">xVec</span><span class="p">,</span> <span class="n">yVec</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns projection of the potential energy (PE) surface on the configuration space</span>
 
@@ -296,7 +296,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="state_transit_matrix"><a class="viewcode-back" href="../methods.html#differential_correction.state_transit_matrix">[docs]</a><span class="k">def</span> <span class="nf">state_transit_matrix</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">par</span><span class="p">,</span><span class="n">variational_eqns_model</span><span class="p">,</span><span class="n">fixed_step</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="state_transit_matrix"><a class="viewcode-back" href="../differential_correction.html#differential_correction.state_transit_matrix">[docs]</a><span class="k">def</span> <span class="nf">state_transit_matrix</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">par</span><span class="p">,</span><span class="n">variational_eqns_model</span><span class="p">,</span><span class="n">fixed_step</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns state transition matrix, the trajectory, and the solution of the</span>
 <span class="sd">    variational equations over a length of time</span>
@@ -360,7 +360,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="remove_infinitesimals"><a class="viewcode-back" href="../methods.html#differential_correction.remove_infinitesimals">[docs]</a><span class="k">def</span> <span class="nf">remove_infinitesimals</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">TOL</span><span class="o">=</span><span class="mf">1.e-14</span><span class="p">):</span>
+<div class="viewcode-block" id="remove_infinitesimals"><a class="viewcode-back" href="../differential_correction.html#differential_correction.remove_infinitesimals">[docs]</a><span class="k">def</span> <span class="nf">remove_infinitesimals</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">TOL</span><span class="o">=</span><span class="mf">1.e-14</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns any complex matrix A with entries where the real or complex part has absolute</span>
 <span class="sd">    value smaller than TOL set to 0</span>
@@ -378,7 +378,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="clean_up_matrix"><a class="viewcode-back" href="../methods.html#differential_correction.clean_up_matrix">[docs]</a><span class="k">def</span> <span class="nf">clean_up_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<div class="viewcode-block" id="clean_up_matrix"><a class="viewcode-back" href="../differential_correction.html#differential_correction.clean_up_matrix">[docs]</a><span class="k">def</span> <span class="nf">clean_up_matrix</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns any complex matrix A with entries where the real or complex part has absolute</span>
 <span class="sd">    value smaller than TOL set to 0, where TOL is set inside this function.</span>
@@ -399,7 +399,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="eig_get"><a class="viewcode-back" href="../methods.html#differential_correction.eig_get">[docs]</a><span class="k">def</span> <span class="nf">eig_get</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">discrete</span><span class="p">):</span>
+<div class="viewcode-block" id="eig_get"><a class="viewcode-back" href="../differential_correction.html#differential_correction.eig_get">[docs]</a><span class="k">def</span> <span class="nf">eig_get</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">discrete</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the eigenvalues and eigenvectors of the matrix A spanning the three local subspaces</span>
 <span class="sd">    &lt;Es,Eu,Ec&gt; where A is MxM and s+u+c=M, which locally approximate the invariant manifolds</span>
@@ -479,7 +479,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="get_po_guess_linear"><a class="viewcode-back" href="../methods.html#differential_correction.get_po_guess_linear">[docs]</a><span class="k">def</span> <span class="nf">get_po_guess_linear</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">Ax</span><span class="p">,</span> <span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> <span class="n">jacobian_model</span><span class="p">,</span> \
+<div class="viewcode-block" id="get_po_guess_linear"><a class="viewcode-back" href="../differential_correction.html#differential_correction.get_po_guess_linear">[docs]</a><span class="k">def</span> <span class="nf">get_po_guess_linear</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">Ax</span><span class="p">,</span> <span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> <span class="n">jacobian_model</span><span class="p">,</span> \
                       <span class="n">guess_lin_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns an initial guess for the differential correction method.</span>
@@ -575,7 +575,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="get_po_diffcorr"><a class="viewcode-back" href="../methods.html#differential_correction.get_po_diffcorr">[docs]</a><span class="k">def</span> <span class="nf">get_po_diffcorr</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> <span class="n">conv_coord_model</span><span class="p">,</span> <span class="n">diffcorr_acc_corr_model</span><span class="p">,</span> \
+<div class="viewcode-block" id="get_po_diffcorr"><a class="viewcode-back" href="../differential_correction.html#differential_correction.get_po_diffcorr">[docs]</a><span class="k">def</span> <span class="nf">get_po_diffcorr</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> <span class="n">conv_coord_model</span><span class="p">,</span> <span class="n">diffcorr_acc_corr_model</span><span class="p">,</span> \
                    <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">variational_eqns_model</span><span class="p">,</span> \
                    <span class="n">plot_iter_orbit_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -714,7 +714,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="get_po_fam"><a class="viewcode-back" href="../methods.html#differential_correction.get_po_fam">[docs]</a><span class="k">def</span> <span class="nf">get_po_fam</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span><span class="n">Ax1</span><span class="p">,</span><span class="n">Ax2</span><span class="p">,</span><span class="n">nFam</span><span class="p">,</span><span class="n">po_fam_file</span><span class="p">,</span><span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> \
+<div class="viewcode-block" id="get_po_fam"><a class="viewcode-back" href="../differential_correction.html#differential_correction.get_po_fam">[docs]</a><span class="k">def</span> <span class="nf">get_po_fam</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span><span class="n">Ax1</span><span class="p">,</span><span class="n">Ax2</span><span class="p">,</span><span class="n">nFam</span><span class="p">,</span><span class="n">po_fam_file</span><span class="p">,</span><span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> \
               <span class="n">jacobian_model</span><span class="p">,</span> <span class="n">guess_lin_model</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> <span class="n">conv_coord_model</span><span class="p">,</span> \
               <span class="n">diffcorr_acc_corr_model</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> \
               <span class="n">variational_eqns_model</span><span class="p">,</span> <span class="n">plot_iter_orbit_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
@@ -868,7 +868,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="po_bracket_energy"><a class="viewcode-back" href="../methods.html#differential_correction.po_bracket_energy">[docs]</a><span class="k">def</span> <span class="nf">po_bracket_energy</span><span class="p">(</span><span class="n">energyTarget</span><span class="p">,</span> <span class="n">x0podata</span><span class="p">,</span> <span class="n">po_brac_file</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> \
+<div class="viewcode-block" id="po_bracket_energy"><a class="viewcode-back" href="../differential_correction.html#differential_correction.po_bracket_energy">[docs]</a><span class="k">def</span> <span class="nf">po_bracket_energy</span><span class="p">(</span><span class="n">energyTarget</span><span class="p">,</span> <span class="n">x0podata</span><span class="p">,</span> <span class="n">po_brac_file</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> \
                     <span class="n">conv_coord_model</span><span class="p">,</span> <span class="n">diffcorr_acc_corr_model</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> \
                     <span class="n">half_period_model</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">variational_eqns_model</span><span class="p">,</span> \
                     <span class="n">plot_iter_orbit_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
@@ -1021,7 +1021,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="po_target_energy"><a class="viewcode-back" href="../methods.html#differential_correction.po_target_energy">[docs]</a><span class="k">def</span> <span class="nf">po_target_energy</span><span class="p">(</span><span class="n">x0po</span><span class="p">,</span> <span class="n">energyTarget</span><span class="p">,</span> <span class="n">po_target_file</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> <span class="n">conv_coord_model</span><span class="p">,</span> \
+<div class="viewcode-block" id="po_target_energy"><a class="viewcode-back" href="../differential_correction.html#differential_correction.po_target_energy">[docs]</a><span class="k">def</span> <span class="nf">po_target_energy</span><span class="p">(</span><span class="n">x0po</span><span class="p">,</span> <span class="n">energyTarget</span><span class="p">,</span> <span class="n">po_target_file</span><span class="p">,</span> <span class="n">diffcorr_setup_model</span><span class="p">,</span> <span class="n">conv_coord_model</span><span class="p">,</span> \
                    <span class="n">diffcorr_acc_corr_model</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> \
                    <span class="n">variational_eqns_model</span><span class="p">,</span> <span class="n">plot_iter_orbit_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>

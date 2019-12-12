@@ -86,9 +86,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html">Differential correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html#turning-point">Turning point</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methods.html#turning-point-based-on-configuration-difference">Turning point based on configuration difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../differential_correction.html">Differential correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turning_point.html">Turning point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../turning_point_coord_difference.html">Turning point based on configuration difference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
@@ -184,7 +184,7 @@
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;mathtext.rm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;serif&#39;</span>
 
     
-<div class="viewcode-block" id="get_eq_pts"><a class="viewcode-back" href="../methods.html#turning_point_coord_difference.get_eq_pts">[docs]</a><span class="k">def</span> <span class="nf">get_eq_pts</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="get_eq_pts"><a class="viewcode-back" href="../turning_point_coord_difference.html#turning_point_coord_difference.get_eq_pts">[docs]</a><span class="k">def</span> <span class="nf">get_eq_pts</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">init_guess_eqpt_model</span><span class="p">,</span> <span class="n">grad_pot_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns configuration space coordinates of the equilibrium points.</span>
 
@@ -228,7 +228,7 @@
 
 
 <span class="c1">#%</span>
-<div class="viewcode-block" id="get_total_energy"><a class="viewcode-back" href="../methods.html#turning_point_coord_difference.get_total_energy">[docs]</a><span class="k">def</span> <span class="nf">get_total_energy</span><span class="p">(</span><span class="n">orbit</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="get_total_energy"><a class="viewcode-back" href="../turning_point_coord_difference.html#turning_point_coord_difference.get_total_energy">[docs]</a><span class="k">def</span> <span class="nf">get_total_energy</span><span class="p">(</span><span class="n">orbit</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns total energy (value of Hamiltonian) of a phase space point on an orbit</span>
 
@@ -262,7 +262,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="get_pot_surf_proj"><a class="viewcode-back" href="../methods.html#turning_point_coord_difference.get_pot_surf_proj">[docs]</a><span class="k">def</span> <span class="nf">get_pot_surf_proj</span><span class="p">(</span><span class="n">xVec</span><span class="p">,</span> <span class="n">yVec</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>            
+<div class="viewcode-block" id="get_pot_surf_proj"><a class="viewcode-back" href="../turning_point_coord_difference.html#turning_point_coord_difference.get_pot_surf_proj">[docs]</a><span class="k">def</span> <span class="nf">get_pot_surf_proj</span><span class="p">(</span><span class="n">xVec</span><span class="p">,</span> <span class="n">yVec</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>            
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns projection of the potential energy (PE) surface on the configuration space</span>
 
@@ -295,7 +295,7 @@
     
     
 <span class="c1">#%</span>
-<div class="viewcode-block" id="state_transit_matrix"><a class="viewcode-back" href="../methods.html#turning_point_coord_difference.state_transit_matrix">[docs]</a><span class="k">def</span> <span class="nf">state_transit_matrix</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">par</span><span class="p">,</span><span class="n">variational_eqns_model</span><span class="p">,</span><span class="n">fixed_step</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> 
+<div class="viewcode-block" id="state_transit_matrix"><a class="viewcode-back" href="../turning_point_coord_difference.html#turning_point_coord_difference.state_transit_matrix">[docs]</a><span class="k">def</span> <span class="nf">state_transit_matrix</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span><span class="n">x0</span><span class="p">,</span><span class="n">par</span><span class="p">,</span><span class="n">variational_eqns_model</span><span class="p">,</span><span class="n">fixed_step</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns state transition matrix, the trajectory, and the solution of the</span>
 <span class="sd">    variational equations over a length of time</span>
@@ -361,7 +361,7 @@
 
 
 <span class="c1">#%%</span>
-<div class="viewcode-block" id="turningPoint_configdiff"><a class="viewcode-back" href="../methods.html#turning_point_coord_difference.turningPoint_configdiff">[docs]</a><span class="k">def</span> <span class="nf">turningPoint_configdiff</span><span class="p">(</span><span class="n">begin1</span><span class="p">,</span><span class="n">begin2</span><span class="p">,</span> <span class="n">get_coord_model</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">variational_eqns_model</span><span class="p">,</span> \
+<div class="viewcode-block" id="turningPoint_configdiff"><a class="viewcode-back" href="../turning_point_coord_difference.html#turning_point_coord_difference.turningPoint_configdiff">[docs]</a><span class="k">def</span> <span class="nf">turningPoint_configdiff</span><span class="p">(</span><span class="n">begin1</span><span class="p">,</span><span class="n">begin2</span><span class="p">,</span> <span class="n">get_coord_model</span><span class="p">,</span> <span class="n">pot_energy_model</span><span class="p">,</span> <span class="n">variational_eqns_model</span><span class="p">,</span> \
                             <span class="n">configdiff_model</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> \
                             <span class="n">guess_coords_model</span><span class="p">,</span> <span class="n">plot_iter_orbit_model</span><span class="p">,</span> <span class="n">par</span><span class="p">,</span> \
                             <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">show_itrsteps_plots</span><span class="p">,</span> <span class="n">po_fam_file</span><span class="p">):</span>

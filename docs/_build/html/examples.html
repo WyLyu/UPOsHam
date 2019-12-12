@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing to UPOsHam" href="contributing.html" />
-    <link rel="prev" title="Differential correction" href="methods.html" /> 
+    <link rel="prev" title="Turning point based on configuration difference" href="turning_point_coord_difference.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -88,9 +88,9 @@
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="methods.html">Differential correction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="methods.html#turning-point">Turning point</a></li>
-<li class="toctree-l1"><a class="reference internal" href="methods.html#turning-point-based-on-configuration-difference">Turning point based on configuration difference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="differential_correction.html">Differential correction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turning_point.html">Turning point</a></li>
+<li class="toctree-l1"><a class="reference internal" href="turning_point_coord_difference.html">Turning point based on configuration difference</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul class="current">
@@ -526,6 +526,13 @@ final points marked</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="uncoupled_quartic_hamiltonian.upo_analytical">
+<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">upo_analytical</code><span class="sig-paren">(</span><em class="sig-param">total_energy</em>, <em class="sig-param">t</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#upo_analytical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.upo_analytical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the analytical solution of the unstable periodic orbit at
+total energy and discretized at the time points, t.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="uncoupled_quartic_hamiltonian.variational_eqns_uncoupled">
 <code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">variational_eqns_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">PHI</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#variational_eqns_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.variational_eqns_uncoupled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the
@@ -546,7 +553,7 @@ Hamiltonian vector field</p>
         <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to UPOsHam" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="methods.html" class="btn btn-neutral float-left" title="Differential correction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="turning_point_coord_difference.html" class="btn btn-neutral float-left" title="Turning point based on configuration difference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
