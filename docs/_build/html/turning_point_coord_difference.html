@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -170,6 +171,7 @@
             
   <div class="section" id="turning-point-based-on-configuration-difference">
 <h1>Turning point based on configuration difference<a class="headerlink" href="#turning-point-based-on-configuration-difference" title="Permalink to this headline">¶</a></h1>
+<p>Based on the turning point approach, we have implemented a new method which shows stable convergence and does not rely on the dot product formula. Suppose we have found two initial conditions on a given equipotential contour and they turn in the opposite directions. If the difference in <span class="math notranslate nohighlight">\(x\)</span>-coordinates is small (<span class="math notranslate nohighlight">\(\approx 10^{-2}\)</span>), the generated trajectories will approach the UPO from either sides. If the difference in <span class="math notranslate nohighlight">\(x\)</span>-coordinates is large, we can integrate the Hamilton’s equations for a guess time interval and find the turning point (event using ODE event detection) at which the trajectories bounce back from the far side of the equipotential contour in opposite directions. We choose these two points as our initial guess and the difference of <span class="math notranslate nohighlight">\(x\)</span>-coordinates become small now. Without loss of generality, this method can be modified to either pick the difference of <span class="math notranslate nohighlight">\(y\)</span>-coordinates or a combination of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates. This choice will depend on the orientation of the potential energy surface’s bottleneck in the configuration space.</p>
 <blockquote>
 <div><span class="target" id="module-turning_point_coord_difference"></span><p>Created on Mon Sep  9 17:49:31 2019</p>
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>

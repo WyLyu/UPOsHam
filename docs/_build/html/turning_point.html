@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -170,6 +171,7 @@
             
   <div class="section" id="turning-point">
 <h1>Turning point<a class="headerlink" href="#turning-point" title="Permalink to this headline">¶</a></h1>
+<p>This method is based on finding the unstable periodic orbit by detecting trajectories initialized on the equipotential contour (<span class="math notranslate nohighlight">\(V(x,y) = E\)</span> where <span class="math notranslate nohighlight">\(V(x,y)\)</span> is the potetial energy function and <span class="math notranslate nohighlight">\(E\)</span> is the total energy) that turn in the opposite directions. This method relies on the fact that for Hamiltonians of the form kinetic plus potential energy the unstable periodic orbit is the limiting trajectory that bounces back and forth between the equipotential contour corresponding to the given total energy. So to converge on this limiting trajectory, the turning point method iteratively decreases the gap between the bounding trajectories that turn in the opposite directions. Detection of turning is done using a dot product condition which leads to stalling of the method beyond a certain tolerance (typically <span class="math notranslate nohighlight">\(10^{-6}\)</span> in the examples here.)</p>
 <blockquote>
 <div><span class="target" id="module-turning_point"></span><p>Created on Thu Sep 12 17:34:06 2019</p>
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
