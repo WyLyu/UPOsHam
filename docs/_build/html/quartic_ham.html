@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Uncoupled and coupled quartic Hamiltonian &mdash; UPOsHam 0.1.0 documentation</title>
+  <title>Quartic Hamiltonian &mdash; UPOsHam 0.1.0 documentation</title>
   
 
   
@@ -85,8 +85,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc.html#id1">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc.html#id12">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc.html#id19">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id13">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id20">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
@@ -97,9 +97,8 @@
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="deleonberne_ham.html">De Leon-Berne Hamiltonian</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Uncoupled and coupled quartic Hamiltonian</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-uncoupled_quartic_hamiltonian">Uncoupled quartic Hamiltonian</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-coupled_quartic_hamiltonian">Coupled quartic Hamiltonian</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quartic Hamiltonian</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#coupled-quartic-hamiltonian">Coupled quartic Hamiltonian</a></li>
 </ul>
 </li>
 </ul>
@@ -154,7 +153,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Uncoupled and coupled quartic Hamiltonian</li>
+      <li>Quartic Hamiltonian</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -173,8 +172,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="uncoupled-and-coupled-quartic-hamiltonian">
-<h1>Uncoupled and coupled quartic Hamiltonian<a class="headerlink" href="#uncoupled-and-coupled-quartic-hamiltonian" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="quartic-hamiltonian">
+<h1>Quartic Hamiltonian<a class="headerlink" href="#quartic-hamiltonian" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[\begin{equation}
     \mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V(x, y)
@@ -185,138 +184,16 @@
     V(x,y) = - \alpha \frac{x^2}{2} + \beta \frac{x^4}{4} + \frac{\omega}{2}y^2 + \frac{\epsilon}{2}(x - y)^2
 \end{align}\]</div>
 <p>The parameters in the model are <span class="math notranslate nohighlight">\(m_A, m_B\)</span> which represent mass of the molecular configurations A and B, while <span class="math notranslate nohighlight">\(\alpha, \beta\)</span> denote features of the potential energy surface geometry, <span class="math notranslate nohighlight">\(\omega, \epsilon\)</span> denote the frequency of the harmonic bath mode, and coupling strength.</p>
-<div class="section" id="module-uncoupled_quartic_hamiltonian">
-<span id="uncoupled-quartic-hamiltonian"></span><h2>Uncoupled quartic Hamiltonian<a class="headerlink" href="#module-uncoupled_quartic_hamiltonian" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Jul 30 10:02:48 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<p>Script to define expressions for the uncoupled quartic Hamiltonian</p>
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.configdiff_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">configdiff_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#configdiff_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.configdiff_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the difference of x(or y) coordinates between the guess initial conditions
-and the ith turning points</p>
-<p>either difference in x coordintes(x_diff1, x_diff2) or difference in
-y coordinates(y_diff1, y_diff2) is returned as the result.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.conv_coord_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">conv_coord_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">x1</em>, <em class="sig-param">y1</em>, <em class="sig-param">dxdot1</em>, <em class="sig-param">dydot1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#conv_coord_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.conv_coord_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the variable we want to keep fixed during differential correction.</p>
-<p>dxdot1—-fix x, dydot1—-fix y.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.diffcorr_acc_corr_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">diffcorr_acc_corr_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">coords</em>, <em class="sig-param">phi_t1</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#diffcorr_acc_corr_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.diffcorr_acc_corr_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the new guess initial condition of the unstable periodic orbit after applying
-small correction to the guess.</p>
-<p>Correcting x or y coordinate depends on the problem and needs to chosen by inspecting the
-geometry of the bottleneck in the potential energy surface.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.diffcorr_setup_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">diffcorr_setup_uncoupled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#diffcorr_setup_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.diffcorr_setup_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns settings for differential correction method</p>
-<p>Settings include choosing coordinates for event criteria, convergence criteria, and
-correction (see references for details on how to choose these coordinates).</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.eigvector_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">eigvector_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#eigvector_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.eigvector_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the correction factor to the eigenvectors for the linear guess</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.get_coord_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">get_coord_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">E</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#get_coord_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.get_coord_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the initial position of x/y-coordinate on the potential energy
-surface(PES) for a specific energy E.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.grad_pot_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">grad_pot_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#grad_pot_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.grad_pot_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the gradient of the potential energy function V(x,y)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.guess_coords_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">guess_coords_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">i</em>, <em class="sig-param">n</em>, <em class="sig-param">e</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#guess_coords_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.guess_coords_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns x and y (configuration space) coordinates as guess for the next iteration of the
-turning point based on confifuration difference method</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.guess_lin_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">guess_lin_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">eqPt</em>, <em class="sig-param">Ax</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#guess_lin_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.guess_lin_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an initial guess for the unstable periodic orbit</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.half_period_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">half_period_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">x</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#half_period_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.half_period_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the turning point where we want to stop the integration</p>
-<p>pxDot = x[0]
-pyDot = x[1]
-xDot = x[2]
-yDot = x[3]</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.ham2dof_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">ham2dof_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">x</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#ham2dof_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.ham2dof_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Hamiltonian vector field (Hamilton’s equations of motion)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.init_guess_eqpt_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">init_guess_eqpt_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#init_guess_eqpt_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.init_guess_eqpt_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns configuration space coordinates of the equilibrium points according to the index:
-Saddle (EQNUM=1)
-Centre (EQNUM=2,3)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.jacobian_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">jacobian_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">eqPt</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#jacobian_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.jacobian_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns Jacobian of the Hamiltonian vector field</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.plot_iter_orbit_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">plot_iter_orbit_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">ax</em>, <em class="sig-param">e</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#plot_iter_orbit_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.plot_iter_orbit_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and
-final points marked</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.pot_energy_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">pot_energy_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#pot_energy_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.pot_energy_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the potential energy function V(x,y)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.upo_analytical">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">upo_analytical</code><span class="sig-paren">(</span><em class="sig-param">total_energy</em>, <em class="sig-param">t</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#upo_analytical"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.upo_analytical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the analytical solution of the unstable periodic orbit at
-total energy and discretized at the time points, t.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="uncoupled_quartic_hamiltonian.variational_eqns_uncoupled">
-<code class="sig-prename descclassname">uncoupled_quartic_hamiltonian.</code><code class="sig-name descname">variational_eqns_uncoupled</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">PHI</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/uncoupled_quartic_hamiltonian.html#variational_eqns_uncoupled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#uncoupled_quartic_hamiltonian.variational_eqns_uncoupled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the
-Hamiltonian vector field</p>
-<p>d PHI(t, t0)/dt =  Df(t) * PHI(t, t0)</p>
-</dd></dl>
-
+<div class="section" id="coupled-quartic-hamiltonian">
+<h2>Coupled quartic Hamiltonian<a class="headerlink" href="#coupled-quartic-hamiltonian" title="Permalink to this headline">¶</a></h2>
+<p>We describe the coupled case (<span class="math notranslate nohighlight">\(\epsilon \neq 0.0\)</span>) to illustrate how to set up a script for computing the unstable periodic orbit using the different methods.</p>
+<p>The expected result of the computation using differential correction method is the figure below.</p>
+<div class="figure align-default" id="id1">
+<span id="fig-upo-coupled"></span><img alt="_images/diff_corr_coupled_upos.png" src="_images/diff_corr_coupled_upos.png" />
+<p class="caption"><span class="caption-text">Figure showing the unstable periodic orbits in the bottleneck of the two degrees of freedom coupled quartic Hamiltonian. The unstable periodic orbits at two values of the total energy are shown in red and blue, and the equipotential contours are projected on the <span class="math notranslate nohighlight">\(x-y\)</span> plane (<span class="math notranslate nohighlight">\(p_y = 0\)</span>).</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-<div class="section" id="module-coupled_quartic_hamiltonian">
-<span id="coupled-quartic-hamiltonian"></span><h2>Coupled quartic Hamiltonian<a class="headerlink" href="#module-coupled_quartic_hamiltonian" title="Permalink to this headline">¶</a></h2>
-<p>Created on Tue Jul 30 10:02:48 2019</p>
+<p>The functions below implement the expressions for this specific Hamiltonian and that are sent as parameters to the functions for a method described in <a class="reference internal" href="index.html#sect-methods"><span class="std std-ref">Methods</span></a>.</p>
+<span class="target" id="module-coupled_quartic_hamiltonian"></span><p>Created on Tue Jul 30 10:02:48 2019</p>
 <p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
 <p>Script to define expressions for the coupled quartic Hamiltonian</p>
 <dl class="function">

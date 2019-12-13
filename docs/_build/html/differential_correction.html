@@ -85,7 +85,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc.html#id1">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc.html#id16">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id13">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id20">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul class="current">
@@ -96,8 +97,7 @@
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="deleonberne_ham.html">De Leon-Berne Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html">Coupled quartic Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html#module-uncoupled_quartic_hamiltonian">Uncoupled quartic Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html">Quartic Hamiltonian</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing and reporting</span></p>
 <ul>
@@ -173,9 +173,7 @@
 <h1>Differential correction<a class="headerlink" href="#differential-correction" title="Permalink to this headline">¶</a></h1>
 <p>This method is based on small (<span class="math notranslate nohighlight">\(\approx 10^{-5}\)</span>) corrections to the initial condition of an unstable periodic orbit at a desired total energy. The procedure is started from the linear solutions of the Hamilton’s equations at the index-1 saddle equilibrium point and which generates a small amplitude (<span class="math notranslate nohighlight">\(\approx 10^{-5}\)</span>) periodic orbit. This is then fed into an iterative procedure based on state transition matrix that calculates correction to the initial condition based on error in the terminal coordinates of the periodic orbit. This leads to convergence within 3 steps in the sense of the trajectory returning to the initial condition. Once a small amplitude periodic orbit is obtained, numerical continuation increases the amplitude and correspondingly the total energy of the unstable periodic orbit. Then, a combination of bracketing and bisection method computes the UPO at the desired energy for a specified tolerance.</p>
 <blockquote>
-<div><span class="target" id="module-differential_correction"></span><p>Created on Tue Sep 10 18:32:28 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<dl class="function">
+<div><span class="target" id="module-differential_correction"></span><dl class="function">
 <dt id="differential_correction.clean_up_matrix">
 <code class="sig-prename descclassname">differential_correction.</code><code class="sig-name descname">clean_up_matrix</code><span class="sig-paren">(</span><em class="sig-param">A</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/differential_correction.html#clean_up_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#differential_correction.clean_up_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns any complex matrix A with entries where the real or complex part has absolute

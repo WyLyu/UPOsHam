@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 30 10:02:48 2019
+# """
+# Created on Tue Jul 30 10:02:48 2019
 
-@author: Wenyang Lyu and Shibabrat Naik
+# @author: Wenyang Lyu and Shibabrat Naik
 
-Script to define expressions for the coupled quartic Hamiltonian
-"""
+# Script to define expressions for the coupled quartic Hamiltonian
+# """
 
 import numpy as np
 import matplotlib.pyplot as plt

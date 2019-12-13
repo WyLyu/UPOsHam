@@ -15,6 +15,7 @@ in two degrees of freedom Hamiltonian (*Ham*) systems
 
    doc
 
+.. _sect-methods:
 .. toctree::
    :maxdepth: 2
    :caption: Methods

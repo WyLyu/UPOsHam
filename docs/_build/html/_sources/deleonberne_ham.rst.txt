@@ -17,6 +17,10 @@ where the potential energy function :math:`V_{\rm DB}(x,y)` is
 The parameters in the model are :math:`m_A, m_B` which represent mass of the isomers, while :math:`\epsilon_s, D_x` denote the energy of the saddle, dissociation energy of the Morse oscillator, respectively, and will be kept fixed in this study, :math:`\lambda, \zeta` denote the range of the Morse oscillator and coupling parameter between the :math:`x` and :math:`y` configuration space coordinates, respectively.
 
 
+.. image::  ../tests/plots/diff_corr_deleonberne_upos.png
+
+Unstable periodic orbits at two values of the total energy for the De Leon-Berne Hamiltonian computed using differential correction method.
+
 .. automodule:: deleonberne_hamiltonian
    :members:
 
