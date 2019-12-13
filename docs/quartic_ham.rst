@@ -1,11 +1,3 @@
-
-De Leon-Berne Hamiltonian
-=========================
-
-.. automodule:: deleonberne_hamiltonian
-   :members:
-
-
 Coupled quartic Hamiltonian
 ===========================
 
@@ -18,4 +10,3 @@ Uncoupled quartic Hamiltonian
 
 .. automodule:: uncoupled_quartic_hamiltonian
    :members:
-
