@@ -195,7 +195,7 @@ def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0):
 
 #%%
 def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, \
-                varEqns_model, par):
+                variational_eqns_model, par):
     """
     Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points
     
