@@ -83,7 +83,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../doc.html#id1">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../doc.html#id16">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc.html#id13">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc.html#id20">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
@@ -93,9 +94,8 @@
 </ul>
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html">De Leon-Berne Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html#module-coupled_quartic_hamiltonian">Coupled quartic Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../examples.html#module-uncoupled_quartic_hamiltonian">Uncoupled quartic Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deleonberne_ham.html">De Leon-Berne Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quartic_ham.html">Uncoupled and coupled quartic Hamiltonian</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing and reporting</span></p>
 <ul>
@@ -184,7 +184,7 @@
 
 
 <span class="c1">#% Begin problem specific functions</span>
-<div class="viewcode-block" id="init_guess_eqpt_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.init_guess_eqpt_coupled">[docs]</a><span class="k">def</span> <span class="nf">init_guess_eqpt_coupled</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="init_guess_eqpt_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.init_guess_eqpt_coupled">[docs]</a><span class="k">def</span> <span class="nf">init_guess_eqpt_coupled</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns configuration space coordinates of the equilibrium points according to the index:</span>
 <span class="sd">    Saddle (EQNUM=1)</span>
@@ -200,7 +200,7 @@
     
     <span class="k">return</span> <span class="n">x0</span></div>
 
-<div class="viewcode-block" id="grad_pot_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.grad_pot_coupled">[docs]</a><span class="k">def</span> <span class="nf">grad_pot_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="grad_pot_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.grad_pot_coupled">[docs]</a><span class="k">def</span> <span class="nf">grad_pot_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Returns the gradient of the potential energy function V(x,y) &quot;&quot;&quot;</span>
      
     <span class="n">dVdx</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">+</span><span class="n">par</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">3</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -210,14 +210,14 @@
     
     <span class="k">return</span> <span class="n">F</span></div>
 
-<div class="viewcode-block" id="pot_energy_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.pot_energy_coupled">[docs]</a><span class="k">def</span> <span class="nf">pot_energy_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="pot_energy_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.pot_energy_coupled">[docs]</a><span class="k">def</span> <span class="nf">pot_energy_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Returns the potential energy function V(x,y) &quot;&quot;&quot;</span>
     
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span></div>
 
 
 <span class="c1">#%</span>
-<div class="viewcode-block" id="eigvector_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.eigvector_coupled">[docs]</a><span class="k">def</span> <span class="nf">eigvector_coupled</span><span class="p">(</span><span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="eigvector_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.eigvector_coupled">[docs]</a><span class="k">def</span> <span class="nf">eigvector_coupled</span><span class="p">(</span><span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Returns the correction factor to the eigenvectors for the linear guess &quot;&quot;&quot;</span>
     
     <span class="n">evaluelamb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">par</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">par</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">par</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> \
@@ -231,7 +231,7 @@
     <span class="k">return</span> <span class="n">correcx</span><span class="p">,</span> <span class="n">correcy</span></div>
 
 
-<div class="viewcode-block" id="guess_lin_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.guess_lin_coupled">[docs]</a><span class="k">def</span> <span class="nf">guess_lin_coupled</span><span class="p">(</span><span class="n">eqPt</span><span class="p">,</span> <span class="n">Ax</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="guess_lin_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.guess_lin_coupled">[docs]</a><span class="k">def</span> <span class="nf">guess_lin_coupled</span><span class="p">(</span><span class="n">eqPt</span><span class="p">,</span> <span class="n">Ax</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Returns an initial guess for the unstable periodic orbit &quot;&quot;&quot;</span> 
     
     <span class="n">correcx</span><span class="p">,</span> <span class="n">correcy</span> <span class="o">=</span> <span class="n">eigvector_coupled</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
@@ -240,7 +240,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">eqPt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">Ax</span><span class="o">*</span><span class="n">correcx</span><span class="p">,</span><span class="n">eqPt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">Ax</span><span class="o">*</span><span class="n">correcy</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="jacobian_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.jacobian_coupled">[docs]</a><span class="k">def</span> <span class="nf">jacobian_coupled</span><span class="p">(</span><span class="n">eqPt</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="jacobian_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.jacobian_coupled">[docs]</a><span class="k">def</span> <span class="nf">jacobian_coupled</span><span class="p">(</span><span class="n">eqPt</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Returns Jacobian of the Hamiltonian vector field &quot;&quot;&quot;</span>
     
     <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">px</span><span class="p">,</span><span class="n">py</span> <span class="o">=</span> <span class="n">eqPt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
@@ -266,7 +266,7 @@
     <span class="k">return</span> <span class="n">Df</span></div>
 
 
-<div class="viewcode-block" id="variational_eqns_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.variational_eqns_coupled">[docs]</a><span class="k">def</span> <span class="nf">variational_eqns_coupled</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">PHI</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="variational_eqns_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.variational_eqns_coupled">[docs]</a><span class="k">def</span> <span class="nf">variational_eqns_coupled</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">PHI</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;    </span>
 <span class="sd">    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the </span>
 <span class="sd">    Hamiltonian vector field</span>
@@ -312,7 +312,7 @@
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">PHIdot</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="diffcorr_setup_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.diffcorr_setup_coupled">[docs]</a><span class="k">def</span> <span class="nf">diffcorr_setup_coupled</span><span class="p">():</span>
+<div class="viewcode-block" id="diffcorr_setup_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.diffcorr_setup_coupled">[docs]</a><span class="k">def</span> <span class="nf">diffcorr_setup_coupled</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    Returns settings for differential correction method </span>
 <span class="sd">        </span>
@@ -330,7 +330,7 @@
     <span class="k">return</span> <span class="p">[</span><span class="n">drdot1</span><span class="p">,</span> <span class="n">correctr0</span><span class="p">,</span> <span class="n">MAXdrdot1</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="conv_coord_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.conv_coord_coupled">[docs]</a><span class="k">def</span> <span class="nf">conv_coord_coupled</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">dxdot1</span><span class="p">,</span> <span class="n">dydot1</span><span class="p">):</span>
+<div class="viewcode-block" id="conv_coord_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.conv_coord_coupled">[docs]</a><span class="k">def</span> <span class="nf">conv_coord_coupled</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">dxdot1</span><span class="p">,</span> <span class="n">dydot1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the variable we want to keep fixed during differential correction.</span>
 <span class="sd">    </span>
@@ -339,7 +339,7 @@
     <span class="k">return</span> <span class="n">dxdot1</span></div>
 
 
-<div class="viewcode-block" id="get_coord_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.get_coord_coupled">[docs]</a><span class="k">def</span> <span class="nf">get_coord_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="get_coord_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.get_coord_coupled">[docs]</a><span class="k">def</span> <span class="nf">get_coord_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    Returns the initial position of x/y-coordinate on the potential energy </span>
 <span class="sd">    surface(PES) for a specific energy E.</span>
@@ -348,7 +348,7 @@
     <span class="k">return</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.25</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">E</span></div>
 
 
-<div class="viewcode-block" id="diffcorr_acc_corr_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.diffcorr_acc_corr_coupled">[docs]</a><span class="k">def</span> <span class="nf">diffcorr_acc_corr_coupled</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">phi_t1</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="diffcorr_acc_corr_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.diffcorr_acc_corr_coupled">[docs]</a><span class="k">def</span> <span class="nf">diffcorr_acc_corr_coupled</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">phi_t1</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    Returns the new guess initial condition of the unstable periodic orbit after applying </span>
 <span class="sd">    small correction to the guess. </span>
@@ -371,7 +371,7 @@
     <span class="k">return</span> <span class="n">x0</span></div>
 
 
-<div class="viewcode-block" id="configdiff_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.configdiff_coupled">[docs]</a><span class="k">def</span> <span class="nf">configdiff_coupled</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="configdiff_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.configdiff_coupled">[docs]</a><span class="k">def</span> <span class="nf">configdiff_coupled</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the difference of x(or y) coordinates between the guess initial conditions </span>
 <span class="sd">    and the ith turning points</span>
@@ -414,7 +414,7 @@
     <span class="k">return</span> <span class="n">x_diff1</span><span class="p">,</span> <span class="n">x_diff2</span></div>
 
 
-<div class="viewcode-block" id="guess_coords_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.guess_coords_coupled">[docs]</a><span class="k">def</span> <span class="nf">guess_coords_coupled</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">get_coord_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="guess_coords_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.guess_coords_coupled">[docs]</a><span class="k">def</span> <span class="nf">guess_coords_coupled</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">get_coord_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns x and y (configuration space) coordinates as guess for the next iteration of the </span>
 <span class="sd">    turning point based on confifuration difference method</span>
@@ -434,7 +434,7 @@
     <span class="k">return</span> <span class="n">xguess</span><span class="p">,</span> <span class="n">yguess</span></div>
 
 
-<div class="viewcode-block" id="plot_iter_orbit_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.plot_iter_orbit_coupled">[docs]</a><span class="k">def</span> <span class="nf">plot_iter_orbit_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="plot_iter_orbit_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.plot_iter_orbit_coupled">[docs]</a><span class="k">def</span> <span class="nf">plot_iter_orbit_coupled</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and </span>
 <span class="sd">    final points marked </span>
@@ -457,7 +457,7 @@
     <span class="k">return</span> </div>
 
 
-<div class="viewcode-block" id="ham2dof_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.ham2dof_coupled">[docs]</a><span class="k">def</span> <span class="nf">ham2dof_coupled</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="ham2dof_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.ham2dof_coupled">[docs]</a><span class="k">def</span> <span class="nf">ham2dof_coupled</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Returns the Hamiltonian vector field (Hamilton&#39;s equations of motion) &quot;&quot;&quot;</span>
     
     <span class="n">xDot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
@@ -472,7 +472,7 @@
     
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">xDot</span><span class="p">)</span>    </div>
 
-<div class="viewcode-block" id="half_period_coupled"><a class="viewcode-back" href="../examples.html#coupled_quartic_hamiltonian.half_period_coupled">[docs]</a><span class="k">def</span> <span class="nf">half_period_coupled</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="half_period_coupled"><a class="viewcode-back" href="../quartic_ham.html#coupled_quartic_hamiltonian.half_period_coupled">[docs]</a><span class="k">def</span> <span class="nf">half_period_coupled</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the turning point where we want to stop the integration                           </span>
 <span class="sd">    </span>

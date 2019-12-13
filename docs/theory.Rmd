@@ -20,32 +20,41 @@ biblio-style: apalike
 
 # Introduction {#introduction}
 
-Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering [@Parker_1989; @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods
+Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering [@Parker_1989; @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The three methods are
 
 - Differential correction [@koon_heteroclinic_2000;@Koon2011;@naik_geometry_2017;@ross_experimental_2018;@naik_finding_2019b]
 - Turning point [@Pollak_1980;@Deleon_Berne_1981]
 - Turning point based on configuration difference
 
-implemented in this package has been used for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point. 
+implemented in this package has been used for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point [@wiggins_introduction_2003]. 
+
+
+
+# Examples 
+
+In the sections below, we briefly describe the Hamiltonian systems that are used to demonstrate the methods mentioned in [Introduction](#introduction). 
 
 Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
 
-## DeLeon-Berne Hamiltonian {#dbham}
+## De Leon-Berne Hamiltonian {#dbham}
 
-This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change [@Deleon_Berne_1981; @DeLeon_Marston_1989] and exhibits regular and chaotic dynamics relevant for chemical reactions. 
+This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change and exhibits regular and chaotic dynamics relevant for chemical reactions [@Deleon_Berne_1981; @DeLeon_Marston_1989; @marston_reactive_1989]. 
 
 
-![](../tests/plots/diff_corr_deleonberne_upos.png)
 
-Fig. Unstable periodic orbits for the De Leon-Berne Hamiltonian computed using differential correction method.
+![Unstable periodic orbits](../tests/plots/diff_corr_deleonberne_upos.png)
+
+Unstable periodic orbits at two values of the total energy for the De Leon-Berne Hamiltonian computed using differential correction method.
 
 
 ## Coupled quartic Hamiltonian
 
+This Hamiltonian models a chemical reaction where the _molecule_ reacts by crossing the barrier separating the double-well (two molecular configurations which are denoted by the bottom of the well) potential and is coupled with the _solvent_ represented by the harmonic oscillator.
+
 
 ![](../tests/plots/diff_corr_coupled_upos.png)
 
-Fig. Unstable periodic orbits for the coupled quartic Hamiltonian computed using differential correction method.
+Unstable periodic orbits at two values of the total energy for the coupled quartic Hamiltonian computed using differential correction method.
 
 
 

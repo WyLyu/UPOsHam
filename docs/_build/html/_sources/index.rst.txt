@@ -27,7 +27,8 @@ in two degrees of freedom Hamiltonian (*Ham*) systems
    :maxdepth: 2
    :caption: Examples
 
-   examples
+   deleonberne_ham
+   quartic_ham
 
 .. toctree::
    :maxdepth: 2
