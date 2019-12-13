@@ -1,7 +1,8 @@
 -   [UPOsHam](#uposham)
     -   [Summary](#summary)
     -   [Installation](#installation)
-    -   [Usage and Tests](#usage-and-tests)
+    -   [Usage](#usage)
+    -   [Tests](#tests)
     -   [Contributing](#contributing)
     -   [Acknowledgements](#acknowledgements)
     -   [Copyright and License](#copyright-and-license)
@@ -10,9 +11,7 @@
 UPOsHam
 =======
 
-[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 Summary
 -------
@@ -33,8 +32,8 @@ $ python setup.py install
 
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip.
 
-Usage and Tests
----------------
+Usage
+-----
 
 The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names `<method>_<system>.py`. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the differential correction method, from the root directory call the demonstration script at the command-line usingg
 
@@ -48,6 +47,26 @@ This will save data files in the root directory and save the plot in the [./test
 
 The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems.
 
+To obtain the unstable periodic orbits for a specific model Hamiltonian using a specific method, one uses
+
+``` bash
+$ ipython
+>>> run ./examples/diffcorr_UPOs_coupled.py
+```
+
+Tests
+-----
+
+The uncoupled quartic Hamiltonian is an example of a system where the unstable periodic orbits can be obtained in explicit analytical form. This system is used for testing the numerical solutions obtained using the methods implemented in this package.
+
+Passing a test constitutes the following:
+
+1.  The Hausdorff distance between a given numerical and analytical orbits is within 10<sup>−8</sup>. This is implemented using Scipy's spatial module.
+
+2.  The element wise comparison test of the orbits agree upto 6 decimal places. This is performed using Numpy's testing module.
+
+Other nonlinear examples systems can not be solved in this explicit analytical form and these are tested by performing plotting comparison of the orbits obtained using the methods. These are available in the [Jupyter](./tests/tests.ipynb) notebook.
+
 **Comparing the methods for the coupled quartic Hamiltonian**
 
 We demonstrate how the UPOs computed using the different methods compare with each other for a specific system: coupled quartic Hamiltonian.
@@ -60,25 +79,6 @@ $ ipython
 ```
 
 and the generated figure is located [here](tests/comparison_coupled.pdf)
-
-To obtain the unstable periodic orbits for a specific model Hamiltonian using a specific method, one uses
-
-``` bash
-$ ipython
->>> run ./examples/diffcorr_UPOs_coupled.py
-```
-
-**Tests**
-
-The uncoupled quartic Hamiltonian is an example of a system where the unstable periodic orbits can be obtained in explicit analytical form. This system is used for testing the numerical solutions obtained using the methods implemented in this package.
-
-Passing a test constitutes the following:
-
-1.  The Hausdorff distance between a given numerical and analytical orbits is within 10<sup>−8</sup>. This is implemented using Scipy's spatial module.
-
-2.  The element wise comparison test of the orbits agree upto 6 decimal places. This is performed using Numpy's testing module.
-
-Other nonlinear examples systems can not be solved in this explicit analytical form and these are tested by performing plotting comparison of the orbits obtained using the methods. These are available in the [Jupyter](./tests/tests.ipynb) notebook.
 
 Contributing
 ------------
