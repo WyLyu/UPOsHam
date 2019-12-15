@@ -6,6 +6,8 @@ quartic Hamiltonian
 import numpy as np
 from scipy.integrate import solve_ivp
 
+from scipy.spatial.distance import directed_hausdorff
+
 import unittest
 
 import sys
@@ -16,7 +18,7 @@ import uncoupled_quartic_hamiltonian as uncoupled
 import differential_correction_uncoupled as diff_corr_unc
 import turning_pt_uncoupled
 
-from scipy.spatial.distance import directed_hausdorff
+# Setting parameters of the uncoupled Hamiltonian
 
 def hausd_dist_numeric_analytic(orbit, t, deltaE_val, parameters):
     """
@@ -144,7 +146,6 @@ class TestUnstablePeriodicOrbit(unittest.TestCase):
             hausd_dist = hausd_dist_numeric_analytic(
                 x_turning_pt, t, deltaE_val, parameters)
             self.assertLessEqual(hausd_dist, 1e-8)
-
 
 
 
