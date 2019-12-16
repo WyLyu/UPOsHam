@@ -72,9 +72,6 @@ $ ipython
 >>> run ./examples/diffcorr_UPOs_coupled.py
 ```
 
-## Tests
-=======
-
 The uncoupled quartic Hamiltonian is an example of a system where the unstable periodic orbits can be obtained in explicit analytical form. This system is used for testing the numerical solutions obtained using the methods implemented in this package. 
 
 Passing a test constitutes the following:

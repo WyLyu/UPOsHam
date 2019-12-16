@@ -1,11 +1,8 @@
 -   [UPOsHam](#uposham)
     -   [Summary](#summary)
     -   [Installation](#installation)
--   [and check the modules shown in
-    [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
-    are installed using
-    conda/pip.](#and-check-the-modules-shown-in-requirements.txt-are-installed-using-condapip.)
     -   [Usage](#usage)
+    -   [Tests](#tests)
     -   [Contributing](#contributing)
     -   [Acknowledgements](#acknowledgements)
     -   [Copyright and License](#copyright-and-license)
@@ -57,19 +54,12 @@ $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 $ python setup.py install
 ```
 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-
-and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip.
-===============================================================================================================================================
-
 and check the modules shown in
 [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
 are installed using conda/pip.
 
 Usage
 -----
-
-> > > > > > > update-readme
 
 To obtain the unstable periodic orbits for a two degree-of-freedom
 Hamiltonian system, one needs the expressions described in the examples
@@ -80,14 +70,8 @@ These expression can then be implemented as shown in the
 the expressions can then be passed to a method’s function as in the
 [script](examples/differential_correction_deleonberne.py)
 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD The example scripts that computes the
-unstable periodic orbits (UPOs) for a given Hamiltonian system is in the
-[examples](examples/) directory with names `<method>_<system>.py`. For
-example, to compute the unstable periodic orbits (the default setting
-computes the UPOs for 2 values of the total energy) for the De
-Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the
-differential correction method, from the root directory call the
-demonstration script at the command-line usingg ======= \#\# Tests
+Tests
+-----
 
 The example scripts that computes the unstable periodic orbits (UPOs)
 for a given Hamiltonian system is in the [examples](examples/) directory
@@ -96,7 +80,7 @@ of unstable periodic orbits (the default setting computes the UPOs for 2
 values of the total energy) for the De Leon-Berne Hamiltonian
 ([1981](#ref-Deleon_Berne_1981)) using the differential correction
 method, from the root directory call the demonstration script at the
-command-line using &gt;&gt;&gt;&gt;&gt;&gt;&gt; update-readme
+command-line using
 
     $ python examples/differential_correction_deleonberne.py
 
@@ -118,9 +102,6 @@ using a specific method, one uses
 $ ipython
 >>> run ./examples/diffcorr_UPOs_coupled.py
 ```
-
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD \#\# Tests =======
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; update-readme
 
 The uncoupled quartic Hamiltonian is an example of a system where the
 unstable periodic orbits can be obtained in explicit analytical form.
