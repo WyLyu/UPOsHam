@@ -38,13 +38,27 @@ $ cd UPOsHam
 $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 $ python setup.py install
 ```
+<<<<<<< HEAD
+
+and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. 
+=======
 
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. 
 
 
 ## Usage
+>>>>>>> update-readme
 
+To obtain the unstable periodic orbits for a two degree-of-freedom Hamiltonian system, one needs the expressions described in the examples section of the ![documentation](https://readthedocs.org/projects/uposham/badge/?version=latest). These expression can then be implemented as shown in the [script](examples/deleonberne_hamiltonian.py) and the function names of the expressions can then be passed to a method's function as in the [script](examples/differential_correction_deleonberne.py)
+
+
+<<<<<<< HEAD
 The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method, from the root directory call the demonstration script at the command-line usingg
+=======
+## Tests
+
+The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to test the computation of unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method, from the root directory call the demonstration script at the command-line using
+>>>>>>> update-readme
 
 ```
 $ python examples/differential_correction_deleonberne.py
@@ -67,7 +81,10 @@ $ ipython
 >>> run ./examples/diffcorr_UPOs_coupled.py
 ```
 
+<<<<<<< HEAD
 ## Tests
+=======
+>>>>>>> update-readme
 
 The uncoupled quartic Hamiltonian is an example of a system where the unstable periodic orbits can be obtained in explicit analytical form. This system is used for testing the numerical solutions obtained using the methods implemented in this package. 
 
