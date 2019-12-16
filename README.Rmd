@@ -44,7 +44,7 @@ and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsH
 
 ## Usage
 
-To obtain the unstable periodic orbits for a two degree-of-freedom Hamiltonian system, one needs the expressions described in the examples section of the ![documentation](https://uposham.readthedocs.io/en/latest/?badge=latest). These expression can then be implemented as shown in the [script](examples/deleonberne_hamiltonian.py) and the function names of the expressions can then be passed to a method's function as in the [script](examples/differential_correction_deleonberne.py)
+To obtain the unstable periodic orbits for a two degree-of-freedom Hamiltonian system, one needs the expressions described in the examples section of the [documentation](https://uposham.readthedocs.io/en/latest/?badge=latest). These expression can then be implemented as shown in the [script](examples/deleonberne_hamiltonian.py) and the function names of the expressions can then be passed to a method's function as in the [script](examples/differential_correction_deleonberne.py)
 
 
 __Solving the De Leon-Berne Hamiltonian using differential correction method__

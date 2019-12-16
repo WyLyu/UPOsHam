@@ -64,7 +64,7 @@ Usage
 To obtain the unstable periodic orbits for a two degree-of-freedom
 Hamiltonian system, one needs the expressions described in the examples
 section of the
-![documentation](https://uposham.readthedocs.io/en/latest/?badge=latest).
+[documentation](https://uposham.readthedocs.io/en/latest/?badge=latest).
 These expression can then be implemented as shown in the
 [script](examples/deleonberne_hamiltonian.py) and the function names of
 the expressions can then be passed to a method’s function as in the
@@ -87,7 +87,7 @@ command-line using
 This will save data files in the root directory and save the plot in the
 [./tests/plots](tests/plots/) directory.
 
-<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:80.0%" />
+<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:60.0%" />
 
 **Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 
