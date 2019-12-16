@@ -58,7 +58,7 @@ $ python examples/differential_correction_deleonberne.py
 This will save data files in the root directory and save the plot in the [./tests/plots](tests/plots/) directory.
 
 
-![](tests/plots/diff_corr_deleonberne_upos.png){width="80.00000%"}
+![](tests/plots/diff_corr_deleonberne_upos.png){width="60.00000%"}
 
 __Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian__
 
