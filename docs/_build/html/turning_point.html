@@ -85,7 +85,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc.html#id1">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc.html#id16">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id13">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id20">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul class="current">
@@ -96,8 +97,7 @@
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="deleonberne_ham.html">De Leon-Berne Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html">Coupled quartic Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html#module-uncoupled_quartic_hamiltonian">Uncoupled quartic Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html">Quartic Hamiltonian</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing and reporting</span></p>
 <ul>
@@ -173,11 +173,9 @@
 <h1>Turning point<a class="headerlink" href="#turning-point" title="Permalink to this headline">¶</a></h1>
 <p>This method is based on finding the unstable periodic orbit by detecting trajectories initialized on the equipotential contour (<span class="math notranslate nohighlight">\(V(x,y) = E\)</span> where <span class="math notranslate nohighlight">\(V(x,y)\)</span> is the potetial energy function and <span class="math notranslate nohighlight">\(E\)</span> is the total energy) that turn in the opposite directions. This method relies on the fact that for Hamiltonians of the form kinetic plus potential energy the unstable periodic orbit is the limiting trajectory that bounces back and forth between the equipotential contour corresponding to the given total energy. So to converge on this limiting trajectory, the turning point method iteratively decreases the gap between the bounding trajectories that turn in the opposite directions. Detection of turning is done using a dot product condition which leads to stalling of the method beyond a certain tolerance (typically <span class="math notranslate nohighlight">\(10^{-6}\)</span> in the examples here.)</p>
 <blockquote>
-<div><span class="target" id="module-turning_point"></span><p>Created on Thu Sep 12 17:34:06 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<dl class="function">
+<div><span class="target" id="module-turning_point"></span><dl class="function">
 <dt id="turning_point.dotproduct">
-<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">varEqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#dotproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">turning_point.</code><code class="sig-name descname">dotproduct</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">variational_eqns_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point.html#dotproduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point.dotproduct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points</p>
 <p>Uses turning point method(defined a dot product form before the “actual” turning point.)</p>
 <dl class="field-list simple">

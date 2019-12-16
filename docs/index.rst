@@ -9,6 +9,7 @@ Homepage of UPOsHam’s documentation
 Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) 
 in two degrees of freedom Hamiltonian (*Ham*) systems
 
+.. _sect-theory:
 .. toctree::
    :maxdepth: 2
    :caption: Theory
@@ -37,7 +38,7 @@ in two degrees of freedom Hamiltonian (*Ham*) systems
 
    contributing
 
-   
+
 Indices and tables
 ==================
 

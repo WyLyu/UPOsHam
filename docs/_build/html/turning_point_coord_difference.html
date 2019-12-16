@@ -85,7 +85,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="doc.html">Unstable Periodic Orbits in Hamiltonian systems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc.html#id1">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc.html#id16">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id13">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html#id20">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul class="current">
@@ -96,8 +97,7 @@
 <p class="caption"><span class="caption-text">Examples</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="deleonberne_ham.html">De Leon-Berne Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html">Coupled quartic Hamiltonian</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html#module-uncoupled_quartic_hamiltonian">Uncoupled quartic Hamiltonian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quartic_ham.html">Quartic Hamiltonian</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing and reporting</span></p>
 <ul>
@@ -173,9 +173,7 @@
 <h1>Turning point based on configuration difference<a class="headerlink" href="#turning-point-based-on-configuration-difference" title="Permalink to this headline">¶</a></h1>
 <p>Based on the turning point approach, we have implemented a new method which shows stable convergence and does not rely on the dot product formula. Suppose we have found two initial conditions on a given equipotential contour and they turn in the opposite directions. If the difference in <span class="math notranslate nohighlight">\(x\)</span>-coordinates is small (<span class="math notranslate nohighlight">\(\approx 10^{-2}\)</span>), the generated trajectories will approach the UPO from either sides. If the difference in <span class="math notranslate nohighlight">\(x\)</span>-coordinates is large, we can integrate the Hamilton’s equations for a guess time interval and find the turning point (event using ODE event detection) at which the trajectories bounce back from the far side of the equipotential contour in opposite directions. We choose these two points as our initial guess and the difference of <span class="math notranslate nohighlight">\(x\)</span>-coordinates become small now. Without loss of generality, this method can be modified to either pick the difference of <span class="math notranslate nohighlight">\(y\)</span>-coordinates or a combination of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> coordinates. This choice will depend on the orientation of the potential energy surface’s bottleneck in the configuration space.</p>
 <blockquote>
-<div><span class="target" id="module-turning_point_coord_difference"></span><p>Created on Mon Sep  9 17:49:31 2019</p>
-<p>&#64;author: Wenyang Lyu and Shibabrat Naik</p>
-<dl class="function">
+<div><span class="target" id="module-turning_point_coord_difference"></span><dl class="function">
 <dt id="turning_point_coord_difference.get_eq_pts">
 <code class="sig-prename descclassname">turning_point_coord_difference.</code><code class="sig-name descname">get_eq_pts</code><span class="sig-paren">(</span><em class="sig-param">eqNum</em>, <em class="sig-param">init_guess_eqpt_model</em>, <em class="sig-param">grad_pot_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/turning_point_coord_difference.html#get_eq_pts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#turning_point_coord_difference.get_eq_pts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns configuration space coordinates of the equilibrium points.</p>
