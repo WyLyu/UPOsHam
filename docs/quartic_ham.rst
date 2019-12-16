@@ -1,6 +1,8 @@
 Quartic Hamiltonian
 ===================
 
+This Hamiltonian models a chemical reaction where the _molecule_ reacts by crossing the barrier separating the double-well (two molecular configurations which are denoted by the bottom of the well) potential and is coupled with the _solvent_ represented by the harmonic oscillator.
+
 .. math::
     \begin{equation}
         \mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V(x, y)

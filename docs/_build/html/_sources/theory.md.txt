@@ -1,37 +1,44 @@
--   [Introduction](#introduction)
--   [Methods](#methods)
--   [Examples](#examples)
-    -   [De Leon-Berne Hamiltonian](#dbham)
-    -   [Uncoupled and coupled quartic
-        Hamiltonian](#uncoupled-and-coupled-quartic-hamiltonian)
+-   [Theory](#theory)
+-   [Available methods](#methods)
+-   [Example Hamiltonian systems](#examples)
 -   [References](#references)
 
-Introduction
-============
+Theory
+======
 
 Computation of unstable periodic orbits in two degrees of freedom
-Hamiltonian systems arises in a diverse array of problems in physical
-sciences and engineering (Parker and Chua [1989](#ref-Parker_1989);
-Wiggins [2003](#ref-wiggins_introduction_2003)). The unstable periodic
-orbits exist in the bottleneck of the equipotential line
-*V*(*x*, *y*) = *E* and project as lines on the configuration space
-(*x*, *y*) for the Hamiltonian system of the form kinetic plus potential
-energy (Wiggins [2016](#ref-wiggins_role_2016)). The methods implemented
-in this package has been used for transition dynamics in chemical
-reactions, celestial mechanics, and ship capsize. We have included
-Hamiltonian systems with two potential wells connected by a bottleneck
-where the unstable periodic orbits exist for energy above the energy of
-the saddle equilibrium point (Wiggins
+Hamiltonian systems arises in studying transition dynamics in physical
+sciences (for example chemical reactions, celestial mechanics) and
+engineering (for example, ship dynamics and capsize, structural
+mechanics) (Parker and Chua [1989](#ref-Parker_1989); Wiggins
 [2003](#ref-wiggins_introduction_2003)).
 
-Methods
-=======
+A two degree-of-freedom Hamiltonian system of the form kinetic plus
+potential energy is represented by
+
+ℋ(*x*, *y*, *p*<sub>*x*</sub>, *p*<sub>*y*</sub>) = *T*(*p*<sub>*x*</sub>, *p*<sub>*y*</sub>) + *V*(*x*, *y*)
+
+where *x*, *y* are configuration space coordinates,
+*p*<sub>*x*</sub>, *p*<sub>*y*</sub> are corresponding momenta,
+*V*(*x*, *y*) is the potential energy, and
+*T*(*p*<sub>*x*</sub>, *p*<sub>*y*</sub>) is the kinetic energy. The
+unstable periodic orbits exist in the bottleneck of the equipotential
+contour given by *V*(*x*, *y*) = *E* where *E* is the total energy. For
+the Hamiltonian system of the form kinetic plus potential energy, the
+unstable periodic orbit projects as a line on the configuration space
+(*x*, *y*) (Wiggins [2016](#ref-wiggins_role_2016)). The objective is to
+compute this orbit which exists for energies above the energy of the
+index-1 saddle equilibrium point located in the bottleneck (Wiggins
+[2003](#ref-wiggins_introduction_2003)).
+
+Available methods
+=================
 
 This section gives a broad overview of the methods as a reference for
 implementing new methods and as how to guide to solve new systems. The
 methods are implemented as modules and are part of the internal code
 that do not require modification. More details can be found in the
-papers listed
+papers listed below:
 
 -   Differential correction (Koon et al.
     [2000](#ref-koon_heteroclinic_2000), [2011](#ref-Koon2011); Naik and
@@ -40,40 +47,23 @@ papers listed
     [2019](#ref-naik_finding_2019b))
 -   Turning point (Pollak, Child, and Pechukas [1980](#ref-Pollak_1980);
     De Leon and Berne [1981](#ref-Deleon_Berne_1981))
--   Turning point based on configuration difference
-    -   (this is a modification of the turning point method and does not
-        rely on dot product computation)
+-   Turning point based on configuration difference: this is a
+    modification of the turning point method and does not rely on dot
+    product computation.
 
-Examples
-========
+Example Hamiltonian systems
+===========================
 
-In the sections below, we briefly describe the Hamiltonian systems that
-are used to demonstrate the methods mentioned in
-[Introduction](#introduction).
+In the sections below, we briefly describe the Hamiltonian systems with
+potential wells connected by a bottleneck and these are used to
+demonstrate the methods mentioned in [Introduction](#introduction).
 
-Consider the following two degrees-of-freedom Hamiltonian model where
-*x*, *y* are configuration space coordinates and *p*<sub>*x*</sub> and
-*p*<sub>*y*</sub> are corresponding momenta, *V*(*x*, *y*) is the
-potential energy, and *T*(*x*, *y*) is the kinetic energy.
+-   De Leon-Berne Hamiltonian (De Leon and Berne
+    [1981](#ref-Deleon_Berne_1981); De Leon and Marston
+    [1989](#ref-DeLeon_Marston_1989); Marston and De Leon
+    [1989](#ref-marston_reactive_1989)).
 
-De Leon-Berne Hamiltonian
--------------------------
-
-This Hamiltonian has been studied as a model of isomerization of a
-single molecule that undergoes conformational change and exhibits
-regular and chaotic dynamics relevant for chemical reactions (De Leon
-and Berne [1981](#ref-Deleon_Berne_1981); De Leon and Marston
-[1989](#ref-DeLeon_Marston_1989); Marston and De Leon
-[1989](#ref-marston_reactive_1989)).
-
-Uncoupled and coupled quartic Hamiltonian
------------------------------------------
-
-This Hamiltonian models a chemical reaction where the *molecule* reacts
-by crossing the barrier separating the double-well (two molecular
-configurations which are denoted by the bottom of the well) potential
-and is coupled with the *solvent* represented by the harmonic
-oscillator.
+-   Uncoupled and coupled quartic Hamiltonian
 
 References
 ==========

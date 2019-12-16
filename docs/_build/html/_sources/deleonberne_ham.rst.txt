@@ -1,6 +1,8 @@
 De Leon-Berne Hamiltonian
 =========================
 
+This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change and exhibits regular and chaotic dynamics relevant for chemical reactions.
+
 .. math::
     \mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V_{\rm DB}(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V_{\rm DB}(x, y)
 

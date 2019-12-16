@@ -81,17 +81,13 @@
               
             
             
-              <p class="caption"><span class="caption-text">Theory</span></p>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Unstable Periodic Orbits in Hamiltonian systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#id1">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#id6">Methods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#id14">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id16">De Leon-Berne Hamiltonian</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id20">Uncoupled and coupled quartic Hamiltonian</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#id21">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id1">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id6">Available methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id14">Example Hamiltonian systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id18">References</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Methods</span></p>
 <ul>
@@ -177,42 +173,43 @@
   <div class="section" id="unstable-periodic-orbits-in-hamiltonian-systems">
 <h1>Unstable Periodic Orbits in Hamiltonian systems<a class="headerlink" href="#unstable-periodic-orbits-in-hamiltonian-systems" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference external" href="#introduction">Introduction</a></p></li>
-<li><p><a class="reference external" href="#methods">Methods</a></p></li>
-<li><p><a class="reference external" href="#examples">Examples</a></p>
-<ul>
-<li><p><a class="reference external" href="#dbham">De Leon-Berne Hamiltonian</a></p></li>
-<li><p><a class="reference external" href="#uncoupled-and-coupled-quartic-hamiltonian">Uncoupled and coupled quartic
-Hamiltonian</a></p></li>
-</ul>
-</li>
+<li><p><a class="reference external" href="#theory">Theory</a></p></li>
+<li><p><a class="reference external" href="#methods">Available methods</a></p></li>
+<li><p><a class="reference external" href="#examples">Example Hamiltonian systems</a></p></li>
 <li><p><a class="reference external" href="#references">References</a></p></li>
 </ul>
 </div>
 <div class="section" id="id1">
-<h1>Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>Theory<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>Computation of unstable periodic orbits in two degrees of freedom
-Hamiltonian systems arises in a diverse array of problems in physical
-sciences and engineering (Parker and Chua <a class="reference external" href="#ref-Parker_1989">1989</a>;
-Wiggins <a class="reference external" href="#ref-wiggins_introduction_2003">2003</a>). The unstable periodic
-orbits exist in the bottleneck of the equipotential line
-<em>V</em>(<em>x</em>, <em>y</em>) = <em>E</em> and project as lines on the configuration space
-(<em>x</em>, <em>y</em>) for the Hamiltonian system of the form kinetic plus potential
-energy (Wiggins <a class="reference external" href="#ref-wiggins_role_2016">2016</a>). The methods implemented
-in this package has been used for transition dynamics in chemical
-reactions, celestial mechanics, and ship capsize. We have included
-Hamiltonian systems with two potential wells connected by a bottleneck
-where the unstable periodic orbits exist for energy above the energy of
-the saddle equilibrium point (Wiggins
+Hamiltonian systems arises in studying transition dynamics in physical
+sciences (for example chemical reactions, celestial mechanics) and
+engineering (for example, ship dynamics and capsize, structural
+mechanics) (Parker and Chua <a class="reference external" href="#ref-Parker_1989">1989</a>; Wiggins
+<a class="reference external" href="#ref-wiggins_introduction_2003">2003</a>).</p>
+<p>A two degree-of-freedom Hamiltonian system of the form kinetic plus
+potential energy is represented by</p>
+<p>ℋ(<em>x</em>, <em>y</em>, <em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span>, <em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span>) = <em>T</em>(<em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span>, <em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span>) + <em>V</em>(<em>x</em>, <em>y</em>)</p>
+<p>where <em>x</em>, <em>y</em> are configuration space coordinates,
+<em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span>, <em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span> are corresponding momenta,
+<em>V</em>(<em>x</em>, <em>y</em>) is the potential energy, and
+<em>T</em>(<em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span>, <em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span>) is the kinetic energy. The
+unstable periodic orbits exist in the bottleneck of the equipotential
+contour given by <em>V</em>(<em>x</em>, <em>y</em>) = <em>E</em> where <em>E</em> is the total energy. For
+the Hamiltonian system of the form kinetic plus potential energy, the
+unstable periodic orbit projects as a line on the configuration space
+(<em>x</em>, <em>y</em>) (Wiggins <a class="reference external" href="#ref-wiggins_role_2016">2016</a>). The objective is to
+compute this orbit which exists for energies above the energy of the
+index-1 saddle equilibrium point located in the bottleneck (Wiggins
 <a class="reference external" href="#ref-wiggins_introduction_2003">2003</a>).</p>
 </div>
 <div class="section" id="id6">
-<h1>Methods<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
+<h1>Available methods<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h1>
 <p>This section gives a broad overview of the methods as a reference for
 implementing new methods and as how to guide to solve new systems. The
 methods are implemented as modules and are part of the internal code
 that do not require modification. More details can be found in the
-papers listed</p>
+papers listed below:</p>
 <ul class="simple">
 <li><p>Differential correction (Koon et al.
 <a class="reference external" href="#ref-koon_heteroclinic_2000">2000</a>, <a class="reference external" href="#ref-Koon2011">2011</a>; Naik and
@@ -221,43 +218,26 @@ Ross <a class="reference external" href="#ref-naik_geometry_2017">2017</a>; Ross
 <a class="reference external" href="#ref-naik_finding_2019b">2019</a>)</p></li>
 <li><p>Turning point (Pollak, Child, and Pechukas <a class="reference external" href="#ref-Pollak_1980">1980</a>;
 De Leon and Berne <a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>)</p></li>
-<li><p>Turning point based on configuration difference</p>
-<ul>
-<li><p>(this is a modification of the turning point method and does not
-rely on dot product computation)</p></li>
-</ul>
-</li>
+<li><p>Turning point based on configuration difference: this is a
+modification of the turning point method and does not rely on dot
+product computation.</p></li>
 </ul>
 </div>
 <div class="section" id="id14">
-<h1>Examples<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h1>
-<p>In the sections below, we briefly describe the Hamiltonian systems that
-are used to demonstrate the methods mentioned in
-<a class="reference external" href="#introduction">Introduction</a>.</p>
-<p>Consider the following two degrees-of-freedom Hamiltonian model where
-<em>x</em>, <em>y</em> are configuration space coordinates and <em>p</em><span class="raw-html-m2r"><sub>*x*</sub></span> and
-<em>p</em><span class="raw-html-m2r"><sub>*y*</sub></span> are corresponding momenta, <em>V</em>(<em>x</em>, <em>y</em>) is the
-potential energy, and <em>T</em>(<em>x</em>, <em>y</em>) is the kinetic energy.</p>
-<div class="section" id="id16">
-<h2>De Leon-Berne Hamiltonian<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
-<p>This Hamiltonian has been studied as a model of isomerization of a
-single molecule that undergoes conformational change and exhibits
-regular and chaotic dynamics relevant for chemical reactions (De Leon
-and Berne <a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>; De Leon and Marston
+<h1>Example Hamiltonian systems<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h1>
+<p>In the sections below, we briefly describe the Hamiltonian systems with
+potential wells connected by a bottleneck and these are used to
+demonstrate the methods mentioned in <a class="reference external" href="#introduction">Introduction</a>.</p>
+<ul class="simple">
+<li><p>De Leon-Berne Hamiltonian (De Leon and Berne
+<a class="reference external" href="#ref-Deleon_Berne_1981">1981</a>; De Leon and Marston
 <a class="reference external" href="#ref-DeLeon_Marston_1989">1989</a>; Marston and De Leon
-<a class="reference external" href="#ref-marston_reactive_1989">1989</a>).</p>
+<a class="reference external" href="#ref-marston_reactive_1989">1989</a>).</p></li>
+<li><p>Uncoupled and coupled quartic Hamiltonian</p></li>
+</ul>
 </div>
-<div class="section" id="id20">
-<h2>Uncoupled and coupled quartic Hamiltonian<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
-<p>This Hamiltonian models a chemical reaction where the <em>molecule</em> reacts
-by crossing the barrier separating the double-well (two molecular
-configurations which are denoted by the bottom of the well) potential
-and is coupled with the <em>solvent</em> represented by the harmonic
-oscillator.</p>
-</div>
-</div>
-<div class="section" id="id21">
-<h1>References<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id18">
+<h1>References<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h1>
 <p>De Leon, Nelson, and B. J. Berne. 1981. “Intramolecular Rate Process:
 Isomerization Dynamics and the Transition to Chaos.” <em>The Journal of
 Chemical Physics</em> 75 (7): 3495–3510. <a class="reference external" href="https://doi.org/10.1063/1.442459">https://doi.org/10.1063/1.442459</a>.</p>

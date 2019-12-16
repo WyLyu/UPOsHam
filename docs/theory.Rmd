@@ -18,9 +18,17 @@ output:
 biblio-style: apalike
 ---
 
-# Introduction {#introduction}
+# Theory {#theory}
 
-Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in a diverse array of problems in physical sciences and engineering [@Parker_1989; @wiggins_introduction_2003]. The unstable periodic orbits exist in the bottleneck of the equipotential line $V(x,y) = E$ and project as lines on the configuration space $(x,y)$ for the Hamiltonian system of the form kinetic plus potential energy [@wiggins_role_2016]. The methods implemented in this package has been used for transition dynamics in chemical reactions, celestial mechanics, and ship capsize. We have included Hamiltonian systems with two potential wells connected by a bottleneck where the unstable periodic orbits exist for energy above the energy of the saddle equilibrium point [@wiggins_introduction_2003]. 
+Computation of unstable periodic orbits in two degrees of freedom Hamiltonian systems arises in studying transition dynamics in physical sciences (for example chemical reactions, celestial mechanics) and engineering (for example, ship dynamics and capsize, structural mechanics) [@Parker_1989; @wiggins_introduction_2003].
+
+A two degree-of-freedom Hamiltonian system of the form kinetic plus potential energy is represented by
+
+$$
+\mathcal{H}(x,y,p_x,p_y)  = T(p_x,p_y) + V(x,y)
+$$
+
+where $x, y$ are configuration space coordinates, $p_x, p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(p_x,p_y)$ is the kinetic energy. The unstable periodic orbits exist in the bottleneck of the equipotential contour given by $V(x,y) = E$ where $E$ is the total energy. For the Hamiltonian system of the form kinetic plus potential energy, the unstable periodic orbit projects as a line on the configuration space $(x,y)$ [@wiggins_role_2016]. The objective is to compute this orbit which exists for energies above the energy of the index-1 saddle equilibrium point located in the bottleneck [@wiggins_introduction_2003].
 
 
 # Available methods {#methods}
@@ -29,26 +37,17 @@ This section gives a broad overview of the methods as a reference for implementi
 
 - Differential correction [@koon_heteroclinic_2000;@Koon2011;@naik_geometry_2017;@ross_experimental_2018;@naik_finding_2019b]
 - Turning point [@Pollak_1980;@Deleon_Berne_1981]
-- Turning point based on configuration difference 
-  * this is a modification of the turning point method and does not rely on dot product computation.
+- Turning point based on configuration difference: this is a modification of the turning point method and does not rely on dot product computation.
 
 
-# Examples 
+# Example Hamiltonian systems {#examples}
 
-In the sections below, we briefly describe the Hamiltonian systems that are used to demonstrate the methods mentioned in [Introduction](#introduction). 
-
-Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x$ and $p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
-
-## De Leon-Berne Hamiltonian {#dbham}
-
-This Hamiltonian has been studied as a model of isomerization of a single molecule that undergoes conformational change and exhibits regular and chaotic dynamics relevant for chemical reactions [@Deleon_Berne_1981; @DeLeon_Marston_1989; @marston_reactive_1989]. 
+In the sections below, we briefly describe the Hamiltonian systems with potential wells connected by a bottleneck and these are used to demonstrate the methods mentioned in [Introduction](#introduction).
 
 
-## Uncoupled and coupled quartic Hamiltonian
+- De Leon-Berne Hamiltonian [@Deleon_Berne_1981; @DeLeon_Marston_1989; @marston_reactive_1989]. 
 
-This Hamiltonian models a chemical reaction where the _molecule_ reacts by crossing the barrier separating the double-well (two molecular configurations which are denoted by the bottom of the well) potential and is coupled with the _solvent_ represented by the harmonic oscillator.
-
-
+- Uncoupled and coupled quartic Hamiltonian
 
 
 
