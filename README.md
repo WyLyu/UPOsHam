@@ -64,14 +64,14 @@ Usage
 To obtain the unstable periodic orbits for a two degree-of-freedom
 Hamiltonian system, one needs the expressions described in the examples
 section of the
-![documentation](https://readthedocs.org/projects/uposham/badge/?version=latest).
+![documentation](https://uposham.readthedocs.io/en/latest/?badge=latest).
 These expression can then be implemented as shown in the
 [script](examples/deleonberne_hamiltonian.py) and the function names of
 the expressions can then be passed to a method’s function as in the
 [script](examples/differential_correction_deleonberne.py)
 
-Tests
------
+**Solving the De Leon-Berne Hamiltonian using differential correction
+method**
 
 The example scripts that computes the unstable periodic orbits (UPOs)
 for a given Hamiltonian system is in the [examples](examples/) directory
@@ -91,22 +91,31 @@ This will save data files in the root directory and save the plot in the
 
 **Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 
-The example scripts import the system specific functions and method
-specific functions to obtain the UPOs. These are written as illustration
-of how to apply these methods to new systems.
+**Solving the coupled quartic Hamiltonian using differential
+correction**
 
-To obtain the unstable periodic orbits for a specific model Hamiltonian
-using a specific method, one uses
+The example scripts show how to implement the Hamiltonian system
+specific functions and pass them to the method specific functions. These
+scripts are written as demonstration of how to apply these methods to a
+new system using the available methods.
+
+For example, to obtain the unstable periodic orbits for a specific model
+Hamiltonian using a specific method, one uses
 
 ``` bash
 $ ipython
->>> run ./examples/diffcorr_UPOs_coupled.py
+>>> run ./examples/differential_correction_coupled.py
 ```
+
+Tests
+-----
 
 The uncoupled quartic Hamiltonian is an example of a system where the
 unstable periodic orbits can be obtained in explicit analytical form.
 This system is used for testing the numerical solutions obtained using
 the methods implemented in this package.
+
+**Unit test**
 
 Passing a test constitutes the following:
 
