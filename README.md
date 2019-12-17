@@ -65,47 +65,57 @@ To obtain the unstable periodic orbits for a two degree-of-freedom
 Hamiltonian system, one needs the expressions described in the examples
 section of the
 [documentation](https://uposham.readthedocs.io/en/latest/?badge=latest).
-These expression can then be implemented as shown in the
+These expression can then be implemented as functions as shown in the
 [script](examples/deleonberne_hamiltonian.py) and the function names of
 the expressions can then be passed to a method’s function as in the
-[script](examples/differential_correction_deleonberne.py)
+[script](examples/differential_correction_deleonberne.py). The example
+script that computes the unstable periodic orbits (UPOs) for a given
+Hamiltonian system is in the [examples](examples/) directory with names
+`<method>_<system>.py`. The example scripts show how the method specific
+functions take the system specific functions as input and are meant as
+demonstration of how to set-up computation for a new system using the
+available methods.
 
-**Solving the De Leon-Berne Hamiltonian using differential correction
-method**
+The user will need to write the system specific functions in a script,
+import this as module, import one of the method as module, and pass the
+system specific functions to the method specific functions.
 
-The example scripts that computes the unstable periodic orbits (UPOs)
-for a given Hamiltonian system is in the [examples](examples/) directory
-with names `<method>_<system>.py`. For example, to test the computation
-of unstable periodic orbits (the default setting computes the UPOs for 2
-values of the total energy) for the De Leon-Berne Hamiltonian
-([1981](#ref-Deleon_Berne_1981)) using the differential correction
-method, from the root directory call the demonstration script at the
-command-line using
+**Solving the De Leon-Berne Hamiltonian system using differential
+correction method**
 
-    $ python examples/differential_correction_deleonberne.py
+For example, to test the computation of unstable periodic orbits (the
+default setting computes the UPOs for 2 values of the total energy) for
+the De Leon-Berne Hamiltonian ([1981](#ref-Deleon_Berne_1981)) using the
+differential correction method, the demonstration script can be called
+from the root directory at the command-line using
+
+``` bash
+$ python examples/differential_correction_deleonberne.py
+```
 
 This will save data files in the root directory and save the plot in the
 [./tests/plots](tests/plots/) directory.
 
-<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:60.0%" />
+<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:50.0%" />
 
 **Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 
-**Solving the coupled quartic Hamiltonian using differential
-correction**
+**Solving the coupled quartic Hamiltonian system using differential
+correction method**
 
-The example scripts show how to implement the Hamiltonian system
-specific functions and pass them to the method specific functions. These
-scripts are written as demonstration of how to apply these methods to a
-new system using the available methods.
-
-For example, to obtain the unstable periodic orbits for a specific model
-Hamiltonian using a specific method, one uses
+To perform these computations using ipython, for example to obtain the
+unstable periodic orbits for the coupled quartic Hamiltonian using the
+differential correction, the user can execute:
 
 ``` bash
 $ ipython
 >>> run ./examples/differential_correction_coupled.py
 ```
+
+This will save data files in the root directory and save the plot in the
+[./tests/plots](tests/plots/) directory.
+
+<img src="tests/plots/diff_corr_coupled_upos.png" style="width:50.0%" />
 
 Tests
 -----
