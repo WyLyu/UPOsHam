@@ -18,7 +18,7 @@ Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) in 
 .. _sect-methods:
 .. toctree::
    :maxdepth: 2
-   :caption: Methods
+   :caption: Available methods
 
    differential_correction
    turning_point
@@ -26,7 +26,7 @@ Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) in 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Examples
+   :caption: Example Hamiltonian systems
 
    deleonberne_ham
    quartic_ham
