@@ -449,7 +449,7 @@ def configdiff_coupled(guess1, guess2, ham2dof_model, half_period_model, n_turn,
     
 
     print("Initial guess1 %.6f, initial guess2 %.6f, \
-            y_diff1 is %.6f, y_diff2 is %.6f" %(guess1, guess2, y_diff1, y_diff2)) 
+            x_diff1 is %.6f, x_diff2 is %.6f" %(guess1, guess2, x_diff1, x_diff2)) 
     
     return x_diff1, x_diff2
 

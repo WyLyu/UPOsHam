@@ -453,7 +453,8 @@ def configdiff_deleonberne(guess1, guess2, ham2dof_model,\
     return y_diff1, y_diff2
 
 
-def guess_coords_deleonberne(guess1, guess2, i, n, e, get_coord_model, parameters):
+def guess_coords_deleonberne(guess1, guess2, i, n, e, \
+                            get_coord_model,parameters):
     """
     Returns x and y (configuration space) coordinates as guess for the next iteration of the turning point based on confifuration difference method
 

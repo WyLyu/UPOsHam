@@ -37,7 +37,7 @@ mpl.rcParams['mathtext.rm'] = 'serif'
     
 save_final_plot = True
 show_final_plot = False
-N = 4          # dimension of phase space
+N = 4 # dimension of phase space
 MASS_A = 8.0 
 MASS_B = 8.0 # De Leon, Marston (1989)
 EPSILON_S = 1.0
