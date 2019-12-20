@@ -188,7 +188,7 @@ V(x,y) = &amp; 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
 <p>Unstable periodic orbits at two values of the total energy for the De Leon-Berne Hamiltonian computed using differential correction method.</p>
 <span class="target" id="module-deleonberne_hamiltonian"></span><dl class="function">
 <dt id="deleonberne_hamiltonian.configdiff_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">configdiff_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#configdiff_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.configdiff_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">configdiff_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">ham2dof_model</em>, <em class="sig-param">half_period_model</em>, <em class="sig-param">n_turn</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#configdiff_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.configdiff_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the difference of x(or y) coordinates of the guess initial condition and the ith turning point</p>
 <p>Used by turning point based on configuration difference method and passed as an argument by the user. Depending on the orientation of a system’s bottleneck in the potential energy surface, this function should return either difference in x coordinates or difference in y coordinates is returned as the result.</p>
 <dl class="field-list simple">
@@ -199,7 +199,7 @@ V(x,y) = &amp; 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
 <li><p><strong>ham2dof_model</strong> (<em>function name</em>) – function that returns the Hamiltonian vector field</p></li>
 <li><p><strong>half_period_model</strong> (<em>function name</em>) – function to catch the half period event during integration</p></li>
 <li><p><strong>n_turn</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – index of the number of turn as a trajectory comes close to an equipotential contour</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -236,7 +236,7 @@ V(x,y) = &amp; 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.diffcorr_acc_corr_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">diffcorr_acc_corr_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">coords</em>, <em class="sig-param">phi_t1</em>, <em class="sig-param">x0</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#diffcorr_acc_corr_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.diffcorr_acc_corr_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">diffcorr_acc_corr_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">coords</em>, <em class="sig-param">phi_t1</em>, <em class="sig-param">x0</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#diffcorr_acc_corr_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.diffcorr_acc_corr_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the updated guess for the initial condition after applying
 small correction based on the leading order terms.</p>
 <p>Correcting x or y coordinate of the guess depends on the system and needs to be chosen by inspecting the geometry of the bottleneck in the potential energy surface.</p>
@@ -246,7 +246,7 @@ small correction based on the leading order terms.</p>
 <li><p><strong>coords</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><em>list of size 4</em><em>)</em>) – phase space coordinates in the order of position and momentum</p></li>
 <li><p><strong>phi_t1</strong> (<em>2d numpy array</em>) – state transition matrix evaluated at the time t1 which is used to derive the correction terms</p></li>
 <li><p><strong>x0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – coordinate of the initial condition before the correction</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -280,7 +280,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.eigvector_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">eigvector_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#eigvector_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.eigvector_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">eigvector_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#eigvector_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.eigvector_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the flag for the correction factor to the eigenvectors for the linear guess of the unstable periodic orbit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -298,7 +298,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.get_coord_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">get_coord_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">E</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#get_coord_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.get_coord_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">get_coord_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">E</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#get_coord_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.get_coord_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that returns the potential energy for a given total energy with one of the configuration space coordinate being fixed</p>
 <p>Used to solve for coordinates on the isopotential contours using numerical solvers</p>
 <dl class="field-list simple">
@@ -307,7 +307,7 @@ small correction based on the leading order terms.</p>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – configuration space coordinate</p></li>
 <li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – configuration space coordinate</p></li>
 <li><p><strong>E</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – total energy</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -322,7 +322,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.grad_pot_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">grad_pot_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#grad_pot_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.grad_pot_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">grad_pot_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#grad_pot_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.grad_pot_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the negative of the gradient of the potential energy function</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -342,7 +342,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.guess_coords_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">guess_coords_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">i</em>, <em class="sig-param">n</em>, <em class="sig-param">e</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#guess_coords_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.guess_coords_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">guess_coords_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">guess1</em>, <em class="sig-param">guess2</em>, <em class="sig-param">i</em>, <em class="sig-param">n</em>, <em class="sig-param">e</em>, <em class="sig-param">get_coord_model</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#guess_coords_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.guess_coords_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns x and y (configuration space) coordinates as guess for the next iteration of the turning point based on confifuration difference method</p>
 <p>Function to be used by the turning point based on configuration difference method and passed as an argument.</p>
 <dl class="field-list simple">
@@ -354,7 +354,7 @@ small correction based on the leading order terms.</p>
 <li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – total number of partitions of the interval between the two guess coordinates</p></li>
 <li><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – total energy</p></li>
 <li><p><strong>get_coord_model</strong> (<em>function name</em>) – function that returns the potential energy for a given total energy with one of the configuration space coordinate being fixed</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -368,7 +368,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.guess_lin_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">guess_lin_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">eqPt</em>, <em class="sig-param">Ax</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#guess_lin_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.guess_lin_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">guess_lin_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">eqPt</em>, <em class="sig-param">Ax</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#guess_lin_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.guess_lin_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an initial guess as list of coordinates in the phase space</p>
 <p>This guess is based on the linearization at the saddle equilibrium point and is used for starting the differential correction iteration</p>
 <dl class="field-list simple">
@@ -376,7 +376,7 @@ small correction based on the leading order terms.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>eqPt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><em>list of size 2</em><em>)</em>) – configuration space coordinates of the equilibrium point</p></li>
 <li><p><strong>Ax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – small amplitude displacement from the equilibrium point to initialize guess for the differential correction</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -390,7 +390,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.half_period_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">half_period_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">x</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#half_period_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.half_period_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">half_period_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">x</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#half_period_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.half_period_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the event function</p>
 <p>Zero of this function is used as the event criteria to stop integration along a trajectory. For symmetric periodic orbits this acts as the half period event when the momentum coordinate is zero.</p>
 <dl class="field-list simple">
@@ -398,7 +398,7 @@ small correction based on the leading order terms.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – time instant</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><em>list of size 4</em><em>)</em>) – phase space coordinates at time instant t</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -412,7 +412,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.ham2dof_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">ham2dof_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">x</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#ham2dof_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.ham2dof_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">ham2dof_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">x</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#ham2dof_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.ham2dof_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Hamiltonian vector field (Hamilton’s equations of motion)</p>
 <p>Used for passing to ode solvers for integrating initial conditions over a time interval.</p>
 <dl class="field-list simple">
@@ -420,7 +420,7 @@ small correction based on the leading order terms.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – time instant</p></li>
 <li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><em>list of size 4</em><em>)</em>) – phase space coordinates at time instant t</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -455,13 +455,13 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.jacobian_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">jacobian_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">eqPt</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#jacobian_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.jacobian_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">jacobian_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">eqPt</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#jacobian_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.jacobian_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns Jacobian of the Hamiltonian vector field</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>eqPt</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><em>list of size 4</em><em>)</em>) – phase space coordinates of the equilibrium point</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -475,7 +475,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.plot_iter_orbit_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">plot_iter_orbit_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">ax</em>, <em class="sig-param">e</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#plot_iter_orbit_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.plot_iter_orbit_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">plot_iter_orbit_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">ax</em>, <em class="sig-param">e</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#plot_iter_orbit_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.plot_iter_orbit_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the orbit in the 3D space of (x,y,p_x) coordinates with the initial and final points marked with star and circle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -483,7 +483,7 @@ small correction based on the leading order terms.</p>
 <li><p><strong>x</strong> (<em>2d numpy array</em>) – trajectory with time ordering along rows and coordinates along columns</p></li>
 <li><p><strong>ax</strong> (<em>figure object</em>) – 3D matplotlib axes</p></li>
 <li><p><strong>e</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – total energy</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -497,7 +497,7 @@ small correction based on the leading order terms.</p>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.pot_energy_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">pot_energy_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#pot_energy_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.pot_energy_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">pot_energy_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">y</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#pot_energy_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.pot_energy_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the potential energy at the configuration space coordinates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -508,17 +508,17 @@ small correction based on the leading order terms.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>configuration space coordinates of the guess: [x, y]</p>
+<dd class="field-even"><p>potential energy of the configuration</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a> (list of size 2)</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="deleonberne_hamiltonian.variational_eqns_deleonberne">
-<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">variational_eqns_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">PHI</em>, <em class="sig-param">par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#variational_eqns_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.variational_eqns_deleonberne" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">deleonberne_hamiltonian.</code><code class="sig-name descname">variational_eqns_deleonberne</code><span class="sig-paren">(</span><em class="sig-param">t</em>, <em class="sig-param">PHI</em>, <em class="sig-param">parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/deleonberne_hamiltonian.html#variational_eqns_deleonberne"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#deleonberne_hamiltonian.variational_eqns_deleonberne" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the state transition matrix, PHI(t,t0), where Df(t) is the Jacobian of the Hamiltonian vector field</p>
 <p>d PHI(t, t0)/dt =  Df(t) * PHI(t, t0)</p>
 <dl class="field-list simple">
@@ -526,7 +526,7 @@ small correction based on the leading order terms.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – solution time</p></li>
 <li><p><strong>PHI</strong> (<em>1d numpy array</em>) – state transition matrix and the phase space coordinates at initial time in the form of a vector</p></li>
-<li><p><strong>par</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
+<li><p><strong>parameters</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> (</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>)</em>) – model parameters</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
