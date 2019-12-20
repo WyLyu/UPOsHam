@@ -186,11 +186,25 @@
 
 
 <span class="c1">#% Begin problem specific functions</span>
-<div class="viewcode-block" id="init_guess_eqpt_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.init_guess_eqpt_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">init_guess_eqpt_deleonberne</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="init_guess_eqpt_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.init_guess_eqpt_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">init_guess_eqpt_deleonberne</span><span class="p">(</span><span class="n">eqNum</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns configuration space coordinates of the equilibrium points according to the index:</span>
-<span class="sd">    Saddle (EQNUM=1)</span>
-<span class="sd">    Centre (EQNUM=2,3)</span>
+<span class="sd">    Returns guess for solving configuration space coordinates of the equilibrium points.  </span>
+
+<span class="sd">    For numerical solution of the equilibrium points, this function returns the guess that be inferred from the potential energy surface. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eqNum : int</span>
+<span class="sd">        = 1 for saddle and = 2,3 for centre equilibrium points</span>
+
+<span class="sd">    parameters : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x0 : float (list of size 2)</span>
+<span class="sd">        configuration space coordinates of the guess: [x, y] </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">if</span> <span class="n">eqNum</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -204,7 +218,22 @@
 
 
 <div class="viewcode-block" id="grad_pot_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.grad_pot_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">grad_pot_deleonberne</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns the gradient of the potential energy function V(x,y) &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Returns the negative of the gradient of the potential energy function </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float (list of size 2) </span>
+<span class="sd">        configuration space coordinates: [x, y]</span>
+
+<span class="sd">    parameters : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    F : float (list of size 2)</span>
+<span class="sd">        configuration space coordinates of the guess: [x, y]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
      
     <span class="n">dVdx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> \
         <span class="mi">4</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -215,14 +244,47 @@
     <span class="k">return</span> <span class="n">F</span></div>
 
 <div class="viewcode-block" id="pot_energy_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.pot_energy_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">pot_energy_deleonberne</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns the potential energy function V(x,y) &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Returns the potential energy at the configuration space coordinates </span>
+<span class="sd">    </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float</span>
+<span class="sd">        configuration space coordinate</span>
+
+<span class="sd">    y : float</span>
+<span class="sd">        configuration space coordinate</span>
+
+<span class="sd">    parameters : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float (list of size 2)</span>
+<span class="sd">        configuration space coordinates of the guess: [x, y]</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">return</span> <span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">par</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="eigvector_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.eigvector_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">eigvector_deleonberne</span><span class="p">(</span><span class="n">par</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns the correction factor to the eigenvectors for the linear guess &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Returns the flag for the correction factor to the eigenvectors for the linear guess of the unstable periodic orbit.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    parameters : float (list)</span>
+<span class="sd">        model parameters</span>
 
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    correcx : 1 or 0 </span>
+<span class="sd">        flag to set the x-component of the eigenvector</span>
+
+<span class="sd">    correcy : 1 or 0</span>
+<span class="sd">        flag to use the y-component of the eigenvector </span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">correcx</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">correcy</span> <span class="o">=</span> <span class="mi">0</span>
     
@@ -230,16 +292,51 @@
 
 
 <div class="viewcode-block" id="guess_lin_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.guess_lin_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">guess_lin_deleonberne</span><span class="p">(</span><span class="n">eqPt</span><span class="p">,</span> <span class="n">Ax</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns an initial guess for the unstable periodic orbit &quot;&quot;&quot;</span>
-    
+    <span class="sd">&quot;&quot;&quot; Returns an initial guess as list of coordinates in the phase space </span>
+<span class="sd">    </span>
+<span class="sd">    This guess is based on the linearization at the saddle equilibrium point and is used for starting the differential correction iteration </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eqPt : float (list of size 2)</span>
+<span class="sd">        configuration space coordinates of the equilibrium point</span>
+
+<span class="sd">    Ax : float</span>
+<span class="sd">        small amplitude displacement from the equilibrium point to initialize guess for the differential correction</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float (list of size 4)</span>
+<span class="sd">        phase space coordinates of the initial guess in the phase space</span>
+<span class="sd">         </span>
+<span class="sd">    &quot;&quot;&quot;</span>    
     <span class="n">correcx</span><span class="p">,</span> <span class="n">correcy</span> <span class="o">=</span> <span class="n">eigvector_deleonberne</span><span class="p">(</span><span class="n">par</span><span class="p">)</span>
     
-
     <span class="k">return</span> <span class="p">[</span><span class="n">eqPt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">Ax</span><span class="o">*</span><span class="n">correcx</span><span class="p">,</span><span class="n">eqPt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Ax</span><span class="o">*</span><span class="n">correcy</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="jacobian_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.jacobian_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">jacobian_deleonberne</span><span class="p">(</span><span class="n">eqPt</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns Jacobian of the Hamiltonian vector field &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; Returns Jacobian of the Hamiltonian vector field </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eqPt : float (list of size 4)</span>
+<span class="sd">        phase space coordinates of the equilibrium point</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Df : 2d numpy array</span>
+<span class="sd">        Jacobian matrix </span>
+
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">px</span><span class="p">,</span><span class="n">py</span> <span class="o">=</span> <span class="n">eqPt</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
     <span class="c1"># The first order derivative of the Hamiltonian.</span>
@@ -265,10 +362,25 @@
 
 <div class="viewcode-block" id="variational_eqns_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.variational_eqns_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">variational_eqns_deleonberne</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">PHI</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;    </span>
-<span class="sd">    Returns the state transition matrix , PHI(t,t0), where Df(t) is the Jacobian of the </span>
-<span class="sd">    Hamiltonian vector field</span>
+<span class="sd">    Returns the state transition matrix, PHI(t,t0), where Df(t) is the Jacobian of the Hamiltonian vector field</span>
 <span class="sd">    </span>
 <span class="sd">    d PHI(t, t0)/dt =  Df(t) * PHI(t, t0)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float </span>
+<span class="sd">        solution time</span>
+
+<span class="sd">    PHI : 1d numpy array</span>
+<span class="sd">        state transition matrix and the phase space coordinates at initial time in the form of a vector</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters </span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    PHIdot : float (list of size 20)</span>
+<span class="sd">        right hand side for solving the state transition matrix </span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     
@@ -290,7 +402,6 @@
 
     <span class="n">d2Vdydx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">x</span> <span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
         
-    
     
     <span class="n">d2Vdxdy</span> <span class="o">=</span> <span class="n">d2Vdydx</span>    
 
@@ -314,14 +425,29 @@
 
 <div class="viewcode-block" id="diffcorr_setup_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.diffcorr_setup_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">diffcorr_setup_deleonberne</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">    Returns settings for differential correction method </span>
+<span class="sd">    Returns iteration conditions for differential correction.</span>
+
+<span class="sd">    See references for details on how to set up the conditions and how to choose the coordinates in the iteration procedure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Empty - None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    drdot1 : 1 or 0</span>
+<span class="sd">        flag to select the phase space coordinate for event criteria in stopping integration of the periodic orbit</span>
+
+<span class="sd">    correctr0 : 1 or 0</span>
+<span class="sd">        flag to select which configuration coordinate to apply correction</span>
+
+<span class="sd">    MAXdrdot1 : float</span>
+<span class="sd">        tolerance to satisfy for convergence of the method</span>
 <span class="sd">        </span>
-<span class="sd">    Settings include choosing coordinates for event criteria, convergence criteria, and </span>
-<span class="sd">    correction (see references for details on how to choose these coordinates).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">dydot1</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">correcty0</span><span class="o">=</span> <span class="mi">0</span>
+    <span class="n">correcty0</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">MAXdydot1</span> <span class="o">=</span> <span class="mf">1.e-10</span>
     <span class="n">drdot1</span> <span class="o">=</span> <span class="n">dydot1</span>
     <span class="n">correctr0</span> <span class="o">=</span> <span class="n">correcty0</span>
@@ -334,15 +460,54 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the variable we want to keep fixed during differential correction.</span>
 <span class="sd">    </span>
-<span class="sd">    dxdot1----fix x, dydot1----fix y.</span>
+<span class="sd">    dxdot1 -&gt; fix x, dydot1 -&gt; fix y.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x1 : float</span>
+<span class="sd">        value of phase space coordinate, x</span>
+
+<span class="sd">    y1 : float</span>
+<span class="sd">        value of phase space coordinate, y</span>
+
+<span class="sd">    dxdot1 : float</span>
+<span class="sd">        value of phase space coordinate, dxdot</span>
+
+<span class="sd">    dydot1 : float </span>
+<span class="sd">        value of phase space coordinate, dydot</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        value of one of the phase space coordinates</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">dydot1</span></div>
 
 
 <div class="viewcode-block" id="get_coord_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.get_coord_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">get_coord_deleonberne</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">    Returns the initial position of x/y-coordinate on the potential energy </span>
-<span class="sd">    surface(PES) for a specific energy E.</span>
+<span class="sd">    Function that returns the potential energy for a given total energy with one of the configuration space coordinate being fixed</span>
+
+<span class="sd">    Used to solve for coordinates on the isopotential contours using numerical solvers</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : float</span>
+<span class="sd">        configuration space coordinate</span>
+
+<span class="sd">    y : float</span>
+<span class="sd">        configuration space coordinate</span>
+
+<span class="sd">    E : float</span>
+<span class="sd">        total energy</span>
+
+<span class="sd">    par :float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        float</span>
+<span class="sd">        Potential energy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="p">(</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> \
@@ -350,19 +515,39 @@
 
 <div class="viewcode-block" id="diffcorr_acc_corr_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.diffcorr_acc_corr_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">diffcorr_acc_corr_deleonberne</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">phi_t1</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">    Returns the new guess initial condition of the unstable periodic orbit after applying </span>
-<span class="sd">    small correction to the guess. </span>
+<span class="sd">    Returns the updated guess for the initial condition after applying </span>
+<span class="sd">    small correction based on the leading order terms. </span>
 <span class="sd">        </span>
-<span class="sd">    Correcting x or y coordinate depends on the problem and needs to chosen by inspecting the </span>
-<span class="sd">    geometry of the bottleneck in the potential energy surface.</span>
+<span class="sd">    Correcting x or y coordinate of the guess depends on the system and needs to be chosen by inspecting the geometry of the bottleneck in the potential energy surface.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    coords : float (list of size 4)</span>
+<span class="sd">        phase space coordinates in the order of position and momentum</span>
+
+<span class="sd">    phi_t1 : 2d numpy array</span>
+<span class="sd">        state transition matrix evaluated at the time t1 which is used to derive the correction terms</span>
+
+<span class="sd">    x0 : float </span>
+<span class="sd">        coordinate of the initial condition before the correction</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    x0 : float </span>
+<span class="sd">        coordinate of the initial condition after the correction</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">dxdot1</span><span class="p">,</span> <span class="n">dydot1</span> <span class="o">=</span> <span class="n">coords</span>
     
-    <span class="n">dVdx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">y1</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span>
+    <span class="n">dVdx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> \
+        <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">y1</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">y1</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span>
     <span class="n">dVdy</span> <span class="o">=</span> <span class="mi">8</span><span class="o">*</span><span class="n">y1</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">y1</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">par</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">*</span><span class="n">par</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">*</span><span class="n">x1</span><span class="p">)</span>
     <span class="n">vxdot1</span> <span class="o">=</span> <span class="o">-</span><span class="n">dVdx</span>
     <span class="n">vydot1</span> <span class="o">=</span> <span class="o">-</span><span class="n">dVdy</span>
+
     <span class="c1">#correction to the initial y0</span>
     <span class="n">correcty0</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">phi_t1</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">phi_t1</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">vydot1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">vxdot1</span><span class="p">))</span><span class="o">*</span><span class="n">dydot1</span>
     <span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">correcty0</span>
@@ -370,13 +555,38 @@
     <span class="k">return</span> <span class="n">x0</span></div>
 
 
-<div class="viewcode-block" id="configdiff_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.configdiff_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">configdiff_deleonberne</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span> <span class="n">half_period_model</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
+<div class="viewcode-block" id="configdiff_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.configdiff_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">configdiff_deleonberne</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">ham2dof_model</span><span class="p">,</span>\
+                            <span class="n">half_period_model</span><span class="p">,</span> <span class="n">n_turn</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the difference of x(or y) coordinates between the guess initial conditions </span>
-<span class="sd">    and the ith turning points</span>
+<span class="sd">    Returns the difference of x(or y) coordinates of the guess initial condition and the ith turning point</span>
 
-<span class="sd">    either difference in x coordintes(x_diff1, x_diff2) or difference in </span>
-<span class="sd">    y coordinates(y_diff1, y_diff2) is returned as the result.</span>
+<span class="sd">    Used by turning point based on configuration difference method and passed as an argument by the user. Depending on the orientation of a system&#39;s bottleneck in the potential energy surface, this function should return either difference in x coordinates or difference in y coordinates is returned as the result.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    guess1 : float (list of size 4)</span>
+<span class="sd">        initial condition # 1</span>
+
+<span class="sd">    guess2 : float (list of size 4)</span>
+<span class="sd">        initial condition # 2 </span>
+
+<span class="sd">    ham2dof_model : function name</span>
+<span class="sd">        function that returns the Hamiltonian vector field  </span>
+<span class="sd">        </span>
+<span class="sd">    half_period_model : function name</span>
+<span class="sd">        function to catch the half period event during integration</span>
+<span class="sd">    </span>
+<span class="sd">    n_turn : int </span>
+<span class="sd">        index of the number of turn as a trajectory comes close to an equipotential contour</span>
+<span class="sd">    </span>
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters </span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    (x_diff1, x_diff2) or (y_diff1, y_diff2) : float (list of size 2)</span>
+<span class="sd">        difference in the configuration space coordinates, either x or y depending on the orientation of the bottleneck.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">TSPAN</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
@@ -387,7 +597,7 @@
     <span class="n">soln1</span> <span class="o">=</span> <span class="n">solve_ivp</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">TSPAN</span><span class="p">,</span> <span class="n">guess1</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;RK45&#39;</span><span class="p">,</span> <span class="n">dense_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> \
                       <span class="n">events</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">:</span> <span class="n">half_period_model</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">),</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RelTol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">AbsTol</span><span class="p">)</span>
     <span class="n">te1</span> <span class="o">=</span> <span class="n">soln1</span><span class="o">.</span><span class="n">t_events</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">t1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">te1</span><span class="p">[</span><span class="n">n_turn</span><span class="p">]]</span><span class="c1">#[0,te1[1]]</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">te1</span><span class="p">[</span><span class="n">n_turn</span><span class="p">]]</span>
     <span class="n">turn1</span> <span class="o">=</span> <span class="n">soln1</span><span class="o">.</span><span class="n">sol</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
     <span class="n">x_turn1</span> <span class="o">=</span> <span class="n">turn1</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> 
     <span class="n">y_turn1</span> <span class="o">=</span> <span class="n">turn1</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -406,32 +616,79 @@
     <span class="n">y_diff2</span> <span class="o">=</span> <span class="n">guess2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_turn2</span>
     
 
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial guess1</span><span class="si">%s</span><span class="s2">, initial guess2</span><span class="si">%s</span><span class="s2">, y_diff1 is </span><span class="si">%s</span><span class="s2">, y_diff2 is</span><span class="si">%s</span><span class="s2"> &quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> \
-                                                                               <span class="n">guess2</span><span class="p">,</span> <span class="n">y_diff1</span><span class="p">,</span> \
-                                                                               <span class="n">y_diff2</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initial guess1 </span><span class="si">%.6f</span><span class="s2">, initial guess2 </span><span class="si">%.6f</span><span class="s2">, </span><span class="se">\</span>
+<span class="s2">            y_diff1 is </span><span class="si">%.6f</span><span class="s2">, y_diff2 is </span><span class="si">%.6f</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">y_diff1</span><span class="p">,</span> <span class="n">y_diff2</span><span class="p">))</span>
         
     <span class="k">return</span> <span class="n">y_diff1</span><span class="p">,</span> <span class="n">y_diff2</span></div>
 
 
 <div class="viewcode-block" id="guess_coords_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.guess_coords_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">guess_coords_deleonberne</span><span class="p">(</span><span class="n">guess1</span><span class="p">,</span> <span class="n">guess2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">get_coord_model</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns x and y (configuration space) coordinates as guess for the next iteration of the </span>
-<span class="sd">    turning point based on confifuration difference method</span>
+<span class="sd">    Returns x and y (configuration space) coordinates as guess for the next iteration of the turning point based on confifuration difference method</span>
+
+<span class="sd">    Function to be used by the turning point based on configuration difference method and passed as an argument.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    guess1 : float (list of size 4)</span>
+<span class="sd">        initial condition # 1</span>
+
+<span class="sd">    guess2 : float (list of size 4)</span>
+<span class="sd">        initial condition # 2 </span>
+
+<span class="sd">    i : int</span>
+<span class="sd">        index of the number of partitions of the interval between the two guess coordinates</span>
+
+<span class="sd">    n : int</span>
+<span class="sd">        total number of partitions of the interval between the two guess coordinates </span>
+<span class="sd">    </span>
+<span class="sd">    e : float</span>
+<span class="sd">        total energy</span>
+
+<span class="sd">    get_coord_model : function name</span>
+<span class="sd">        function that returns the potential energy for a given total energy with one of the configuration space coordinate being fixed</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xguess, yguess : float </span>
+<span class="sd">        configuration space coordinates of the next guess of the initial condition</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">guess2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">guess1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">n</span> <span class="c1"># h is defined for dividing the interval</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;h is &quot;</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
-    <span class="n">yguess</span> <span class="o">=</span> <span class="n">guess1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">h</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;h is </span><span class="si">%.6f</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">yguess</span> <span class="o">=</span> <span class="n">guess1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span>
     <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_coord_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">yguess</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">par</span><span class="p">)</span>
-    <span class="n">xguess</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">)</span>   <span class="c1"># to find the x coordinate for a given y</span>
+    <span class="n">xguess</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">newton</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mf">0.2</span><span class="p">)</span> <span class="c1"># to find the x coordinate for a given y</span>
     
     <span class="k">return</span> <span class="n">xguess</span><span class="p">,</span> <span class="n">yguess</span></div>
 
 
 <div class="viewcode-block" id="plot_iter_orbit_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.plot_iter_orbit_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">plot_iter_orbit_deleonberne</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; </span>
-<span class="sd">    Plots the orbit in the 3D space of (x,y,p_y) coordinates with the initial and </span>
-<span class="sd">    final points marked </span>
+<span class="sd">    Plots the orbit in the 3D space of (x,y,p_x) coordinates with the initial and final points marked with star and circle. </span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : 2d numpy array</span>
+<span class="sd">        trajectory with time ordering along rows and coordinates along columns</span>
+
+<span class="sd">    ax : figure object</span>
+<span class="sd">        3D matplotlib axes</span>
+
+<span class="sd">    e : float</span>
+<span class="sd">        total energy</span>
+
+<span class="sd">    par :float (list)</span>
+<span class="sd">        model parameters </span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Empty - None</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">label_fs</span> <span class="o">=</span> <span class="mi">10</span>
@@ -448,9 +705,29 @@
     <span class="k">return</span></div>
 
 
-
 <div class="viewcode-block" id="ham2dof_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.ham2dof_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">ham2dof_deleonberne</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">par</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Returns the Hamiltonian vector field (Hamilton&#39;s equations of motion) &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Returns the Hamiltonian vector field (Hamilton&#39;s equations of motion) </span>
+<span class="sd">    </span>
+<span class="sd">    Used for passing to ode solvers for integrating initial conditions over a time interval.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float</span>
+<span class="sd">        time instant</span>
+
+<span class="sd">    x : float (list of size 4)</span>
+<span class="sd">        phase space coordinates at time instant t</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    xDot : float (list of size 4)</span>
+<span class="sd">        right hand side of the vector field evaluated at the phase space coordinates, x, at time instant, t</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="n">xDot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
     
@@ -466,23 +743,35 @@
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">xDot</span><span class="p">)</span>  </div>
 
 
-
 <div class="viewcode-block" id="half_period_deleonberne"><a class="viewcode-back" href="../deleonberne_ham.html#deleonberne_hamiltonian.half_period_deleonberne">[docs]</a><span class="k">def</span> <span class="nf">half_period_deleonberne</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">par</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the turning point where we want to stop the integration                           </span>
+<span class="sd">    Returns the event function </span>
 <span class="sd">    </span>
-<span class="sd">    pxDot = x[0]</span>
-<span class="sd">    pyDot = x[1]</span>
-<span class="sd">    xDot = x[2]</span>
-<span class="sd">    yDot = x[3]</span>
+<span class="sd">    Zero of this function is used as the event criteria to stop integration along a trajectory. For symmetric periodic orbits this acts as the half period event when the momentum coordinate is zero.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : float</span>
+<span class="sd">        time instant</span>
+
+<span class="sd">    x : float (list of size 4)</span>
+<span class="sd">        phase space coordinates at time instant t</span>
+
+<span class="sd">    par : float (list)</span>
+<span class="sd">        model parameters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float </span>
+<span class="sd">        event function evaluated at the phase space coordinate, x, and time instant, t.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     
     <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span></div>
 
         
-<span class="n">half_period_deleonberne</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="kc">True</span> 
-<span class="c1"># The zero can be approached from either direction</span>
-<span class="n">half_period_deleonberne</span><span class="o">.</span><span class="n">direction</span><span class="o">=</span><span class="mi">0</span><span class="c1">#0: all directions of crossing</span>
+<span class="n">half_period_deleonberne</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># terminate the integration.</span>
+<span class="n">half_period_deleonberne</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># zero of the event function can be approached from either direction and will trigger the terminate</span>
 
 </pre></div>
 
