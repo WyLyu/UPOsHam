@@ -12,3 +12,5 @@ docs/.Rhistory
 #C++ executable
 __pycache__
 
+#Docs build files
+docs/_build/*
