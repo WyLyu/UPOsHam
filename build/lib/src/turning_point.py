@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# """
-# Created on Mon Sep  9 17:49:31 2019
+"""
+Created on Thu Sep 12 17:34:06 2019
 
-# @author: Wenyang Lyu and Shibabrat Naik
-# """
+@author: Wenyang Lyu and Shibabrat Naik
+"""
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,12 +11,13 @@ from scipy.integrate import solve_ivp
 import math
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import fsolve
-from scipy import optimize
 import matplotlib as mpl
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-    
+
+#%%
+
 def get_eq_pts(eqNum, init_guess_eqpt_model, grad_pot_model, par):
     """
     Returns configuration space coordinates of the equilibrium points.
@@ -135,7 +136,7 @@ def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0):
 
     In particular, for periodic solutions of % period tf=T, one can obtain
     the monodromy matrix, PHI(0,T).
-    
+
     Parameters
     ----------
     tf : float
@@ -192,18 +193,99 @@ def state_transit_matrix(tf,x0,par,variational_eqns_model,fixed_step=0):
     return t,x,phi_tf,PHI
 
 
+#%%
+def dotproduct(guess1, guess2,n_turn, ham2dof_model, half_period_model, \
+                varEqns_model, par):
+    """
+    Returns x,y coordinates of the turning points for guess initial conditions guess1, guess2 and the defined product product for the 2 turning points
+    
+    Uses turning point method(defined a dot product form before the "actual" turning point.)
+    
+    Parameters
+    ----------
+    guess1 : 1d numpy array 
+        guess initial condition 1 for the unstable periodic orbit
+
+    guess2 : 1d numpy array 
+        guess initial condition 2 for the unstable periodic orbit
+
+    n_turn : int
+        nth turning point that is used to define the dot product
+
+    ham2dof_model : function name
+        function that returns the Hamiltonian vector field at an input phase space coordinate
+        and time
+                    
+    variational_eqns_model : function name
+        function that returns the variational equations of the dynamical system
+
+    par : float (list)
+        model parameters
+
+    Returns
+    -------
+    x_turn1 : float
+        x coordinate of the turning point with initional condition guess1
+
+    x_turn2 : float
+        x coordinate of the turning point with initional condition guess2
+
+    y_turn1 : float
+        y coordinate of the turning point with initional condition guess1
+
+    y_turn2 : float
+        y coordinate of the turning point with initional condition guess2
+
+    dotproduct : float
+        value of the dot product
+
+    """
+
+    TSPAN = [0,40]
+    RelTol = 3.e-10
+    AbsTol = 1.e-10 
+    f1 = lambda t,x: ham2dof_model(t,x,par) 
+    soln1 = solve_ivp(f1, TSPAN, guess1, method='RK45', dense_output=True, \
+                      events = lambda t,x: half_period_model(t,x,par),rtol=RelTol, atol=AbsTol)
+    te1 = soln1.t_events[0]
+    t1 = [0,te1[n_turn]]#[0,te1[1]]
+    turn1 = soln1.sol(t1)
+    x_turn1 = turn1[0,-1] 
+    y_turn1 = turn1[1,-1] 
+    t,xx1,phi_t1,PHI = state_transit_matrix(t1,guess1,par,variational_eqns_model)
+    x1 = xx1[:,0]
+    y1 = xx1[:,1]
+    p1 = xx1[:,2:]
+    p_perpendicular_1 = math.sqrt(np.dot(p1[-3,:],p1[-3,:]))*p1[-2,:] - np.dot(p1[-2,:],p1[-3,:])*p1[-3,:]
+    f2 = lambda t,x: ham2dof_model(t,x,par)  
+    soln2 = solve_ivp(f2, TSPAN, guess2,method='RK45',dense_output=True, \
+                      events = lambda t,x: half_period_model(t,x,par),rtol=RelTol, atol=AbsTol)
+    te2 = soln2.t_events[0]
+    t2 = [0,te2[n_turn]]#[0,te2[1]]
+    turn2 = soln1.sol(t2)
+    x_turn2 = turn2[0,-1] 
+    y_turn2 = turn2[1,-1] 
+    t,xx2,phi_t1,PHI = state_transit_matrix(t2,guess2,par,variational_eqns_model)
+    x2 = xx2[:,0]
+    y2 = xx2[:,1]
+    p2 = xx2[:,2:]
+    p_perpendicular_2 = math.sqrt(np.dot(p2[-3,:],p2[-3,:]))*p2[-2,:] - np.dot(p2[-2,:],p2[-3,:])*p2[-3,:]
+    dotproduct = np.dot(p_perpendicular_1,p_perpendicular_2)
+    print("Initial guess1%s, initial guess2%s, dot product is%s" %(guess1,guess2,dotproduct))
+    
+    return x_turn1,x_turn2,y_turn1,y_turn2, dotproduct
+
 
 #%%
-def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, variational_eqns_model, \
-                            configdiff_model, ham2dof_model, half_period_model, \
-                            guess_coords_model, plot_iter_orbit_model, par, \
-                            e, n, n_turn, show_itrsteps_plots, po_fam_file):
+def turningPoint(begin1, begin2, get_coord_model, guess_coords_model, ham2dof_model, \
+                 half_period_model, variational_eqns_model, pot_energy_model, plot_iter_orbit_model, par, \
+                 e, n, n_turn, show_itrsteps_plots, po_fam_file):
     """
-    turningPoint computes the periodic orbit of target energy using turning point based on configuration difference method. 
+    turningPoint computes the periodic orbit of target energy using turning point method.
     
     Given 2 inital conditions begin1, begin2, the periodic orbit is assumed to exist between begin1, begin2 such that
     trajectories with inital conditions begin1, begin2 are turning in different directions,
-    which gives different signs(+ or -) for configuration difference 
+    which results in a negative value of the dot product
 
     Parameters
     ----------
@@ -249,7 +331,7 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
         
     n_turn: int
         nth turning point that is used to define the dot product
-
+ 
     show_itrsteps_plots: logical
         flag (True or False) to show iteration of the UPOs in plots
 
@@ -266,104 +348,111 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
     energyPO : float
         Energy of the target unstable periodic orbit. 
     """
+
     axis_fs = 15
     
     guess1 = begin1
     guess2 = begin2
     MAXiter = 30
     dum = np.zeros(((n+1)*MAXiter ,7))
-    result = np.zeros(((n+1),4))  # record data for each iteration
-    result2 = np.zeros(((n+1)*MAXiter ,4))
-    np.set_printoptions(precision=17,suppress=True)
+    result = np.zeros(((n+1),3))  # record data for each iteration
+    result2 = np.zeros(((n+1)*MAXiter ,3)) # record all data for every iteration
     x0po = np.zeros((MAXiter ,4))
     i_turn = np.zeros((MAXiter ,1))
     T = np.zeros((MAXiter ,1))
     energyPO = np.zeros((MAXiter ,1))
-    i_iter = 0
+    iter = 0
     iter_diff =0  # for counting the correct index
+    
+    while iter < MAXiter and n_turn < 10:
 
-    while i_iter< MAXiter and n_turn < 5:
         for i in range(0,n+1):
-            # the x difference between guess1 and each guess is recorded in "result" matrix
-            
             
             xguess, yguess = guess_coords_model(guess1, guess2, i, n, e, get_coord_model, par)
             
             guess = [xguess,yguess,0, 0]
-            coordinate_diff1, coordinate_diff2 = configdiff_model(guess1, guess, ham2dof_model, \
-                                                                  half_period_model, \
-                                                                  n_turn, par)
-            result[i,0] = np.sign(coordinate_diff1)
+            x_turn1,x_turn2,y_turn1,y_turn2, dotpro = dotproduct(guess1, guess, n_turn, \
+                                                                 ham2dof_model, \
+                                                                 half_period_model, \
+                                                                 variational_eqns_model, \
+                                                                 par)
+            result[i,0] = dotpro
             result[i,1] = guess[0]
             result[i,2] = guess[1]
-            result[i,3] = np.sign(coordinate_diff2)
-        for i in range(1,n+1):
-            if np.sign(result[i,0]) != np.sign(result[i,3]) and \
-                np.sign(result[i-1,0]) == np.sign(result[i-1,3]):
-                i_turn[i_iter] = i
+            result2[(n+1)*iter+i,:] = result[i,:]
+            
+        i_turn_iter = 0
+        for i in range(0,n+1):
+            #  we record the sign change for each pair of inital conditions
+            # i_turn_iter is the coordinate which sign changes from positive to negative
+            # we only want the first i_turn_iter terms to have positve sign and the rest of n-i_turn_iter+1 terms to have negative signs to avoid error
+            #
+            if np.sign(result[i,0]) <0 and np.sign(result[i-1,0]) >0:
+                i_turn[iter] = i
+                i_turn_iter = int(i_turn[iter])
+                check = np.sign(result[:,0])
+                check_same= sum(check[0:i_turn_iter])
+                check_diff= sum(check[i_turn_iter:])
+                print(check_same == i_turn[iter])
+                print(check_diff == -n+i_turn[iter]-1)
+            
 
-
-        # if the follwing condition holds, we can zoom in to a smaller interval and 
-        # continue our procedure
-        if i_turn[i_iter] > 0:
-            index = int(i_turn[i_iter])
+        if check_same == i_turn[iter] and check_diff == -n+i_turn[iter]-1 and i_turn_iter>0:
+            # if the follwing condition holds, we can zoom in to a smaller interval and continue our procedure
+            index = int(i_turn[iter])
             guesspo  = [result[index-1,1],result[index-1,2],0,0]
-            print("Our guess for the periodic orbit is",guesspo)
-            x0po[i_iter,:] = guesspo[:]
-            TSPAN = [0,30]
+            print("Our guess of the inital condition is", guesspo)
+            x0po[iter,:] = guesspo[:]
+            TSPAN = [0,10]
             RelTol = 3.e-10
             AbsTol = 1.e-10
             f = lambda t,x: ham2dof_model(t,x,par) 
-            soln = solve_ivp(f, TSPAN, guesspo,method='RK45',dense_output=True, \
-                             events = lambda t,x: half_period_model(t,x,par), \
-                             rtol=RelTol, atol=AbsTol)
+            soln = solve_ivp(f, TSPAN, guesspo,method='RK45', dense_output=True, \
+                             events = lambda t,x: half_period_model(t,x,par),rtol=RelTol, atol=AbsTol)
             te = soln.t_events[0]
             tt = [0,te[1]]
-            
-            t,x,phi_t1,PHI = state_transit_matrix(tt, guesspo, par, variational_eqns_model)
-            
-            T[i_iter]= tt[-1]*2
-            print("period is%s " %T[i_iter])
+            t,x,phi_t1,PHI = state_transit_matrix(tt,guesspo,par,variational_eqns_model)
+            T[iter] = tt[-1]*2
+            print("period is%s " %T[iter])
             energy = np.zeros(len(x))
             #print(len(t))
             for j in range(len(t)):
                 energy[j] = get_total_energy(x[j,:], pot_energy_model, par)
-            energyPO[i_iter]= np.mean(energy)
+            energyPO[iter] = np.mean(energy)
             
             if show_itrsteps_plots: # show iteration of the UPOs in plots
                 ax = plt.gca(projection='3d')
                 plot_iter_orbit_model(x, ax, e, par)
-            
                 plt.grid()
                 plt.show()
 
+
+            
             guess2 = np.array([result[index,1], result[index,2],0,0])
             guess1 = np.array([result[index-1,1], result[index-1,2],0,0])
-            
             iter_diff =0
-        # If the if condition does not hold, it indicates that the interval we picked for 
-        # performing 'configration difference' is wrong and it needs to be changed.
+        # If the if condition does not hold, it indicates that the interval we picked for performing 'dot product' is wrong and it needs to be changed.
         else:
             # return to the previous iteration that dot product works
-            #iteration------i------i+1---------------i+2----------------i+3---------------------i+4
-            # succ------succ-------------unsucc(return to i+1,n_turn+1)
-            #   if  --------succ--------         
-            #   else -----unsucc(return to i+1, n_turn+2)
-            #   unscc---------------unsucc------------   unsucc(return to i, n_turn+3)        
+            #iteration------i------i+1---------------i+2----------------i+3-----------------------i+4
+            #            succ------succ-------------unsucc(return to i+1,n_turn+1)
+            #                                              if  --------succ--------         
+            #                                              else -----unsucc(return to i+1, n_turn+2)
+            #                                       unscc---------------unsucc------------   unsucc(return to i, n_turn+3)        
             #
             #
             #
-            # we take a larger interval so that it contains the true value of the initial 
-            # condition and avoids to reach the limitation of the configration difference
+            # we take a larger interval so that it contains the true value of the initial condition and avoids to reach the limitation of the dot product
+            
             iter_diff = iter_diff +1
-            if iter_diff > 1:
-                # return to the iteration that is before the previous 
-                print("Warning: the result after this iteration may not be accurate, \
-                      try to increase the number of intervals or use other ways ")
+            #for k in range(iter):
+            if iter_diff> 1:
+                #iter_diff = iter_diff+1   # return to the iteration that is before the previous 
+                print("Warning: the result after this iteration may not be accurate, try to increase the number of intervals or use other ways ")
                 break
             n_turn = n_turn+1
-            print("nth turningpoint we pick is ", n_turn)
-            index = int((n+1)*(i_iter-iter_diff)+i_turn[i_iter-iter_diff])
+            print("the nth turning point we pick is ", n_turn)
+            index = int((n+1)*(iter-iter_diff)+i_turn[iter-iter_diff])
             print("index is ", index)
             xguess2=result2[index+iter_diff,1]
             yguess2 =result2[index+iter_diff,2]
@@ -375,19 +464,21 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
 
         
         print(result)
-        print("nth turningpoint we pick is ", n_turn)
-        i_iter= i_iter+1
-        print(i_iter)
+        print("the nth turning point we pick is ", n_turn)
+        iter = iter +1
 
+    end = MAXiter
+
+    for i in range(MAXiter):
+        if x0po[i,0] ==0 and x0po[i-1,0] !=0:
+            end = i
+
+    x0po = x0po[0:end,:]
+    T = T[0:end]
+    energyPO = energyPO[0:end]   
     
-    
-    dum = np.concatenate((x0po,T, energyPO),axis=1)
+    dum =np.concatenate((x0po,T, energyPO),axis=1)
     np.savetxt(po_fam_file.name,dum,fmt='%1.16e')
     return x0po, T,energyPO
-
-
-
-    
-
 
 

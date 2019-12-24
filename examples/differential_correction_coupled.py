@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 25 17:19:30 2019
+# """
+# Created on Thu Oct 25 17:19:30 2019
 
-@author: Wenyang Lyu and Shibabrat Naik
+# @author: Wenyang Lyu and Shibabrat Naik
 
-Script to compute unstable periodic orbits at specified energies for the 
-coupled quartic Hamiltonian using differential correction
-"""
+# Script to compute unstable periodic orbits at specified energies for the 
+# coupled quartic Hamiltonian using differential correction
+# """
 
 import numpy as np
 from scipy.integrate import solve_ivp
