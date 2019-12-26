@@ -13,7 +13,7 @@ Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) in 
    :maxdepth: 2
    :caption: Introduction
 
-   doc
+   introduction
 
 .. _sect-methods:
 .. toctree::
