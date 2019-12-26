@@ -39,4 +39,4 @@ In the sections below, we briefly describe the Hamiltonian systems with potentia
 
 
 
-.. include:: ../paper/references.txt
+.. include:: references.txt
