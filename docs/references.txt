@@ -1,0 +1,40 @@
+.. _references:
+
+==========
+References
+==========
+
+
+.. [Parker1989] Parker, T. S. and Chua, L. O., Practical Numerical Algorithms for Chaotic Systems, 1989, isbn: 0-387-96689-7, Springer-Verlag New York, Inc., New York, NY, USA.
+
+.. [Wiggins2003] Wiggins, Stephen, Introduction to applied nonlinear dynamical systems and chaos, 2003, isbn: 978-0-387-00177-7, 2nd ed, Springer, New York.
+
+
+.. [Koon2011] Koon, W. S. and Lo, M. W. and Marsden, J. E. and Ross, S. D., Dynamical systems, the three-body problem and space mission design, 2011, isbn: 978-0-615-24095-4, Marsden books.
+
+
+.. [Koon2000] Koon, Wang Sang and Lo, Martin W. and Marsden, Jerrold E. and Ross, Shane D., Heteroclinic connections between periodic orbits and resonance transitions in celestial mechanics, Chaos: An Interdisciplinary Journal of Nonlinear Science, 427--469, volume 10, number 2, 2000.
+
+
+.. [Ross2018] Ross, Shane D. and BozorgMagham, Amir E. and Naik, Shibabrat and Virgin, Lawrence N., Experimental validation of phase space conduits of transition between potential wells, Phys. Rev. E, 052214, volume 98, number 5, 2018.
+
+
+.. [Naik2017] Naik, Shibabrat and Ross, Shane D., Geometry of escaping dynamics in nonlinear ship motion, Communications in Nonlinear Science and Numerical Simulation, 48--70, volume 47, 2017
+
+
+.. [Naik2019finding] Naik, Shibabrat and Wiggins, Stephen, Finding normally hyperbolic invariant manifolds in two and three degrees of freedom with H\'enon-Heiles-type potential, Phys. Rev. E, 022204, volume 100, issue 2, 2019, doi: 10.1103/PhysRevE.100.022204
+
+
+.. [Wiggins2016] Wiggins, Stephen, The role of normally hyperbolic invariant manifolds ({NHIMs}) in the context of the phase space setting for chemical reaction dynamics, Regular and Chaotic Dynamics, 621--638, volume 21, number 6, 2016, doi: 10.1134/S1560354716060034
+
+
+.. [Pollak1980] Pollak, Eli and Child, Mark S. and Pechukas, Philip, Classical transition state theory: {A} lower bound to the reaction probability, The Journal of Chemical Physics, 1669--1678, volume 72, number 3, 1980, doi: 10.1063/1.439276
+
+
+.. [DeleonBerne1981] De Leon, Nelson  and Berne, B. J., Intramolecular rate process: Isomerization dynamics and the transition to chaos, The Journal of Chemical Physics, 3495-3510, volume 75, number 7, 1981, doi: 10.1063/1.442459
+
+
+.. [DeLeonMarston1989] Order in chaos and the dynamics and kinetics of unimolecular conformational isomerization, De Leon, N  and Marston, C. Clay, The Journal of Chemical Physics, 3405-3425, volume 91, number 6, 1989, doi: 10.1063/1.456915
+
+.. [Marston1989] Marston, C. Clay and De Leon, N., Reactive islands as essential mediators of unimolecular conformational isomerization: {A} dynamical study of 3‐phospholene, The Journal of Chemical Physics, 3392--3404, volume 91, number 6, 1989, doi: 10.1063/1.456914
+
