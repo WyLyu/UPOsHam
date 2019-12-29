@@ -18,13 +18,15 @@ with open('README.md') as f:
 with open('LICENSE') as f:
     license = f.read()
 
+with open('requirements.txt') as f:
+    requirements = f.read()
 
 def main():
     install_requires = ['m2r'] if on_rtd else []
     setup(
-        name='UPOsHam',
+        name='uposham',
 
-        version='1.0.0',
+        version='0.1.0',
         
         description='Python package for computing unstable periodic orbits',
         
@@ -38,9 +40,11 @@ def main():
         
         license=license,
         
-        packages=find_packages(exclude=('data', 'docs')),
+        # packages=find_packages(exclude=('test','data', 'docs')),
+        packages=['uposham'],
+        package_dir={'uposham': 'src/'},
 
-        install_requires = install_requires
+        install_requires = requirements
     )
 
 
