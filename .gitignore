@@ -1,8 +1,11 @@
 #OS junk files
 [Tt]thumbs.db
 *.DS_Store
+.Rhistory
 .ipynb_checkpoints/
+UPOsHam.egg-info
 docs/.Rhistory
+dist/
 ./tests/plots/
 
 #Data files
@@ -14,8 +17,7 @@ __pycache__
 
 #Docs build files
 docs/_build/*
-<<<<<<< HEAD
 docs/.vscode/
 
-=======
->>>>>>> master
+
+
