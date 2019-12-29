@@ -6,7 +6,7 @@
 UPOsHam.egg-info
 docs/.Rhistory
 dist/
-./tests/plots/
+tests/plots/
 
 #Data files
 *.dat
