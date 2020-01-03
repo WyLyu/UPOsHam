@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 30 10:02:48 2019
+# """
+# Created on Tue Jul 30 10:02:48 2019
 
-@author: Wenyang Lyu and Shibabrat Naik
+# @author: Wenyang Lyu and Shibabrat Naik
 
-Compute unstable peridoic orbits at different energies using turning point method
-"""
+# Compute unstable peridoic orbits at different energies using turning point method
+# """
 
 # For the DeLeon-Berne problem
 import numpy as np

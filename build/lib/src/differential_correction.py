@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 10 18:32:28 2019
+# """
+# Created on Tue Sep 10 18:32:28 2019
 
-@author: Wenyang Lyu and Shibabrat Naik
-"""
+# @author: Wenyang Lyu and Shibabrat Naik
+# """
 
 import numpy as np
 import matplotlib.pyplot as plt

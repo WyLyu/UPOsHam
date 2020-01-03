@@ -6,26 +6,30 @@
 Homepage of UPOsHam’s documentation
 ===================================
 
-Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) 
-in two degrees of freedom Hamiltonian (*Ham*) systems
+Welcome to the documentation for computing Unstable Periodic Orbits (*UPOs*) in two degrees of freedom Hamiltonian (*Ham*) systems
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Theory
+   :caption: Introduction
 
-   doc
+   introduction
+
+.. _sect-methods:
+.. toctree::
+   :maxdepth: 2
+   :caption: Available methods
+
+   differential_correction
+   turning_point
+   turning_point_coord_difference
 
 .. toctree::
    :maxdepth: 2
-   :caption: Methods
+   :caption: Example Hamiltonian systems
 
-   methods
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Examples
-
-   examples
+   deleonberne_ham
+   quartic_ham
 
 .. toctree::
    :maxdepth: 2
@@ -33,7 +37,7 @@ in two degrees of freedom Hamiltonian (*Ham*) systems
 
    contributing
 
-   
+
 Indices and tables
 ==================
 

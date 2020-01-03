@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Jul 30 10:02:48 2019
+# """
+# Created on Tue Jul 30 10:02:48 2019
 
-@author: Wenyang Lyu and Shibabrat Naik
+# @author: Wenyang Lyu and Shibabrat Naik
 
-Script to compute unstable periodic orbits at specified energies for the coupled quartic 
-Hamiltonian using differential correction
-"""
+# Script to compute unstable periodic orbits at specified energies for the coupled quartic 
+# Hamiltonian using differential correction
+# """
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -37,7 +37,7 @@ mpl.rcParams['mathtext.rm'] = 'serif'
     
 save_final_plot = True
 show_final_plot = False
-N = 4          # dimension of phase space
+N = 4 # dimension of phase space
 MASS_A = 8.0 
 MASS_B = 8.0 # De Leon, Marston (1989)
 EPSILON_S = 1.0

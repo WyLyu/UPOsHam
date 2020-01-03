@@ -1,9 +1,12 @@
 #OS junk files
 [Tt]thumbs.db
 *.DS_Store
+.Rhistory
 .ipynb_checkpoints/
+UPOsHam.egg-info
 docs/.Rhistory
-./tests/plots/
+dist/
+tests/plots/
 
 #Data files
 *.dat
@@ -11,4 +14,10 @@ docs/.Rhistory
 
 #C++ executable
 __pycache__
+
+#Docs build files
+docs/_build/*
+docs/.vscode/
+
+
 

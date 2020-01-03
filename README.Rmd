@@ -13,14 +13,14 @@ output:
   pdf_document:
     fig_height: 6
     fig_width: 6
-    highlight: zenburn
+    highlight: zenburn 
     toc: yes
 biblio-style: apalike
 ---
 
-[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
-      
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
+# UPOsHam
+
+[![Documentation Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
 
 ## Summary
 
@@ -30,12 +30,13 @@ This Python package is a collection of three methods for computing unstable peri
 
 ## Installation
 
-Clone/download the git repository using
+Clone the git repository, install the requirements, and install the package manually:
 
-```git
+```bash
 $ git clone git@github.com:WyLyu/UPOsHam.git
 $ cd UPOsHam
 $ pip install -r requirements.txt (or pip3 install -r requirements.txt)
+$ python setup.py install
 ```
 
 and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt) are installed using conda/pip. 
@@ -43,43 +44,69 @@ and check the modules shown in [requirements.txt](https://github.com/WyLyu/UPOsH
 
 ## Usage
 
-The example scripts that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. For example, to compute the unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method, from the root directory call the demonstration script at the command-line usingg
+To obtain the unstable periodic orbits for a two degree-of-freedom Hamiltonian system, one needs the expressions described in the examples section of the [documentation](https://uposham.readthedocs.io/en/latest/?badge=latest). These expression can then be implemented as functions as shown in the [script](examples/deleonberne_hamiltonian.py) and the function names of the expressions can then be passed to a method's function as in the [script](examples/differential_correction_deleonberne.py). The example script that computes the unstable periodic orbits (UPOs) for a given Hamiltonian system is in the [examples](examples/) directory with names ```<method>_<system>.py```. The example scripts show how the method specific functions take the system specific functions as input and are meant as demonstration of how to set-up computation for a new system using the available methods. 
 
-```
+The user will need to write the system specific functions in a script, import this as module, import one of the method as module, and pass the system specific functions to the method specific functions.
+
+
+__Solving the De Leon-Berne Hamiltonian system using differential correction method__
+
+For example, to test the computation of unstable periodic orbits (the default setting computes the UPOs for 2 values of the total energy) for the De Leon-Berne Hamiltonian [-@Deleon_Berne_1981] using the differential correction method, the demonstration script can be called from the root directory at the command-line using
+
+```bash
 $ python examples/differential_correction_deleonberne.py
 ```
 
 This will save data files in the root directory and save the plot in the [./tests/plots](tests/plots/) directory.
 
 
-![](tests/plots/diff_corr_deleonberne_upos.png){width="80.00000%"}
+![](tests/plots/diff_corr_deleonberne_upos.png){width="50.00000%"}
 
 __Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian__
 
 
-The example scripts import the system specific functions and method specific functions to obtain the UPOs. These are written as illustration of how to apply these methods to new systems. 
+__Solving the coupled quartic Hamiltonian system using differential correction method__
+
+To perform these computations using ipython, for example to obtain the unstable periodic orbits for the coupled quartic Hamiltonian using the differential correction, the user can execute:
+
+```bash
+$ ipython
+>>> run ./examples/differential_correction_coupled.py
+```
+
+This will save data files in the root directory and save the plot in the [./tests/plots](tests/plots/) directory.
 
 
-### Comparing the methods for the coupled quartic Hamiltonian
+![](tests/plots/diff_corr_coupled_upos.png){width="50.00000%"}
+
+
+## Tests
+
+The uncoupled quartic Hamiltonian is an example of a system where the unstable periodic orbits can be obtained in explicit analytical form. This system is used for testing the numerical solutions obtained using the methods implemented in this package. 
+
+__Unit test__
+
+Passing a test constitutes the following:
+
+1. The Hausdorff distance between a given numerical and analytical orbits is within $10^{-8}$. This is implemented using Scipy's spatial module.
+
+2. The element wise comparison test of the orbits agree upto 6 decimal places. This is performed using Numpy's testing module. 
+
+Other nonlinear examples systems can not be solved in this explicit analytical form and these are tested by performing plotting comparison of the orbits obtained using the methods. These are available in the [Jupyter](./tests/tests.ipynb) notebook.
+
+
+__Comparing the methods for the coupled quartic Hamiltonian__
 
 We demonstrate how the UPOs computed using the different methods compare with each other for a specific system: coupled quartic Hamiltonian.
 
 Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained using the three methods for the coupled quartic Hamiltonian can be done using
 
-```
+```bash
 $ ipython
 >>> run ./tests/compare_methods_coupled.py
 ```
 and the generated figure is located [here](tests/comparison_coupled.pdf)
 
-To obtain the unstable periodic orbits for a specific model Hamiltonian using a specific method, one uses
-
-```
-$ ipython
->>> run ./examples/diffcorr_UPOs_coupled.py
-```
-
-Other tests can be performed by running the cells in the ./tests/tests.ipynb
 
 ## Contributing
 
