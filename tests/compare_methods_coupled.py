@@ -22,12 +22,12 @@ import uposham.coupled_quartic_hamiltonian as coupled
 
 import os
 path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
-
+path_to_saveplot = os.path.join(os.path.dirname(__file__), 'plots/')
 
 #%% Setting up parameters and global variables
 
 save_final_plot = True
-show_final_plot = True
+show_final_plot = False
 
 N = 4          # dimension of phase space
 MASS_A = 1.00
@@ -162,9 +162,9 @@ if show_final_plot:
     plt.show()
 
 if save_final_plot:  
-    #    plt.savefig('./tests/plots/comparison_coupled.pdf', format='pdf', \
-#                bbox_inches='tight')
-    plt.savefig('./tests/plots/comparison_coupled.png', dpi = 300, \
+    # plt.savefig( path_to_saveplot + 'comparison_coupled.pdf', format='pdf', \
+    #            bbox_inches='tight')
+    plt.savefig( path_to_saveplot + 'comparison_coupled.png', dpi = 300, \
                 bbox_inches='tight')
 
 
