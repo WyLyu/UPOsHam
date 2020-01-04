@@ -17,19 +17,17 @@ from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-
-# This needs testing for installation 
+# Make sure uposham is installed for the following imports to work
 import uposham.differential_correction as diffcorr
-import sys
-sys.path.insert(0, './examples/')
-import deleonberne_hamiltonian as deleonberne
-# This needs testing for installation
+import uposham.deleonberne_hamiltonian as deleonberne
 
-data_path = "./data/"
+import os
+path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
 
 #%% Setting up parameters and global variables
 
-save_plot = True
+save_final_plot = True
+show_final_plot = True
 
 N = 4 # dimension of phase space
 MASS_A = 8.0 
@@ -55,9 +53,9 @@ eSaddle = 1.0 # energy of the saddle
 
 x0po = np.zeros((3,4)) # number of methods x number of coordinates
 
-diff_corr_fam_file = data_path + "x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE)
-turning_point_fam_file = data_path +  "x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE)
-tpcd_fam_file = data_path + "x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE)
+diff_corr_fam_file = path_to_data + "x0_diffcorr_deltaE%s_deleonberne.dat" %(deltaE)
+turning_point_fam_file = path_to_data +  "x0_turningpoint_deltaE%s_deleonberne.dat" %(deltaE)
+tpcd_fam_file = path_to_data + "x0_tpcd_deltaE%s_deleonberne.dat" %(deltaE)
 
 with open(diff_corr_fam_file ,'a+') as po_fam_file:
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
@@ -152,13 +150,17 @@ ax.set_xlim(-1, 1)
 ax.set_ylim(-1, 1)
 ax.set_zlim(-4, 4)
 plt.grid()
-plt.show()
 
-if save_plot:
-#    plt.savefig('./tests/plots/comparison_deleonberne.pdf', format='pdf', \
-#                bbox_inches='tight')
+
+if show_final_plot:
+    plt.show()
+
+if save_final_plot:  
+    # plt.savefig('./tests/plots/comparison_deleonberne.pdf', format='pdf', \
+    #             bbox_inches='tight')
     plt.savefig('./tests/plots/comparison_deleonberne.png', dpi = 300, \
-                bbox_inches = 'tight')
+                bbox_inches='tight')
+
 
 
 

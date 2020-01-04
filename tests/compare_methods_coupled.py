@@ -16,19 +16,18 @@ from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-
-# This needs testing for installation 
+# Make sure uposham is installed for the following imports to work
 import uposham.differential_correction as diffcorr
-import sys
-sys.path.insert(0, './examples/')
-import coupled_quartic_hamiltonian as coupled
-# This needs testing for installation
+import uposham.coupled_quartic_hamiltonian as coupled
 
+import os
+path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
 
 
 #%% Setting up parameters and global variables
 
-save_plot = True
+save_final_plot = True
+show_final_plot = True
 
 N = 4          # dimension of phase space
 MASS_A = 1.00
@@ -58,9 +57,9 @@ eSaddle = 0.0 # energy of the saddle
 
 x0po = np.zeros((3,4)) # number of methods x number of coordinates
 
-diff_corr_fam_file = "./data/x0_diffcorr_deltaE%s_coupled.dat" %(deltaE)
-turning_point_fam_file = "./data/x0_turningpoint_deltaE%s_coupled.dat" %(deltaE)
-tpcd_fam_file = "./data/x0_tpcd_deltaE%s_coupled.dat" %(deltaE)
+diff_corr_fam_file = path_to_data + "x0_diffcorr_deltaE%s_coupled.dat" %(deltaE)
+turning_point_fam_file = path_to_data + "x0_turningpoint_deltaE%s_coupled.dat" %(deltaE)
+tpcd_fam_file = path_to_data + "x0_tpcd_deltaE%s_coupled.dat" %(deltaE)
 
 with open(diff_corr_fam_file ,'a+') as po_fam_file:
     print('Loading the periodic orbit family from data file',po_fam_file.name,'\n') 
@@ -157,14 +156,18 @@ ax.set_xlim(-1.5, 1.5)
 ax.set_ylim(-1.5, 1.5)
 ax.set_zlim(-0.05, 0.05)
 plt.grid()
-plt.show()
 
 
-if save_plot:
-#    plt.savefig('./tests/plots/comparison_coupled.pdf', format='pdf', \
+if show_final_plot:
+    plt.show()
+
+if save_final_plot:  
+    #    plt.savefig('./tests/plots/comparison_coupled.pdf', format='pdf', \
 #                bbox_inches='tight')
     plt.savefig('./tests/plots/comparison_coupled.png', dpi = 300, \
                 bbox_inches='tight')
+
+
 
 
 
