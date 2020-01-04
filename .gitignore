@@ -21,4 +21,4 @@ docs/.vscode/
 
 # package build files
 build/*
-build/lib/*
+build/lib/*/*
