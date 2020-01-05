@@ -303,7 +303,7 @@ def turningPoint_configdiff(begin1,begin2, get_coord_model, pot_energy_model, va
                 i_turn[i_iter] = i
 
 
-        # if the following condition holds, we can zoom in to a smaller interval and 
+        # if the follwing condition holds, we can zoom in to a smaller interval and 
         # continue our procedure
         if i_turn[i_iter] > 0:
             index = int(i_turn[i_iter])

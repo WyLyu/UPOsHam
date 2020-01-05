@@ -19,19 +19,16 @@ from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-import sys
-import importlib
-sys.path.insert(0, './src/')
 
-import turning_point
-importlib.reload(turning_point)
-import turning_point as tp
+import uposham.turning_point as tp
+import uposham.deleonberne_hamiltonian as deleonberne
 
-import deleonberne_hamiltonian
-importlib.reload(deleonberne_hamiltonian)
-import deleonberne_hamiltonian as deleonberne
-# This needs testing for installation
+import os
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/')
+
 
 #%% Setting up parameters and global variables
 
@@ -161,8 +158,8 @@ if show_final_plot:
     plt.show()
 
 if save_final_plot:  
-    plt.savefig('./tests/plots/tp_deleonberne_upos.pdf', format='pdf', \
-                bbox_inches='tight')
+    plt.savefig(path_to_saveplot + 'tp_deleonberne_upos.pdf', \
+                format='pdf', bbox_inches='tight')
 
 
 

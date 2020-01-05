@@ -19,19 +19,15 @@ from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-import sys
-import importlib
-sys.path.insert(0, './src/')
+import uposham.turning_point as tp
+import uposham.coupled_quartic_hamiltonian as coupled
 
-import turning_point
-importlib.reload(turning_point)
-import turning_point as tp
+import os
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/')
 
-import coupled_quartic_hamiltonian
-importlib.reload(coupled_quartic_hamiltonian)
-import coupled_quartic_hamiltonian as coupled
-# This needs testing for installation
 
 
 #%% Setting up parameters and global variables

@@ -18,29 +18,37 @@ with open('README.md') as f:
 with open('LICENSE') as f:
     license = f.read()
 
+with open('requirements.txt') as f:
+    requirements = f.read()
+
+package_name = 'uposham'
+version_num = '0.1.0'
 
 def main():
     install_requires = ['m2r'] if on_rtd else []
     setup(
-        name='UPOsHam',
+        name = package_name,
 
-        version='1.0.0',
+        version = version_num,
         
-        description='Python package for computing unstable periodic orbits',
+        description = 'Python package for computing unstable periodic orbits',
         
-        long_description=readme,
+        long_description = readme,
         
-        author='Wenyang Lyu, Shibabrat Naik',
+        author = 'Wenyang Lyu, Shibabrat Naik',
         
-        author_email='wl16298@bristol.ac.uk, shiba@vt.edu.',
+        author_email = 'wl16298@bristol.ac.uk, shiba@vt.edu.',
         
-        url='https://github.com/WyLyu/UPOsHam',
+        url = 'https://github.com/WyLyu/UPOsHam',
         
-        license=license,
+        license = license,
         
-        packages=find_packages(exclude=('data', 'docs')),
+        # packages=find_packages(exclude=('test','data', 'docs')),
+        packages=['uposham'],
+        package_dir={'uposham': 'src/', 'uposham': 'examples/'},
+        # package_dir={'uposham': 'src/'},
 
-        install_requires = install_requires
+        install_requires = requirements
     )
 
 

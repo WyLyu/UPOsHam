@@ -19,12 +19,14 @@ import matplotlib.pyplot as plt
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-import sys
-sys.path.insert(0, './src/')
-import differential_correction as diffcorr
-import coupled_quartic_hamiltonian as coupled
-# This needs testing for installation 
+import uposham.differential_correction as diffcorr
+import uposham.coupled_quartic_hamiltonian as coupled
+
+import os
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/') 
 
 #%% Setting up parameters for the method and the Hamiltonian system
 
@@ -217,9 +219,9 @@ if show_final_plot:
     plt.show()
 
 if save_final_plot:  
-    plt.savefig('./tests/plots/diff_corr_coupled_upos.pdf', format='pdf', \
-                        bbox_inches='tight')
-    plt.savefig('./tests/plots/diff_corr_coupled_upos.png', dpi = 300, \
-                bbox_inches='tight')
+    # plt.savefig(path_to_saveplot + 'diff_corr_coupled_upos.pdf', \
+    #             format='pdf', bbox_inches='tight')
+    plt.savefig(path_to_saveplot + 'diff_corr_coupled_upos.png', \
+                dpi = 300, bbox_inches='tight')
 
 

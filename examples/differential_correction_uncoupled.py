@@ -8,31 +8,30 @@
 # """
 
 import numpy as np
-import matplotlib.pyplot as plt
+
 from scipy.integrate import solve_ivp
+
 import time
-import sys
-sys.path.append('../src/')
+
+import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-import sys
-sys.path.insert(0, './src/')
-import differential_correction as diffcorr
-import uncoupled_quartic_hamiltonian as uncoupled
-# This needs testing for installation 
+import uposham.differential_correction as diffcorr
+import uposham.uncoupled_quartic_hamiltonian as uncoupled
 
-save_final_plot = True
-show_final_plot = False
+import os
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/'))
+
 N = 4          # dimension of phase space
-
 MASS_A = 1.00
 MASS_B = 1.00
 SADDLE_ENERGY = 0.0 #Energy of the saddle
-
 OMEGA = 1.00
 ALPHA = 1.00
 BETA = 1.00
@@ -42,7 +41,8 @@ parameters = np.array([MASS_A, MASS_B, SADDLE_ENERGY, \
 eqNum = 1 
     
 
-def upo(deltaE_vals, linecolor):
+def upo(deltaE_vals, linecolor, \
+        save_final_plot = True, show_final_plot = False):
     #%% Setting up parameters and global variables
 
     eqPt = diffcorr.get_eq_pts(eqNum, uncoupled.init_guess_eqpt_uncoupled, \
@@ -54,12 +54,6 @@ def upo(deltaE_vals, linecolor):
                                         uncoupled.pot_energy_uncoupled, \
                                         parameters) 
 
-    #If orbit is an n-array, e.g. orbit = [orbit_0, orbit_1, ..., orbit_n]
-    # 
-    #e = np.zeros(n,1)    
-    #for i in range(n):
-    #    e[i] = get_total_energy_deleonberne(orbit[i], parameters)
-    #e = np.mean(e)
 
     #%%
     nFam = 100 # use nFam = 10 for low energy
@@ -200,8 +194,8 @@ def upo(deltaE_vals, linecolor):
         plt.show()
 
     if save_final_plot:  
-        plt.savefig('./tests/plots/diff_corr_uncoupled_upos.pdf', format='pdf', \
-                    bbox_inches='tight')
+        plt.savefig(path_to_saveplot + 'diff_corr_uncoupled_upos.pdf', \
+                    format='pdf', bbox_inches='tight')
 
 
 

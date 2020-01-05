@@ -447,8 +447,8 @@ def configdiff_deleonberne(guess1, guess2, ham2dof_model,\
     y_diff2 = guess2[1] - y_turn2
     
 
-    print("Initial guess1 %.6f, initial guess2 %.6f, \
-            y_diff1 is %.6f, y_diff2 is %.6f" %(guess1, guess2, y_diff1, y_diff2))
+    print("Initial guess1 %s, initial guess2 %s, \
+            y_diff1 is %s, y_diff2 is %s" %(guess1, guess2, y_diff1, y_diff2))
         
     return y_diff1, y_diff2
 
@@ -491,7 +491,7 @@ def guess_coords_deleonberne(guess1, guess2, i, n, e, \
     """
     
     h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
-    print("h is %.6f",h)
+    print("h is ",h)
     yguess = guess1[1] + h
     f = lambda x: get_coord_model(x,yguess,e,parameters)
     xguess = optimize.newton(f,-0.2) # to find the x coordinate for a given y

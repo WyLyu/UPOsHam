@@ -13,19 +13,14 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 import time
 
-# This needs testing for installation 
-import sys
-import importlib
-sys.path.insert(0, './src/')
+import uposham.differential_correction as diffcorr
+import uposham.deleonberne_hamiltonian as deleonberne
 
-import differential_correction
-importlib.reload(differential_correction)
-import differential_correction as diffcorr
-
-import deleonberne_hamiltonian
-importlib.reload(deleonberne_hamiltonian)
-import deleonberne_hamiltonian as deleonberne
-# This needs testing for installation
+import os
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/')
 
 import matplotlib as mpl
 from matplotlib import cm
@@ -217,10 +212,10 @@ if show_final_plot:
     plt.show()
 
 if save_final_plot:  
-    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.pdf', format='pdf', \
-                bbox_inches='tight')
-    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.png', dpi = 300, \
-                bbox_inches='tight')
+    # plt.savefig(path_to_saveplot + 'diff_corr_deleonberne_upos.pdf', \
+    #     format='pdf', bbox_inches='tight')
+    plt.savefig(path_to_saveplot + 'diff_corr_deleonberne_upos.png', \
+        dpi = 300, bbox_inches='tight')
 
 
 

@@ -1,9 +1,10 @@
 #OS junk files
 [Tt]thumbs.db
 *.DS_Store
+.Rhistory
 .ipynb_checkpoints/
-docs/.Rhistory
-./tests/plots/
+uposham.egg-info
+tests/plots/
 
 #Data files
 *.dat
@@ -13,9 +14,12 @@ docs/.Rhistory
 __pycache__
 
 #Docs build files
+docs/.Rhistory
 docs/_build/*
-<<<<<<< HEAD
 docs/.vscode/
+docs/_static/*
+docs/source/*
 
-=======
->>>>>>> master
+# package build files
+dist/*
+build/lib/uposham/

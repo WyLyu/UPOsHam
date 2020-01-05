@@ -9,44 +9,45 @@
 
 # For the coupled problem
 import numpy as np
-import matplotlib.pyplot as plt
+
 from scipy.integrate import solve_ivp
 import math
 from scipy import optimize
-import sys
 
+import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-import sys
-import importlib
-sys.path.insert(0, '../src/')
+import uposham.turning_point as tp
+import uposham.uncoupled_quartic_hamiltonian as uncoupled
 
-import turning_point
-importlib.reload(turning_point)
-import turning_point as tp
-
-import uncoupled_quartic_hamiltonian
-importlib.reload(uncoupled_quartic_hamiltonian)
-import uncoupled_quartic_hamiltonian as uncoupled
-# This needs testing for installation
+import os
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/')
 
 
-def upo(deltaE_vals, linecolor):
-    #%% Setting up parameters and global variables
+#%% Setting up parameters and global variables
 
-    save_final_plot = True
-    show_final_plot = False
-    show_itrsteps_plots = False # show iteration of the UPOs in plots
-    N = 4          # dimension of phase space
-    alpha = 1.0
-    beta = 1.0
-    omega = 1.0
-    EPSILON_S = 0.0 #Energy of the saddle
-    parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
+show_itrsteps_plots = False # show iteration of the UPOs in plots
+N = 4          # dimension of phase space
+MASS_A = 1.00
+MASS_B = 1.00
+SADDLE_ENERGY = 0.0 #Energy of the saddle
+
+OMEGA = 1.00
+ALPHA = 1.00
+BETA = 1.00
+EPSILON = 0.00
+parameters = np.array([MASS_A, MASS_B, SADDLE_ENERGY, \
+                        ALPHA, BETA, OMEGA, EPSILON])
+
+def upo(deltaE_vals, linecolor, \
+        save_final_plot = True, show_final_plot = False):
+    
     eqNum = 1 
     eqPt = tp.get_eq_pts(eqNum, uncoupled.init_guess_eqpt_uncoupled, \
                         uncoupled.grad_pot_uncoupled, parameters)
@@ -144,8 +145,8 @@ def upo(deltaE_vals, linecolor):
         plt.show()
 
     if save_final_plot:  
-        plt.savefig('./tests/plots/tp_uncoupled_upos.pdf', format='pdf', \
-                    bbox_inches='tight')
+        plt.savefig( path_to_saveplot + 'tp_uncoupled_upos.pdf', \
+                    format='pdf', bbox_inches='tight')
 
 
 
