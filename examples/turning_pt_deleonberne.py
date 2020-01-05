@@ -20,17 +20,19 @@ mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
 # This needs testing for installation 
-import sys
-import importlib
-sys.path.insert(0, './src/')
+# import sys
+# import importlib
+# sys.path.insert(0, './src/')
 
-import turning_point
-importlib.reload(turning_point)
-import turning_point as tp
+# import turning_point
+# importlib.reload(turning_point)
+# import turning_point as tp
 
-import deleonberne_hamiltonian
-importlib.reload(deleonberne_hamiltonian)
-import deleonberne_hamiltonian as deleonberne
+# import deleonberne_hamiltonian
+# importlib.reload(deleonberne_hamiltonian)
+# import deleonberne_hamiltonian as deleonberne
+import uposham.turning_point as tp
+import uposham.deleonberne_hamiltonian as deleonberne
 # This needs testing for installation
 
 #%% Setting up parameters and global variables

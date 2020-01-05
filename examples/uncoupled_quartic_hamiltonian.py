@@ -479,9 +479,8 @@ def configdiff_uncoupled(guess1, guess2, ham2dof_model, \
     x_diff2 = guess2[0] - x_turn2
     y_diff2 = guess2[1] - y_turn2
     
-
-    print("Initial guess1 %.6f, initial guess2 %.6f, \
-            x_diff1 is %.6f, x_diff2 is %.6f" %(guess1, guess2, x_diff1, x_diff2))
+    print("Initial guess1 %s, initial guess2 %s, \
+            x_diff1 is %s, x_diff2 is %s" %(guess1, guess2, x_diff1, x_diff2))
         
     return x_diff1, x_diff2
 

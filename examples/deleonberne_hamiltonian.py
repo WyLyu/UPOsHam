@@ -491,7 +491,7 @@ def guess_coords_deleonberne(guess1, guess2, i, n, e, \
     """
     
     h = (guess2[1] - guess1[1])*i/n # h is defined for dividing the interval
-    print("h is %.6f",h)
+    print("h is ",h)
     yguess = guess1[1] + h
     f = lambda x: get_coord_model(x,yguess,e,parameters)
     xguess = optimize.newton(f,-0.2) # to find the x coordinate for a given y

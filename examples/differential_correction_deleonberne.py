@@ -14,17 +14,19 @@ from scipy.integrate import solve_ivp
 import time
 
 # This needs testing for installation 
-import sys
-import importlib
-sys.path.insert(0, './src/')
+# import sys
+# import importlib
+# sys.path.insert(0, './src/')
 
-import differential_correction
-importlib.reload(differential_correction)
-import differential_correction as diffcorr
+# import differential_correction
+# importlib.reload(differential_correction)
+# import differential_correction as diffcorr
 
-import deleonberne_hamiltonian
-importlib.reload(deleonberne_hamiltonian)
-import deleonberne_hamiltonian as deleonberne
+# import deleonberne_hamiltonian
+# importlib.reload(deleonberne_hamiltonian)
+# import deleonberne_hamiltonian as deleonberne
+import uposham.differential_correction as diffcorr
+import uposham.deleonberne_hamiltonian as deleonberne
 # This needs testing for installation
 
 import matplotlib as mpl

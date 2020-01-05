@@ -13,10 +13,16 @@ import math
 from scipy import optimize
 
 # This needs testing for installation 
-import sys
-sys.path.insert(0, './src/')
-import turning_point_coord_difference as tpcd
-import coupled_quartic_hamiltonian as coupled
+# import sys
+# sys.path.insert(0, './src/')
+# import turning_point_coord_difference as tpcd
+# import coupled_quartic_hamiltonian as coupled
+import uposham.turning_point_coord_difference as tpcd
+import uposham.coupled_quartic_hamiltonian as coupled
+
+import os
+path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
+path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
 # This needs testing for installation 
 
 
@@ -167,7 +173,7 @@ if show_final_plot:
     plt.show()
 
 if save_final_plot:  
-    plt.savefig('./tests/plots/tpcd_coupled_upos.pdf', format='pdf', \
-                        bbox_inches='tight')
+    plt.savefig( path_to_saveplot + 'tpcd_coupled_upos.pdf', 
+                format='pdf', bbox_inches='tight')
 
 

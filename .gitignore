@@ -3,9 +3,7 @@
 *.DS_Store
 .Rhistory
 .ipynb_checkpoints/
-UPOsHam.egg-info
-docs/.Rhistory
-dist/
+uposham.egg-info
 tests/plots/
 
 #Data files
@@ -16,9 +14,12 @@ tests/plots/
 __pycache__
 
 #Docs build files
+docs/.Rhistory
 docs/_build/*
 docs/.vscode/
+docs/_static/*
+docs/source/*
 
 # package build files
-build/*
-build/lib/*/*
+dist/*
+build/lib/uposham/

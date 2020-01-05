@@ -8,22 +8,30 @@
 # """
 
 import numpy as np
-import matplotlib.pyplot as plt
+
 from scipy.integrate import solve_ivp
+
 import time
-import sys
-sys.path.append('../src/')
+
+import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-import sys
-sys.path.insert(0, './src/')
-import differential_correction as diffcorr
-import uncoupled_quartic_hamiltonian as uncoupled
-# This needs testing for installation 
+# import sys
+# sys.path.append('../src/')
+# import sys
+# sys.path.insert(0, './src/')
+# import differential_correction as diffcorr
+# import uncoupled_quartic_hamiltonian as uncoupled
+import uposham.differential_correction as diffcorr
+import uposham.uncoupled_quartic_hamiltonian as uncoupled
+
+import os
+path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
+path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
+
 
 save_final_plot = True
 show_final_plot = False
@@ -200,8 +208,8 @@ def upo(deltaE_vals, linecolor):
         plt.show()
 
     if save_final_plot:  
-        plt.savefig('./tests/plots/diff_corr_uncoupled_upos.pdf', format='pdf', \
-                    bbox_inches='tight')
+        plt.savefig( path_to_saveplot + 'diff_corr_uncoupled_upos.pdf', \
+                    format='pdf', bbox_inches='tight')
 
 
 

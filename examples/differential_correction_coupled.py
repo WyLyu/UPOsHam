@@ -20,10 +20,12 @@ mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
 # This needs testing for installation 
-import sys
-sys.path.insert(0, './src/')
-import differential_correction as diffcorr
-import coupled_quartic_hamiltonian as coupled
+# import sys
+# sys.path.insert(0, './src/')
+# import differential_correction as diffcorr
+# import coupled_quartic_hamiltonian as coupled
+import uposham.differential_correction as diffcorr
+import uposham.coupled_quartic_hamiltonian as coupled
 # This needs testing for installation 
 
 #%% Setting up parameters for the method and the Hamiltonian system
