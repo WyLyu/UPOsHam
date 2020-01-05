@@ -19,7 +19,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 with open('requirements.txt') as f:
-    requirements = f.read()
+    requirements = f.read().splitlines()
 
 def main():
     install_requires = ['m2r'] if on_rtd else []
