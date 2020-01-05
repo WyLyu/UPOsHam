@@ -19,7 +19,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 with open('requirements.txt') as f:
-    requirements = f.read()
+    requirements = f.read().splitlines()
 
 package_name = 'uposham'
 version_num = '0.1.0'
