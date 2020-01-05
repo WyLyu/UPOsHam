@@ -21,8 +21,10 @@ import uposham.turning_point_coord_difference as tpcd
 import uposham.uncoupled_quartic_hamiltonian as uncoupled
 
 import os
-path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
-path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/')
 
 
 

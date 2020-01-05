@@ -21,7 +21,8 @@ import uposham.differential_correction as diffcorr
 import uposham.coupled_quartic_hamiltonian as coupled
 
 import os
-path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
 path_to_saveplot = os.path.join(os.path.dirname(__file__), 'plots/')
 
 #%% Setting up parameters and global variables

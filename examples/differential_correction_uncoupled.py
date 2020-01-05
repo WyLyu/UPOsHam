@@ -23,8 +23,10 @@ import uposham.differential_correction as diffcorr
 import uposham.uncoupled_quartic_hamiltonian as uncoupled
 
 import os
-path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
-path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/'))
 
 N = 4          # dimension of phase space
 MASS_A = 1.00

@@ -12,18 +12,14 @@ import math
 #from mpl_toolkits.mplot3d import Axes3D
 from scipy import optimize
 
-# This needs testing for installation 
-# import sys
-# sys.path.insert(0, './src/')
-# import turning_point_coord_difference as tpcd
-# import coupled_quartic_hamiltonian as coupled
 import uposham.turning_point_coord_difference as tpcd
 import uposham.coupled_quartic_hamiltonian as coupled
 
 import os
-path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
-path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
-# This needs testing for installation 
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/') 
 
 
 import matplotlib as mpl

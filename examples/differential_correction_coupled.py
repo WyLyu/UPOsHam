@@ -19,18 +19,14 @@ import matplotlib.pyplot as plt
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-# import sys
-# sys.path.insert(0, './src/')
-# import differential_correction as diffcorr
-# import coupled_quartic_hamiltonian as coupled
 import uposham.differential_correction as diffcorr
 import uposham.coupled_quartic_hamiltonian as coupled
 
 import os
-path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
-path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
-# This needs testing for installation 
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/') 
 
 #%% Setting up parameters for the method and the Hamiltonian system
 

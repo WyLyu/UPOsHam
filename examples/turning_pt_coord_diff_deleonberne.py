@@ -16,25 +16,14 @@ from matplotlib import cm
 mpl.rcParams['mathtext.fontset'] = 'cm'
 mpl.rcParams['mathtext.rm'] = 'serif'
 
-# This needs testing for installation 
-# import sys
-# import importlib
-# sys.path.insert(0, './src/')
-
-# import turning_point_coord_difference
-# importlib.reload(turning_point_coord_difference)
-# import turning_point_coord_difference as tpcd
-
-# import deleonberne_hamiltonian
-# importlib.reload(deleonberne_hamiltonian)
-# import deleonberne_hamiltonian as deleonberne
 import uposham.turning_point_coord_difference as tpcd
 import uposham.deleonberne_hamiltonian as deleonberne
 
 import os
-path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
-path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
-# This needs testing for installation
+path_to_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                            'data/')
+path_to_saveplot = os.path.join(os.path.dirname(os.path.dirname(__file__)), \
+                                'tests/plots/')
 
 
 #%% Setting up parameters and global variables
