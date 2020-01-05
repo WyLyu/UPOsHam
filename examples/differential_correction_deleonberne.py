@@ -27,6 +27,10 @@ import time
 # import deleonberne_hamiltonian as deleonberne
 import uposham.differential_correction as diffcorr
 import uposham.deleonberne_hamiltonian as deleonberne
+
+import os
+path_to_data = os.path.join(os.path.dirname(__file__), '../data/')
+path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
 # This needs testing for installation
 
 import matplotlib as mpl
@@ -219,10 +223,10 @@ if show_final_plot:
     plt.show()
 
 if save_final_plot:  
-    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.pdf', format='pdf', \
-                bbox_inches='tight')
-    plt.savefig('./tests/plots/diff_corr_deleonberne_upos.png', dpi = 300, \
-                bbox_inches='tight')
+    # plt.savefig(path_to_saveplot + 'diff_corr_deleonberne_upos.pdf', \
+    #     format='pdf', bbox_inches='tight')
+    plt.savefig(path_to_saveplot + 'diff_corr_deleonberne_upos.png', \
+        dpi = 300, bbox_inches='tight')
 
 
 

@@ -43,13 +43,6 @@ path_to_saveplot = os.path.join(os.path.dirname(__file__), '../tests/plots/')
 
 #%% Setting up parameters and global variables
 
-# alpha = 1.0
-# beta = 1.0
-# omega = 1.0
-# EPSILON_S = 0.0 #Energy of the saddle
-# parameters = np.array([1,omega, EPSILON_S, alpha, beta,omega])
-save_final_plot = True
-show_final_plot = False
 show_itrsteps_plots = False # show iteration of the UPOs in plots
 N = 4          # dimension of phase space
 MASS_A = 1.00
@@ -63,7 +56,8 @@ EPSILON = 0.00
 parameters = np.array([MASS_A, MASS_B, SADDLE_ENERGY, \
                         ALPHA, BETA, OMEGA, EPSILON])
 
-def upo(deltaE_vals, linecolor):
+def upo(deltaE_vals, linecolor, \
+        save_final_plot = True, show_final_plot = False):
     
     eqNum = 1 
     eqPt = tp.get_eq_pts(eqNum, uncoupled.init_guess_eqpt_uncoupled, \

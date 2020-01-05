@@ -134,8 +134,6 @@ resX = 100
 xVec = np.linspace(-1,1,resX)
 yVec = np.linspace(-2,2,resX)
 xMat, yMat = np.meshgrid(xVec, yVec)
-#cset1 = ax.contour(xMat, yMat, uncoupled_tpcd.get_pot_surf_proj(xVec, yVec,parameters), [0.001,0.1,1,2,4],
-#                       linewidths = 1.0, cmap=cm.viridis, alpha = 0.8)
 cset2 = ax.contour(xMat, yMat, \
                    diffcorr.get_pot_surf_proj(xVec, yVec, deleonberne.pot_energy_deleonberne, \
                                               parameters), \
