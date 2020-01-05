@@ -447,8 +447,8 @@ def configdiff_deleonberne(guess1, guess2, ham2dof_model,\
     y_diff2 = guess2[1] - y_turn2
     
 
-    print("Initial guess1 %.6f, initial guess2 %.6f, \
-            y_diff1 is %.6f, y_diff2 is %.6f" %(guess1, guess2, y_diff1, y_diff2))
+    print("Initial guess1 %s, initial guess2 %s, \
+            y_diff1 is %s, y_diff2 is %s" %(guess1, guess2, y_diff1, y_diff2))
         
     return y_diff1, y_diff2
 
