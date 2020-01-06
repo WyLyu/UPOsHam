@@ -52,20 +52,20 @@ $ cd UPOsHam
 $ python setup.py install
 ```
 
-Then `uposham` is available for import along with the methods and
+The `setup.py` should also install the modules listed in
+[requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
+and which are typically installed using
+
+``` bash
+$ pip install -r requirements.txt (or pip3 install -r requirements.txt)
+```
+
+Now `uposham` module is available for import along with the methods and
 example systems as submodules, for example
 
 ``` python
 import uposham.differential_correction as diffcorr
 import uposham.deleonberne_hamiltonian as deleonberne
-```
-
-To be sure check the modules shown in
-[requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
-are installed using
-
-``` bash
-$ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 ```
 
 Usage
@@ -126,6 +126,7 @@ This will save data files in the root directory and save the plot in the
 [./tests/plots](tests/plots/) directory.
 
 <img src="tests/plots/diff_corr_coupled_upos.png" style="width:50.0%" />
+
 **Fig. 2. Unstable periodic orbits for the coupled quartic Hamiltonian**
 
 Tests
@@ -157,18 +158,18 @@ of the orbits obtained using the methods. These are available in the
 We demonstrate how the UPOs computed using the different methods compare
 with each other for a specific system: coupled quartic Hamiltonian.
 
-Comparison of the results (data is located
-[here](https://github.com/WyLyu/UPOsHam/tree/master/data)) obtained
-using the three methods for the coupled quartic Hamiltonian can be done
-using
+Comparison of the results (data is located in the
+[data](https://github.com/WyLyu/UPOsHam/tree/master/data) directory)
+obtained using the three methods for the coupled quartic Hamiltonian can
+be done using
 
 ``` bash
 $ ipython
 >>> run ./tests/compare_methods_coupled.py
 ```
 
-and the generated figure is located
-[here](tests/plots/comparison_coupled.pdf)
+and the generated figure is located in the
+[tests/plots](tests/plots/comparison_coupled.png) directory.
 
 Contributing
 ------------
