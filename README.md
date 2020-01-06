@@ -58,11 +58,13 @@ and check the modules shown in
 [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
 are installed using conda/pip.
 
-This makes `uposham` available for import along with the methods and
+Then `uposham` is available for import along with the methods and
 example systems, for example
 
-    import uposham.differential_correction as diffcorr
-    import uposham.deleonberne_hamiltonian as deleonberne
+``` python
+import uposham.differential_correction as diffcorr
+import uposham.deleonberne_hamiltonian as deleonberne
+```
 
 Usage
 -----
