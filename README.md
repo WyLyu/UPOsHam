@@ -58,6 +58,12 @@ and check the modules shown in
 [requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
 are installed using conda/pip.
 
+This makes `uposham` available for import along with the methods and
+example systems, for example
+
+    import uposham.differential_correction as diffcorr
+    import uposham.deleonberne_hamiltonian as deleonberne
+
 Usage
 -----
 
@@ -156,7 +162,8 @@ $ ipython
 >>> run ./tests/compare_methods_coupled.py
 ```
 
-and the generated figure is located [here](tests/comparison_coupled.pdf)
+and the generated figure is located
+[here](tests/plots/comparison_coupled.pdf)
 
 Contributing
 ------------
