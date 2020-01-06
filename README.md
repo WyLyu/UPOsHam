@@ -208,6 +208,7 @@ Koon, Wang Sang, Martin W. Lo, Jerrold E. Marsden, and Shane D. Ross.
 2000. “Heteroclinic Connections Between Periodic Orbits and Resonance
 Transitions in Celestial Mechanics.” *Chaos: An Interdisciplinary
 Journal of Nonlinear Science* 10 (2): 427–69.
+<https://doi.org/10.1063/1.166509>.
 
 Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. *Dynamical
 systems, the three-body problem and space mission design*. Marsden
@@ -216,6 +217,7 @@ books.
 Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics
 in Nonlinear Ship Motion.” *Communications in Nonlinear Science and
 Numerical Simulation* 47 (June): 48–70.
+<https://doi.org/10.1016/j.cnsns.2016.10.021>.
 
 Naik, Shibabrat, and Stephen Wiggins. 2019. “Finding Normally Hyperbolic
 Invariant Manifolds in Two and Three Degrees of Freedom with
@@ -233,6 +235,7 @@ Transition State Theory: A Lower Bound to the Reaction Probability.”
 Ross, Shane D., Amir E. BozorgMagham, Shibabrat Naik, and Lawrence N.
 Virgin. 2018. “Experimental Validation of Phase Space Conduits of
 Transition Between Potential Wells.” *Phys. Rev. E* 98 (5): 052214.
+<https://doi.org/10.1103/PhysRevE.98.052214>.
 
 Wiggins, Stephen. 2003. *Introduction to Applied Nonlinear Dynamical
 Systems and Chaos*. 2nd ed. Texts in Applied Mathematics 2. New York:
