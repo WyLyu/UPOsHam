@@ -65,7 +65,7 @@ To be sure check the modules shown in
 are installed using
 
 ``` bash
-pip install -r requirements.txt (or pip3 install -r requirements.txt)
+$ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 ```
 
 Usage
@@ -126,6 +126,7 @@ This will save data files in the root directory and save the plot in the
 [./tests/plots](tests/plots/) directory.
 
 <img src="tests/plots/diff_corr_coupled_upos.png" style="width:50.0%" />
+**Fig. 2. Unstable periodic orbits for the coupled quartic Hamiltonian**
 
 Tests
 -----
