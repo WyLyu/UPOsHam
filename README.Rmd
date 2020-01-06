@@ -105,7 +105,7 @@ Comparison of the results (data is located [here](https://github.com/WyLyu/UPOsH
 $ ipython
 >>> run ./tests/compare_methods_coupled.py
 ```
-and the generated figure is located [here](tests/comparison_coupled.pdf)
+and the generated figure is located [here](tests/plots/comparison_coupled.pdf)
 
 
 ## Contributing
