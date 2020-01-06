@@ -44,26 +44,28 @@ found in the
 Installation
 ------------
 
-Clone the git repository, install the requirements, and install the
-package manually:
+Clone the git repository and install `uposham` as a module using
 
 ``` bash
 $ git clone git@github.com:WyLyu/UPOsHam.git
 $ cd UPOsHam
-$ pip install -r requirements.txt (or pip3 install -r requirements.txt)
 $ python setup.py install
 ```
 
-and check the modules shown in
-[requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
-are installed using conda/pip.
-
 Then `uposham` is available for import along with the methods and
-example systems, for example
+example systems as submodules, for example
 
 ``` python
 import uposham.differential_correction as diffcorr
 import uposham.deleonberne_hamiltonian as deleonberne
+```
+
+To be sure check the modules shown in
+[requirements.txt](https://github.com/WyLyu/UPOsHam/tree/master/requirements.txt)
+are installed using
+
+``` bash
+pip install -r requirements.txt (or pip3 install -r requirements.txt)
 ```
 
 Usage
@@ -104,7 +106,7 @@ $ python examples/differential_correction_deleonberne.py
 This will save data files in the root directory and save the plot in the
 [./tests/plots](tests/plots/) directory.
 
-<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:50.0%" />
+<img src="tests/plots/diff_corr_deleonberne_upos.png" style="width:30.0%" />
 
 **Fig. 1. Unstable periodic orbits for De Leon-Berne Hamiltonian**
 
