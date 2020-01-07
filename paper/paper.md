@@ -112,7 +112,7 @@ In Fig. \ref{fig:allinone_newmethod}, we compared the results for the *turning p
 
 ## Relation to ongoing research projects
 
-We are developing geometric methods of phase space transport in the context of chemical reaction dynamics that rely on identifying and computing the unstable periodic orbits. Manuscripts related to the [Quartic Hamiltonian](#quarticham) and [De Leon-Berne Hamiltonian](#dbham) is under preparation.
+We are developing geometric methods of phase space transport in the context of chemical reaction dynamics that rely on identifying and computing the unstable periodic orbits. Manuscripts related to the [Quartic Hamiltonian](#quarticham) and [De Leon-Berne Hamiltonian](#dbham) are under preparation.
 
 
 ## Acknowledgements
