@@ -100,12 +100,12 @@ The parameters in the model are $m_A, m_B$ which represent mass of the isomers, 
 
 ## Visualization of unstable periodic orbits 
 
-In Fig. \ref{fig:allinone_coupled}, we compared the results for the three methods for the coupled quartic Hamiltonian to show that they reproduce each other upto visual inspection.
+In Fig. \ref{fig:allinone_coupled}, we compare the results for the three methods for the coupled quartic Hamiltonian to show that they reproduce each other upto visual inspection.
 
 ![Comparing the unstable periodic orbits at different total energies computed using the turning point (left), turning point based on configuration difference (center), and differential correction (right) methods for the coupled quartic Hamiltonian. Equipotential contour lines are shown as projection at $p_y = 0$. \label{fig:allinone_coupled}](allinone_coupled.pdf)
 
 
-In Fig. \ref{fig:allinone_newmethod}, we compared the results for the *turning point based on configuration difference method* for the three example Hamiltonians and found they are consistent across different energies.
+In Fig. \ref{fig:allinone_newmethod}, we compare the results for the *turning point based on configuration difference method* for the three example Hamiltonians and find they are consistent for different total energies.
 
 ![Comparing the unstable periodic orbits computed using the turning point based on configuration difference method at different total energies for the three example Hamiltonian systems: Uncoupled quartic (left), De Leon-Berne (center), Coupled quartic (right). Equipotential contour lines are shown as projection at $p_y = 0$. \label{fig:allinone_newmethod}](allinone_tpcd.pdf)
 
