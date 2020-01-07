@@ -1,5 +1,5 @@
 ---
-title: "UPOsHam: A Python package for computing unstable periodic orbits in two degrees of freedom Hamiltonian systems"
+title: "UPOsHam: A Python package for computing unstable periodic orbits in two degree of freedom Hamiltonian systems"
 authors:
 - affiliation: 1
   name: Wenyang Lyu
@@ -35,8 +35,7 @@ affiliations:
 
 ## Statement of Need
 
-Hamiltonian systems model a diverse array of problems in physical sciences and engineering. 
-In Hamiltonian systems the fundamental phase space structure that partitions dynamically distinct trajectories and mediates transition between multi-stable regions are *stable* and *unstable invariant manifold*. In a 2N dimensional Hamiltonian phase space, the invariant manifold has 2 less dimension than the phase space and is anchored to the *normally hyperbolic invariant manifold* (NHIM) which has 3 less dimension. For 2 degrees of freedom or four dimensional phase space, the NHIM is an *unstable periodic orbit* (UPO) around the index-1 saddle equilibrium point [@wiggins_role_2016]. Since in this case, the UPO anchors the invariant manifolds that partition trajectories, their computation and stability analysis forms the starting point for dynamical systems analysis. UPOsHam is meant to serve this purpose by providing a module of numerical methods, along with example Hamiltonian systems, for computing the unstable periodic orbits (UPOs) at any specified total energy as long as their existence is guaranteed. Even though, there are existing numerical methods for computing UPOs, we have found that they either lack in reproducibility, or have steep learning curve for using the software, or have been written using closed source software, and at times combination of these [@farantos_pomult_1998;@Pollak_1980]. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of example Hamiltonian systems. This is meant as a starting point to integrate other numerical methods in an open source package such that UPOs computed in dynamical systems papers can be reproduced with minimal tweaking while providing an exploratory environment to further develop the underlying methods.  
+Hamiltonian models are used in a diverse array of systems in natural and engineering sciences, for example celestial mechanics, ship dynamics, chemical reactions, structural mechancis to name but a few. In two degree of freedom Hamiltonian systems, the fundamental phase space structures that partition dynamically distinct trajectories and mediate transitions between multi-stable regions are *stable* and *unstable invariant manifolds* of an *unstable periodic orbit* (UPO). In two degree of freedom systems, the phase space is four dimensional and the dynamics is on the three dimensional energy surface which is partitioned by the two dimensional stable and unstable manifolds of the UPO around an index-1 saddle equilibrium point [see @wiggins_role_2016 for more details]. Since in this case, the UPO anchors the invariant manifolds that partition trajectories, their computation and stability analysis forms the starting point for dynamical systems analysis. UPOsHam is meant to serve this purpose by providing a module of numerical methods, along with example Hamiltonian systems, for computing the unstable periodic orbits (UPOs) at any specified total energy as long as their existence is guaranteed. Even though there are existing numerical methods for computing UPOs, we have found that they either lack in reproducibility, or have a steep learning curve for using the software, or have been written using closed source software, and at times combination of these [@farantos_pomult_1998;@Pollak_1980]. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of example Hamiltonian systems. This is meant as a starting point to integrate other numerical methods in an open source package such that UPOs computed in dynamical systems papers can be reproduced with minimal tweaking while providing an exploratory environment to further develop the underlying methods.  
 
 
 ## Summary
@@ -51,7 +50,7 @@ In this package, the user has the option to choose between the three methods des
 
 __Turning point__
 
-This method is based on finding the UPO by detecting trajectories initialized on the equipotential contour ($V(x,y) = E$ where $V(x,y)$ is the potetial energy function and $E$ is the total energy) that turn in the opposite directions [@Pollak_1980]. This method relies on the fact that for Hamiltonians of the form kinetic plus potential energy the UPO is the limiting trajectory that bounces back and forth between the equipotential contour corresponding to the given total energy. So to converge on this limiting trajectory, the turning point method iteratively decreases the gap between the bounding trajectories that turn in the opposite directions. Detection of turning is done using a dot product condition which leads to stalling of the method beyond a certain tolerance (typically $10^{-6}$ in the examples here.)
+This method is based on finding the UPO by detecting trajectories initialized on the equipotential contour ($V(x,y) = E$ where $V(x,y)$ is the potetial energy function and $E$ is the total energy) that turn in the opposite directions [@Pollak_1980]. This method relies on the fact that for Hamiltonians of the form kinetic plus potential energy the UPO is the limiting trajectory that bounces back and forth between the equipotential contour corresponding to the given total energy. So to converge on this limiting trajectory, the turning point method iteratively decreases the gap between the bounding trajectories that turn in the opposite directions. Detection of the turning point is done using a dot product condition which leads to stalling of the method beyond a certain tolerance (typically $10^{-6}$ in the examples here.)
 
 __Turning point based on configuration difference__
 
@@ -62,9 +61,9 @@ __Differential correction__
 This method is based on small ($\approx 10^{-5}$) corrections to the initial conditions of an UPO and continuing to desired total energy. The procedure is started from the linear solutions of the Hamilton's equations and which generates a small amplitude ($\approx 10^{-5}$) UPO. This is fed into the procedure that calculates correction to the initial condition based on error in the terminal condition of the UPO. This leads to convergence within 3 steps in the sense of the trajectory returning to the initial condition. Once a small amplitude UPO is obtained, numerical continuation increases the amplitude and correspondingly total energy, while a combination of bracketing and bisection method computes the UPO at the desired energy for a specified tolerance [@naik_finding_2019b;@Koon2011].    
 
 
-## Examples {#examples}
+## Example systems {#examples}
 
-Consider the following two degrees-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
+Consider the following two degree of freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
 
 
 ### Quartic Hamiltonian {#quarticham}
@@ -99,12 +98,16 @@ V(x,y) = & 4y^2(y^2 - 1)\left[ \exp(-\zeta \lambda x) - 1 \right]
 
 The parameters in the model are $m_A, m_B$ which represent mass of the isomers, while $\epsilon_s, D_x$ denote the energy of the saddle, dissociation energy of the Morse oscillator, respectively, and will be kept fixed in this study, $\lambda, \zeta$ denote the range of the Morse oscillator and coupling parameter between the $x$ and $y$ configuration space coordinates, respectively.
 
-## Visualization: Unstable periodic orbits 
+## Visualization of unstable periodic orbits 
 
-![Comparing the turning point, turning point based on configuration difference, and differential correction methods for the coupled quartic Hamiltonian. \label{fig:allinone_coupled}](allinone_coupled.pdf)
+In Fig. \ref{fig:allinone_coupled}, we compared the results for the three methods for the coupled quartic Hamiltonian to show that they reproduce each other upto visual inspection.
+
+![Comparing the unstable periodic orbits at different total energies computed using the turning point (left), turning point based on configuration difference (center), and differential correction (right) methods for the coupled quartic Hamiltonian. Equipotential contour lines are shown as projection at $p_y = 0$. \label{fig:allinone_coupled}](allinone_coupled.pdf)
 
 
-![Comparing the turning point based on configuration difference method for the three Hamiltonians \label{fig:allinone_newmethod}](allinone_tpcd.pdf)
+In Fig. \ref{fig:allinone_newmethod}, we compared the results for the *turning point based on configuration difference method* for the three example Hamiltonians and found they are consistent across different energies.
+
+![Comparing the unstable periodic orbits computed using the turning point based on configuration difference method at different total energies for the three example Hamiltonian systems: Uncoupled quartic (left), De Leon-Berne (center), Coupled quartic (right). \label{fig:allinone_newmethod}](allinone_tpcd.pdf)
 
 
 ## Relation to ongoing research projects
