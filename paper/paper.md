@@ -107,7 +107,7 @@ In Fig. \ref{fig:allinone_coupled}, we compared the results for the three method
 
 In Fig. \ref{fig:allinone_newmethod}, we compared the results for the *turning point based on configuration difference method* for the three example Hamiltonians and found they are consistent across different energies.
 
-![Comparing the unstable periodic orbits computed using the turning point based on configuration difference method at different total energies for the three example Hamiltonian systems: Uncoupled quartic (left), De Leon-Berne (center), Coupled quartic (right). \label{fig:allinone_newmethod}](allinone_tpcd.pdf)
+![Comparing the unstable periodic orbits computed using the turning point based on configuration difference method at different total energies for the three example Hamiltonian systems: Uncoupled quartic (left), De Leon-Berne (center), Coupled quartic (right). Equipotential contour lines are shown as projection at $p_y = 0$. \label{fig:allinone_newmethod}](allinone_tpcd.pdf)
 
 
 ## Relation to ongoing research projects
