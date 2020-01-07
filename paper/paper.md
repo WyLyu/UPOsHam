@@ -117,7 +117,7 @@ We are developing geometric methods of phase space transport in the context of c
 
 ## Acknowledgements
 
-We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary 2019. We acknowledge contributions from Shane Ross for the early MATLAB version of the differential correction and numerical continuation code.
+We acknowledge the support of EPSRC Grant No. EP/P021123/1 and Office of Naval Research (Grant No. N00014-01-1-0769). The authors would like to acknowledge the London Mathematical Society and School of Mathematics at the University of Bristol for supporting the undergraduate research bursary 2019. We acknowledge contributions from [Shane D. Ross](www.shaneross.com) for the early MATLAB version of the differential correction and numerical continuation [software package](www.shaneross.com/books/).
 
 
 ## References
