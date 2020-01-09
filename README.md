@@ -216,7 +216,7 @@ Journal of Nonlinear Science* 10 (2): 427–69.
 
 Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. *Dynamical
 systems, the three-body problem and space mission design*. Marsden
-books. <https://doi.org/10.1142/9789812792617_0222>.
+books. [www.shaneross.com/books/](www.shaneross.com/books/).
 
 Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics
 in Nonlinear Ship Motion.” *Communications in Nonlinear Science and
