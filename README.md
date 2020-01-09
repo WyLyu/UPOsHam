@@ -13,7 +13,7 @@ UPOsHam
 
 [![Documentation
 Status](https://readthedocs.org/projects/uposham/badge/?version=latest)](https://uposham.readthedocs.io/en/latest/?badge=latest)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3373396.svg)](https://doi.org/10.5281/zenodo.3373396)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3601504.svg)](https://doi.org/10.5281/zenodo.3601504)
 
 Summary
 -------
@@ -204,7 +204,7 @@ clause](https://github.com/WyLyu/UPOsHam/blob/master/LICENSE).
 References
 ----------
 
-De Leon, Nelson, and B. J. Berne. 1981. “Intramolecular Rate Process:
+De Leon, N., and B. J. Berne. 1981. “Intramolecular Rate Process:
 Isomerization Dynamics and the Transition to Chaos.” *The Journal of
 Chemical Physics* 75 (7): 3495–3510. <https://doi.org/10.1063/1.442459>.
 
@@ -216,7 +216,7 @@ Journal of Nonlinear Science* 10 (2): 427–69.
 
 Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. *Dynamical
 systems, the three-body problem and space mission design*. Marsden
-books. [ISBN: 978-0-615-24095-4](ISBN: 978-0-615-24095-4).
+books. <https://doi.org/10.1142/9789812792617_0222>.
 
 Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics
 in Nonlinear Ship Motion.” *Communications in Nonlinear Science and
@@ -230,7 +230,7 @@ Hénon-Heiles-Type Potential.” *Phys. Rev. E* 100 (2): 022204.
 
 Parker, T. S., and L. O. Chua. 1989. *Practical Numerical Algorithms for
 Chaotic Systems*. New York, NY, USA: Springer-Verlag New York, Inc.
-[ISBN: 0-387-96689-7](ISBN: 0-387-96689-7).
+<https://doi.org/10.1007/978-1-4612-3486-9>.
 
 Pollak, Eli, Mark S. Child, and Philip Pechukas. 1980. “Classical
 Transition State Theory: A Lower Bound to the Reaction Probability.”
