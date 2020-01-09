@@ -216,7 +216,7 @@ Journal of Nonlinear Science* 10 (2): 427–69.
 
 Koon, W. S., M. W. Lo, J. E. Marsden, and S. D. Ross. 2011. *Dynamical
 systems, the three-body problem and space mission design*. Marsden
-books. [www.shaneross.com/books/](www.shaneross.com/books/).
+books.
 
 Naik, Shibabrat, and Shane D. Ross. 2017. “Geometry of Escaping Dynamics
 in Nonlinear Ship Motion.” *Communications in Nonlinear Science and
@@ -244,7 +244,7 @@ Transition Between Potential Wells.” *Phys. Rev. E* 98 (5): 052214.
 
 Wiggins, Stephen. 2003. *Introduction to Applied Nonlinear Dynamical
 Systems and Chaos*. 2nd ed. Texts in Applied Mathematics 2. New York:
-Springer. [ISBN: 978-0-387-00177-7](ISBN: 978-0-387-00177-7).
+Springer. [10.1007/b97481](10.1007/b97481).
 
 ———. 2016. “The Role of Normally Hyperbolic Invariant Manifolds (NHIMs)
 in the Context of the Phase Space Setting for Chemical Reaction
