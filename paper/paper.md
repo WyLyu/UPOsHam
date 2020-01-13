@@ -11,15 +11,14 @@ authors:
 - affiliation: 1
   name: Stephen Wiggins
   orcid: 0000-0002-5036-5863
-date: "\today"
+bibliography: paper.bib
 output:
-  html_document:
-    fig_caption: yes
-    fig_height: 3
   pdf_document:
     fig_caption: yes
     fig_height: 3
-bibliography: paper.bib
+  html_document:
+    fig_caption: yes
+    fig_height: 3
 tags:
 - Hamiltonian dynamics
 - Dynamical systems
@@ -85,7 +84,8 @@ This Hamiltonian has been studied as a model of isomerization of a single molecu
 
 \begin{equation}
 \mathcal{H}(x,y,p_x,p_y) = T(p_x, p_y) + V_{\rm DB}(x, y) = \frac{p_x^2}{2m_A} + \frac{p_y^2}{2m_B} + V_{\rm DB}(x, y)
-\end{equation}    
+\end{equation} 
+
 where the potential energy function $V_{\rm DB}(x,y)$ is 
 
 \begin{equation}
