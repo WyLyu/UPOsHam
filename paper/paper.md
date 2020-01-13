@@ -11,6 +11,7 @@ authors:
 - affiliation: 1
   name: Stephen Wiggins
   orcid: 0000-0002-5036-5863
+data: "\today"
 bibliography: paper.bib
 output:
   pdf_document:
