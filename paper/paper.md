@@ -1,6 +1,5 @@
 ---
-title: 'UPOsHam: A Python package for computing unstable periodic orbits in two-degree-of-freedom
-  Hamiltonian systems'
+title: 'UPOsHam: A Python package for computing unstable periodic orbits in two-degree-of-freedom Hamiltonian systems'
 authors:
 - affiliation: 1
   name: Wenyang Lyu
