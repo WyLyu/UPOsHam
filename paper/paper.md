@@ -1,5 +1,6 @@
 ---
-title: "UPOsHam: A Python package for computing unstable periodic orbits in two-degree-of-freedom Hamiltonian systems"
+title: 'UPOsHam: A Python package for computing unstable periodic orbits in two-degree-of-freedom
+  Hamiltonian systems'
 authors:
 - affiliation: 1
   name: Wenyang Lyu
@@ -10,14 +11,14 @@ authors:
 - affiliation: 1
   name: Stephen Wiggins
   orcid: 0000-0002-5036-5863
+date: "\today"
 output:
-  pdf_document:
-    fig_caption: yes
-    fig_height: 3
   html_document:
     fig_caption: yes
     fig_height: 3
-date: \today
+  pdf_document:
+    fig_caption: yes
+    fig_height: 3
 bibliography: paper.bib
 tags:
 - Hamiltonian dynamics
@@ -30,7 +31,8 @@ tags:
 - Turning point
 affiliations:
 - index: 1
-  name: School of Mathematics, University of Bristol, Fry Building, Woodland Road, Bristol BS8 1UG, United Kingdom
+  name: School of Mathematics, University of Bristol, Fry Building, Woodland Road,
+    Bristol BS8 1UG, United Kingdom
 ---
 
 ## Statement of Need
