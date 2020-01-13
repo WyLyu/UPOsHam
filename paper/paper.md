@@ -1,5 +1,5 @@
 ---
-title: "UPOsHam: A Python package for computing unstable periodic orbits in two degree-of-freedom Hamiltonian systems"
+title: "UPOsHam: A Python package for computing unstable periodic orbits in two-degree-of-freedom Hamiltonian systems"
 authors:
 - affiliation: 1
   name: Wenyang Lyu
@@ -35,7 +35,7 @@ affiliations:
 
 ## Statement of Need
 
-Hamiltonian models are used in a diverse array of systems in natural and engineering sciences, for example, celestial mechanics, ship dynamics, chemical reactions, and structural mechanics. In two degree-of-freedom Hamiltonian systems, the fundamental phase space structures that partition dynamically distinct trajectories and mediate transitions between multi-stable regions are *stable* and *unstable invariant manifolds* of an *unstable periodic orbit* (UPO). In two degree-of-freedom systems, the phase space is four dimensional and the dynamics is constrained to the three dimensional energy surface which is partitioned by the two dimensional stable and unstable manifolds of the UPO around an index-1 saddle equilibrium point [see @wiggins_role_2016 for more details]. Since in this case, the UPO anchors the invariant manifolds that partition trajectories, their computation and stability analysis form the starting point for dynamical systems analysis. UPOsHam is meant to serve this purpose by providing a module of numerical methods, along with example Hamiltonian systems, for computing the unstable periodic orbits at any specified total energy as long as their existence is guaranteed. Even though there are existing numerical methods for computing UPOs, we have found that they either lack in reproducibility, have a steep learning curve for using the software, or have been written using closed source software, and at times combination of these [@Pollak_1980;@farantos_pomult_1998]. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of example Hamiltonian systems. This is meant as a starting point to integrate other numerical methods in an open source package such that UPOs computed in dynamical systems papers can be reproduced with minimal tweaking while providing an exploratory environment to further develop the underlying methods.  
+Hamiltonian models are used in a diverse array of systems in natural and engineering sciences, for example, celestial mechanics, ship dynamics, chemical reactions, and structural mechanics. In two-degree-of-freedom Hamiltonian systems, the fundamental phase space structures that partition dynamically distinct trajectories and mediate transitions between multi-stable regions are *stable* and *unstable invariant manifolds* of an *unstable periodic orbit* (UPO). In two-degree-of-freedom systems, the phase space is four dimensional and the dynamics is constrained to the three dimensional energy surface which is partitioned by the two dimensional stable and unstable manifolds of the UPO around an index-1 saddle equilibrium point [see @wiggins_role_2016 for more details]. Since in this case, the UPO anchors the invariant manifolds that partition trajectories, their computation and stability analysis form the starting point for dynamical systems analysis. UPOsHam is meant to serve this purpose by providing a module of numerical methods, along with example Hamiltonian systems, for computing the unstable periodic orbits at any specified total energy as long as their existence is guaranteed. Even though there are existing numerical methods for computing UPOs, we have found that they either lack in reproducibility, have a steep learning curve for using the software, or have been written using closed source software, and at times combination of these [@Pollak_1980;@farantos_pomult_1998]. Our aim is to provide an open source package that implements some of the standard methods and shows the results in the context of example Hamiltonian systems. This is meant as a starting point to integrate other numerical methods in an open source package such that UPOs computed in dynamical systems papers can be reproduced with minimal tweaking while providing an exploratory environment to further develop the underlying methods.  
 
 
 ## Summary
@@ -63,7 +63,7 @@ This method is based on small ($\approx 10^{-5}$) corrections to the initial con
 
 ## Example systems {#examples}
 
-Consider the following two degree-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
+Consider the following two-degree-of-freedom Hamiltonian model where $x, y$ are configuration space coordinates and $p_x,p_y$ are corresponding momenta, $V(x,y)$ is the potential energy, and $T(x,y)$ is the kinetic energy.
 
 
 ### Quartic Hamiltonian {#quarticham}
